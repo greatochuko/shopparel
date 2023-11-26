@@ -8,14 +8,16 @@ export default function AuthPage({ type }: AuthPageProps) {
     <div className="flex flex-col h-screen">
       <AuthPageHeader />
       <main className="flex flex-1 overflow-hidden">
-        <div className="flex-1">
+        <div className="flex-1 hidden lg:block">
           <img
             src={`/${type}-page-photo.jpg`}
             alt="fashion dress"
             className="object-cover w-full h-full"
           />
         </div>
-        <div className="flex-1 p-8 overflow-y-scroll">{PageForm[type]}</div>
+        <div className="flex-1 px-6 py-8 overflow-y-scroll sm:px-8">
+          {PageForm[type]}
+        </div>
       </main>
     </div>
   );
