@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 export default function SearchForm() {
-  const [xBtnFill, setXBtnFill] = useState("#888");
   const [searchQuery, setSearchQuery] = useState("");
 
   function handleSearch(e: React.FormEvent) {
@@ -9,8 +8,8 @@ export default function SearchForm() {
   }
 
   return (
-    <form className="flex-1 flex max-w-lg relative" onSubmit={handleSearch}>
-      <span className="text-sm h-full flex-center absolute left-1 text-zinc-400">
+    <form className="relative flex flex-1 max-w-lg" onSubmit={handleSearch}>
+      <span className="absolute h-full text-sm flex-center left-1 text-zinc-400">
         <svg
           width={22}
           height={22}
@@ -48,15 +47,13 @@ export default function SearchForm() {
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="bg-gray-50 duration-200 focus:border-zinc-300  flex-1 py-2 px-7 text-sm text-zinc-700 rounded-md border border-zinc-100"
+        className="flex-1 py-2 text-sm duration-200 border rounded-md bg-gray-50 focus:border-zinc-300 px-7 text-zinc-700 border-zinc-100"
         placeholder="Search"
       />
       <button
         type="button"
-        onMouseEnter={() => setXBtnFill("#E02932")}
-        onMouseLeave={() => setXBtnFill("#888")}
         onClick={() => setSearchQuery("")}
-        className="text-sm h-full flex-center absolute right-2 duration-200 active:scale-90"
+        className="absolute h-full text-sm duration-200 group flex-center right-2 active:scale-90"
       >
         <svg
           height={18}
@@ -76,7 +73,7 @@ export default function SearchForm() {
               fillRule="evenodd"
               clipRule="evenodd"
               d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM8.96963 8.96965C9.26252 8.67676 9.73739 8.67676 10.0303 8.96965L12 10.9393L13.9696 8.96967C14.2625 8.67678 14.7374 8.67678 15.0303 8.96967C15.3232 9.26256 15.3232 9.73744 15.0303 10.0303L13.0606 12L15.0303 13.9696C15.3232 14.2625 15.3232 14.7374 15.0303 15.0303C14.7374 15.3232 14.2625 15.3232 13.9696 15.0303L12 13.0607L10.0303 15.0303C9.73742 15.3232 9.26254 15.3232 8.96965 15.0303C8.67676 14.7374 8.67676 14.2625 8.96965 13.9697L10.9393 12L8.96963 10.0303C8.67673 9.73742 8.67673 9.26254 8.96963 8.96965Z"
-              fill={xBtnFill}
+              className="group-hover:fill-[#E02932] group-focus:fill-[#E02932] fill-[#777] duration-200"
             ></path>
           </g>
         </svg>

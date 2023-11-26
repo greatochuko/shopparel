@@ -1,5 +1,6 @@
-type AuthPageProps = { type: "signup" | "login" };
 import { AuthPageHeader, LoginForm, SignupForm } from "../components";
+
+type AuthPageProps = { type: "signup" | "login" };
 
 export default function AuthPage({ type }: AuthPageProps) {
   const PageForm = { login: <LoginForm />, signup: <SignupForm /> };
@@ -11,12 +12,10 @@ export default function AuthPage({ type }: AuthPageProps) {
           <img
             src={`/${type}-page-photo.jpg`}
             alt="fashion dress"
-            className="w-full h-full object-cover"
+            className="object-cover w-full h-full"
           />
         </div>
-        <div className="px-8 py-4 flex-1 overflow-y-scroll">
-          {PageForm[type]}
-        </div>
+        <div className="flex-1 p-8 overflow-y-scroll">{PageForm[type]}</div>
       </main>
     </div>
   );
