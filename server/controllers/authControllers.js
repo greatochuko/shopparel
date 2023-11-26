@@ -61,3 +61,26 @@ export async function login(req, res) {
     res.status(401).json({ error: error.message });
   }
 }
+
+export async function loginWithGoogle(req, res) {
+  try {
+    const { email, name, googleClientId } = req.body;
+
+    // Handle errors
+    if (!email) throw new Error("Email Field is required");
+    if (!name) throw new Error("Password Field is required");
+
+    // Find or create user
+    let user = await User.findOne({ email });
+    console.log(user);
+    if (!user)
+      user = await User.create({ email, fullName: name, googleClientId });
+
+    req.session.userId = user._id;
+
+    res.json(user);
+  } catch (error) {
+    console.log(error.message);
+    res.status(401).json({ error: error.message });
+  }
+}

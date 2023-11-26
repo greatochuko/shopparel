@@ -1,7 +1,10 @@
 import { Link, Navigate } from "react-router-dom";
 import React, { useState } from "react";
-import { signupUser } from "../services/authServices";
+import { loginUserWithGoogle, signupUser } from "../services/authServices";
 import useUserContext from "../hooks/useUserContext";
+import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
+import { jwtDecode, JwtPayload } from "jwt-decode";
+import { GoogleUserCredentials } from "./LoginForm";
 
 export default function SignupForm() {
   const [email, setEmail] = useState("");
@@ -16,9 +19,22 @@ export default function SignupForm() {
     email && fullName && password && confirmPassword === password
   );
 
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
 
-  const { setUser } = useUserContext();
+  async function handleGoogleLogin(response: CredentialResponse) {
+    const userData: JwtPayload & GoogleUserCredentials = jwtDecode(
+      response.credential as string
+    );
+    const googleClientId = response.clientId as string;
+    const { email, name } = userData;
+    const data = await loginUserWithGoogle(email, name, googleClientId);
+    if (data.error) return;
+    setUser(data);
+  }
+
+  function handleGoogleError() {
+    console.log("Login Failed");
+  }
 
   function handleConfirmPassword(e: React.ChangeEvent<HTMLInputElement>) {
     setError("");
@@ -58,13 +74,8 @@ export default function SignupForm() {
           </Link>
         </p>
       </div>
-      <button
-        type="button"
-        className="gap-1 p-3 duration-300 border border-zinc-300 flex-center hover:border-blue-500 focus:border-blue-500"
-      >
-        <img src="/google-logo.png" alt="Google logo" width={20} height={20} />
-        Signup With Google
-      </button>
+      <GoogleLogin onSuccess={handleGoogleLogin} onError={handleGoogleError} />
+
       <div className="">
         <hr className="mt-4" />
         <p className="px-5 mx-auto -mt-3.5 text-center bg-white w-fit">OR</p>
@@ -251,7 +262,7 @@ export default function SignupForm() {
       <button
         type="submit"
         disabled={!canSubmit}
-        className="disabled:bg-zinc-500 disabled:cursor-not-allowed px-6 py-3 font-semibold text-white duration-300 rounded-md active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus:bg-accent-blue-200"
+        className="px-6 py-3 font-semibold text-white duration-300 rounded-md disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus:bg-accent-blue-200"
       >
         {loading ? "Loading..." : "Sign Up"}
       </button>

@@ -1,8 +1,11 @@
 import { Link, Navigate } from "react-router-dom";
 import React, { useState } from "react";
-import { loginUser } from "../services/authServices";
+import { loginUser, loginUserWithGoogle } from "../services/authServices";
 import useUserContext from "../hooks/useUserContext";
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
+import { jwtDecode, JwtPayload } from "jwt-decode";
+
+export type GoogleUserCredentials = { email: string; name: string };
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -17,7 +20,14 @@ export default function LoginForm() {
   const { setUser } = useUserContext();
 
   async function handleGoogleLogin(response: CredentialResponse) {
-    console.log(response);
+    const userData: JwtPayload & GoogleUserCredentials = jwtDecode(
+      response.credential as string
+    );
+    const googleClientId = response.clientId as string;
+    const { email, name } = userData;
+    const data = await loginUserWithGoogle(email, name, googleClientId);
+    if (data.error) return;
+    setUser(data);
   }
 
   function handleGoogleError() {
@@ -154,7 +164,7 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={!canSubmit}
-        className="disabled:bg-zinc-500 disabled:cursor-not-allowed px-6 py-3 font-semibold text-white duration-300 rounded-md active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus:bg-accent-blue-200"
+        className="px-6 py-3 font-semibold text-white duration-300 rounded-md disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus:bg-accent-blue-200"
       >
         {loading ? "Loading..." : "Login"}
       </button>
