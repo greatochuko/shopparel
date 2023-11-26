@@ -4,6 +4,7 @@ import mongodbStore from "connect-mongodb-session";
 import session from "express-session";
 import dotenv from "dotenv";
 import cors from "cors";
+import authRouter from "./routes/authRoutes.js";
 
 dotenv.config();
 
@@ -34,6 +35,8 @@ app.use(
 
 // MIDDLEWARES
 app.use(cors({ origin: ["http://localhost:5173"], credentials: true }));
+app.use(express.json());
+app.use("/api", authRouter);
 
 async function startServer() {
   try {
