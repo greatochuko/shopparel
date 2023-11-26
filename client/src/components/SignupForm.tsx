@@ -1,5 +1,5 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import React, { useState } from "react";
 import { signupUser } from "../services/authServices";
 import useUserContext from "../hooks/useUserContext";
 
@@ -12,12 +12,19 @@ export default function SignupForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const canSubmit = Boolean(
+    email && fullName && password && confirmPassword === password
+  );
 
   const { user } = useUserContext();
-  const navigate = useNavigate();
-  if (user) navigate("/");
 
   const { setUser } = useUserContext();
+
+  function handleConfirmPassword(e: React.ChangeEvent<HTMLInputElement>) {
+    setError("");
+    setConfirmPassword(e.target.value);
+    if (e.target.value !== password) setError("Passwords do not match");
+  }
 
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
@@ -31,6 +38,8 @@ export default function SignupForm() {
     setUser(data);
     setLoading(false);
   }
+
+  if (user) return <Navigate to={"/"} />;
 
   return (
     <form
@@ -169,7 +178,7 @@ export default function SignupForm() {
         <div className="relative">
           <input
             value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={handleConfirmPassword}
             id="confirmPassword"
             type={showConfirmPassword ? "text" : "password"}
             className="w-full p-3 pr-12 border rounded-md focus:border-accent-blue-100 border-zinc-300"
@@ -241,7 +250,8 @@ export default function SignupForm() {
 
       <button
         type="submit"
-        className="px-6 py-3 font-semibold text-white duration-300 rounded-md active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus:bg-accent-blue-200"
+        disabled={!canSubmit}
+        className="disabled:bg-zinc-500 disabled:cursor-not-allowed px-6 py-3 font-semibold text-white duration-300 rounded-md active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus:bg-accent-blue-200"
       >
         {loading ? "Loading..." : "Sign Up"}
       </button>
