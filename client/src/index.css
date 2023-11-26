@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  outline: none;
+  font-family: "Inter", sans-serif;
+}
+
+*::placeholder {
+  font-family: "Inter", sans-serif;
+}
+
+@layer utilities {
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

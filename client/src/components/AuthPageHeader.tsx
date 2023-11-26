@@ -1,0 +1,37 @@
+import { Link, useLocation } from "react-router-dom";
+import { SearchForm } from "./index";
+
+export default function AuthPageHeader() {
+  const { pathname } = useLocation();
+  const currentLinkStyle =
+    " bg-accent-blue-100 hover:bg-accent-blue-200 border-accent-blue-100 text-white";
+  const standardLinkStyle =
+    " hover:bg-accent-blue-100 hover:border-accent-blue-100 active:bg-accent-blue-200 border-zinc-400 hover:text-white text-zinc-500";
+
+  return (
+    <header className="shadow-sm  py-4">
+      <nav className="flex justify-between w-[90%] gap-4 max-w-7xl mx-auto items-center">
+        <h1 className="logo">Shopparel</h1>
+        <SearchForm />
+        <div className="flex items-center gap-4">
+          <Link
+            to="/login"
+            className={`text-sm flex-center duration-200 border  px-6 py-1.5 rounded-md ${
+              pathname === "/login" ? currentLinkStyle : standardLinkStyle
+            }`}
+          >
+            Login
+          </Link>
+          <Link
+            to="/signup"
+            className={`text-sm flex-center duration-200 border  px-6 py-1.5 rounded-md ${
+              pathname === "/signup" ? currentLinkStyle : standardLinkStyle
+            }`}
+          >
+            Signup
+          </Link>
+        </div>
+      </nav>
+    </header>
+  );
+}

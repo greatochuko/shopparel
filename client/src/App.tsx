@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { AuthPage } from "../pages";
+import { AuthPage } from "./pages";
 import "./index.css";
 
 const router = createBrowserRouter([
