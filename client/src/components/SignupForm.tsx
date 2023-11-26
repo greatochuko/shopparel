@@ -1,5 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { signupUser } from "../services/authServices";
+import useUserContext from "../hooks/useUserContext";
 
 export default function SignupForm() {
   const [email, setEmail] = useState("");
@@ -9,14 +11,25 @@ export default function SignupForm() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const { user } = useUserContext();
+  const navigate = useNavigate();
+  if (user) navigate("/");
+
+  const { setUser } = useUserContext();
 
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
-    const res = await fetch("http://localhost:5000/", {
-      credentials: "include",
-    });
-    const data = await res.json();
-    console.log(data);
+    setLoading(true);
+    const data = await signupUser(fullName, email, password);
+    if (data.error) {
+      setError(data.error);
+      setLoading(false);
+      return;
+    }
+    setUser(data);
+    setLoading(false);
   }
 
   return (
@@ -230,7 +243,7 @@ export default function SignupForm() {
         type="submit"
         className="px-6 py-3 font-semibold text-white duration-300 rounded-md active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus:bg-accent-blue-200"
       >
-        Sign Up
+        {loading ? "Loading..." : "Sign Up"}
       </button>
     </form>
   );
