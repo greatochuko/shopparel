@@ -2,6 +2,7 @@ import { Link, Navigate } from "react-router-dom";
 import React, { useState } from "react";
 import { loginUser } from "../services/authServices";
 import useUserContext from "../hooks/useUserContext";
+import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -14,6 +15,14 @@ export default function LoginForm() {
   const { user } = useUserContext();
 
   const { setUser } = useUserContext();
+
+  async function handleGoogleLogin(response: CredentialResponse) {
+    console.log(response);
+  }
+
+  function handleGoogleError() {
+    console.log("Login Failed");
+  }
 
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
@@ -32,7 +41,7 @@ export default function LoginForm() {
 
   return (
     <form
-      className=" sm:w-[90%] max-w-xl flex flex-col gap-6 mx-auto"
+      className=" sm:w-[90%] max-w-xl flex flex-col items-stretch gap-6 mx-auto"
       onSubmit={handleSignup}
     >
       <div>
@@ -47,13 +56,7 @@ export default function LoginForm() {
           </Link>
         </p>
       </div>
-      <button
-        type="button"
-        className="gap-1 p-3 duration-300 border border-zinc-300 flex-center hover:border-blue-500 focus:border-blue-500"
-      >
-        <img src="/google-logo.png" alt="Google logo" width={20} height={20} />
-        Sign In With Google
-      </button>
+      <GoogleLogin onSuccess={handleGoogleLogin} onError={handleGoogleError} />
       <div>
         <hr className="mt-4" />
         <p className="px-5 mx-auto -mt-3.5 text-center bg-white w-fit">OR</p>
