@@ -10,8 +10,13 @@ export default function SignupForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
 
-  function handleSignup(e: React.FormEvent) {
+  async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
+    const res = await fetch("http://localhost:5000/", {
+      credentials: "include",
+    });
+    const data = await res.json();
+    console.log(data);
   }
 
   return (

@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import mongodbStore from "connect-mongodb-session";
 import session from "express-session";
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 
@@ -31,11 +32,8 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  req.session.isAuthenticated = true;
-  console.log(req.session.isAuthenticated);
-  res.json({ success: true });
-});
+// MIDDLEWARES
+app.use(cors({ origin: ["http://localhost:5173"], credentials: true }));
 
 async function startServer() {
   try {
