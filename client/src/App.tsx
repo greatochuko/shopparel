@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { AuthPage } from "../pages";
+import "./index.css";
+
+const router = createBrowserRouter([
+  { path: "/signup", element: <AuthPage type="signup" /> },
+  { path: "/login", element: <AuthPage type="login" /> },
+]);
 
 function App() {
-  const [count, setCount] = useState(0);
-
-  return <h1>Hello</h1>;
+  return <RouterProvider router={router} />;
 }
 
 export default App;
