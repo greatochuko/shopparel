@@ -1,3 +1,3 @@
 export default function HomePage() {
-  return <div>HomePage</div>;
+  return <main className="pt-[70px]">HomePage</main>;
 }
