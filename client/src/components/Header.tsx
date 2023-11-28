@@ -9,7 +9,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="absolute top-0 z-40 w-screen bg-white shadow-sm">
+      <header className="absolute top-0 z-10 w-screen bg-white shadow-sm">
         <nav className="flex items-center justify-between gap-4 p-4 mx-auto sm:gap-8 max-w-7xl lg:gap-12">
           <h1>Shopparel</h1>
           <ul className="hidden gap-2 md:flex">
@@ -46,7 +46,8 @@ export default function Header() {
           <SearchForm />
           <div className="items-center hidden gap-2 sm:flex">
             <Link
-              to={"/wishlist"}
+              title="My account"
+              to={"/account"}
               className="grid p-1 px-1.5 group duration-200 rounded-md hover:bg-accent-blue-100 border border-zinc-100 focus:border-accent-blue-100  bg-zinc-100 place-content-center"
             >
               <svg
@@ -75,6 +76,7 @@ export default function Header() {
               </svg>
             </Link>
             <Link
+              title="wishlist"
               to={"/wishlist"}
               className="border border-zinc-100 focus:border-accent-blue-100 grid p-1 px-1.5 group duration-200 rounded-md hover:bg-accent-blue-100 bg-zinc-100 place-content-center"
             >
@@ -106,7 +108,8 @@ export default function Header() {
               </svg>
             </Link>
             <Link
-              to={"/wishlist"}
+              title="cart"
+              to={"/cart"}
               className="border border-zinc-100 focus:border-accent-blue-100 grid p-1 px-1.5 group duration-200 rounded-md hover:bg-accent-blue-100 bg-zinc-100 place-content-center"
             >
               <svg

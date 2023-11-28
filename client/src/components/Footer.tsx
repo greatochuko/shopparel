@@ -58,8 +58,8 @@ export default function Footer() {
             className="p-1.5 duration-200 rounded-md hover:bg-white bg-zinc-300 flex-center "
           >
             <svg
-              height={20}
-              width={20}
+              height={18}
+              width={18}
               viewBox="0 -2 44 44"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -101,8 +101,8 @@ export default function Footer() {
             className="p-1.5 duration-200 rounded-md hover:bg-white bg-zinc-300 flex-center "
           >
             <svg
-              height={20}
-              width={20}
+              height={18}
+              width={18}
               viewBox="0 -4 48 48"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
@@ -144,8 +144,8 @@ export default function Footer() {
             className="p-1.5 duration-200 rounded-md hover:bg-white bg-zinc-300 flex-center "
           >
             <svg
-              height={20}
-              width={20}
+              height={18}
+              width={18}
               viewBox="0 0 20 20"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
