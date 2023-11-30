@@ -53,7 +53,7 @@ export default function Header() {
 
           <SearchForm />
 
-          <div className="items-center flex gap-2">
+          <div className="flex items-center gap-2">
             {user ? (
               <>
                 <Link
@@ -178,7 +178,7 @@ export default function Header() {
       {/* Mobile Nav */}
       <ul
         className={`fixed left-0 flex flex-col w-screen duration-300 gap-2 bg-white md:hidden ${
-          mobileNavIsOpen ? " top-[72px]" : " -top-[310px]"
+          mobileNavIsOpen ? " top-[72px]" : " -top-[350px]"
         }`}
       >
         {navLinks.map((navLink) => (

@@ -91,7 +91,7 @@ export default function Hero() {
       {heroProducts.map((product, i) => (
         <div
           key={product.name}
-          className={`flex absolute  items-center justify-evenly w-full h-full duration-500 ${
+          className={`flex absolute px-4 items-center justify-evenly w-full h-full duration-500 ${
             product.color
           } ${i !== currentIndex ? "opacity-0" : "opacity-100"}`}
         >
