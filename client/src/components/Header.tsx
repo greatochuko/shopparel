@@ -9,7 +9,6 @@ export default function Header() {
   const { pathname } = useLocation();
   const [mobileNavIsOpen, setMobileNavIsOpen] = useState(false);
   const { user } = useUserContext();
-  console.log(user);
 
   return (
     <>
