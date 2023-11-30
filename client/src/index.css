@@ -9,6 +9,7 @@
 
 *::placeholder {
   font-family: "Inter", sans-serif;
+  color: rgb(224, 134, 0);
 }
 
 @layer utilities {
