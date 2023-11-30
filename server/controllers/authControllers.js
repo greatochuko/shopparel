@@ -14,7 +14,6 @@ export async function signup(req, res) {
 
     // Check if user already exists
     const userExists = await User.findOne({ email });
-    console.log(userExists);
     if (userExists) throw new Error("User with email already exists");
 
     // Hash password
@@ -45,7 +44,6 @@ export async function login(req, res) {
 
     // Check if user already exists
     const user = await User.findOne({ email });
-    console.log(user);
     if (!user) throw new Error("Invalid username and password combination");
 
     // Compare password
@@ -72,7 +70,6 @@ export async function loginWithGoogle(req, res) {
 
     // Find or create user
     let user = await User.findOne({ email });
-    console.log(user);
     if (!user)
       user = await User.create({ email, fullName: name, googleClientId });
 

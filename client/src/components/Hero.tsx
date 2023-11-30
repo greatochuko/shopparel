@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const heroProducts = [
   {
     name: "Slim Fit Button-Down Shirt",
     category: "men",
-    imgUrl: "/men-button-down-t-shirt.png",
+    imgUrl: "/slim-fit-button-down-t-shirt.png",
     color: "bg-[#D38236]/80",
   },
   {
@@ -35,8 +35,9 @@ export default function Hero() {
         onClick={showPreviousHeroProduct}
       >
         <svg
-          height={50}
-          width={50}
+          height={40}
+          width={40}
+          className="sm:w-[50px] sm:h-[50px]"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -63,8 +64,9 @@ export default function Hero() {
         onClick={showNextHeroProduct}
       >
         <svg
-          height={50}
-          width={50}
+          height={40}
+          width={40}
+          className="sm:w-[50px] sm:h-[50px]"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -116,12 +118,12 @@ export default function Hero() {
             </div>
           </div>
           <div
-            className={`flex items-center justify-center max-w-[30%] overflow-hidden h-full`}
+            className={`flex items-center justify-center max-w-[50%] overflow-hidden h-full`}
           >
             <img
               src={product.imgUrl}
               alt={product.imgUrl}
-              className="w-[1000px] max-w-[100%] object-cover max-h-[90%]"
+              className="w-full object-containh-full"
             />
           </div>
         </div>
