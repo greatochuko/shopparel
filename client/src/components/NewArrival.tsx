@@ -28,7 +28,7 @@ const newArrivals = [
 ];
 export default function NewArrival() {
   return (
-    <div className="max-w-6xl w-[90%] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className="max-w-7xl w-[90%] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4">
       {newArrivals.map((product) => (
         <Product key={product.name} product={product} />
       ))}

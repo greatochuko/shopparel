@@ -19,7 +19,7 @@ const categories = [
 
 export default function CategorySection() {
   return (
-    <section className="max-w-6xl w-[90%] mx-auto mb-4">
+    <section className="max-w-7xl w-[90%] mx-auto mb-4">
       <div className="flex items-center justify-between mb-2">
         <h3 className="text-xl font-semibold text-zinc-700">Categories</h3>
         <Link to={"/categories"} className="hover:underline">

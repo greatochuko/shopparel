@@ -1,3 +1,4 @@
+import CategoryProducts from "../components/CategoryProducts";
 import CategorySection from "../components/CategorySection";
 import Hero from "../components/Hero";
 import NewArrival from "../components/NewArrival";
@@ -10,6 +11,8 @@ export default function HomePage() {
       <CategorySection />
       <NewArrival />
       <NewsLetterSection />
+      <CategoryProducts title="Men's Wears" category="men" />
+      <CategoryProducts title="Women's Wears" category="women" />
     </main>
   );
 }

@@ -1,6 +1,6 @@
 export default function NewsLetterSection() {
   return (
-    <div className="flex max-w-6xl w-full sm:w-[90%] mx-auto aspect-[1.5] md:aspect-[3]">
+    <div className="flex max-w-7xl w-full sm:w-[90%] mx-auto aspect-[1.5] md:aspect-[3]">
       <div className="flex-1 relative overflow-hidden">
         <img
           src="/newsletter-image-1.jpg"
