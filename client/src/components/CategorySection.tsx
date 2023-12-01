@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import SectionHeader from "./SectionHeader";
 
 const categories = [
   {
@@ -19,13 +20,8 @@ const categories = [
 
 export default function CategorySection() {
   return (
-    <section className="max-w-7xl w-[90%] mx-auto mb-4">
-      <div className="flex items-center justify-between mb-2">
-        <h3 className="text-xl font-semibold text-zinc-700">Categories</h3>
-        <Link to={"/categories"} className="hover:underline">
-          See All
-        </Link>
-      </div>
+    <section className="max-w-7xl w-[90%] mx-auto mb-4 flex flex-col gap-4">
+      <SectionHeader title="Categories" url="/categories" />
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {categories.map((category) => (
           <Link

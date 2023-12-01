@@ -1,4 +1,5 @@
 import Product from "./Product";
+import SectionHeader from "./SectionHeader";
 
 const newArrivals = [
   {
@@ -28,10 +29,13 @@ const newArrivals = [
 ];
 export default function NewArrival() {
   return (
-    <div className="max-w-7xl w-[90%] mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4">
-      {newArrivals.map((product) => (
-        <Product key={product.name} product={product} />
-      ))}
+    <div className="max-w-7xl w-[90%] mx-auto flex flex-col gap-4">
+      <SectionHeader title="New Arrivals" />
+      <div className=" grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {newArrivals.map((product) => (
+          <Product key={product.name} product={product} />
+        ))}
+      </div>
     </div>
   );
 }

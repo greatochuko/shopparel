@@ -3,6 +3,7 @@ import CategorySection from "../components/CategorySection";
 import Hero from "../components/Hero";
 import NewArrival from "../components/NewArrival";
 import NewsLetterSection from "../components/NewsLetterSection";
+import SectionHeader from "../components/SectionHeader";
 
 export default function HomePage() {
   return (
@@ -11,8 +12,12 @@ export default function HomePage() {
       <CategorySection />
       <NewArrival />
       <NewsLetterSection />
-      <CategoryProducts title="Men's Wears" category="men" />
-      <CategoryProducts title="Women's Wears" category="women" />
+      <CategoryProducts>
+        <SectionHeader title="Men's Wears" url="/category/men" />
+      </CategoryProducts>
+      <CategoryProducts>
+        <SectionHeader title="Women's Wears" url="/category/women" />
+      </CategoryProducts>
     </main>
   );
 }
