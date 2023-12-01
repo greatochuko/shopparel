@@ -95,15 +95,15 @@ export default function Hero() {
             product.color
           } ${i !== currentIndex ? "opacity-0" : "opacity-100"}`}
         >
-          <div className={`flex justify-center  text-white max-w-[50%]`}>
-            <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8 w-[90%] max-w-[500px]">
+          <div className={`flex w-fit max-w-[40%] justify-center text-white `}>
+            <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8 w-full ">
               <Link
                 to={`/category/${product.category}`}
-                className="text-lg sm:text-xl lg:text-2xl"
+                className="text-lg sm:text-xl lg:text-2xl xl:text-[2vw]"
               >
                 {product.category}
               </Link>
-              <h2 className="text-2xl font-bold sm:text-3xl md:text-5xl lg:text-6xl">
+              <h2 className="text-2xl font-bold sm:text-3xl md:text-5xl lg:text-6xl xl:text-[5vw]">
                 {product.name}
               </h2>
               <Link
@@ -118,12 +118,12 @@ export default function Hero() {
             </div>
           </div>
           <div
-            className={`flex items-center justify-center max-w-[50%] overflow-hidden h-full`}
+            className={`flex w-fit max-w-[40%] items-center justify-center overflow-hidden h-full`}
           >
             <img
               src={product.imgUrl}
               alt={product.imgUrl}
-              className="w-full object-containh-full"
+              className="w-full object-contain h-full"
             />
           </div>
         </div>
