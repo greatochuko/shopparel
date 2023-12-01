@@ -1,5 +1,5 @@
 import AuthLinks from "./AuthLinks";
-import { SearchForm } from "./index";
+import SearchForm from "./SearchForm";
 
 export default function AuthPageHeader() {
   return (

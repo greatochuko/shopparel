@@ -1,4 +1,6 @@
-import { AuthPageHeader, LoginForm, SignupForm } from "../components";
+import AuthPageHeader from "../components/AuthPageHeader";
+import LoginForm from "../components/LoginForm";
+import SignupForm from "../components/SignupForm";
 
 type AuthPageProps = { type: "signup" | "login" };
 

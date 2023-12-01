@@ -3,16 +3,16 @@ import { Link } from "react-router-dom";
 
 const heroProducts = [
   {
-    name: "Slim Fit Button-Down Shirt",
-    category: "men",
-    imgUrl: "/slim-fit-button-down-t-shirt.png",
-    color: "bg-[#D38236]/80",
-  },
-  {
     name: "Off-Shoulder Blouse",
     category: "women",
     imgUrl: "/off-shoulder blouse.png",
     color: "bg-[#009DE0]/80",
+  },
+  {
+    name: "Slim Fit Button-Down Shirt",
+    category: "men",
+    imgUrl: "/slim-fit-button-down-t-shirt.png",
+    color: "bg-[#D38236]/80",
   },
 ];
 

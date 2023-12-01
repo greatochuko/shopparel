@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 const navLinks = ["Men", "Women", "jewelry", "accessories"];
 import useUserContext from "../hooks/useUserContext";
-import { SearchForm } from ".";
+import SearchForm from "./SearchForm";
 import AuthLinks from "./AuthLinks";
 
 export default function Header() {
