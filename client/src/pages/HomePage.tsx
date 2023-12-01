@@ -4,6 +4,7 @@ import Hero from "../components/Hero";
 import NewArrival from "../components/NewArrival";
 import NewsLetterSection from "../components/NewsLetterSection";
 import SectionHeader from "../components/SectionHeader";
+import TopBrands from "../components/TopBrands";
 
 const products = [
   {
@@ -45,6 +46,7 @@ export default function HomePage() {
       <CategoryProducts products={products}>
         <SectionHeader title="Women's Wears" url="/category/women" />
       </CategoryProducts>
+      <TopBrands />
     </main>
   );
 }

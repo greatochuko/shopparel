@@ -5,7 +5,9 @@ type SectionHeaderProps = { title: string; url?: string };
 export default function SectionHeader({ title, url }: SectionHeaderProps) {
   return (
     <div className="flex justify-between items-center border-l-4 border-l-accent-blue-100 pl-4">
-      <h2 className="font-semibold text-lg text-zinc-700">{title}</h2>
+      <h2 className="font-semibold text-lg sm:text-xl text-zinc-700">
+        {title}
+      </h2>
       {url && (
         <Link
           to={url}
