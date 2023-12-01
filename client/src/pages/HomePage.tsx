@@ -5,6 +5,33 @@ import NewArrival from "../components/NewArrival";
 import NewsLetterSection from "../components/NewsLetterSection";
 import SectionHeader from "../components/SectionHeader";
 
+const products = [
+  {
+    name: "Off Shoulder Blouse",
+    imgUrl: "/off-shoulder blouse.png",
+    brand: "Helen",
+    price: 299,
+  },
+  {
+    name: "Off Shoulder Blouse 2",
+    imgUrl: "/off-shoulder blouse.png",
+    brand: "Helen",
+    price: 299,
+  },
+  {
+    name: "Off Shoulder Blouse 3",
+    imgUrl: "/off-shoulder blouse.png",
+    brand: "Helen",
+    price: 299,
+  },
+  {
+    name: "Off Shoulder Blouse 4",
+    imgUrl: "/off-shoulder blouse.png",
+    brand: "Helen",
+    price: 299,
+  },
+];
+
 export default function HomePage() {
   return (
     <main className="pt-[70px] min-h-[80dvh] flex flex-col gap-8 mb-8">
@@ -12,10 +39,10 @@ export default function HomePage() {
       <CategorySection />
       <NewArrival />
       <NewsLetterSection />
-      <CategoryProducts>
+      <CategoryProducts products={products}>
         <SectionHeader title="Men's Wears" url="/category/men" />
       </CategoryProducts>
-      <CategoryProducts>
+      <CategoryProducts products={products}>
         <SectionHeader title="Women's Wears" url="/category/women" />
       </CategoryProducts>
     </main>

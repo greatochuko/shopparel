@@ -65,7 +65,7 @@ export default function SignupForm() {
       <div>
         <h1 className="text-2xl font-semibold">Sign Up</h1>
         <p className="text-sm">
-          Already have an account?{" "}
+          Already have an account?
           <Link
             to={"/login"}
             className="text-accent-blue-100 hover:underline focus:underline"
