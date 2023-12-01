@@ -4,7 +4,7 @@ import NewArrival from "../components/NewArrival";
 
 export default function HomePage() {
   return (
-    <main className="pt-[70px] min-h-[80dvh] flex flex-col gap-4">
+    <main className="pt-[70px] min-h-[80dvh] flex flex-col gap-4 mb-8">
       <Hero />
       <CategorySection />
       <NewArrival />
