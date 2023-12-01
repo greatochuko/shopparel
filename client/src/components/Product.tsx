@@ -11,6 +11,8 @@ export default function Product({ product }: { product: ProductType }) {
   function handleToggleLike(e: React.MouseEvent) {
     e.preventDefault();
   }
+  const productName =
+    product.name.length > 20 ? product.name.slice(0, 20) + "..." : product.name;
   return (
     <div className="flex flex-col gap-4 relative">
       <button
@@ -60,7 +62,7 @@ export default function Product({ product }: { product: ProductType }) {
             to={`/product/${product.name}`}
             className="text-sm sm:text-base hover:text-accent-blue-100 duration-300 font-semibold"
           >
-            {product.name}
+            {productName}
           </Link>
           <Link
             to={`/brand/${product.brand}`}
