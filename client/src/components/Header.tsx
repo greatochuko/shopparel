@@ -12,7 +12,7 @@ export default function Header() {
 
   return (
     <>
-      <header className="absolute top-0 z-10 w-full bg-white shadow-sm">
+      <header className="fixed top-0 z-30 w-full bg-white shadow-sm">
         <nav className="flex items-center justify-between gap-4 p-4 mx-auto sm:gap-6 max-w-7xl ">
           <Link to={"/"} className="hidden sm:block">
             Shopparel
@@ -177,8 +177,8 @@ export default function Header() {
       </header>
       {/* Mobile Nav */}
       <ul
-        className={`fixed left-0 flex flex-col w-screen duration-300 gap-2 bg-white md:hidden ${
-          mobileNavIsOpen ? " top-[72px]" : " -top-[350px]"
+        className={`fixed left-0 z-20 flex flex-col w-screen pt-[70px] h-screen duration-300 gap-2 bg-white md:hidden ${
+          mobileNavIsOpen ? " top-0" : " -top-[100%]"
         }`}
       >
         {navLinks.map((navLink) => (
