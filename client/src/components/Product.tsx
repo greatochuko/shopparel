@@ -12,10 +12,7 @@ export default function Product({ product }: { product: ProductType }) {
     e.preventDefault();
   }
   return (
-    <Link
-      to={`/product/${product.name}`}
-      className="flex flex-col gap-4 relative group"
-    >
+    <div className="flex flex-col gap-4 relative">
       <button
         className="p-1.5 rounded-full bg-white active:scale-90 duration-200 hover:shadow-md absolute right-2 top-2"
         onClick={handleToggleLike}
@@ -46,25 +43,36 @@ export default function Product({ product }: { product: ProductType }) {
           </g>
         </svg>
       </button>
-      <div className="group-hover:shadow-md duration-300 bg-zinc-300 rounded-md overflow-hidden aspect-[0.8]">
+      <Link
+        to={`/product/${product.name}`}
+        className="hover:shadow-md duration-300 bg-zinc-300 rounded-md overflow-hidden aspect-[0.8]"
+      >
         <img
           src={product.imgUrl}
           alt=""
           className="h-full w-full object-cover"
         />
-      </div>
+      </Link>
 
-      <div className="flex justify-between items-start text-zinc-700">
+      <div className="flex justify-between flex-col gap-1 sm:flex-row items-start text-zinc-700">
         <div className="flex flex-col gap-1">
-          <h4 className="text-sm sm:text-base group-hover:underline duration-300 font-semibold">
+          <Link
+            to={`/product/${product.name}`}
+            className="text-sm sm:text-base hover:text-accent-blue-100 duration-300 font-semibold"
+          >
             {product.name}
-          </h4>
-          <p className="text-sm">{product.brand}</p>
+          </Link>
+          <Link
+            to={`/brand/${product.brand}`}
+            className="text-sm hover:underline"
+          >
+            {product.brand}
+          </Link>
         </div>
         <p className="bg-zinc-100 grid place-content-center px-1 py-2 sm:px-2 font-semibold rounded-md text-sm sm:text-base">
           ${product.price.toFixed(2)}
         </p>
       </div>
-    </Link>
+    </div>
   );
 }
