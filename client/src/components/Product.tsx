@@ -52,7 +52,7 @@ export default function Product({ product }: { product: ProductType }) {
         <img
           src={product.imgUrl}
           alt=""
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover hover:scale-105 duration-300"
         />
       </Link>
 
