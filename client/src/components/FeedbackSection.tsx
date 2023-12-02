@@ -56,7 +56,6 @@ export default function FeedbackSection() {
         let feedbackShown = 3;
         if (window.innerWidth < 1024) feedbackShown = 2;
         if (window.innerWidth < 768) feedbackShown = 1;
-        console.log(curr);
 
         if (curr + 1 >= feedbacks.length / feedbackShown) return 0;
         return curr + 1;
