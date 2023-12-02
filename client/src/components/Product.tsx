@@ -10,12 +10,13 @@ export type ProductType = {
 export default function Product({ product }: { product: ProductType }) {
   function handleToggleLike(e: React.MouseEvent) {
     e.preventDefault();
+    e.stopPropagation();
   }
 
   return (
     <div className="relative flex flex-col gap-4">
       <button
-        className="p-1.5 rounded-full bg-white active:scale-90 duration-200 hover:shadow-md absolute right-2 top-2"
+        className="p-1.5 rounded-full z-[5] bg-white active:scale-90 duration-200 hover:shadow-lg absolute right-2 top-2"
         onClick={handleToggleLike}
       >
         <svg
