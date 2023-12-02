@@ -16,7 +16,7 @@ const filterCategories = [
 export default function SearchPage() {
   return (
     <main className="pt-[80px] min-h-[80dvh] max-w-7xl w-[90%] mx-auto flex gap-8 mb-8 text-zinc-500">
-      <div className="w-64 border">
+      <div className="flex flex-col w-64 border">
         <h2 className="flex items-center justify-between p-2 text-lg font-semibold border-b">
           Filter
           <span>
@@ -41,6 +41,9 @@ export default function SearchPage() {
             <FilterCategory key={category.title} category={category} />
           ))}
         </div>
+        <button className="p-2 m-1 mt-auto text-white duration-300 rounded-md bg-accent-blue-100 focus:ring hover:bg-accent-blue-200 active:bg-blue-800">
+          Clear All Filters
+        </button>
       </div>
       <div className="flex-1 bg-red-500"></div>
     </main>

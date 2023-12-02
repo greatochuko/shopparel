@@ -34,7 +34,7 @@ export default function FilterCategory({ category }: FilterCategoryProps) {
     <div className="flex flex-col">
       <button
         onClick={toggleOpen}
-        className="flex items-center justify-between p-2 duration-200 group hover:text-black"
+        className="flex items-center justify-between p-2 duration-200 group hover:text-black focus:ring-accent-blue-100 focus:ring"
       >
         {category.title}
         <span className={`p-1 ${isOpen ? "rotate-90" : ""} duration-300`}>
@@ -67,13 +67,13 @@ export default function FilterCategory({ category }: FilterCategoryProps) {
       <ul
         className={`${
           isOpen ? "h-fit" : "h-0"
-        } pl-4 overflow-hidden gap-1 flex flex-col`}
+        } py-1 pl-4 overflow-hidden gap-1 flex flex-col`}
       >
         {category.subCategories.map((subCategory) => (
           <li
             onClick={() => togglefilterCategory(subCategory.toLowerCase())}
             key={subCategory}
-            className={`p-1 cursor-pointer hover:text-zinc-800 w-fit rounded-md duration-200 ${
+            className={`p-1 cursor-pointer hover:text-zinc-800 w-fit rounded-md duration-200 focus:ring ${
               filterCategory?.includes(subCategory.toLowerCase())
                 ? "bg-accent-blue-100/10"
                 : ""
