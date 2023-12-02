@@ -1,5 +1,6 @@
 import CategoryProducts from "../components/CategoryProducts";
 import CategorySection from "../components/CategorySection";
+import FeedbackSection from "../components/FeedBackSection";
 import Hero from "../components/Hero";
 import NewArrival from "../components/NewArrival";
 import NewsLetterSection from "../components/NewsLetterSection";
@@ -47,6 +48,7 @@ export default function HomePage() {
         <SectionHeader title="Women's Wears" url="/category/women" />
       </CategoryProducts>
       <TopBrands />
+      <FeedbackSection />
     </main>
   );
 }
