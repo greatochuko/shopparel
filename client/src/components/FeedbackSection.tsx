@@ -53,10 +53,15 @@ export default function FeedbackSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((curr) => {
-        if (curr >= feedbacks.length - 3) return 0;
+        let feedbackShown = 3;
+        if (window.innerWidth < 1024) feedbackShown = 2;
+        if (window.innerWidth < 768) feedbackShown = 1;
+        console.log(curr);
+
+        if (curr + 1 >= feedbacks.length / feedbackShown) return 0;
         return curr + 1;
       });
-    }, 5000);
+    }, 10000);
 
     return () => {
       clearInterval(interval);
@@ -66,10 +71,12 @@ export default function FeedbackSection() {
   return (
     <div className="w-[90%] max-w-7xl overflow-hidden mx-auto flex flex-col gap-4">
       <SectionHeader title="Feedback" />
-      <div className="h-60 relative">
+      <div className="relative">
         <div
-          style={{ left: -(384 * index) }}
-          className={`absolute flex gap-4 w-fit h-full duration-500`}
+          style={{
+            marginLeft: `${-(100 * index)}%`,
+          }}
+          className={`flex gap-4 w-fit duration-500`}
         >
           {feedbacks.map((feedback) => (
             <Feedback feedback={feedback} key={feedback.name} />
@@ -78,9 +85,9 @@ export default function FeedbackSection() {
       </div>
 
       <div className={`flex-center gap-2`}>
-        <div className="w-4 h-2 bg-zinc-600 rounded-full duration-200"></div>
-        <div className="w-2 h-2 bg-zinc-200 rounded-full duration-200"></div>
-        <div className="w-2 h-2 bg-zinc-200 rounded-full duration-200"></div>
+        <div className="w-4 h-2 duration-200 rounded-full bg-zinc-600"></div>
+        <div className="w-2 h-2 duration-200 rounded-full bg-zinc-200"></div>
+        <div className="w-2 h-2 duration-200 rounded-full bg-zinc-200"></div>
       </div>
     </div>
   );
