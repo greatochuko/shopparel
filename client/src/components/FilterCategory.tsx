@@ -9,7 +9,6 @@ export default function FilterCategory({ category }: FilterCategoryProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [params, setParams] = useSearchParams();
   const filterCategory = params.get("filterCategory")?.split(",");
-  console.log(filterCategory);
 
   function toggleOpen() {
     setIsOpen((curr) => !curr);
