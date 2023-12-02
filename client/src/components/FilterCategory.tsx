@@ -1,16 +1,25 @@
+import { useState } from "react";
+
 type FilterCategoryProps = {
   category: { title: string; subCategories: string[] };
 };
 
 export default function FilterCategory({ category }: FilterCategoryProps) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function toggleOpen() {
+    setIsOpen((curr) => !curr);
+  }
+
   return (
     <div className="flex flex-col">
       <button
+        onClick={toggleOpen}
         key={category.title}
         className="flex items-center justify-between p-2 duration-200 group hover:text-black"
       >
         {category.title}
-        <span className="p-1 ">
+        <span className={`p-1 ${isOpen ? "rotate-90" : ""} duration-300`}>
           <svg
             height={20}
             width={20}
@@ -37,7 +46,7 @@ export default function FilterCategory({ category }: FilterCategoryProps) {
           </svg>
         </span>
       </button>
-      <ul className="pl-4">
+      <ul className={`${isOpen ? "h-fit" : "h-0"} pl-4 overflow-hidden`}>
         {category.subCategories.map((subCategory) => (
           <li className="p-1 cursor-pointer hover:text-zinc-800">
             {subCategory}

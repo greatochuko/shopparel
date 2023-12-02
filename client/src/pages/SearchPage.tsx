@@ -15,7 +15,7 @@ const filterCategories = [
 
 export default function SearchPage() {
   return (
-    <main className="pt-[80px] min-h-[80dvh] max-w-7xl mx-auto flex gap-8 mb-8 text-zinc-500">
+    <main className="pt-[80px] min-h-[80dvh] max-w-7xl w-[90%] mx-auto flex gap-8 mb-8 text-zinc-500">
       <div className="w-64 border">
         <h2 className="flex items-center justify-between p-2 text-lg font-semibold border-b">
           Filter
