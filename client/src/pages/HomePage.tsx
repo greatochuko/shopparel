@@ -1,34 +1,60 @@
 import CategoryProducts from "../components/CategoryProducts";
 import CategorySection from "../components/CategorySection";
-import FeedbackSection from "../components/FeedBackSection";
+import FeedbackSection from "../components/FeedbackSection";
 import Hero from "../components/Hero";
 import NewArrival from "../components/NewArrival";
 import NewsLetterSection from "../components/NewsLetterSection";
 import SectionHeader from "../components/SectionHeader";
 import TopBrands from "../components/TopBrands";
 
-const products = [
+const womenProducts = [
   {
-    name: "Off Shoulder Blouse",
-    imgUrl: "/off-shoulder blouse.png",
+    name: "Relaxed Fit V-Neck Tee",
+    imgUrl: "/women-product-1.png",
     brand: "Helen",
     price: 299,
   },
   {
-    name: "Off Shoulder Blouse 2",
-    imgUrl: "/off-shoulder blouse.png",
+    name: "Off-the-Shoulder Knit Sweater",
+    imgUrl: "/women-product-2.png",
     brand: "Helen",
     price: 299,
   },
   {
-    name: "Off Shoulder Blouse 3",
-    imgUrl: "/off-shoulder blouse.png",
+    name: "Wrap Maxi Dress",
+    imgUrl: "/women-product-3.png",
     brand: "Helen",
     price: 299,
   },
   {
-    name: "Off Shoulder Blouse 4",
-    imgUrl: "/off-shoulder blouse.png",
+    name: "Floral Print Ruffle Top",
+    imgUrl: "/women-product-4.png",
+    brand: "Helen",
+    price: 299,
+  },
+];
+const menProducts = [
+  {
+    name: "Classic Straight-Leg Jeans",
+    imgUrl: "/men-product-1.png",
+    brand: "Helen",
+    price: 299,
+  },
+  {
+    name: "Leather Bomber Jacket",
+    imgUrl: "/men-product-2.png",
+    brand: "Helen",
+    price: 299,
+  },
+  {
+    name: "Classic Cotton Crew Neck Tee",
+    imgUrl: "/men-product-3.png",
+    brand: "Helen",
+    price: 299,
+  },
+  {
+    name: "Plaid Flannel Shirt",
+    imgUrl: "/men-product-4.png",
     brand: "Helen",
     price: 299,
   },
@@ -41,10 +67,10 @@ export default function HomePage() {
       <CategorySection />
       <NewArrival />
       <NewsLetterSection />
-      <CategoryProducts products={products}>
+      <CategoryProducts products={menProducts}>
         <SectionHeader title="Men's Wears" url="/category/men" />
       </CategoryProducts>
-      <CategoryProducts products={products}>
+      <CategoryProducts products={womenProducts}>
         <SectionHeader title="Women's Wears" url="/category/women" />
       </CategoryProducts>
       <TopBrands />

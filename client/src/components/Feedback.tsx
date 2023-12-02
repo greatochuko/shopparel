@@ -9,7 +9,7 @@ type FeedbackType = {
 
 export default function Feedback({ feedback }: { feedback: FeedbackType }) {
   return (
-    <div className="p-4 flex flex-col gap-3 h-full border rounded-md w-[calc(90vw-30px)] md:w-[calc(45vw-22px)] lg:w-[calc(30vw-20px)]">
+    <div className="p-4 flex flex-col gap-3 h-full border rounded-md w-[calc(90vw-30px)] md:w-[calc(45vw-22px)] lg:w-[calc(30vw-20px)] max-w-[412px]">
       <div className="flex justify-between ">
         <img
           src={feedback.imgUrl}

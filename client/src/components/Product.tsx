@@ -11,10 +11,9 @@ export default function Product({ product }: { product: ProductType }) {
   function handleToggleLike(e: React.MouseEvent) {
     e.preventDefault();
   }
-  const productName =
-    product.name.length > 20 ? product.name.slice(0, 20) + "..." : product.name;
+
   return (
-    <div className="flex flex-col gap-4 relative">
+    <div className="relative flex flex-col gap-4">
       <button
         className="p-1.5 rounded-full bg-white active:scale-90 duration-200 hover:shadow-md absolute right-2 top-2"
         onClick={handleToggleLike}
@@ -52,26 +51,26 @@ export default function Product({ product }: { product: ProductType }) {
         <img
           src={product.imgUrl}
           alt=""
-          className="h-full w-full object-cover hover:scale-105 duration-300"
+          className="object-contain w-full h-full duration-300 hover:scale-110"
         />
       </Link>
 
-      <div className="flex justify-between flex-col gap-1 sm:flex-row items-start text-zinc-700">
-        <div className="flex flex-col gap-1">
+      <div className="flex flex-col items-start justify-between gap-1 sm:flex-row text-zinc-700">
+        <div className="flex flex-col flex-1 gap-1 max-w-[60%] ">
           <Link
             to={`/product/${product.name}`}
-            className="text-sm sm:text-base hover:text-accent-blue-100 duration-300 font-semibold"
+            className="overflow-hidden text-sm font-semibold duration-300 overflow-ellipsis whitespace-nowrap hover:text-accent-blue-100"
           >
-            {productName}
+            {product.name}
           </Link>
           <Link
-            to={`/brand/${product.brand}`}
+            to={`/brands/${product.brand}`}
             className="text-sm hover:underline"
           >
             {product.brand}
           </Link>
         </div>
-        <p className="bg-zinc-100 grid place-content-center px-1 py-2 sm:px-2 font-semibold rounded-md text-sm sm:text-base">
+        <p className="grid px-1 py-2 text-sm font-semibold rounded-md w-fit bg-zinc-100 place-content-center sm:px-2">
           ${product.price.toFixed(2)}
         </p>
       </div>

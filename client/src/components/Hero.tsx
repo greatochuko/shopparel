@@ -6,13 +6,13 @@ const heroProducts = [
     name: "Off-Shoulder Blouse",
     category: "women",
     imgUrl: "/off-shoulder blouse.png",
-    color: "bg-[#009DE0]/80",
+    color: "bg-[#009DE0]/50",
   },
   {
     name: "Slim Fit Button-Down Shirt",
     category: "men",
     imgUrl: "/slim-fit-button-down-t-shirt.png",
-    color: "bg-[#D38236]/80",
+    color: "bg-[#D38236]/70",
   },
 ];
 
@@ -96,7 +96,7 @@ export default function Hero() {
           } ${i !== currentIndex ? "opacity-0" : "opacity-100"}`}
         >
           <div className={`flex w-fit max-w-[40%] justify-center text-white `}>
-            <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8 w-full ">
+            <div className="flex flex-col w-full gap-4 sm:gap-6 lg:gap-8 ">
               <Link
                 to={`/category/${product.category}`}
                 className="text-lg sm:text-xl lg:text-2xl xl:text-[2vw]"
@@ -123,7 +123,7 @@ export default function Hero() {
             <img
               src={product.imgUrl}
               alt={product.imgUrl}
-              className="w-full object-contain h-full"
+              className="object-contain w-full h-full"
             />
           </div>
         </div>
