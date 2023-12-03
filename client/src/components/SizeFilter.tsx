@@ -18,7 +18,7 @@ export default function SizeFilter({
 
   return (
     <div className="border-b">
-      <div className="p-2 text-base font-semibold border-b">Color</div>
+      <div className="p-2 text-base font-semibold border-b">Size</div>
       <ul className="grid grid-cols-3 px-3 py-6 gap-y-4 justify-evenly">
         {sizes.map((size) => (
           <li
