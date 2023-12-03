@@ -43,7 +43,7 @@ export default function PriceFilter({
             onChange={handleChangeMinPrice}
             min={0}
             max={1000}
-            className="w-full"
+            className="w-full focus-visible:ring rounded-md p-1 focus-visible:ring-blue-400"
           />
           <input
             type="range"
@@ -51,7 +51,7 @@ export default function PriceFilter({
             onChange={handleChangeMaxPrice}
             min={0}
             max={1000}
-            className="w-full "
+            className="w-full focus-visible:ring rounded-md p-1 focus-visible:ring-blue-400 "
           />
         </div>
         <div className="flex items-center w-full gap-4 p-2 overflow-hidden justify-evenly">
@@ -63,7 +63,7 @@ export default function PriceFilter({
             <input
               id="min-price"
               type="text"
-              className="w-full p-1 px-2 text-center border-2 rounded-md border-zinc-300 text-zinc-700"
+              className="w-full p-1 px-2 focus-visible:ring-blue-500 focus-visible:ring duration-300 text-center border-2 rounded-md border-zinc-300 text-zinc-700"
               value={minPrice}
               onChange={handleChangeMinPrice}
             />
@@ -76,7 +76,7 @@ export default function PriceFilter({
             <input
               id="min-price"
               type="text"
-              className="w-full p-1 px-2 text-center border-2 rounded-md border-zinc-300 text-zinc-700"
+              className="w-full focus-visible:ring-blue-500 focus-visible:ring duration-300 p-1 px-2 text-center border-2 rounded-md border-zinc-300 text-zinc-700"
               value={maxPrice}
               onChange={handleChangeMaxPrice}
             />
