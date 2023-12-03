@@ -34,7 +34,7 @@ export default function PriceFilter({
 
   return (
     <div className="border-b">
-      <div className="p-2 text-lg font-semibold border-b">Price</div>
+      <div className="p-2 text-base font-semibold border-b">Price</div>
       <div className="w-[90%] py-2 mx-auto">
         <input
           type="range"

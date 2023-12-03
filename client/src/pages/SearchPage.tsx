@@ -2,6 +2,7 @@ import { useState } from "react";
 import CategoryFilter from "../components/CategoryFilter";
 import PriceFilter from "../components/PriceFilter";
 import { useSearchParams } from "react-router-dom";
+import ColorFilter from "../components/ColorFilter";
 
 const filterCategories = [
   { title: "Outwear", subCategories: ["Coats", "Jackets", "Blazers", "Vests"] },
@@ -28,11 +29,14 @@ export default function SearchPage() {
   const [filterCategoryList, setFilterCategoryList] = useState<string[]>(
     searchParams.get("filterCategories")?.split(",") || []
   );
+  const [colorList, setColorList] = useState<string[]>([]);
 
   function applyFilters() {
-    searchParams.set("filterCategories", filterCategoryList.join(","));
-    searchParams.set("minPrice", minPrice.toString());
-    searchParams.set("maxPrice", maxPrice.toString());
+    if (filterCategoryList.length)
+      searchParams.set("filterCategories", filterCategoryList.join(","));
+    if (minPrice !== 0) searchParams.set("minPrice", minPrice.toString());
+    if (maxPrice !== 1000) searchParams.set("maxPrice", maxPrice.toString());
+    if (colorList.length) searchParams.set("colors", colorList.join(","));
     setSearchParams(searchParams);
   }
 
@@ -40,13 +44,14 @@ export default function SearchPage() {
     setMinPrice(0);
     setMaxPrice(1000);
     setFilterCategoryList([]);
+    setColorList([]);
     setSearchParams({ query });
   }
 
   return (
     <main className="pt-[102px] min-h-[80dvh] max-w-7xl w-[90%] mx-auto flex gap-8 mb-8 text-zinc-500">
-      <div className="flex flex-col w-64 border">
-        <h2 className="flex items-center justify-between p-2 text-lg font-semibold border-b">
+      <div className="flex flex-col w-64 border h-fit">
+        <h2 className="flex items-center justify-between p-2 text-base font-semibold border-b">
           Filter
           <span>
             <svg
@@ -81,7 +86,8 @@ export default function SearchPage() {
           maxPrice={maxPrice}
           setMaxPrice={setMaxPrice}
         />
-        <div className="gap-2 p-2 mt-auto flex-center">
+        <ColorFilter colorList={colorList} setColorList={setColorList} />
+        <div className="gap-2 p-3 mt-auto flex-center">
           <button
             onClick={clearFilters}
             className="flex-1 p-2 text-sm text-white duration-300 bg-red-500 rounded-md whitespace-nowrap focus:ring focus:ring-red-300 hover:bg-red-600 active:bg-red-700"

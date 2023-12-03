@@ -26,7 +26,7 @@ export default function CategoryFilter({
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col text-sm">
       <button
         onClick={toggleOpen}
         className="flex items-center justify-between p-2 duration-200 group hover:text-black focus:ring-accent-blue-100 focus:ring"
