@@ -1,32 +1,28 @@
 import { useState } from "react";
-import { useSearchParams } from "react-router-dom";
 
-type FilterCategoryProps = {
+type CategoryFilterProps = {
   category: { title: string; subCategories: string[] };
+  filterCategories: string[];
+  setFilterCategories: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-export default function FilterCategory({ category }: FilterCategoryProps) {
+export default function CategoryFilter({
+  category,
+  filterCategories,
+  setFilterCategories,
+}: CategoryFilterProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [params, setParams] = useSearchParams();
-  const filterCategory = params.get("filterCategory")?.split(",");
 
   function toggleOpen() {
     setIsOpen((curr) => !curr);
   }
 
   function togglefilterCategory(category: string) {
-    if (filterCategory?.includes(category)) {
-      params.set(
-        "filterCategory",
-        filterCategory.filter((item) => item !== category).join(",")
+    if (filterCategories.includes(category))
+      return setFilterCategories((curr) =>
+        curr.filter((item) => item !== category)
       );
-    } else {
-      params.set(
-        "filterCategory",
-        filterCategory ? filterCategory + "," + category : category
-      );
-    }
-    setParams(params);
+    setFilterCategories((curr) => [...curr, category]);
   }
 
   return (
@@ -65,16 +61,16 @@ export default function FilterCategory({ category }: FilterCategoryProps) {
       </button>
       <ul
         className={`${
-          isOpen ? "h-fit" : "h-0"
-        } py-1 pl-4 overflow-hidden gap-1 flex flex-col`}
+          isOpen ? "h-fit py-1" : "h-0"
+        } pl-4 overflow-hidden gap-1 flex flex-col`}
       >
         {category.subCategories.map((subCategory) => (
           <li
             onClick={() => togglefilterCategory(subCategory.toLowerCase())}
             key={subCategory}
             className={`p-1 cursor-pointer hover:text-zinc-800 w-fit rounded-md duration-200 focus:ring ${
-              filterCategory?.includes(subCategory.toLowerCase())
-                ? "bg-accent-blue-100/10"
+              filterCategories?.includes(subCategory.toLowerCase())
+                ? "bg-accent-blue-100/10 text-zinc-700 font-semibold"
                 : ""
             }`}
           >

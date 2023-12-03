@@ -1,5 +1,7 @@
-import FilterCategory from "../components/FilterCategory";
-import FilterPrice from "../components/FilterPrice";
+import { useState } from "react";
+import CategoryFilter from "../components/CategoryFilter";
+import PriceFilter from "../components/PriceFilter";
+import { useSearchParams } from "react-router-dom";
 
 const filterCategories = [
   { title: "Outwear", subCategories: ["Coats", "Jackets", "Blazers", "Vests"] },
@@ -15,8 +17,34 @@ const filterCategories = [
 ];
 
 export default function SearchPage() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const query = searchParams.get("query") || "";
+  const [minPrice, setMinPrice] = useState(
+    Number(searchParams.get("minPrice")) || 0
+  );
+  const [maxPrice, setMaxPrice] = useState(
+    Number(searchParams.get("maxPrice")) || 1000
+  );
+  const [filterCategoryList, setFilterCategoryList] = useState<string[]>(
+    searchParams.get("filterCategories")?.split(",") || []
+  );
+
+  function applyFilters() {
+    searchParams.set("filterCategories", filterCategoryList.join(","));
+    searchParams.set("minPrice", minPrice.toString());
+    searchParams.set("maxPrice", maxPrice.toString());
+    setSearchParams(searchParams);
+  }
+
+  function clearFilters() {
+    setMinPrice(0);
+    setMaxPrice(1000);
+    setFilterCategoryList([]);
+    setSearchParams({ query });
+  }
+
   return (
-    <main className="pt-[80px] min-h-[80dvh] max-w-7xl w-[90%] mx-auto flex gap-8 mb-8 text-zinc-500">
+    <main className="pt-[102px] min-h-[80dvh] max-w-7xl w-[90%] mx-auto flex gap-8 mb-8 text-zinc-500">
       <div className="flex flex-col w-64 border">
         <h2 className="flex items-center justify-between p-2 text-lg font-semibold border-b">
           Filter
@@ -39,13 +67,34 @@ export default function SearchPage() {
         </h2>
         <div className="flex flex-col py-2 border-b ">
           {filterCategories.map((category) => (
-            <FilterCategory key={category.title} category={category} />
+            <CategoryFilter
+              key={category.title}
+              category={category}
+              filterCategories={filterCategoryList}
+              setFilterCategories={setFilterCategoryList}
+            />
           ))}
         </div>
-        <FilterPrice />
-        <button className="p-2 m-1 mt-auto text-white duration-300 rounded-md bg-accent-blue-100 focus:ring hover:bg-accent-blue-200 active:bg-blue-800">
-          Clear All Filters
-        </button>
+        <PriceFilter
+          minPrice={minPrice}
+          setMinPrice={setMinPrice}
+          maxPrice={maxPrice}
+          setMaxPrice={setMaxPrice}
+        />
+        <div className="gap-2 p-2 mt-auto flex-center">
+          <button
+            onClick={clearFilters}
+            className="flex-1 p-2 text-sm text-white duration-300 bg-red-500 rounded-md whitespace-nowrap focus:ring focus:ring-red-300 hover:bg-red-600 active:bg-red-700"
+          >
+            Clear All Filters
+          </button>
+          <button
+            onClick={applyFilters}
+            className="flex-1 p-2 text-sm text-white duration-300 rounded-md whitespace-nowrap bg-accent-blue-100 focus:ring hover:bg-accent-blue-200 active:bg-blue-800"
+          >
+            Apply Filters
+          </button>
+        </div>
       </div>
       <div className="flex-1 bg-red-500"></div>
     </main>

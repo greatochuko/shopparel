@@ -1,8 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function SearchForm() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("query");
+  const [searchQuery, setSearchQuery] = useState(query || "");
   const navigate = useNavigate();
 
   function handleSearch(e: React.FormEvent) {
