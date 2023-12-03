@@ -116,7 +116,7 @@ export default function SearchFilter({
       </div>
       <PriceFilter products={products} />
       <ColorFilter products={products} />
-      <SizeFilter />
+      <SizeFilter products={products} />
       <div className="gap-2 p-3 mt-auto flex-center">
         <button
           onClick={clearFilters}

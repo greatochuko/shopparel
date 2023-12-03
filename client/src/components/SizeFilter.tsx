@@ -1,10 +1,20 @@
 import { useSearchParams } from "react-router-dom";
+import { ProductType } from "./Product";
 
-const sizeList = ["xxs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"];
+// const sizeList = ["xxs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"];
 
-export default function SizeFilter() {
+export default function SizeFilter({ products }: { products: ProductType[] }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const sizes = searchParams.get("sizes")?.split(",") || [];
+
+  const sizeList: string[] = [];
+
+  products.forEach((product) => {
+    product.sizes.forEach((size) => {
+      if (sizeList.includes(size)) return;
+      sizeList.push(size);
+    });
+  });
 
   function toggleAddSize(size: string) {
     if (sizes?.includes(size)) {
