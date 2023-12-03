@@ -7,6 +7,7 @@ const products = [
     imgUrl: "/women-product-1.png",
     brand: "Helen",
     price: 299,
+    sizes: ["l", "m", "xl", "s", "xs"],
     categories: ["V-Neck T-Shirts"],
     colors: ["black"],
   },
@@ -15,6 +16,7 @@ const products = [
     imgUrl: "/women-product-2.png",
     brand: "Helen",
     price: 299,
+    sizes: ["l", "m", "xl", "s", "2xl"],
     categories: ["sweater"],
     colors: ["yellow", "orange"],
   },
@@ -23,6 +25,7 @@ const products = [
     imgUrl: "/men-product-1.png",
     brand: "Helen",
     price: 299,
+    sizes: ["l", "m", "xl", "s"],
     categories: ["jeans", "trousers"],
     colors: ["navy", "black", "blue"],
   },
@@ -31,6 +34,7 @@ const products = [
     imgUrl: "/men-product-2.png",
     brand: "Helen",
     price: 299,
+    sizes: ["l", "m", "xl", "2xl"],
     categories: ["coats", "jackets", "sweater"],
     colors: ["black"],
   },
@@ -39,6 +43,7 @@ const products = [
     imgUrl: "/women-product-3.png",
     brand: "Helen",
     price: 299,
+    sizes: ["l", "m", "s", "xs"],
     categories: ["Casual Dresses", "Formal Dresses"],
     colors: ["red", "orange"],
   },
@@ -47,6 +52,7 @@ const products = [
     imgUrl: "/women-product-4.png",
     brand: "Helen",
     price: 299,
+    sizes: ["l", "xl", "m", "s", "xs", "xxs"],
     categories: ["Casual Dresses", "Summer Dresses", "Party Dresses"],
     colors: ["yellow", "blue"],
   },
@@ -55,6 +61,7 @@ const products = [
     imgUrl: "/men-product-3.png",
     brand: "Helen",
     price: 299,
+    sizes: ["l", "xl", "m", "s", "xs", "xxs", "2xl"],
     categories: ["Polo Shirts", "Crewneck T-Shirts"],
     colors: ["black", "navy"],
   },
@@ -63,6 +70,7 @@ const products = [
     imgUrl: "/men-product-4.png",
     brand: "Helen",
     price: 299,
+    sizes: ["3xl", "2xl", "l", "m", "xl", "s", "xs"],
     categories: [
       "Flannel Shirts",
       "Long-Sleeve T-Shirts",
@@ -78,6 +86,7 @@ export default function SearchResults() {
   const query = searchParams.get("query") || "";
   const colors = searchParams.get("colors")?.split(",");
   const categories = searchParams.get("categories")?.toLowerCase().split(",");
+  const sizes = searchParams.get("sizes")?.toLowerCase().split(",");
 
   let filteredProducts = [...products];
 
@@ -91,6 +100,12 @@ export default function SearchResults() {
   if (categories)
     filteredProducts = filteredProducts.filter((product) =>
       product.categories.some((c) => categories?.includes(c.toLowerCase()))
+    );
+
+  // Filter products by size
+  if (sizes)
+    filteredProducts = filteredProducts.filter((product) =>
+      product.sizes.some((c) => sizes?.includes(c.toLowerCase()))
     );
 
   function setSortBy(sortBy: string) {

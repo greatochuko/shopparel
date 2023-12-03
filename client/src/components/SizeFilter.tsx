@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 
-const sizeList = ["xxs", "xs", "s", "m", "l", "xl", "xxl", "3xl", "4xl"];
+const sizeList = ["xxs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"];
 
 export default function SizeFilter() {
   const [searchParams, setSearchParams] = useSearchParams();
