@@ -56,7 +56,6 @@ export default function SearchResults() {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortBy = searchParams.get("sortBy");
   const query = searchParams.get("query") || "";
-  console.log(sortBy);
 
   function setSortBy(sortBy: string) {
     searchParams.set("sortBy", sortBy);

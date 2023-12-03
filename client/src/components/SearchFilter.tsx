@@ -114,13 +114,13 @@ export default function SearchFilter() {
       <div className="gap-2 p-3 mt-auto flex-center">
         <button
           onClick={clearFilters}
-          className="flex-1 font-semibold p-2 text-sm text-white duration-300 bg-red-500 rounded-md whitespace-nowrap focus:ring focus:ring-red-300 hover:bg-red-600 active:bg-red-700"
+          className="flex-1 font-semibold p-2 text-sm text-white duration-300 bg-red-500 rounded-md whitespace-nowrap focus-visible:ring focus-visible:ring-red-300 hover:bg-red-600 active:bg-red-700"
         >
           Clear All Filters
         </button>
         <button
           onClick={applyFilters}
-          className="flex-1 p-2 font-semibold text-sm text-white duration-300 rounded-md whitespace-nowrap bg-accent-blue-100 focus:ring hover:bg-accent-blue-200 active:bg-blue-800"
+          className="flex-1 p-2 font-semibold text-sm text-white duration-300 rounded-md whitespace-nowrap bg-accent-blue-100 focus-visible:ring hover:bg-accent-blue-200 active:bg-blue-800"
         >
           Apply Filters
         </button>

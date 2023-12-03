@@ -29,7 +29,7 @@ export default function CategoryFilter({
     <div className="flex flex-col text-sm">
       <button
         onClick={toggleOpen}
-        className="flex items-center justify-between p-2 duration-200 group hover:text-black focus:ring-accent-blue-100 focus:ring"
+        className="flex items-center justify-between p-2 duration-200 group hover:text-black focus-visible:ring-accent-blue-100 focus-visible:ring"
       >
         {category.title}
         <span className={`p-1 ${isOpen ? "rotate-90" : ""} duration-300`}>
@@ -66,9 +66,12 @@ export default function CategoryFilter({
       >
         {category.subCategories.map((subCategory) => (
           <li
+            role="button"
+            tabIndex={0}
+            style={{ display: isOpen ? "block" : "none" }}
             onClick={() => togglefilterCategory(subCategory.toLowerCase())}
             key={subCategory}
-            className={`p-1 cursor-pointer hover:text-zinc-800 w-fit rounded-md duration-200 focus:ring ${
+            className={`p-1 cursor-pointer hover:text-zinc-800 w-fit rounded-md duration-200 focus-visible:ring ${
               filterCategories?.includes(subCategory.toLowerCase())
                 ? "bg-accent-blue-100/10 text-zinc-700 font-semibold"
                 : ""
