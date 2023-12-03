@@ -40,12 +40,31 @@ export default function SearchFilter() {
   const [isOpen, setIsOpen] = useState(false);
 
   function applyFilters() {
-    if (filterCategoryList.length)
+    if (filterCategoryList.length) {
       searchParams.set("filterCategories", filterCategoryList.join("-"));
-    if (minPrice !== 0) searchParams.set("minPrice", minPrice.toString());
-    if (maxPrice !== 1000) searchParams.set("maxPrice", maxPrice.toString());
-    if (colorList.length) searchParams.set("colors", colorList.join("-"));
-    if (sizeList.length) searchParams.set("sizes", sizeList.join("-"));
+    } else {
+      searchParams.delete("filterCategories");
+    }
+    if (minPrice !== 0) {
+      searchParams.set("minPrice", minPrice.toString());
+    } else {
+      searchParams.delete("minPrice");
+    }
+    if (maxPrice !== 1000) {
+      searchParams.set("maxPrice", maxPrice.toString());
+    } else {
+      searchParams.delete("maxPrice");
+    }
+    if (colorList.length) {
+      searchParams.set("colors", colorList.join("-"));
+    } else {
+      searchParams.delete("colors");
+    }
+    if (sizeList.length) {
+      searchParams.set("sizes", sizeList.join("-"));
+    } else {
+      searchParams.delete("sizes");
+    }
     setSearchParams(searchParams);
     toggleOpenFilter();
   }

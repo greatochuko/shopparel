@@ -7,48 +7,56 @@ const products = [
     imgUrl: "/women-product-1.png",
     brand: "Helen",
     price: 299,
+    colors: ["black"],
   },
   {
     name: "Off-the-Shoulder Knit Sweater",
     imgUrl: "/women-product-2.png",
     brand: "Helen",
     price: 299,
-  },
-  {
-    name: "Wrap Maxi Dress",
-    imgUrl: "/women-product-3.png",
-    brand: "Helen",
-    price: 299,
-  },
-  {
-    name: "Floral Print Ruffle Top",
-    imgUrl: "/women-product-4.png",
-    brand: "Helen",
-    price: 299,
+    colors: ["yellow", "orange"],
   },
   {
     name: "Classic Straight-Leg Jeans",
     imgUrl: "/men-product-1.png",
     brand: "Helen",
     price: 299,
+    colors: ["navy", "black", "blue"],
   },
   {
     name: "Leather Bomber Jacket",
     imgUrl: "/men-product-2.png",
     brand: "Helen",
     price: 299,
+    colors: ["black"],
+  },
+  {
+    name: "Wrap Maxi Dress",
+    imgUrl: "/women-product-3.png",
+    brand: "Helen",
+    price: 299,
+    colors: ["red", "orange"],
+  },
+  {
+    name: "Floral Print Ruffle Top",
+    imgUrl: "/women-product-4.png",
+    brand: "Helen",
+    price: 299,
+    colors: ["yellow", "blue"],
   },
   {
     name: "Classic Cotton Crew Neck Tee",
     imgUrl: "/men-product-3.png",
     brand: "Helen",
     price: 299,
+    colors: ["black", "navy"],
   },
   {
     name: "Plaid Flannel Shirt",
     imgUrl: "/men-product-4.png",
     brand: "Helen",
     price: 299,
+    colors: ["red", "black", "blue"],
   },
 ];
 
@@ -56,6 +64,15 @@ export default function SearchResults() {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortBy = searchParams.get("sortBy");
   const query = searchParams.get("query") || "";
+  const colors = searchParams.get("colors")?.split("-");
+
+  let filteredProducts = [...products];
+
+  // Filter products by colors
+  if (colors)
+    filteredProducts = filteredProducts.filter((product) =>
+      product.colors.some((c) => colors?.includes(c))
+    );
 
   function setSortBy(sortBy: string) {
     searchParams.set("sortBy", sortBy);
@@ -92,7 +109,7 @@ export default function SearchResults() {
         </div>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <Product key={product.name} product={product} />
         ))}
       </div>
