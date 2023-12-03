@@ -32,7 +32,7 @@ export default function ColorFilter({
   return (
     <div className="border-b">
       <div className="p-2 text-base font-semibold border-b">Color</div>
-      <ul className="grid grid-cols-4 px-3 py-6 gap-y-2 justify-evenly">
+      <ul className="grid grid-cols-4 px-3 py-6 gap-y-4 justify-evenly">
         {colors.map((color) => (
           <li
             onClick={() => toggleAddColor(color)}

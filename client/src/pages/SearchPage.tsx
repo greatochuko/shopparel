@@ -3,6 +3,7 @@ import CategoryFilter from "../components/CategoryFilter";
 import PriceFilter from "../components/PriceFilter";
 import { useSearchParams } from "react-router-dom";
 import ColorFilter from "../components/ColorFilter";
+import SizeFilter from "../components/SizeFilter";
 
 const filterCategories = [
   { title: "Outwear", subCategories: ["Coats", "Jackets", "Blazers", "Vests"] },
@@ -27,16 +28,22 @@ export default function SearchPage() {
     Number(searchParams.get("maxPrice")) || 1000
   );
   const [filterCategoryList, setFilterCategoryList] = useState<string[]>(
-    searchParams.get("filterCategories")?.split(",") || []
+    searchParams.get("filterCategories")?.split("-") || []
   );
-  const [colorList, setColorList] = useState<string[]>([]);
+  const [colorList, setColorList] = useState<string[]>(
+    searchParams.get("colors")?.split("-") || []
+  );
+  const [sizeList, setSizeList] = useState<string[]>(
+    searchParams.get("sizes")?.split("-") || []
+  );
 
   function applyFilters() {
     if (filterCategoryList.length)
-      searchParams.set("filterCategories", filterCategoryList.join(","));
+      searchParams.set("filterCategories", filterCategoryList.join("-"));
     if (minPrice !== 0) searchParams.set("minPrice", minPrice.toString());
     if (maxPrice !== 1000) searchParams.set("maxPrice", maxPrice.toString());
-    if (colorList.length) searchParams.set("colors", colorList.join(","));
+    if (colorList.length) searchParams.set("colors", colorList.join("-"));
+    if (sizeList.length) searchParams.set("sizes", sizeList.join("-"));
     setSearchParams(searchParams);
   }
 
@@ -45,6 +52,7 @@ export default function SearchPage() {
     setMaxPrice(1000);
     setFilterCategoryList([]);
     setColorList([]);
+    setSizeList([]);
     setSearchParams({ query });
   }
 
@@ -87,6 +95,7 @@ export default function SearchPage() {
           setMaxPrice={setMaxPrice}
         />
         <ColorFilter colorList={colorList} setColorList={setColorList} />
+        <SizeFilter sizeList={sizeList} setSizeList={setSizeList} />
         <div className="gap-2 p-3 mt-auto flex-center">
           <button
             onClick={clearFilters}
