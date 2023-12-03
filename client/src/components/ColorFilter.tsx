@@ -1,23 +1,34 @@
 import { useSearchParams } from "react-router-dom";
+import { ProductType } from "./Product";
 
-const colorList = [
-  "purple",
-  "black",
-  "red",
-  "orange",
-  "navy",
-  "white",
-  "teal",
-  "green",
-  "yellow",
-  "gray",
-  "pink",
-  "blue",
-];
+// const demoColorList = [
+//   "purple",
+//   "black",
+//   "red",
+//   "orange",
+//   "navy",
+//   "white",
+//   "teal",
+//   "green",
+//   "yellow",
+//   "gray",
+//   "pink",
+//   "blue",
+// ];
 
-export default function ColorFilter() {
+export default function ColorFilter({ products }: { products: ProductType[] }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const colors = searchParams.get("colors")?.split(",") || [];
+
+  const colorList: string[] = [];
+
+  products.forEach((product) => {
+    product.colors.forEach((color) => {
+      if (colorList.includes(color)) return;
+      colorList.push(color);
+    });
+  });
+
   function toggleAddColor(color: string) {
     if (colors?.includes(color)) {
       searchParams.set("colors", colors.filter((c) => c !== color).join(","));
