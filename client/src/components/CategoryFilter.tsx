@@ -70,6 +70,10 @@ export default function CategoryFilter({
             tabIndex={0}
             style={{ display: isOpen ? "block" : "none" }}
             onClick={() => togglefilterCategory(subCategory.toLowerCase())}
+            onKeyDown={(e) => {
+              if (e.code === "Enter")
+                togglefilterCategory(subCategory.toLowerCase());
+            }}
             key={subCategory}
             className={`p-1 cursor-pointer hover:text-zinc-800 w-fit rounded-md duration-200 focus-visible:ring ${
               filterCategories?.includes(subCategory.toLowerCase())
