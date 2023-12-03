@@ -5,6 +5,9 @@ export type ProductType = {
   imgUrl: string;
   brand: string;
   price: number;
+  colors: string[];
+  categories: string[];
+  sizes: string[];
 };
 
 export default function Product({ product }: { product: ProductType }) {

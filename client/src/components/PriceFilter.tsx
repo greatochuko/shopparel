@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { ProductType } from "./Product";
 
-export default function PriceFilter() {
+export default function PriceFilter({ products }: { products: ProductType[] }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [minPrice, setMinPrice] = useState(searchParams.get("minPrice") || "0");
   const [maxPrice, setMaxPrice] = useState(
-    searchParams.get("maxPrice") || "1000"
+    searchParams.get("maxPrice") ||
+      Math.max(...products.map((product) => product.price)).toString()
   );
 
   function handleSetMinPrice() {
@@ -33,7 +35,7 @@ export default function PriceFilter() {
             }}
             onMouseUp={handleSetMinPrice}
             min={0}
-            max={1000}
+            max={Math.max(...products.map((product) => product.price))}
             className="w-full focus-visible:ring rounded-md p-1 focus-visible:ring-blue-400"
           />
           <input
@@ -45,7 +47,7 @@ export default function PriceFilter() {
             }}
             onMouseUp={handleSetMaxPrice}
             min={0}
-            max={1000}
+            max={Math.max(...products.map((product) => product.price))}
             className="w-full focus-visible:ring rounded-md p-1 focus-visible:ring-blue-400 "
           />
         </div>

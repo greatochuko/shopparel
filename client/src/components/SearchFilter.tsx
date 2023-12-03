@@ -4,6 +4,7 @@ import PriceFilter from "../components/PriceFilter";
 import { useSearchParams } from "react-router-dom";
 import ColorFilter from "../components/ColorFilter";
 import SizeFilter from "../components/SizeFilter";
+import { ProductType } from "./Product";
 
 const filterCategories = [
   {
@@ -60,7 +61,11 @@ const filterCategories = [
   },
 ];
 
-export default function SearchFilter() {
+export default function SearchFilter({
+  products,
+}: {
+  products: ProductType[];
+}) {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query") || "";
 
@@ -109,7 +114,7 @@ export default function SearchFilter() {
           <CategoryFilter key={category.title} category={category} />
         ))}
       </div>
-      <PriceFilter />
+      <PriceFilter products={products} />
       <ColorFilter />
       <SizeFilter />
       <div className="gap-2 p-3 mt-auto flex-center">
