@@ -37,6 +37,8 @@ export default function SearchFilter() {
     searchParams.get("sizes")?.split("-") || []
   );
 
+  const [isOpen, setIsOpen] = useState(false);
+
   function applyFilters() {
     if (filterCategoryList.length)
       searchParams.set("filterCategories", filterCategoryList.join("-"));
@@ -45,6 +47,7 @@ export default function SearchFilter() {
     if (colorList.length) searchParams.set("colors", colorList.join("-"));
     if (sizeList.length) searchParams.set("sizes", sizeList.join("-"));
     setSearchParams(searchParams);
+    toggleOpenFilter();
   }
 
   function clearFilters() {
@@ -54,11 +57,24 @@ export default function SearchFilter() {
     setColorList([]);
     setSizeList([]);
     setSearchParams({ query });
+    toggleOpenFilter();
+  }
+
+  function toggleOpenFilter() {
+    if (window.innerWidth > 768) return;
+    setIsOpen((curr) => !curr);
   }
 
   return (
-    <div className="flex flex-col w-64 border h-fit">
-      <h2 className="flex items-center justify-between p-2 text-base font-semibold border-b">
+    <div
+      className={`flex flex-col w-full md:w-64 border ${
+        isOpen ? "h-fit" : "h-[41px] overflow-hidden md:h-fit md:overflow-auto"
+      }`}
+    >
+      <h2
+        onClick={toggleOpenFilter}
+        className="cursor-pointer md:cursor-auto flex items-center justify-between p-2 text-base font-semibold border-b"
+      >
         Filter
         <span>
           <svg
@@ -98,13 +114,13 @@ export default function SearchFilter() {
       <div className="gap-2 p-3 mt-auto flex-center">
         <button
           onClick={clearFilters}
-          className="flex-1 p-2 text-sm text-white duration-300 bg-red-500 rounded-md whitespace-nowrap focus:ring focus:ring-red-300 hover:bg-red-600 active:bg-red-700"
+          className="flex-1 font-semibold p-2 text-sm text-white duration-300 bg-red-500 rounded-md whitespace-nowrap focus:ring focus:ring-red-300 hover:bg-red-600 active:bg-red-700"
         >
           Clear All Filters
         </button>
         <button
           onClick={applyFilters}
-          className="flex-1 p-2 text-sm text-white duration-300 rounded-md whitespace-nowrap bg-accent-blue-100 focus:ring hover:bg-accent-blue-200 active:bg-blue-800"
+          className="flex-1 p-2 font-semibold text-sm text-white duration-300 rounded-md whitespace-nowrap bg-accent-blue-100 focus:ring hover:bg-accent-blue-200 active:bg-blue-800"
         >
           Apply Filters
         </button>

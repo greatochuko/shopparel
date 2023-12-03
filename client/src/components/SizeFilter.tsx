@@ -22,8 +22,9 @@ export default function SizeFilter({
       <ul className="grid grid-cols-3 px-3 py-6 gap-y-4 justify-evenly">
         {sizes.map((size) => (
           <li
+            key={size}
             onClick={() => toggleAddSize(size)}
-            className={`flex-center cursor-pointer border-zinc-300 active:scale-90 hover:bg-zinc-100 uppercase duration-300 text-sm border max-w-[60px] rounded-md p-1.5 ${
+            className={`flex-center mx-auto cursor-pointer border-zinc-300 active:scale-90 hover:bg-zinc-100 uppercase duration-300 text-sm border w-[60px] rounded-md p-1.5 ${
               sizeList.includes(size) ? "bg-zinc-200" : ""
             }`}
           >

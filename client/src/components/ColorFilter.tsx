@@ -35,6 +35,7 @@ export default function ColorFilter({
       <ul className="grid grid-cols-4 px-3 py-6 gap-y-4 justify-evenly">
         {colors.map((color) => (
           <li
+            key={color}
             onClick={() => toggleAddColor(color)}
             className="flex flex-col gap-2 items-center"
           >
