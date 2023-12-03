@@ -1,28 +1,37 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 type CategoryFilterProps = {
   category: { title: string; subCategories: string[] };
-  filterCategories: string[];
-  setFilterCategories: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-export default function CategoryFilter({
-  category,
-  filterCategories,
-  setFilterCategories,
-}: CategoryFilterProps) {
+export default function CategoryFilter({ category }: CategoryFilterProps) {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
+
+  const categories = searchParams.get("categories")?.toLowerCase().split(",");
 
   function toggleOpen() {
     setIsOpen((curr) => !curr);
   }
 
   function togglefilterCategory(category: string) {
-    if (filterCategories.includes(category))
-      return setFilterCategories((curr) =>
-        curr.filter((item) => item !== category)
+    if (categories?.includes(category.toLowerCase())) {
+      searchParams.set(
+        "categories",
+        categories.filter((cat) => cat !== category).join(",")
       );
-    setFilterCategories((curr) => [...curr, category]);
+      setSearchParams(searchParams);
+      return;
+    }
+    searchParams.set(
+      "categories",
+      categories
+        ? [...categories, category.toLowerCase()].join(",")
+        : [category.toLowerCase()].join(",")
+    );
+
+    setSearchParams(searchParams);
   }
 
   return (
@@ -76,7 +85,7 @@ export default function CategoryFilter({
             }}
             key={subCategory}
             className={`p-1 cursor-pointer hover:text-zinc-800 w-fit rounded-md duration-200 focus-visible:ring ${
-              filterCategories?.includes(subCategory.toLowerCase())
+              categories?.includes(subCategory.toLowerCase())
                 ? "bg-accent-blue-100/10 text-zinc-700 font-semibold"
                 : ""
             }`}

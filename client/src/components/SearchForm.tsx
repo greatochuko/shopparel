@@ -52,6 +52,7 @@ export default function SearchForm() {
         </svg>
       </span>
       <input
+        name="search-query"
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}

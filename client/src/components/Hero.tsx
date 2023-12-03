@@ -109,7 +109,7 @@ export default function Hero() {
               <Link
                 to={`/product/${product.name
                   .split(" ")
-                  .join("-")
+                  .join(",")
                   .toLowerCase()}`}
                 className="px-4 py-2 text-base font-semibold duration-200 bg-white rounded-md sm:px-6 sm:py-3 sm:text-lg lg:text-xl whitespace-nowrap hover:shadow-md text-zinc-600 hover:text-zinc-800 w-fit"
               >

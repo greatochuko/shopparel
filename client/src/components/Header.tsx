@@ -27,10 +27,10 @@ export default function Header() {
                   to={`/categories/${navLink
                     .toLowerCase()
                     .split(" ")
-                    .join("-")}`}
+                    .join(",")}`}
                   className={`${
                     pathname ===
-                    `/categories/${navLink.toLowerCase().split(" ").join("-")}`
+                    `/categories/${navLink.toLowerCase().split(" ").join(",")}`
                       ? "font-bold "
                       : " "
                   } text-zinc-700 text-sm whitespace-nowrap duration-300   hover:text-accent-blue-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 p-2 rounded-md`}
@@ -184,10 +184,10 @@ export default function Header() {
         {navLinks.map((navLink) => (
           <li key={navLink}>
             <Link
-              to={`/categories/${navLink.toLowerCase().split(" ").join("-")}`}
+              to={`/categories/${navLink.toLowerCase().split(" ").join(",")}`}
               className={`${
                 pathname ===
-                `/categories/${navLink.toLowerCase().split(" ").join("-")}`
+                `/categories/${navLink.toLowerCase().split(" ").join(",")}`
                   ? "font-bold "
                   : " "
               } text-zinc-700 block text-lg whitespace-nowrap duration-300 hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 p-2 px-4 rounded-md`}

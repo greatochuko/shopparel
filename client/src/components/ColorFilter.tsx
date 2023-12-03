@@ -1,9 +1,6 @@
-type PriceFilterProps = {
-  colorList: string[];
-  setColorList: React.Dispatch<React.SetStateAction<string[]>>;
-};
+import { useSearchParams } from "react-router-dom";
 
-const colors = [
+const colorList = [
   "purple",
   "black",
   "red",
@@ -18,22 +15,27 @@ const colors = [
   "blue",
 ];
 
-export default function ColorFilter({
-  colorList,
-  setColorList,
-}: PriceFilterProps) {
+export default function ColorFilter() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const colors = searchParams.get("colors")?.split(",") || [];
   function toggleAddColor(color: string) {
-    setColorList((curr) => {
-      if (curr.includes(color)) return curr.filter((c) => c !== color);
-      return [...curr, color];
-    });
+    if (colors?.includes(color)) {
+      searchParams.set("colors", colors.filter((c) => c !== color).join(","));
+      if (searchParams.get("colors")?.split(",")[0] === "") {
+        searchParams.delete("colors");
+      }
+    } else {
+      searchParams.set("colors", [...colors, color].join(","));
+    }
+
+    setSearchParams(searchParams);
   }
 
   return (
     <div className="border-b">
       <div className="p-2 text-base font-semibold border-b">Color</div>
       <ul className="grid grid-cols-4 px-3 py-6 gap-y-4 justify-evenly">
-        {colors.map((color) => (
+        {colorList.map((color) => (
           <li
             tabIndex={0}
             key={color}
@@ -46,7 +48,7 @@ export default function ColorFilter({
             <div
               style={{ backgroundColor: color }}
               className={`w-8 rounded-md aspect-square border hover:scale-105 duration-300 group-focus-visible:ring group-focus-visible:ring-zinc-400 active:scale-90${
-                colorList.includes(color)
+                colors.includes(color)
                   ? " ring group-focus-visible:ring-blue-500"
                   : ""
               }`}

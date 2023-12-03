@@ -1,35 +1,22 @@
-type PriceFilterProps = {
-  minPrice: number;
-  setMinPrice: React.Dispatch<React.SetStateAction<number>>;
-  maxPrice: number;
-  setMaxPrice: React.Dispatch<React.SetStateAction<number>>;
-};
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
-export default function PriceFilter({
-  minPrice,
-  setMinPrice,
-  maxPrice,
-  setMaxPrice,
-}: PriceFilterProps) {
-  function handleChangeMinPrice(e: React.ChangeEvent) {
-    const value = (e.target as HTMLInputElement).value;
-    if (isNaN(Number(value)) || Number(value) > maxPrice) return;
-    setMinPrice(Number(value));
+export default function PriceFilter() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const [minPrice, setMinPrice] = useState(searchParams.get("minPrice") || "0");
+  const [maxPrice, setMaxPrice] = useState(
+    searchParams.get("maxPrice") || "1000"
+  );
+
+  function handleSetMinPrice() {
+    searchParams.set("minPrice", minPrice);
+    setSearchParams(searchParams);
   }
 
-  function handleChangeMaxPrice(e: React.ChangeEvent) {
-    const value = (e.target as HTMLInputElement).value;
-    if (value === "") {
-      setMaxPrice(0);
-      return;
-    }
-    if (
-      isNaN(Number(value)) ||
-      Number(value) < minPrice ||
-      Number(value) > 1000
-    )
-      return;
-    setMaxPrice(Number(value));
+  function handleSetMaxPrice() {
+    searchParams.set("maxPrice", maxPrice);
+    setSearchParams(searchParams);
   }
 
   return (
@@ -40,7 +27,11 @@ export default function PriceFilter({
           <input
             type="range"
             value={minPrice}
-            onChange={handleChangeMinPrice}
+            onChange={(e) => {
+              if (Number(e.target.value) > Number(maxPrice)) return;
+              setMinPrice(e.target.value);
+            }}
+            onMouseUp={handleSetMinPrice}
             min={0}
             max={1000}
             className="w-full focus-visible:ring rounded-md p-1 focus-visible:ring-blue-400"
@@ -48,39 +39,25 @@ export default function PriceFilter({
           <input
             type="range"
             value={maxPrice}
-            onChange={handleChangeMaxPrice}
+            onChange={(e) => {
+              if (Number(e.target.value) < Number(minPrice)) return;
+              setMaxPrice(e.target.value);
+            }}
+            onMouseUp={handleSetMaxPrice}
             min={0}
             max={1000}
             className="w-full focus-visible:ring rounded-md p-1 focus-visible:ring-blue-400 "
           />
         </div>
         <div className="flex items-center w-full gap-4 p-2 overflow-hidden justify-evenly">
-          <label
-            htmlFor="min-price"
-            className="flex max-w-[40%] items-center gap-1 "
-          >
-            $
-            <input
-              id="min-price"
-              type="text"
-              className="w-full p-1 px-2 focus-visible:ring-blue-500 focus-visible:ring duration-300 text-center border-2 rounded-md border-zinc-300 text-zinc-700"
-              value={minPrice}
-              onChange={handleChangeMinPrice}
-            />
-          </label>
-          <label
-            htmlFor="min-price"
-            className="max-w-[40%] items-center gap-1 flex "
-          >
-            $
-            <input
-              id="min-price"
-              type="text"
-              className="w-full focus-visible:ring-blue-500 focus-visible:ring duration-300 p-1 px-2 text-center border-2 rounded-md border-zinc-300 text-zinc-700"
-              value={maxPrice}
-              onChange={handleChangeMaxPrice}
-            />
-          </label>
+          <p className="p-2 flex gap-1 items-center justify-center rounded-md border-2 w-20">
+            <span>$</span>
+            {minPrice}
+          </p>
+          <p className="p-2 flex gap-1 items-center justify-center rounded-md border-2 w-20">
+            <span>$</span>
+            {maxPrice}
+          </p>
         </div>
       </div>
     </div>

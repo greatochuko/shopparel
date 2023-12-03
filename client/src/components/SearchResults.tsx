@@ -7,6 +7,7 @@ const products = [
     imgUrl: "/women-product-1.png",
     brand: "Helen",
     price: 299,
+    categories: ["V-Neck T-Shirts"],
     colors: ["black"],
   },
   {
@@ -14,6 +15,7 @@ const products = [
     imgUrl: "/women-product-2.png",
     brand: "Helen",
     price: 299,
+    categories: ["sweater"],
     colors: ["yellow", "orange"],
   },
   {
@@ -21,6 +23,7 @@ const products = [
     imgUrl: "/men-product-1.png",
     brand: "Helen",
     price: 299,
+    categories: ["jeans", "trousers"],
     colors: ["navy", "black", "blue"],
   },
   {
@@ -28,6 +31,7 @@ const products = [
     imgUrl: "/men-product-2.png",
     brand: "Helen",
     price: 299,
+    categories: ["coats", "jackets", "sweater"],
     colors: ["black"],
   },
   {
@@ -35,6 +39,7 @@ const products = [
     imgUrl: "/women-product-3.png",
     brand: "Helen",
     price: 299,
+    categories: ["Casual Dresses", "Formal Dresses"],
     colors: ["red", "orange"],
   },
   {
@@ -42,6 +47,7 @@ const products = [
     imgUrl: "/women-product-4.png",
     brand: "Helen",
     price: 299,
+    categories: ["Casual Dresses", "Summer Dresses", "Party Dresses"],
     colors: ["yellow", "blue"],
   },
   {
@@ -49,6 +55,7 @@ const products = [
     imgUrl: "/men-product-3.png",
     brand: "Helen",
     price: 299,
+    categories: ["Polo Shirts", "Crewneck T-Shirts"],
     colors: ["black", "navy"],
   },
   {
@@ -56,6 +63,11 @@ const products = [
     imgUrl: "/men-product-4.png",
     brand: "Helen",
     price: 299,
+    categories: [
+      "Flannel Shirts",
+      "Long-Sleeve T-Shirts",
+      "Button-Down Shirts",
+    ],
     colors: ["red", "black", "blue"],
   },
 ];
@@ -64,7 +76,8 @@ export default function SearchResults() {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortBy = searchParams.get("sortBy");
   const query = searchParams.get("query") || "";
-  const colors = searchParams.get("colors")?.split("-");
+  const colors = searchParams.get("colors")?.split(",");
+  const categories = searchParams.get("categories")?.toLowerCase().split(",");
 
   let filteredProducts = [...products];
 
@@ -72,6 +85,12 @@ export default function SearchResults() {
   if (colors)
     filteredProducts = filteredProducts.filter((product) =>
       product.colors.some((c) => colors?.includes(c))
+    );
+
+  // Filter products by category
+  if (categories)
+    filteredProducts = filteredProducts.filter((product) =>
+      product.categories.some((c) => categories?.includes(c.toLowerCase()))
     );
 
   function setSortBy(sortBy: string) {

@@ -6,7 +6,23 @@ import ColorFilter from "../components/ColorFilter";
 import SizeFilter from "../components/SizeFilter";
 
 const filterCategories = [
-  { title: "Outwear", subCategories: ["Coats", "Jackets", "Blazers", "Vests"] },
+  {
+    title: "Outwear",
+    subCategories: ["Coats", "Jackets", "Blazers", "Vests", "Sweater"],
+  },
+  {
+    title: "Shirts",
+    subCategories: [
+      "Button-Down Shirts",
+      "Short-Sleeve Shirts",
+      "Printed or Patterned Shirts",
+      "Crewneck T-Shirts",
+      "V-Neck T-Shirts",
+      "Long-Sleeve T-Shirts",
+      "Polo Shirts",
+      "Flannel Shirts",
+    ],
+  },
   {
     title: "Dresses",
     subCategories: [
@@ -16,65 +32,41 @@ const filterCategories = [
       "Summer Dresses",
     ],
   },
+  {
+    title: "Bottoms",
+    subCategories: ["Jeans", "Trousers", "Shorts", "Skirts"],
+  },
+  {
+    title: "Active Wear",
+    subCategories: [
+      "Sports Bras",
+      "Athletic Shorts",
+      "Performance Leggings",
+      "Training Hoodies",
+    ],
+  },
+  {
+    title: "Hats",
+    subCategories: ["Baseball Caps", "Beanies", "Fedora Hats", "Bucket Hats"],
+  },
+  {
+    title: "Watches",
+    subCategories: [
+      "Analog Watches",
+      "Digital Watches",
+      "Smartwatches",
+      "Fashion Bracelet Watches",
+    ],
+  },
 ];
 
 export default function SearchFilter() {
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get("query") || "";
-  const [minPrice, setMinPrice] = useState(
-    Number(searchParams.get("minPrice")) || 0
-  );
-  const [maxPrice, setMaxPrice] = useState(
-    Number(searchParams.get("maxPrice")) || 1000
-  );
-  const [filterCategoryList, setFilterCategoryList] = useState<string[]>(
-    searchParams.get("filterCategories")?.split("-") || []
-  );
-  const [colorList, setColorList] = useState<string[]>(
-    searchParams.get("colors")?.split("-") || []
-  );
-  const [sizeList, setSizeList] = useState<string[]>(
-    searchParams.get("sizes")?.split("-") || []
-  );
 
   const [isOpen, setIsOpen] = useState(false);
 
-  function applyFilters() {
-    if (filterCategoryList.length) {
-      searchParams.set("filterCategories", filterCategoryList.join("-"));
-    } else {
-      searchParams.delete("filterCategories");
-    }
-    if (minPrice !== 0) {
-      searchParams.set("minPrice", minPrice.toString());
-    } else {
-      searchParams.delete("minPrice");
-    }
-    if (maxPrice !== 1000) {
-      searchParams.set("maxPrice", maxPrice.toString());
-    } else {
-      searchParams.delete("maxPrice");
-    }
-    if (colorList.length) {
-      searchParams.set("colors", colorList.join("-"));
-    } else {
-      searchParams.delete("colors");
-    }
-    if (sizeList.length) {
-      searchParams.set("sizes", sizeList.join("-"));
-    } else {
-      searchParams.delete("sizes");
-    }
-    setSearchParams(searchParams);
-    toggleOpenFilter();
-  }
-
   function clearFilters() {
-    setMinPrice(0);
-    setMaxPrice(1000);
-    setFilterCategoryList([]);
-    setColorList([]);
-    setSizeList([]);
     setSearchParams({ query });
     toggleOpenFilter();
   }
@@ -114,34 +106,18 @@ export default function SearchFilter() {
       </h2>
       <div className="flex flex-col py-2 border-b ">
         {filterCategories.map((category) => (
-          <CategoryFilter
-            key={category.title}
-            category={category}
-            filterCategories={filterCategoryList}
-            setFilterCategories={setFilterCategoryList}
-          />
+          <CategoryFilter key={category.title} category={category} />
         ))}
       </div>
-      <PriceFilter
-        minPrice={minPrice}
-        setMinPrice={setMinPrice}
-        maxPrice={maxPrice}
-        setMaxPrice={setMaxPrice}
-      />
-      <ColorFilter colorList={colorList} setColorList={setColorList} />
-      <SizeFilter sizeList={sizeList} setSizeList={setSizeList} />
+      <PriceFilter />
+      <ColorFilter />
+      <SizeFilter />
       <div className="gap-2 p-3 mt-auto flex-center">
         <button
           onClick={clearFilters}
           className="flex-1 font-semibold p-2 text-sm text-white duration-300 bg-red-500 rounded-md whitespace-nowrap focus-visible:ring focus-visible:ring-red-300 hover:bg-red-600 active:bg-red-700"
         >
           Clear All Filters
-        </button>
-        <button
-          onClick={applyFilters}
-          className="flex-1 p-2 font-semibold text-sm text-white duration-300 rounded-md whitespace-nowrap bg-accent-blue-100 focus-visible:ring hover:bg-accent-blue-200 active:bg-blue-800"
-        >
-          Apply Filters
         </button>
       </div>
     </div>
