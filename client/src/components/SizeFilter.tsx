@@ -23,8 +23,12 @@ export default function SizeFilter({
         {sizes.map((size) => (
           <li
             key={size}
+            tabIndex={0}
             onClick={() => toggleAddSize(size)}
-            className={`flex-center mx-auto cursor-pointer border-zinc-300 active:scale-90 hover:bg-zinc-100 uppercase duration-300 text-sm border w-[60px] rounded-md p-1.5 ${
+            onKeyDown={(e) => {
+              if (e.code === "Enter") toggleAddSize(size);
+            }}
+            className={`flex-center mx-auto cursor-pointer focus-visible:ring focus-visible:ring-blue-500 border-zinc-300 active:scale-90 hover:bg-zinc-100 uppercase duration-300 text-sm border w-[60px] rounded-md p-1.5 ${
               sizeList.includes(size) ? "bg-zinc-200" : ""
             }`}
           >
