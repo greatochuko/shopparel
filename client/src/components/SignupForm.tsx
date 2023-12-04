@@ -32,10 +32,6 @@ export default function SignupForm() {
     setUser(data);
   }
 
-  function handleGoogleError() {
-    console.log("Login Failed");
-  }
-
   function handleConfirmPassword(e: React.ChangeEvent<HTMLInputElement>) {
     setError("");
     setConfirmPassword(e.target.value);
@@ -68,13 +64,13 @@ export default function SignupForm() {
           Already have an account?
           <Link
             to={"/login"}
-            className="text-accent-blue-100 hover:underline focus:underline"
+            className="text-accent-blue-100 hover:underline focus-visible:underline"
           >
             Login
           </Link>
         </p>
       </div>
-      <GoogleLogin onSuccess={handleGoogleLogin} onError={handleGoogleError} />
+      <GoogleLogin onSuccess={handleGoogleLogin} />
 
       <div className="">
         <hr className="mt-4" />
@@ -88,7 +84,7 @@ export default function SignupForm() {
           id="fullName"
           type="text"
           placeholder="John Doe"
-          className="p-3 border rounded-md focus:ring-accent-blue-100 focus:ring-2 border-zinc-300"
+          className="p-3 border rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 border-zinc-300"
         />
       </div>
 
@@ -100,7 +96,7 @@ export default function SignupForm() {
           type="email"
           id="email"
           placeholder="youremail@example.com"
-          className="p-3 border rounded-md focus:ring-accent-blue-100 focus:ring-2 border-zinc-300"
+          className="p-3 border rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 border-zinc-300"
         />
       </div>
 
@@ -114,11 +110,11 @@ export default function SignupForm() {
             onChange={(e) => setPassword(e.target.value)}
             id="password"
             type={showPassword ? "text" : "password"}
-            className="w-full p-3 pr-12 border rounded-md focus:ring-accent-blue-100 focus:ring-2 border-zinc-300"
+            className="w-full p-3 pr-12 border rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 border-zinc-300"
           />
           <button
             onClick={() => setShowPassword((curr) => !curr)}
-            className="hover:bg-zinc-200 focus:ring-accent-blue-100 focus:ring-2 bg-zinc-100 active:scale-90 absolute right-2 duration-300 top-[50%] -translate-y-[50%] rounded-full flex items-center gap-1 px-2 py-1 text-sm text-[#555] hover:text-[#333]"
+            className="hover:bg-zinc-200 focus-visible:ring-accent-blue-100 focus-visible:ring-2 bg-zinc-100 active:scale-90 absolute right-2 duration-300 top-[50%] -translate-y-[50%] rounded-full flex items-center gap-1 px-2 py-1 text-sm text-[#555] hover:text-[#333]"
           >
             {showPassword ? (
               <svg
@@ -192,11 +188,11 @@ export default function SignupForm() {
             onChange={handleConfirmPassword}
             id="confirmPassword"
             type={showConfirmPassword ? "text" : "password"}
-            className="w-full p-3 pr-12 border rounded-md focus:ring-accent-blue-100 focus:ring-2 border-zinc-300"
+            className="w-full p-3 pr-12 border rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 border-zinc-300"
           />
           <button
             onClick={() => setShowConfirmPassword((curr) => !curr)}
-            className="hover:bg-zinc-200 focus:ring-accent-blue-100 focus:ring-2 bg-zinc-100 active:scale-90 absolute right-2 duration-300 top-[50%] -translate-y-[50%] rounded-full flex items-center gap-1 px-2 py-1 text-sm text-[#555] hover:text-[#333]"
+            className="hover:bg-zinc-200 focus-visible:ring-accent-blue-100 focus-visible:ring-2 bg-zinc-100 active:scale-90 absolute right-2 duration-300 top-[50%] -translate-y-[50%] rounded-full flex items-center gap-1 px-2 py-1 text-sm text-[#555] hover:text-[#333]"
           >
             {showConfirmPassword ? (
               <svg
@@ -262,7 +258,7 @@ export default function SignupForm() {
       <button
         type="submit"
         disabled={!canSubmit}
-        className="px-6 py-3 font-semibold text-white duration-300 rounded-md disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus:bg-accent-blue-200"
+        className="px-6 py-3 font-semibold text-white duration-300 rounded-md disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:bg-accent-blue-200"
       >
         {loading ? "Loading..." : "Sign Up"}
       </button>

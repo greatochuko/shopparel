@@ -5,6 +5,9 @@ export type ProductType = {
   imgUrl: string;
   brand: string;
   price: number;
+  colors: string[];
+  categories: string[];
+  sizes: string[];
 };
 
 export default function Product({ product }: { product: ProductType }) {
@@ -15,8 +18,18 @@ export default function Product({ product }: { product: ProductType }) {
 
   return (
     <div className="relative flex flex-col gap-4">
+      <Link
+        to={`/product/${product.name}`}
+        className="hover:shadow-md duration-300 bg-zinc-300 group rounded-md overflow-hidden aspect-[0.8] focus-visible:ring focus-visible:ring-blue-400"
+      >
+        <img
+          src={product.imgUrl}
+          alt=""
+          className="object-contain w-full h-full duration-300 hover:scale-110 group-focus-visible:scale-110"
+        />
+      </Link>
       <button
-        className="p-1.5 rounded-full z-[5] bg-white active:scale-90 duration-200 hover:shadow-lg absolute right-2 top-2"
+        className="p-1.5 rounded-full z-[5] bg-white focus-visible:ring focus-visible:ring-blue-400 active:scale-90 duration-200 hover:shadow-lg absolute right-2 top-2"
         onClick={handleToggleLike}
       >
         <svg
@@ -45,28 +58,18 @@ export default function Product({ product }: { product: ProductType }) {
           </g>
         </svg>
       </button>
-      <Link
-        to={`/product/${product.name}`}
-        className="hover:shadow-md duration-300 bg-zinc-300 rounded-md overflow-hidden aspect-[0.8]"
-      >
-        <img
-          src={product.imgUrl}
-          alt=""
-          className="object-contain w-full h-full duration-300 hover:scale-110"
-        />
-      </Link>
 
       <div className="flex flex-col items-start justify-between gap-1 sm:flex-row text-zinc-700">
         <div className="flex flex-col flex-1 gap-1 max-w-[60%] ">
           <Link
             to={`/product/${product.name}`}
-            className="overflow-hidden text-sm font-semibold duration-300 overflow-ellipsis whitespace-nowrap hover:text-accent-blue-100"
+            className="overflow-hidden text-sm font-semibold duration-300 overflow-ellipsis whitespace-nowrap hover:text-accent-blue-100 focus-visible:text-accent-blue-100"
           >
             {product.name}
           </Link>
           <Link
             to={`/brands/${product.brand}`}
-            className="text-sm hover:underline"
+            className="text-sm hover:underline focus-visible:underline"
           >
             {product.brand}
           </Link>

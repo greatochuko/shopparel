@@ -27,13 +27,13 @@ export default function Header() {
                   to={`/categories/${navLink
                     .toLowerCase()
                     .split(" ")
-                    .join("-")}`}
+                    .join(",")}`}
                   className={`${
                     pathname ===
-                    `/categories/${navLink.toLowerCase().split(" ").join("-")}`
+                    `/categories/${navLink.toLowerCase().split(" ").join(",")}`
                       ? "font-bold "
                       : " "
-                  } text-zinc-700 text-sm whitespace-nowrap duration-300   hover:text-accent-blue-100 focus:ring-accent-blue-100 focus:ring-2 p-2 rounded-md`}
+                  } text-zinc-700 text-sm whitespace-nowrap duration-300   hover:text-accent-blue-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 p-2 rounded-md`}
                 >
                   {navLink}
                 </Link>
@@ -44,7 +44,7 @@ export default function Header() {
                 to={"/categories"}
                 className={`${
                   pathname === "/categories" ? "font-bold " : " "
-                } text-zinc-700 text-sm whitespace-nowrap duration-300   hover:text-accent-blue-100 focus:ring-accent-blue-100 focus:ring-2 p-2 rounded-md`}
+                } text-zinc-700 text-sm whitespace-nowrap duration-300   hover:text-accent-blue-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 p-2 rounded-md`}
               >
                 All Categories
               </Link>
@@ -59,7 +59,7 @@ export default function Header() {
                 <Link
                   title="My account"
                   to={"/account"}
-                  className="grid p-1 px-1.5 group duration-200 rounded-md hover:bg-accent-blue-100 border border-zinc-100 focus:ring-accent-blue-100 focus:ring-2  bg-zinc-100 place-content-center"
+                  className="grid p-1 px-1.5 group duration-200 rounded-md hover:bg-accent-blue-100 border border-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2  bg-zinc-100 place-content-center"
                 >
                   <svg
                     height={20}
@@ -89,7 +89,7 @@ export default function Header() {
                 <Link
                   title="wishlist"
                   to={"/wishlist"}
-                  className="border border-zinc-100 focus:ring-accent-blue-100 focus:ring-2 grid p-1 px-1.5 group duration-200 rounded-md hover:bg-accent-blue-100 bg-zinc-100 place-content-center"
+                  className="border border-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 grid p-1 px-1.5 group duration-200 rounded-md hover:bg-accent-blue-100 bg-zinc-100 place-content-center"
                 >
                   <svg
                     viewBox="0 0 24 24"
@@ -125,7 +125,7 @@ export default function Header() {
             <Link
               title="cart"
               to={"/cart"}
-              className="border ml-2 border-zinc-100 focus:ring-accent-blue-100 focus:ring-2 grid p-1 px-1.5 group duration-200 rounded-md hover:bg-accent-blue-100 bg-zinc-100 place-content-center"
+              className="border ml-2 border-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 grid p-1 px-1.5 group duration-200 rounded-md hover:bg-accent-blue-100 bg-zinc-100 place-content-center"
             >
               <svg
                 width={20}
@@ -184,13 +184,13 @@ export default function Header() {
         {navLinks.map((navLink) => (
           <li key={navLink}>
             <Link
-              to={`/categories/${navLink.toLowerCase().split(" ").join("-")}`}
+              to={`/categories/${navLink.toLowerCase().split(" ").join(",")}`}
               className={`${
                 pathname ===
-                `/categories/${navLink.toLowerCase().split(" ").join("-")}`
+                `/categories/${navLink.toLowerCase().split(" ").join(",")}`
                   ? "font-bold "
                   : " "
-              } text-zinc-700 block text-lg whitespace-nowrap duration-300 hover:text-accent-blue-100 hover:bg-zinc-100 focus:ring-accent-blue-100 focus:ring-2 p-2 px-4 rounded-md`}
+              } text-zinc-700 block text-lg whitespace-nowrap duration-300 hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 p-2 px-4 rounded-md`}
             >
               {navLink}
             </Link>
@@ -201,7 +201,7 @@ export default function Header() {
             to={"/categories"}
             className={`${
               pathname === "/categories" ? "font-bold " : " "
-            } text-zinc-700 block text-lg whitespace-nowrap duration-300 hover:text-accent-blue-100 hover:bg-zinc-100 focus:ring-accent-blue-100 focus:ring-2 p-2 px-4 rounded-md`}
+            } text-zinc-700 block text-lg whitespace-nowrap duration-300 hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 p-2 px-4 rounded-md`}
           >
             All Categories
           </Link>
@@ -212,7 +212,7 @@ export default function Header() {
             <li className="sm:hidden">
               <Link
                 to={"/account"}
-                className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus:ring-accent-blue-100 focus:ring-2"
+                className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
               >
                 <svg
                   height={20}
@@ -244,7 +244,7 @@ export default function Header() {
             <li className="sm:hidden">
               <Link
                 to={"/wishlist"}
-                className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus:ring-accent-blue-100 focus:ring-2"
+                className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
               >
                 <svg
                   viewBox="0 0 24 24"
@@ -281,7 +281,7 @@ export default function Header() {
             <li className="md:hidden">
               <Link
                 to={"/login"}
-                className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus:ring-accent-blue-100 focus:ring-2"
+                className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
               >
                 Login
               </Link>
@@ -289,7 +289,7 @@ export default function Header() {
             <li className="md:hidden">
               <Link
                 to={"/signup"}
-                className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus:ring-accent-blue-100 focus:ring-2"
+                className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
               >
                 Signup
               </Link>

@@ -1,10 +1,15 @@
 import { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function SearchForm() {
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchParams] = useSearchParams();
+  const query = searchParams.get("query");
+  const [searchQuery, setSearchQuery] = useState(query || "");
+  const navigate = useNavigate();
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
+    navigate(`/search?query=${searchQuery}`);
   }
 
   return (
@@ -47,10 +52,11 @@ export default function SearchForm() {
         </svg>
       </span>
       <input
+        name="search-query"
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="flex-1 w-full py-2 text-sm duration-200 border-2 rounded-md bg-gray-50 focus:border-zinc-300 px-7 text-zinc-700 border-zinc-100"
+        className="flex-1 w-full py-2 text-sm duration-200 border-2 rounded-md bg-gray-50 focus-visible:border-zinc-300 px-7 text-zinc-700 border-zinc-100"
         placeholder="Search"
       />
       <button
@@ -76,7 +82,7 @@ export default function SearchForm() {
               fillRule="evenodd"
               clipRule="evenodd"
               d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM8.96963 8.96965C9.26252 8.67676 9.73739 8.67676 10.0303 8.96965L12 10.9393L13.9696 8.96967C14.2625 8.67678 14.7374 8.67678 15.0303 8.96967C15.3232 9.26256 15.3232 9.73744 15.0303 10.0303L13.0606 12L15.0303 13.9696C15.3232 14.2625 15.3232 14.7374 15.0303 15.0303C14.7374 15.3232 14.2625 15.3232 13.9696 15.0303L12 13.0607L10.0303 15.0303C9.73742 15.3232 9.26254 15.3232 8.96965 15.0303C8.67676 14.7374 8.67676 14.2625 8.96965 13.9697L10.9393 12L8.96963 10.0303C8.67673 9.73742 8.67673 9.26254 8.96963 8.96965Z"
-              className="group-hover:fill-[#E02932] group-focus:fill-[#E02932] fill-[#777] duration-200"
+              className="group-hover:fill-[#E02932] group-focus-visible:fill-[#E02932] fill-[#777] duration-200"
             ></path>
           </g>
         </svg>
