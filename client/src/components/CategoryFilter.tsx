@@ -9,27 +9,25 @@ export default function CategoryFilter({ category }: CategoryFilterProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
 
-  const categories = searchParams.get("categories")?.toLowerCase().split(",");
+  const categories =
+    searchParams.get("categories")?.toLowerCase().split(",") || [];
 
   function toggleOpen() {
     setIsOpen((curr) => !curr);
   }
 
   function togglefilterCategory(category: string) {
-    if (categories?.includes(category.toLowerCase())) {
+    if (categories?.includes(category)) {
       searchParams.set(
         "categories",
-        categories.filter((cat) => cat !== category).join(",")
+        categories.filter((c) => c !== category).join(",")
       );
-      setSearchParams(searchParams);
-      return;
+      if (searchParams.get("categories")?.split(",")[0] === "") {
+        searchParams.delete("categories");
+      }
+    } else {
+      searchParams.set("categories", [...categories, category].join(","));
     }
-    searchParams.set(
-      "categories",
-      categories
-        ? [...categories, category.toLowerCase()].join(",")
-        : [category.toLowerCase()].join(",")
-    );
 
     setSearchParams(searchParams);
   }
