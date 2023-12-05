@@ -1,5 +1,6 @@
 import ProductDetailImages from "../components/ProductDetailImages";
 import ProductConfiguration from "../components/ProductConfiguration";
+import SectionHeader from "../components/SectionHeader";
 
 const product = {
   _id: "123abc",
@@ -22,11 +23,20 @@ const product = {
 
 export default function ProductDetailPage() {
   return (
-    <main className="mt-[70px] w-[90%] max-w-7xl mx-auto mb-4">
-      <div className="flex gap-8">
+    <main className="mt-[70px] w-[90%] max-w-7xl mx-auto mb-4 flex flex-col gap-16">
+      <div className="flex flex-col gap-8 md:flex-row">
         <ProductDetailImages product={product} />
         <ProductConfiguration product={product} />
       </div>
+      <section>
+        <SectionHeader title="Product Description" />
+        <p className="mt-3 text-zinc-700">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto
+          reprehenderit perspiciatis tempore aut quis officiis officia eum. Id
+          debitis iure maiores soluta perspiciatis voluptate, reprehenderit ad
+          accusamus, aliquam accusantium exercitationem.
+        </p>
+      </section>
     </main>
   );
 }
