@@ -2,6 +2,7 @@ import ProductDetailImages from "../components/ProductDetailImages";
 import ProductConfiguration from "../components/ProductConfiguration";
 import SectionHeader from "../components/SectionHeader";
 import Review from "../components/Review";
+import SimilarProducts from "../components/SimilarProducts";
 
 const product = {
   _id: "123abc",
@@ -25,6 +26,7 @@ const product = {
         fullName: "John Doe",
         imgUrl: "/feedback-user-image-1.jpg",
         email: "john@gmail.com",
+        _id: "123abc",
       },
       date: "November 12, 2023",
       rating: 3,
@@ -36,6 +38,7 @@ const product = {
         fullName: "John Doe",
         imgUrl: "/feedback-user-image-2.jpg",
         email: "john@gmail.com",
+        _id: "123abcd",
       },
       date: "November 23, 2023",
       rating: 5,
@@ -47,6 +50,7 @@ const product = {
         fullName: "John Doe",
         imgUrl: "/feedback-user-image-3.jpg",
         email: "john@gmail.com",
+        _id: "123abce",
       },
       date: "August 18, 2023",
       rating: 4,
@@ -72,11 +76,12 @@ export default function ProductDetailPage() {
           accusamus, aliquam accusantium exercitationem.
         </p>
       </section>
+      <SimilarProducts />
       <section className="max-w-3xl">
         <SectionHeader title="User Reviews" />
         <div className="flex flex-col gap-10 mt-4 text-zinc-700">
           {product.reviews.map((review) => (
-            <Review review={review} />
+            <Review key={review.user._id} review={review} />
           ))}
         </div>
       </section>

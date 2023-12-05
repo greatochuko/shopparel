@@ -1,12 +1,28 @@
 import SearchFilter from "../components/SearchFilter";
 import SearchResults from "../components/SearchResults";
 
-const products = [
+export const products = [
   {
     name: "Relaxed Fit V-Neck Tee",
     imgUrl: "/women-product-1.png",
     brand: "Helen",
     price: 299,
+    images: ["a"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
     _id: "123abc",
     sizes: ["l", "m", "xl", "s", "xs"],
     categories: ["V-Neck T-Shirts"],
@@ -17,6 +33,22 @@ const products = [
     imgUrl: "/women-product-2.png",
     brand: "Helen",
     price: 299,
+    images: ["a"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
     _id: "123abc",
     sizes: ["l", "m", "xl", "s", "2xl"],
     categories: ["sweater"],
@@ -27,6 +59,22 @@ const products = [
     imgUrl: "/men-product-1.png",
     brand: "Helen",
     price: 299,
+    images: ["a"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
     _id: "123abc",
     sizes: ["l", "m", "xl", "s"],
     categories: ["jeans", "trousers"],
@@ -37,6 +85,22 @@ const products = [
     imgUrl: "/men-product-2.png",
     brand: "Helen",
     price: 299,
+    images: ["a"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
     _id: "123abc",
     sizes: ["l", "m", "xl", "2xl"],
     categories: ["coats", "jackets", "sweater"],
@@ -47,6 +111,22 @@ const products = [
     imgUrl: "/women-product-3.png",
     brand: "Helen",
     price: 299,
+    images: ["a"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
     _id: "123abc",
     sizes: ["l", "m", "s", "xs"],
     categories: ["Casual Dresses", "Formal Dresses"],
@@ -57,6 +137,22 @@ const products = [
     imgUrl: "/women-product-4.png",
     brand: "Helen",
     price: 299,
+    images: ["a"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
     _id: "123abc",
     sizes: ["l", "xl", "m", "s", "xs", "xxs"],
     categories: ["Casual Dresses", "Summer Dresses", "Party Dresses"],
@@ -67,6 +163,22 @@ const products = [
     imgUrl: "/men-product-3.png",
     brand: "Helen",
     price: 299,
+    images: ["a"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
     _id: "123abc",
     sizes: ["l", "xl", "m", "s", "xs", "xxs", "2xl"],
     categories: ["Polo Shirts", "Crewneck T-Shirts"],
@@ -77,6 +189,22 @@ const products = [
     imgUrl: "/men-product-4.png",
     brand: "Helen",
     price: 299,
+    images: ["a"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
     _id: "123abc",
     sizes: ["3xl", "2xl", "l", "m", "xl", "s", "xs"],
     categories: [
