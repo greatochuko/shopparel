@@ -10,6 +10,8 @@ export type ProductType = {
   categories: string[];
   sizes: string[];
   images: string[];
+  reviews: string[];
+  rating: number;
 };
 
 export default function Product({ product }: { product: ProductType }) {
