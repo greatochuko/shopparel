@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { ReviewType } from "./Review";
 
 export type ProductType = {
+  _id: string;
   name: string;
   imgUrl: string;
   brand: string;
@@ -8,6 +10,9 @@ export type ProductType = {
   colors: string[];
   categories: string[];
   sizes: string[];
+  images: string[];
+  reviews: ReviewType[];
+  rating: number;
 };
 
 export default function Product({ product }: { product: ProductType }) {
@@ -19,7 +24,10 @@ export default function Product({ product }: { product: ProductType }) {
   return (
     <div className="relative flex flex-col gap-4">
       <Link
-        to={`/product/${product.name}`}
+        to={`/product/${(product._id + " " + product.name)
+          .toLowerCase()
+          .split(" ")
+          .join("-")}`}
         className="hover:shadow-md duration-300 bg-zinc-300 group rounded-md overflow-hidden aspect-[0.8] focus-visible:ring focus-visible:ring-blue-400"
       >
         <img
@@ -62,7 +70,10 @@ export default function Product({ product }: { product: ProductType }) {
       <div className="flex flex-col items-start justify-between gap-1 sm:flex-row text-zinc-700">
         <div className="flex flex-col flex-1 gap-1 max-w-[60%] ">
           <Link
-            to={`/product/${product.name}`}
+            to={`/product/${(product._id + " " + product.name)
+              .toLowerCase()
+              .split(" ")
+              .join("-")}`}
             className="overflow-hidden text-sm font-semibold duration-300 overflow-ellipsis whitespace-nowrap hover:text-accent-blue-100 focus-visible:text-accent-blue-100"
           >
             {product.name}

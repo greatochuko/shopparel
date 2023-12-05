@@ -4,6 +4,7 @@ import "./index.css";
 import HomePage from "./pages/HomePage";
 import AppLayout from "./components/AppLayout";
 import SearchPage from "./pages/SearchPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 const router = createBrowserRouter([
   { path: "/signup", element: <AuthPage type="signup" /> },
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <HomePage /> },
       { path: "/search", element: <SearchPage /> },
+      { path: "/product/:productId", element: <ProductDetailPage /> },
     ],
   },
 ]);
