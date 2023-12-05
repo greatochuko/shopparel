@@ -9,6 +9,7 @@ export type ProductType = {
   colors: string[];
   categories: string[];
   sizes: string[];
+  images: string[];
 };
 
 export default function Product({ product }: { product: ProductType }) {
