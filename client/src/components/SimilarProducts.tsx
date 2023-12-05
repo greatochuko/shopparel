@@ -27,9 +27,15 @@ export default function SimilarProducts() {
       <button
         onClick={scrollRight}
         disabled={carouselPos <= 0}
-        className="absolute -left-[25px] top-[50%] -translate-y-[50%] disabled:border-0 z-10 flex-center rounded px-3 py-4 bg-zinc-100 border shadow disabled:shadow-none hover:shadow-zinc-500 duration-300"
+        className="absolute -left-[25px] top-[50%] -translate-y-[50%] disabled:border-0 z-10 flex-center rounded-s-md px-1.5 py-3 bg-zinc-100 border shadow disabled:shadow-none hover:shadow-zinc-500 duration-300"
       >
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          width={30}
+          height={30}
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
           <g
             id="SVGRepo_tracerCarrier"
@@ -48,11 +54,11 @@ export default function SimilarProducts() {
       </button>
       <button
         onClick={scrollLeft}
-        className="absolute -right-[25px] top-[50%] -translate-y-[50%] z-10 flex-center border rounded px-3 py-4 bg-zinc-100 shadow-md hover:shadow-zinc-500 duration-300"
+        className="absolute -right-[25px] top-[50%] -translate-y-[50%] z-10 flex-center border rounded-e-md px-1.5 py-3 bg-zinc-100 shadow-md hover:shadow-zinc-500 duration-300"
       >
         <svg
-          width={20}
-          height={20}
+          width={30}
+          height={30}
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
