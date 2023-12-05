@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { ReviewType } from "./Review";
 
 export type ProductType = {
   _id: string;
@@ -10,7 +11,7 @@ export type ProductType = {
   categories: string[];
   sizes: string[];
   images: string[];
-  reviews: string[];
+  reviews: ReviewType[];
   rating: number;
 };
 

@@ -1,6 +1,7 @@
 import ProductDetailImages from "../components/ProductDetailImages";
 import ProductConfiguration from "../components/ProductConfiguration";
 import SectionHeader from "../components/SectionHeader";
+import Review from "../components/Review";
 
 const product = {
   _id: "123abc",
@@ -18,7 +19,41 @@ const product = {
   categories: ["V-Neck T-Shirts"],
   colors: ["black", "red", "blue", "orange"],
   rating: 4,
-  reviews: ["a", "b", "c"],
+  reviews: [
+    {
+      user: {
+        fullName: "John Doe",
+        imgUrl: "/feedback-user-image-1.jpg",
+        email: "john@gmail.com",
+      },
+      date: "November 12, 2023",
+      rating: 3,
+      review:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+    },
+    {
+      user: {
+        fullName: "John Doe",
+        imgUrl: "/feedback-user-image-2.jpg",
+        email: "john@gmail.com",
+      },
+      date: "November 23, 2023",
+      rating: 5,
+      review:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+    },
+    {
+      user: {
+        fullName: "John Doe",
+        imgUrl: "/feedback-user-image-3.jpg",
+        email: "john@gmail.com",
+      },
+      date: "August 18, 2023",
+      rating: 4,
+      review:
+        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+    },
+  ],
 };
 
 export default function ProductDetailPage() {
@@ -36,6 +71,14 @@ export default function ProductDetailPage() {
           debitis iure maiores soluta perspiciatis voluptate, reprehenderit ad
           accusamus, aliquam accusantium exercitationem.
         </p>
+      </section>
+      <section className="max-w-3xl">
+        <SectionHeader title="User Reviews" />
+        <div className="flex flex-col gap-10 mt-4 text-zinc-700">
+          {product.reviews.map((review) => (
+            <Review review={review} />
+          ))}
+        </div>
       </section>
     </main>
   );

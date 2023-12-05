@@ -4,6 +4,7 @@ import { fetchUser } from "../services/userServices";
 export type UserType = {
   fullName: string;
   email: string;
+  imgUrl: string;
 };
 
 export type UserProviderValue = {
