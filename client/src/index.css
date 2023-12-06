@@ -12,6 +12,10 @@
   color: #009fbb;
 }
 
+:root {
+  scroll-behavior: smooth;
+}
+
 @layer utilities {
   .flex-center {
     display: flex;

@@ -79,7 +79,10 @@ export default function ProductDetailPage() {
       <SimilarProducts />
       <section className="max-w-3xl">
         <SectionHeader title="User Reviews" />
-        <div className="flex flex-col gap-10 mt-4 text-zinc-700">
+        <div
+          id="reviews"
+          className="flex flex-col gap-10 mt-4 text-zinc-700 scroll-mt-36"
+        >
           {product.reviews.map((review) => (
             <Review key={review.user._id} review={review} />
           ))}

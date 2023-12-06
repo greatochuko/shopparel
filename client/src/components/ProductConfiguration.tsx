@@ -44,7 +44,7 @@ export default function ProductConfiguration({
                 ></path>
               </g>
             </svg>
-            {product.reviews.length} Reviews
+            <a href="#reviews">{product.reviews.length} Reviews</a>
           </div>
         </div>
       ) : null}

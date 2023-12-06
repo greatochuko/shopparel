@@ -16,7 +16,7 @@ export default function ProductDetailImages({
         alt={product.name}
         className="flex-1 object-contain bg-zinc-200 aspect-square"
       />
-      <ul className="flex h-16 gap-2">
+      <ul className="grid grid-cols-5 h-16 gap-2">
         {product.images.map((image, i) => (
           <li
             key={image}
