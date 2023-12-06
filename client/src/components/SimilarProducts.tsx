@@ -27,7 +27,7 @@ export default function SimilarProducts() {
       <button
         onClick={scrollRight}
         disabled={carouselPos <= 0}
-        className="absolute -left-[25px] top-[50%] -translate-y-[50%] disabled:border-0 z-10 flex-center rounded-s-md px-1.5 py-3 bg-zinc-100 border shadow disabled:shadow-none hover:shadow-zinc-500 duration-300"
+        className="absolute left-3 top-[50%] -translate-y-[50%] disabled:hidden z-10 flex-center rounded-s-md px-1.5 py-3 bg-zinc-100 border shadow hover:shadow-zinc-500 duration-300"
       >
         <svg
           width={30}
@@ -54,7 +54,7 @@ export default function SimilarProducts() {
       </button>
       <button
         onClick={scrollLeft}
-        className="absolute -right-[25px] top-[50%] -translate-y-[50%] z-10 flex-center border rounded-e-md px-1.5 py-3 bg-zinc-100 shadow-md hover:shadow-zinc-500 duration-300"
+        className="absolute right-3 top-[50%] -translate-y-[50%] z-10 flex-center border rounded-e-md px-1.5 py-3 bg-zinc-100 shadow-md hover:shadow-zinc-500 duration-300"
       >
         <svg
           width={30}

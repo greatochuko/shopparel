@@ -5,16 +5,22 @@ import HomePage from "./pages/HomePage";
 import AppLayout from "./components/AppLayout";
 import SearchPage from "./pages/SearchPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import ScrollToTop from "./components/ScrollToTop";
 
 const router = createBrowserRouter([
-  { path: "/signup", element: <AuthPage type="signup" /> },
-  { path: "/login", element: <AuthPage type="login" /> },
   {
-    element: <AppLayout />,
+    element: <ScrollToTop />,
     children: [
-      { path: "/", element: <HomePage /> },
-      { path: "/search", element: <SearchPage /> },
-      { path: "/product/:productId", element: <ProductDetailPage /> },
+      { path: "/signup", element: <AuthPage type="signup" /> },
+      { path: "/login", element: <AuthPage type="login" /> },
+      {
+        element: <AppLayout />,
+        children: [
+          { path: "/", element: <HomePage /> },
+          { path: "/search", element: <SearchPage /> },
+          { path: "/product/:productId", element: <ProductDetailPage /> },
+        ],
+      },
     ],
   },
 ]);
