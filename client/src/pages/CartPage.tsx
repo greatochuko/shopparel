@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem";
+import { useState } from "react";
 
 const cartItems = [
   {
@@ -35,6 +36,15 @@ const cartItems = [
 ];
 
 export default function CartPage() {
+  const [couponError, setCouponError] = useState("");
+  const [couponCode, setCouponCode] = useState("");
+
+  function handleCoupon(e: React.FormEvent) {
+    setCouponError("");
+    e.preventDefault();
+    setCouponError("Error: the Coupon you entered is no longer valid");
+  }
+
   return (
     <main className="mt-[72px] pt-1 flex flex-col gap-4">
       <h1 className="mt-4 text-zinc-400  mx-auto max-w-7xl w-[90%] font-semibold">
@@ -74,8 +84,41 @@ export default function CartPage() {
           <span className="group-hover:ml-1 duration-300"> &rarr;</span>
         </Link>
       </div>
-      <div className="bg-zinc-200 p-2 flex flex-wrap justify-between">
-        <div className="flex flex-col"></div>
+      <div className="bg-zinc-200 py-10">
+        <div className="mx-auto max-w-7xl w-[90%] flex flex-col md:flex-row flex-wrap justify-between text-zinc-800 gap-10">
+          <div className="flex flex-col gap-2 flex-1">
+            <h3 className="text-xl font-semibold">Coupon Codes</h3>
+            <p className="text-sm">Enter your coupon code if you have one</p>
+            <form className="flex mt-4" onSubmit={handleCoupon}>
+              <input
+                type="text"
+                value={couponCode}
+                onChange={(e) => setCouponCode(e.target.value)}
+                className="text-sm rounded-s-md focus-visible:ring focus-visible:ring-blue-400 px-2"
+              />
+              <button
+                type="submit"
+                className="bg-accent-blue-100 text-white p-2 rounded-e-md text-sm hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400"
+              >
+                Apply Coupon
+              </button>
+            </form>
+            <p className="text-red-600 text-sm">{couponError}</p>
+          </div>
+          <div className="flex flex-col gap-2 flex-1 max-w-[300px]">
+            <div className="grid grid-cols-2 border-b">
+              <p>Sub Total</p>
+              <p>$299.99</p>
+              <p>Shipping</p>
+              <p className="mb-4">$29.99</p>
+              <p className=" font-semibold">Grand Total</p>
+              <p className="mb-4 font-semibold">$299.99</p>
+            </div>
+            <button className="bg-accent-blue-100 p-2 text-white rounded-md font-semibold hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400">
+              Proceed To Checkout
+            </button>
+          </div>
+        </div>
       </div>
     </main>
   );
