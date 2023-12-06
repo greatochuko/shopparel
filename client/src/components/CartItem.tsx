@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 type CartItemProps = {
   cartItem: {
@@ -35,7 +36,13 @@ export default function CartItem({ cartItem }: CartItemProps) {
           className="w-20 object-contain rounded-md bg-zinc-200 aspect-square"
         />
         <div className="flex flex-col gap-1">
-          <h2 className="font-semibold">{cartItem.name}</h2>
+          <Link
+            tabIndex={0}
+            to={`/product/${cartItem._id + cartItem.name.split(" ").join("-")}`}
+            className="font-semibold hover:text-accent-blue-100 focus-visible:ring rounded-md focus-visible:ring-offset-2 focus-visible:ring-blue-400 focus-visible:text-accent-blue-100 duration-200"
+          >
+            {cartItem.name}
+          </Link>
           <p className="text-sm capitalize">Color: {cartItem.color}</p>
           <p className="text-sm">
             Size: <span className="uppercase">{cartItem.size}</span>
@@ -151,7 +158,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
           ${subTotal.toFixed(2)}
         </div>
         <div className="font-bold flex-1 min-w-[100px] flex-center">
-          <button className="group p-3 duration-300 active:scale-90">
+          <button className="group p-2 duration-300 active:scale-90 rounded-md focus-visible:ring focus-visible:ring-red-300">
             <svg
               width={20}
               height={20}
@@ -169,7 +176,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
                 <path
                   d="M10 11V17"
                   stroke="#666"
-                  className="group-hover:stroke-red-500 duration-300"
+                  className="group-hover:stroke-red-500 duration-300 group-focus-visible:stroke-red-500"
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -177,7 +184,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
                 <path
                   d="M14 11V17"
                   stroke="#666"
-                  className="group-hover:stroke-red-500 duration-300"
+                  className="group-hover:stroke-red-500 duration-300 group-focus-visible:stroke-red-500"
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -185,7 +192,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
                 <path
                   d="M4 7H20"
                   stroke="#666"
-                  className="group-hover:stroke-red-500 duration-300"
+                  className="group-hover:stroke-red-500 duration-300 group-focus-visible:stroke-red-500"
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -193,7 +200,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
                 <path
                   d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z"
                   stroke="#666"
-                  className="group-hover:stroke-red-500 duration-300"
+                  className="group-hover:stroke-red-500 duration-300 group-focus-visible:stroke-red-500"
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -201,7 +208,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
                 <path
                   d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
                   stroke="#666"
-                  className="group-hover:stroke-red-500 duration-300"
+                  className="group-hover:stroke-red-500 duration-300 group-focus-visible:stroke-red-500"
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"

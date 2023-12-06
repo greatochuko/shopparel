@@ -38,12 +38,15 @@ export default function CartPage() {
   return (
     <main className="mt-[72px] pt-1">
       <h1 className="my-4 text-zinc-400  mx-auto max-w-7xl w-[90%] font-semibold">
-        <Link to={"/"} className="hover:underline hover:text-zinc-700">
+        <Link
+          to={"/"}
+          className="hover:underline hover:text-zinc-700 focus-visible:ring focus-visible:ring-blue-400 focus-visible:text-zinc-700 rounded-md focus-visible:ring-offset-2"
+        >
           Home
         </Link>{" "}
         &gt; <span className="text-zinc-700">Cart</span>
       </h1>
-      <div className="overflow-x-scroll mx-auto max-w-7xl w-[90%]">
+      <div className="overflow-x-scroll scrollbar-hidden mx-auto max-w-7xl w-[90%]">
         <div className="mx-auto min-w-fit">
           <div className="flex justify-between gap-3 mb-4 bg-zinc-700 uppercase py-4 last:border-none text-white">
             <div className="flex gap-2 flex-1 min-w-[200px] uppercase text-sm font-semibold">
@@ -64,6 +67,7 @@ export default function CartPage() {
           ))}
         </div>
       </div>
+      <div className="bg-zinc-200 p-2"></div>
     </main>
   );
 }

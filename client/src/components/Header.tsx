@@ -14,10 +14,16 @@ export default function Header() {
     <>
       <header className="fixed top-0 z-30 w-full bg-white shadow-sm">
         <nav className="flex items-center justify-between gap-4 p-4 mx-auto sm:gap-6 max-w-7xl ">
-          <Link to={"/"} className="hidden font-bold sm:block">
+          <Link
+            to={"/"}
+            className="hidden font-bold focus-visible:ring focus-visible:ring-offset-2 sm:block"
+          >
             Shopparel
           </Link>
-          <Link to={"/"} className="font-bold sm:hidden">
+          <Link
+            to={"/"}
+            className="font-bold focus-visible:ring focus-visible:ring-offset-2 sm:hidden"
+          >
             S
           </Link>
           <ul className="hidden gap-2 md:flex">
