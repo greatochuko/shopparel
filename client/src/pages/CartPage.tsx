@@ -10,7 +10,7 @@ const cartItems = [
     color: "yellow",
     size: "l",
     price: 299,
-    shipping: "free",
+    shipping: 0,
     quantity: 1,
   },
   {
@@ -30,7 +30,7 @@ const cartItems = [
     color: "yellow",
     size: "l",
     price: 299,
-    shipping: "free",
+    shipping: 0,
     quantity: 2,
   },
 ];
@@ -38,6 +38,16 @@ const cartItems = [
 export default function CartPage() {
   const [couponError, setCouponError] = useState("");
   const [couponCode, setCouponCode] = useState("");
+
+  const subTotal = cartItems
+    .reduce((acc, curr) => acc + curr.price * curr.quantity, 0)
+    .toFixed(2);
+
+  const totalShipping = cartItems
+    .reduce((acc, curr) => acc + curr.shipping, 0)
+    .toFixed(2);
+
+  const grandTotal = (Number(subTotal) + Number(totalShipping)).toFixed(2);
 
   function handleCoupon(e: React.FormEvent) {
     setCouponError("");
@@ -108,11 +118,11 @@ export default function CartPage() {
           <div className="flex flex-col gap-2 flex-1 max-w-[300px]">
             <div className="grid grid-cols-2 border-b">
               <p>Sub Total</p>
-              <p>$299.99</p>
+              <p>${subTotal}</p>
               <p>Shipping</p>
-              <p className="mb-4">$29.99</p>
+              <p className="mb-4">${totalShipping}</p>
               <p className=" font-semibold">Grand Total</p>
-              <p className="mb-4 font-semibold">$299.99</p>
+              <p className="mb-4 font-semibold">${grandTotal}</p>
             </div>
             <button className="bg-accent-blue-100 p-2 text-white rounded-md font-semibold hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400">
               Proceed To Checkout

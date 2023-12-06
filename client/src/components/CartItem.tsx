@@ -9,7 +9,7 @@ type CartItemProps = {
     color: string;
     size: string;
     price: number;
-    shipping: number | string;
+    shipping: number;
     quantity: number;
   };
 };
@@ -21,8 +21,8 @@ export default function CartItem({ cartItem }: CartItemProps) {
     if (quantity <= 1) return;
     setQuantity((curr) => curr - 1);
   }
-  let subTotal = cartItem.price * quantity;
-  if (typeof cartItem.shipping === "number") subTotal += cartItem.shipping;
+
+  const subTotal = cartItem.price * quantity + cartItem.shipping;
 
   return (
     <div
@@ -150,11 +150,11 @@ export default function CartItem({ cartItem }: CartItemProps) {
         </div>
         <div
           className={`font-bold flex-1 min-w-[100px] uppercase flex-center ${
-            cartItem.shipping === "free" ? "font-normal text-zinc-500" : ""
+            cartItem.shipping === 0 ? "font-normal text-zinc-500" : ""
           }`}
         >
-          {typeof cartItem.shipping === "string"
-            ? cartItem.shipping
+          {cartItem.shipping === 0
+            ? "Free"
             : "$" + cartItem.shipping.toFixed(2)}
         </div>
         <div className="font-bold flex-1 min-w-[100px] flex-center">
