@@ -12,15 +12,18 @@
   color: #009fbb;
 }
 
-:root {
-  scroll-behavior: smooth;
-}
-
 @layer utilities {
   .flex-center {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background-color: ; */
+  }
+
+  .scrollbar-hidden {
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hidden::-webkit-scrollbar {
+    display: none;
   }
 }

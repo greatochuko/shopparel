@@ -9,7 +9,7 @@ export default function SearchForm() {
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
-    navigate(`/search?query=${searchQuery}`);
+    navigate(`/search?q=${searchQuery}`);
   }
 
   return (

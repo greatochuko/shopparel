@@ -8,7 +8,7 @@ export default function SearchResults({
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortBy = searchParams.get("sortBy");
-  const query = searchParams.get("query") || "";
+  const query = searchParams.get("q") || "";
   const colors = searchParams.get("colors")?.split(",");
   const categories = searchParams.get("categories")?.toLowerCase().split(",");
   const sizes = searchParams.get("sizes")?.toLowerCase().split(",");
