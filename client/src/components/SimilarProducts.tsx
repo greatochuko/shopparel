@@ -9,7 +9,7 @@ export default function SimilarProducts() {
   function scrollLeft() {
     const carouselWidth =
       window.innerWidth < 1422 ? window.innerWidth * 0.9 : 1280;
-    const productsPerView = Math.ceil(carouselWidth / 200 - 1);
+    const productsPerView = Math.ceil(carouselWidth / 216 - 1);
 
     if (carouselPos >= products.length - productsPerView) return;
 
@@ -26,8 +26,7 @@ export default function SimilarProducts() {
       <SectionHeader title="Similar Products" />
       <button
         onClick={scrollRight}
-        disabled={carouselPos <= 0}
-        className="absolute left-3 top-[50%] -translate-y-[50%] disabled:hidden z-10 flex-center rounded-s-md px-1.5 py-3 bg-zinc-100 border shadow hover:shadow-zinc-500 duration-300"
+        className="absolute -left-[18px] top-[50%] -translate-y-[50%] z-10 flex-center rounded-full h-10 w-10 bg-white border shadow hover:shadow-zinc-500 duration-300"
       >
         <svg
           width={30}
@@ -54,7 +53,7 @@ export default function SimilarProducts() {
       </button>
       <button
         onClick={scrollLeft}
-        className="absolute right-3 top-[50%] -translate-y-[50%] z-10 flex-center border rounded-e-md px-1.5 py-3 bg-zinc-100 shadow-md hover:shadow-zinc-500 duration-300"
+        className="absolute -right-[18px] top-[50%] -translate-y-[50%] z-10 border rounded-full h-10 w-10 flex-center bg-white shadow-md hover:shadow-zinc-500 duration-300"
       >
         <svg
           width={30}

@@ -3,7 +3,6 @@ import ProductConfiguration from "../components/ProductConfiguration";
 import SectionHeader from "../components/SectionHeader";
 import Review from "../components/Review";
 import SimilarProducts from "../components/SimilarProducts";
-import { useLayoutEffect } from "react";
 
 const product = {
   _id: "123abc",
