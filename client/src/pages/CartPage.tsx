@@ -36,8 +36,8 @@ const cartItems = [
 
 export default function CartPage() {
   return (
-    <main className="mt-[72px] pt-1">
-      <h1 className="my-4 text-zinc-400  mx-auto max-w-7xl w-[90%] font-semibold">
+    <main className="mt-[72px] pt-1 flex flex-col gap-4">
+      <h1 className="mt-4 text-zinc-400  mx-auto max-w-7xl w-[90%] font-semibold">
         <Link
           to={"/"}
           className="hover:underline hover:text-zinc-700 focus-visible:ring focus-visible:ring-blue-400 focus-visible:text-zinc-700 rounded-md focus-visible:ring-offset-2"
@@ -66,8 +66,17 @@ export default function CartPage() {
             <CartItem key={cartItem._id} cartItem={cartItem} />
           ))}
         </div>
+        <Link
+          to={"/"}
+          className="group text-sm text-zinc-500 font-semibold hover:text-zinc-700"
+        >
+          <span className="hover:underline"> Continue Shopping</span>{" "}
+          <span className="group-hover:ml-1 duration-300"> &rarr;</span>
+        </Link>
       </div>
-      <div className="bg-zinc-200 p-2"></div>
+      <div className="bg-zinc-200 p-2 flex flex-wrap justify-between">
+        <div className="flex flex-col"></div>
+      </div>
     </main>
   );
 }
