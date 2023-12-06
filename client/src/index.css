@@ -9,7 +9,7 @@
 
 *::placeholder {
   font-family: "Inter", sans-serif;
-  color: rgb(224, 134, 0);
+  color: #009fbb;
 }
 
 @layer utilities {
@@ -17,5 +17,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    /* background-color: ; */
   }
 }

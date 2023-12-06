@@ -3,21 +3,64 @@ import { Link } from "react-router-dom";
 
 const heroProducts = [
   {
-    name: "Off-Shoulder Blouse",
-    category: "women",
-    imgUrl: "/off-shoulder blouse.png",
-    color: "bg-[#009DE0]/50",
+    name: "Relaxed Fit V-Neck Tee",
+    imgUrl: "/women-product-1.png",
+    brand: "Helen",
+    price: 299,
+    images: ["a"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
+    _id: "123abc",
+    sizes: ["l", "m", "xl", "s", "xs"],
+    categories: ["V-Neck T-Shirts"],
+    colors: ["black"],
   },
   {
-    name: "Slim Fit Button-Down Shirt",
-    category: "men",
-    imgUrl: "/slim-fit-button-down-t-shirt.png",
-    color: "bg-[#D38236]/70",
+    name: "Off-the-Shoulder Knit Sweater",
+    imgUrl: "/women-product-2.png",
+    brand: "Helen",
+    price: 299,
+    images: ["a"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
+    _id: "123abc",
+    sizes: ["l", "m", "xl", "s", "2xl"],
+    categories: ["sweater"],
+    colors: ["yellow", "orange"],
   },
 ];
 
 export default function Hero() {
   const [currentIndex, setcurrentIndex] = useState(0);
+  const colors = ["#7F7CB6", "#FB9489"];
+  const backgroundColor = colors[currentIndex];
+
   function showNextHeroProduct() {
     if (currentIndex + 1 >= heroProducts.length) return setcurrentIndex(0);
     setcurrentIndex((curr) => curr + 1);
@@ -90,28 +133,29 @@ export default function Hero() {
       </button>
       {heroProducts.map((product, i) => (
         <div
+          style={{ backgroundColor }}
           key={product.name}
           className={`flex absolute px-4 items-center justify-evenly w-full h-full duration-500 ${
-            product.color
-          } ${i !== currentIndex ? "opacity-0" : "opacity-100"}`}
+            i !== currentIndex ? "opacity-0" : "opacity-100"
+          }`}
         >
           <div className={`flex w-fit max-w-[40%] justify-center text-white `}>
             <div className="flex flex-col w-full gap-4 sm:gap-6 lg:gap-8 ">
               <Link
-                to={`/category/${product.category}`}
+                to={`/category/${product.categories[0]}`}
                 className="text-lg sm:text-xl lg:text-2xl xl:text-[2vw]"
               >
-                {product.category}
+                {product.categories[0]}
               </Link>
               <h2 className="text-2xl font-bold sm:text-3xl md:text-5xl lg:text-6xl xl:text-[5vw]">
                 {product.name}
               </h2>
               <Link
-                to={`/product/${product.name
+                to={`/product/${(product.name + product._id)
                   .split(" ")
-                  .join(",")
+                  .join("-")
                   .toLowerCase()}`}
-                className="px-4 py-2 text-base font-semibold duration-200 bg-white rounded-md sm:px-6 sm:py-3 sm:text-lg lg:text-xl whitespace-nowrap hover:shadow-md text-zinc-600 hover:text-zinc-800 w-fit"
+                className="px-4 py-2 text-base font-semibold duration-200 bg-white rounded-md sm:px-6 sm:py-3 sm:text-lg lg:text-xl whitespace-nowrap hover:shadow-md hover:shadow-black/50 text-zinc-700 hover:text-zinc-900 w-fit"
               >
                 Shop Now
               </Link>
