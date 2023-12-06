@@ -78,9 +78,9 @@ export default function CartPage() {
         </div>
         <Link
           to={"/"}
-          className="group text-sm text-zinc-500 font-semibold hover:text-zinc-700"
+          className="group text-sm text-zinc-500 font-semibold hover:text-zinc-700 focus-visible:ring ml-2 focus-visible:ring-blue-400 rounded-md"
         >
-          <span className="hover:underline"> Continue Shopping</span>{" "}
+          <span className="hover:underline">Continue Shopping</span>
           <span className="group-hover:ml-1 duration-300"> &rarr;</span>
         </Link>
       </div>
