@@ -11,7 +11,7 @@ const cartItems = [
     size: "l",
     price: 299,
     shipping: "free",
-    quantity: 3,
+    quantity: 1,
   },
   {
     _id: "12345679",
@@ -31,7 +31,7 @@ const cartItems = [
     size: "l",
     price: 299,
     shipping: "free",
-    quantity: 3,
+    quantity: 2,
   },
 ];
 
@@ -89,16 +89,16 @@ export default function CartPage() {
           <div className="flex flex-col gap-2 flex-1">
             <h3 className="text-xl font-semibold">Coupon Codes</h3>
             <p className="text-sm">Enter your coupon code if you have one</p>
-            <form className="flex mt-4" onSubmit={handleCoupon}>
+            <form className="flex mt-4 border" onSubmit={handleCoupon}>
               <input
                 type="text"
                 value={couponCode}
                 onChange={(e) => setCouponCode(e.target.value)}
-                className="text-sm rounded-s-md focus-visible:ring focus-visible:ring-blue-400 px-2"
+                className="text-sm border-zinc-400 border-2 border-r-0 rounded-s-md focus-visible:ring focus-visible:ring-blue-400 px-2"
               />
               <button
                 type="submit"
-                className="bg-accent-blue-100 text-white p-2 rounded-e-md text-sm hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400"
+                className="bg-accent-blue-100 text-white p-2.5 rounded-e-md text-sm hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400"
               >
                 Apply Coupon
               </button>

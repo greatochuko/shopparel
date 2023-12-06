@@ -43,9 +43,12 @@ export default function CartItem({ cartItem }: CartItemProps) {
           >
             {cartItem.name}
           </Link>
-          <p className="text-sm capitalize">Color: {cartItem.color}</p>
+          <p className="text-sm capitalize ">
+            Color: <span className="font-semibold">{cartItem.color}</span>
+          </p>
           <p className="text-sm">
-            Size: <span className="uppercase">{cartItem.size}</span>
+            Size:{" "}
+            <span className="uppercase font-semibold">{cartItem.size}</span>
           </p>
         </div>
       </div>
@@ -96,7 +99,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
                 </g>
               </svg>
             </button>
-            <p className="flex-center w-6 font-semibold text-zinc-600 text-xl">
+            <p className="flex-center w-6 font-semibold text-zinc-600 text-base">
               {quantity}
             </p>
             <button
