@@ -7,13 +7,23 @@ export default function ProductConfiguration({
 }: {
   product: ProductType;
 }) {
-  const [sizeIndex, setSizeIndex] = useState(0);
-  const [colorIndex, setColorIndex] = useState(0);
+  const [currentSize, setCurrentSize] = useState(product.sizes[0]);
+  const [currentColor, setCurrentColor] = useState(product.colors[0]);
+  const [quantity, setQuantity] = useState(1);
+  const [productInCart, setProductInCart] = useState(false);
+
+  function handleDecreaseQuantity() {
+    if (quantity <= 1) return setProductInCart(false);
+    setQuantity((curr) => curr - 1);
+  }
 
   return (
     <div className="flex flex-col flex-1 gap-6 text-zinc-700">
       <h2 className="mt-4 text-zinc-500">Shop &gt; {product.brand}</h2>
       <h1 className="text-xl font-semibold">{product.name}</h1>
+      <p className="px-4 py-1.5 w-fit border rounded-md border-zinc-300 text-lg font-semibold">
+        ${product.price.toFixed(2)}
+      </p>
       {product.reviews.length ? (
         <div className="flex items-center gap-6 text-sm">
           <div className="flex items-center gap-2">
@@ -51,13 +61,13 @@ export default function ProductConfiguration({
       <div className="flex flex-col gap-3">
         <h3 className="font-semibold">Select size</h3>
         <ul className="flex gap-3">
-          {product.sizes.map((size, i) => (
+          {product.sizes.map((size) => (
             <li
               key={size}
               role="button"
-              onClick={() => setSizeIndex(i)}
+              onClick={() => setCurrentSize(size)}
               className={`w-8 border rounded-lg aspect-square flex-center active:scale-95 hover:bg-zinc-200 duration-300 uppercase text-sm ${
-                sizeIndex === i
+                currentSize === size
                   ? "bg-zinc-700 text-white font-semibold hover:bg-zinc-800"
                   : ""
               }`}
@@ -70,14 +80,14 @@ export default function ProductConfiguration({
       <div className="flex flex-col gap-3">
         <h3 className="font-semibold">Colors Available</h3>
         <ul className="flex gap-3">
-          {product.colors.map((color, i) => (
+          {product.colors.map((color) => (
             <li
               key={color}
               role="button"
-              onClick={() => setColorIndex(i)}
+              onClick={() => setCurrentColor(color)}
               style={{ backgroundColor: color }}
               className={`w-6 rounded-full aspect-square flex-center hover:scale-110 active:scale-95 duration-300 ${
-                colorIndex === i
+                currentColor === color
                   ? "ring-zinc-500 ring-offset-white ring-offset-2 ring-[2px]"
                   : ""
               }`}
@@ -86,26 +96,119 @@ export default function ProductConfiguration({
         </ul>
       </div>
       <div className="flex items-center gap-4 mt-4">
-        <button className="flex items-center gap-2 px-8 py-2 text-sm text-white duration-300 border rounded-md border-accent-blue-100 bg-accent-blue-100 hover:bg-accent-blue-200 active:scale-95 w-fit">
-          <svg
-            width={20}
-            height={20}
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+        {productInCart ? (
+          <div className="flex gap-2">
+            <button
+              onClick={handleDecreaseQuantity}
+              className="bg-accent-blue-100 h-9 w-9 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 rounded-md shadow-md active:shadow-none text-3xl shadow-zinc-300 text-white"
+            >
+              <svg
+                height={16}
+                width={16}
+                viewBox="0 -12 32 32"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="#000000"
+              >
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <defs> </defs>
+                  <g
+                    id="Page-1"
+                    stroke="none"
+                    strokeWidth="1"
+                    fill="none"
+                    fillRule="evenodd"
+                  >
+                    <g
+                      id="Icon-Set-Filled"
+                      transform="translate(-414.000000, -1049.000000)"
+                      fill="#fff"
+                    >
+                      <path
+                        d="M442,1049 L418,1049 C415.791,1049 414,1050.79 414,1053 C414,1055.21 415.791,1057 418,1057 L442,1057 C444.209,1057 446,1055.21 446,1053 C446,1050.79 444.209,1049 442,1049"
+                        id="minus"
+                      ></path>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </button>
+            <p className="flex-center w-8 font-semibold text-zinc-600 text-xl">
+              {quantity}
+            </p>
+            <button
+              onClick={() => {
+                setQuantity((curr) => curr + 1);
+              }}
+              className="bg-accent-blue-100 h-9 w-9 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 rounded-md shadow-md active:shadow-none text-3xl shadow-zinc-300 text-white"
+            >
+              <svg
+                height={16}
+                width={16}
+                viewBox="0 0 32 32"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="#fff"
+              >
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <title>plus</title> <desc>Created with Sketch Beta.</desc>
+                  <defs> </defs>
+                  <g
+                    id="Page-1"
+                    stroke="none"
+                    strokeWidth="1"
+                    fill="#fff"
+                    fillRule="evenodd"
+                  >
+                    <g
+                      id="Icon-Set-Filled"
+                      transform="translate(-362.000000, -1037.000000)"
+                      fill="#fff"
+                    >
+                      <path
+                        d="M390,1049 L382,1049 L382,1041 C382,1038.79 380.209,1037 378,1037 C375.791,1037 374,1038.79 374,1041 L374,1049 L366,1049 C363.791,1049 362,1050.79 362,1053 C362,1055.21 363.791,1057 366,1057 L374,1057 L374,1065 C374,1067.21 375.791,1069 378,1069 C380.209,1069 382,1067.21 382,1065 L382,1057 L390,1057 C392.209,1057 394,1055.21 394,1053 C394,1050.79 392.209,1049 390,1049"
+                        id="plus"
+                      ></path>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </button>
+          </div>
+        ) : (
+          <button
+            onClick={() => setProductInCart(true)}
+            className="p-3 w-full flex-center sm:px-6 focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 gap-2 self-stretch text-sm text-white duration-300 rounded-md bg-accent-blue-100 hover:bg-accent-blue-200 active:scale-95"
           >
-            <path
-              d="M2.5 3.33334H3.00526C3.85578 3.33334 4.56986 3.97376 4.6621 4.81926L5.3379 11.0141C5.43014 11.8596 6.14422 12.5 6.99474 12.5H14.205C14.9669 12.5 15.6317 11.9834 15.82 11.2452L16.9699 6.73593C17.2387 5.68213 16.4425 4.65742 15.355 4.65742H5.5M5.52063 15.5208H6.14563M5.52063 16.1458H6.14563M14.6873 15.5208H15.3123M14.6873 16.1458H15.3123M6.66667 15.8333C6.66667 16.2936 6.29357 16.6667 5.83333 16.6667C5.3731 16.6667 5 16.2936 5 15.8333C5 15.3731 5.3731 15 5.83333 15C6.29357 15 6.66667 15.3731 6.66667 15.8333ZM15.8333 15.8333C15.8333 16.2936 15.4602 16.6667 15 16.6667C14.5398 16.6667 14.1667 16.2936 14.1667 15.8333C14.1667 15.3731 14.5398 15 15 15C15.4602 15 15.8333 15.3731 15.8333 15.8333Z"
-              stroke="#fff"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-          Add To Cart
-        </button>
-        <p className="px-4 py-1.5 border rounded-md border-zinc-400 font-semibold">
-          ${product.price.toFixed(2)}
-        </p>
+            <svg
+              width={20}
+              height={20}
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2.5 3.33334H3.00526C3.85578 3.33334 4.56986 3.97376 4.6621 4.81926L5.3379 11.0141C5.43014 11.8596 6.14422 12.5 6.99474 12.5H14.205C14.9669 12.5 15.6317 11.9834 15.82 11.2452L16.9699 6.73593C17.2387 5.68213 16.4425 4.65742 15.355 4.65742H5.5M5.52063 15.5208H6.14563M5.52063 16.1458H6.14563M14.6873 15.5208H15.3123M14.6873 16.1458H15.3123M6.66667 15.8333C6.66667 16.2936 6.29357 16.6667 5.83333 16.6667C5.3731 16.6667 5 16.2936 5 15.8333C5 15.3731 5.3731 15 5.83333 15C6.29357 15 6.66667 15.3731 6.66667 15.8333ZM15.8333 15.8333C15.8333 16.2936 15.4602 16.6667 15 16.6667C14.5398 16.6667 14.1667 16.2936 14.1667 15.8333C14.1667 15.3731 14.5398 15 15 15C15.4602 15 15.8333 15.3731 15.8333 15.8333Z"
+                stroke="#fff"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+              />
+            </svg>
+            Add To Cart
+          </button>
+        )}
       </div>
     </div>
   );

@@ -62,7 +62,7 @@ const product = {
 
 export default function ProductDetailPage() {
   return (
-    <main className="mt-[70px] w-[90%] max-w-7xl mx-auto mb-4 flex flex-col gap-16">
+    <main className="mt-[72px] w-[90%] max-w-7xl mx-auto mb-4 flex flex-col gap-16">
       <div className="flex flex-col gap-8 md:flex-row">
         <ProductDetailImages product={product} />
         <ProductConfiguration product={product} />
