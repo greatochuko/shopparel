@@ -67,7 +67,7 @@ export default function SearchFilter({
   products: ProductType[];
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get("query") || "";
+  const query = searchParams.get("q") || "";
 
   const [isOpen, setIsOpen] = useState(false);
 

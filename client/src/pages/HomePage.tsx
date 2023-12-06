@@ -17,6 +17,22 @@ const womenProducts = [
     sizes: ["l", "m", "xl", "s", "xs"],
     categories: ["V-Neck T-Shirts"],
     colors: ["black"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
+    images: ["a"],
   },
   {
     _id: "123abc",
@@ -27,6 +43,22 @@ const womenProducts = [
     sizes: ["l", "m", "xl", "s", "xs"],
     categories: ["V-Neck T-Shirts"],
     colors: ["black"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
+    images: ["a"],
   },
   {
     _id: "123abc",
@@ -37,6 +69,22 @@ const womenProducts = [
     sizes: ["l", "m", "xl", "s", "xs"],
     categories: ["V-Neck T-Shirts"],
     colors: ["black"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
+    images: ["a"],
   },
   {
     _id: "123abc",
@@ -47,6 +95,22 @@ const womenProducts = [
     sizes: ["l", "m", "xl", "s", "xs"],
     categories: ["V-Neck T-Shirts"],
     colors: ["black"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
+    images: ["a"],
   },
 ];
 const menProducts = [
@@ -59,6 +123,22 @@ const menProducts = [
     sizes: ["l", "m", "xl", "s", "xs"],
     categories: ["V-Neck T-Shirts"],
     colors: ["black"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
+    images: ["a"],
   },
   {
     _id: "123abc",
@@ -69,6 +149,22 @@ const menProducts = [
     sizes: ["l", "m", "xl", "s", "xs"],
     categories: ["V-Neck T-Shirts"],
     colors: ["black"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
+    images: ["a"],
   },
   {
     _id: "123abc",
@@ -79,6 +175,22 @@ const menProducts = [
     sizes: ["l", "m", "xl", "s", "xs"],
     categories: ["V-Neck T-Shirts"],
     colors: ["black"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
+    images: ["a"],
   },
   {
     _id: "123abc",
@@ -89,6 +201,22 @@ const menProducts = [
     sizes: ["l", "m", "xl", "s", "xs"],
     categories: ["V-Neck T-Shirts"],
     colors: ["black"],
+    rating: 4,
+    reviews: [
+      {
+        user: {
+          fullName: "John Doe",
+          imgUrl: "/feedback-user-image-1.jpg",
+          email: "john@gmail.com",
+          _id: "123abc",
+        },
+        date: "November 12, 2023",
+        rating: 3,
+        review:
+          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
+      },
+    ],
+    images: ["a"],
   },
 ];
 

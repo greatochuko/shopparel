@@ -6,6 +6,7 @@ import AppLayout from "./components/AppLayout";
 import SearchPage from "./pages/SearchPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ScrollToTop from "./components/ScrollToTop";
+import CartPage from "./pages/CartPage";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,7 @@ const router = createBrowserRouter([
           { path: "/", element: <HomePage /> },
           { path: "/search", element: <SearchPage /> },
           { path: "/product/:productId", element: <ProductDetailPage /> },
+          { path: "/cart", element: <CartPage /> },
         ],
       },
     ],
