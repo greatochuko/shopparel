@@ -225,7 +225,7 @@ export default function ShippingAddress({
           </div>
           <button
             type="submit"
-            className="p-2 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 text-white rounded-md duration-300 w-fit font-semibold px-4"
+            className="p-2 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 text-white rounded-md duration-300 w-fit whitespace-nowrap font-semibold px-4"
           >
             Continue to Payment Method
           </button>
