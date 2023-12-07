@@ -99,16 +99,19 @@ export default function CartPage() {
           <div className="flex flex-col gap-2 flex-1">
             <h3 className="text-xl font-semibold">Coupon Codes</h3>
             <p className="text-sm">Enter your coupon code if you have one</p>
-            <form className="flex mt-4 border" onSubmit={handleCoupon}>
+            <form
+              className="flex mt-4 border w-[100%] max-w-[300px] "
+              onSubmit={handleCoupon}
+            >
               <input
                 type="text"
                 value={couponCode}
                 onChange={(e) => setCouponCode(e.target.value)}
-                className="text-sm border-zinc-400 border-2 border-r-0 rounded-s-md focus-visible:ring focus-visible:ring-blue-400 px-2"
+                className="text-sm border-zinc-400 border-2 w-[100%] sm:w-auto border-r-0 rounded-s-md focus-visible:ring focus-visible:ring-blue-400 px-2"
               />
               <button
                 type="submit"
-                className="bg-accent-blue-100 text-white p-2.5 rounded-e-md text-sm hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400"
+                className="bg-accent-blue-100 text-white w-fit px-1 py-2.5 whitespace-nowrap sm:px-2.5 rounded-e-md text-sm hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400"
               >
                 Apply Coupon
               </button>
@@ -124,9 +127,12 @@ export default function CartPage() {
               <p className=" font-semibold">Grand Total</p>
               <p className="mb-4 font-semibold">${grandTotal}</p>
             </div>
-            <button className="bg-accent-blue-100 p-2 text-white rounded-md font-semibold hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400">
+            <Link
+              to={"/checkout"}
+              className="bg-accent-blue-100 p-2 text-center text-white rounded-md font-semibold hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400"
+            >
               Proceed To Checkout
-            </button>
+            </Link>
           </div>
         </div>
       </div>
