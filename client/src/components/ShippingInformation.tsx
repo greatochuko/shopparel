@@ -1,15 +1,34 @@
 import { useState } from "react";
 import SectionHeader from "./SectionHeader";
-import { ShippingAddressType } from "../pages/CheckoutPage";
+import { ShippingInformationType } from "../pages/CheckoutPage";
+import { Link } from "react-router-dom";
 
-export default function ShippingAddress({
-  setShippingAddress,
+const shippingInformations = [
+  {
+    _id: "123456",
+    firstName: "Great",
+    lastName: "Ochuko",
+    country: "Nigeria",
+    company: null,
+    streetAddress: "Ekosodin",
+    apartment: "123 block 2",
+    city: "Benin",
+    state: "Edo",
+    postalCode: "320012",
+    phone: "7048078103",
+  },
+];
+
+export default function ShippingInformation({
+  setShippingInformation,
 }: {
-  setShippingAddress: React.Dispatch<
-    React.SetStateAction<ShippingAddressType | null>
+  setShippingInformation: React.Dispatch<
+    React.SetStateAction<ShippingInformationType | null>
   >;
 }) {
-  const [address, setAddress] = useState("1");
+  const [address, setAddress] = useState(
+    shippingInformations.length ? shippingInformations[0]._id : "new"
+  );
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [country, setCountry] = useState("");
@@ -22,9 +41,9 @@ export default function ShippingAddress({
   const [phone, setPhone] = useState("");
   const [saveInfo, setSaveInfo] = useState(false);
 
-  function handleSetShippingAddress(e: React.FormEvent) {
+  function handleSetShippingInformation(e: React.FormEvent) {
     e.preventDefault();
-    setShippingAddress({
+    setShippingInformation({
       firstName,
       lastName,
       country,
@@ -40,39 +59,64 @@ export default function ShippingAddress({
 
   return (
     <section className="flex flex-col gap-10 flex-1">
-      <SectionHeader title="Shipping Address" />
+      <SectionHeader title="Shipping Information" />
       <div className="flex flex-col gap-2 p-4  bg-zinc-100 rounded-md">
-        <div className="flex items-center gap-2 border-b pb-2 border-zinc-300">
-          <input
-            type="radio"
-            name="shipping-address"
-            value={"1"}
-            id="address-1"
-            checked={address === "1"}
-            onChange={(e) => setAddress(e.target.value)}
-          />
-          <label htmlFor="address-1" className="font-semibold">
-            123 Downtown Street
-          </label>
-        </div>
+        {shippingInformations.map((shippingInformation) => (
+          <div
+            key={shippingInformation._id}
+            className="flex items-center gap-2 border-b pb-2 border-zinc-300"
+          >
+            <input
+              type="radio"
+              tabIndex={0}
+              className="focus-visible:ring focus-visible:ring-blue-400 rounded-full"
+              name={shippingInformation._id}
+              value={shippingInformation._id}
+              id={shippingInformation._id}
+              checked={address === shippingInformation._id}
+              onChange={() => setAddress(shippingInformation._id)}
+              onKeyDown={(e) => {
+                if (e.code !== "Tab") e.preventDefault();
+                if (e.code === "Enter") setAddress(shippingInformation._id);
+              }}
+            />
+            <label htmlFor={shippingInformation._id} className="font-semibold">
+              {shippingInformation.streetAddress}
+            </label>
+            <Link
+              to={"/"}
+              className="ml-auto text-accent-blue-100 hover:text-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 rounded-md px-1"
+            >
+              Edit
+            </Link>
+          </div>
+        ))}
         <div className="flex items-center gap-2">
           <input
             type="radio"
-            name="shipping-address"
+            tabIndex={0}
+            className="focus-visible:ring focus-visible:ring-blue-400 rounded-full"
+            name="new-shipping-address"
             value={"new"}
             id="new"
             checked={address === "new"}
-            onChange={(e) => setAddress(e.target.value)}
+            onChange={() => setAddress("new")}
+            onKeyDown={(e) => {
+              if (e.code !== "Tab") e.preventDefault();
+              if (e.code === "Enter") setAddress("new");
+            }}
           />
           <label htmlFor="new" className="font-semibold">
-            Use a different shipping address
+            {shippingInformations.length
+              ? "Use a different shipping address"
+              : "Enter new shipping information"}
           </label>
         </div>
       </div>
       {address === "new" ? (
         <form
           className="flex flex-col sm:grid sm:grid-cols-2 gap-x-4 gap-y-8"
-          onSubmit={handleSetShippingAddress}
+          onSubmit={handleSetShippingInformation}
         >
           <div className="flex flex-col gap-2">
             <label htmlFor="first-name" className="font-semibold">
@@ -85,7 +129,7 @@ export default function ShippingAddress({
               placeholder="First Name"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              className="bg-zinc-100 w-full p-3 scroll-mt-[80px] rounded-md"
+              className="bg-zinc-100 w-full p-3 scroll-mt-[80px] focus-visible:ring ring-blue-400 rounded-md"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -99,7 +143,7 @@ export default function ShippingAddress({
               placeholder="Last Name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
+              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] focus-visible:ring ring-blue-400 rounded-md"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -113,7 +157,7 @@ export default function ShippingAddress({
               placeholder="Country/Region"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
+              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] focus-visible:ring ring-blue-400 rounded-md"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -126,7 +170,7 @@ export default function ShippingAddress({
               placeholder="Company (optional)"
               value={company}
               onChange={(e) => setCompany(e.target.value)}
-              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
+              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] focus-visible:ring ring-blue-400 rounded-md"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -140,7 +184,7 @@ export default function ShippingAddress({
               placeholder="House number and street name"
               value={streetAddress}
               onChange={(e) => setStreetAddress(e.target.value)}
-              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
+              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] focus-visible:ring ring-blue-400 rounded-md"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -153,7 +197,7 @@ export default function ShippingAddress({
               placeholder="Apt, suite, unit etc. (optional)"
               value={apartment}
               onChange={(e) => setApartment(e.target.value)}
-              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
+              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] focus-visible:ring ring-blue-400 rounded-md"
             />
           </div>
           <div className="flex flex-col sm:flex-row gap-4 col-span-2">
@@ -168,7 +212,7 @@ export default function ShippingAddress({
                 required
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
+                className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] focus-visible:ring ring-blue-400 rounded-md"
               />
             </div>
             <div className="flex flex-col gap-2 flex-1">
@@ -182,7 +226,7 @@ export default function ShippingAddress({
                 placeholder="State"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
-                className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
+                className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] focus-visible:ring ring-blue-400 rounded-md"
               />
             </div>
             <div className="flex flex-col gap-2 flex-1">
@@ -196,7 +240,7 @@ export default function ShippingAddress({
                 placeholder="Postal Code"
                 value={postalCode}
                 onChange={(e) => setPostalCode(e.target.value)}
-                className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
+                className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] focus-visible:ring ring-blue-400 rounded-md"
               />
             </div>
           </div>
@@ -211,15 +255,21 @@ export default function ShippingAddress({
               placeholder="Phone"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
+              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] focus-visible:ring ring-blue-400 rounded-md"
             />
           </div>
           <div className="col-span-2">
             <input
               type="checkbox"
+              tabIndex={0}
+              className="focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1"
               id="save"
               checked={saveInfo === true}
               onChange={() => setSaveInfo((curr) => !curr)}
+              onKeyDown={(e) => {
+                if (e.code !== "Tab") e.preventDefault();
+                if (e.code === "Enter") setSaveInfo((curr) => !curr);
+              }}
             />{" "}
             <label htmlFor="save">Store my details for quicker checkout.</label>
           </div>

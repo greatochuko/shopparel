@@ -20,14 +20,19 @@ export default function PaymentMethod({
     <form onSubmit={handlePaymentForm}>
       <div className="flex flex-col gap-4 bg-zinc-100 rounded-md p-4">
         <div className="flex flex-col gap-4 border-b border-zinc-300 pb-4">
-          <div className="flex gap-4 p-2 ">
+          <div className="flex gap-4 p-2 items-center">
             <input
               type="radio"
-              name="payment-type"
+              name="credit-card"
               value={"credit-card"}
               id={"credit-card"}
               checked={paymentType === "credit-card"}
               onChange={(e) => setPaymentType(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.code !== "Tab") e.preventDefault();
+                if (e.code === "Enter") setPaymentType("credit-card");
+              }}
+              className="focus:ring focus:ring-blue-400"
             />
             <label htmlFor="credit-card" className="flex flex-col">
               <h3 className="font-semibold">Credit Card</h3>
@@ -75,8 +80,8 @@ export default function PaymentMethod({
                 required={paymentType === "credit-card"}
                 id="card-number"
                 value={cardNumber}
-                onChange={(e) => setCardNumber(e.target.value)}
                 placeholder="Card number"
+                onChange={(e) => setCardNumber(e.target.value)}
                 className="p-3 rounded-md border border-zinc-200 focus-visible:ring ring-blue-400 scroll-mt-[80px]"
               />
               <input
@@ -110,14 +115,20 @@ export default function PaymentMethod({
           </div>
         </div>
         <div className="flex gap-2 p-2 pt-0">
-          <div className="flex gap-4">
+          <div className="flex gap-4 items-center">
             <input
               type="radio"
-              name="payment-type"
+              name="cash-on-delivery"
               value={"cash-on-delivery"}
               id={"cash-on-delivery"}
+              tabIndex={0}
               checked={paymentType === "cash-on-delivery"}
               onChange={(e) => setPaymentType(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.code !== "Tab") e.preventDefault();
+                if (e.code === "Enter") setPaymentType("cash-on-delivery");
+              }}
+              className="focus-visible:ring ring-blue-400"
             />
 
             <label htmlFor="cash-on-delivery" className="flex flex-col">
