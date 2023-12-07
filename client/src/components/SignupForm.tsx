@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
 import React, { useState } from "react";
 import { loginUserWithGoogle, signupUser } from "../services/authServices";
 import useUserContext from "../hooks/useUserContext";
@@ -20,6 +20,9 @@ export default function SignupForm() {
   );
 
   const { user, setUser } = useUserContext();
+
+  const [searchParams] = useSearchParams();
+  const redirectUrl = searchParams.get("redirect");
 
   async function handleGoogleLogin(response: CredentialResponse) {
     const userData: JwtPayload & GoogleUserCredentials = jwtDecode(
@@ -51,7 +54,7 @@ export default function SignupForm() {
     setLoading(false);
   }
 
-  if (user) return <Navigate to={"/"} />;
+  if (user) return <Navigate to={redirectUrl || "/"} />;
 
   return (
     <form

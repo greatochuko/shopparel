@@ -1,4 +1,4 @@
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useSearchParams } from "react-router-dom";
 import React, { useState } from "react";
 import { loginUser, loginUserWithGoogle } from "../services/authServices";
 import useUserContext from "../hooks/useUserContext";
@@ -14,6 +14,8 @@ export default function LoginForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const canSubmit = Boolean(email && password);
+  const [searchParams] = useSearchParams();
+  const redirectUrl = searchParams.get("redirect");
 
   const { user } = useUserContext();
 
@@ -43,7 +45,7 @@ export default function LoginForm() {
     setLoading(false);
   }
 
-  if (user) return <Navigate to={"/"} />;
+  if (user) return <Navigate to={redirectUrl || "/"} />;
 
   return (
     <form

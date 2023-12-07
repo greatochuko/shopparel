@@ -288,7 +288,7 @@ export default function Header() {
           <>
             <li className="md:hidden">
               <Link
-                to={"/login"}
+                to={`/login?redirect=${pathname}`}
                 className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
               >
                 Login
@@ -296,7 +296,7 @@ export default function Header() {
             </li>
             <li className="md:hidden">
               <Link
-                to={"/signup"}
+                to={`/signup?redirect=${pathname}`}
                 className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
               >
                 Signup

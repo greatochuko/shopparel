@@ -10,7 +10,7 @@ export default function AuthLinks({ forAuth }: { forAuth?: boolean }) {
   return (
     <>
       <Link
-        to="/login"
+        to={`/login?redirect=${pathname}`}
         className={`text-sm duration-300 border px-2 sm:px-4 md:px-6 md:block ${
           !forAuth ? "hidden" : ""
         } py-1.5 rounded-md ${
@@ -20,7 +20,7 @@ export default function AuthLinks({ forAuth }: { forAuth?: boolean }) {
         Login
       </Link>
       <Link
-        to="/signup"
+        to={`/signup?redirect=${pathname}`}
         className={`text-sm duration-300 border px-2 sm:px-4 md:px-6 md:block ${
           !forAuth ? "hidden" : ""
         } py-1.5 rounded-md ${
