@@ -77,7 +77,7 @@ export default function PaymentMethod({
                 value={cardNumber}
                 onChange={(e) => setCardNumber(e.target.value)}
                 placeholder="Card number"
-                className="p-3 rounded-md border border-zinc-200 focus-visible:ring ring-blue-400"
+                className="p-3 rounded-md border border-zinc-200 focus-visible:ring ring-blue-400 scroll-mt-[80px]"
               />
               <input
                 type="text"
@@ -86,7 +86,7 @@ export default function PaymentMethod({
                 value={nameOnCard}
                 onChange={(e) => setNameOnCard(e.target.value)}
                 placeholder="Name on card"
-                className="p-3 rounded-md border border-zinc-200 focus-visible:ring ring-blue-400"
+                className="p-3 rounded-md border border-zinc-200 focus-visible:ring ring-blue-400 sm:scroll-mt-[80px]"
               />
               <input
                 type="text"
@@ -95,7 +95,7 @@ export default function PaymentMethod({
                 value={expirationDate}
                 onChange={(e) => setExpirationDate(e.target.value)}
                 placeholder="Expiration date (MM/YY)"
-                className="p-3 rounded-md border border-zinc-200 focus-visible:ring ring-blue-400"
+                className="p-3 rounded-md border border-zinc-200 focus-visible:ring ring-blue-400 sm:scroll-mt-[80px]"
               />
               <input
                 type="text"
@@ -104,7 +104,7 @@ export default function PaymentMethod({
                 value={securityCode}
                 onChange={(e) => setSecrityCode(e.target.value)}
                 placeholder="Security Code"
-                className="p-3 rounded-md border border-zinc-200 focus-visible:ring ring-blue-400"
+                className="p-3 rounded-md border border-zinc-200 focus-visible:ring ring-blue-400 sm:scroll-mt-[80px]"
               />
             </div>
           </div>

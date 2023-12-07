@@ -85,7 +85,7 @@ export default function ShippingAddress({
               placeholder="First Name"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              className="bg-zinc-100 w-full p-3  rounded-md"
+              className="bg-zinc-100 w-full p-3 scroll-mt-[80px] rounded-md"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -99,7 +99,7 @@ export default function ShippingAddress({
               placeholder="Last Name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className="bg-zinc-100 w-full p-3  rounded-md"
+              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -113,7 +113,7 @@ export default function ShippingAddress({
               placeholder="Country/Region"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
-              className="bg-zinc-100 w-full p-3  rounded-md"
+              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -126,7 +126,7 @@ export default function ShippingAddress({
               placeholder="Company (optional)"
               value={company}
               onChange={(e) => setCompany(e.target.value)}
-              className="bg-zinc-100 w-full p-3  rounded-md"
+              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -140,7 +140,7 @@ export default function ShippingAddress({
               placeholder="House number and street name"
               value={streetAddress}
               onChange={(e) => setStreetAddress(e.target.value)}
-              className="bg-zinc-100 w-full p-3  rounded-md"
+              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -153,7 +153,7 @@ export default function ShippingAddress({
               placeholder="Apt, suite, unit etc. (optional)"
               value={apartment}
               onChange={(e) => setApartment(e.target.value)}
-              className="bg-zinc-100 w-full p-3  rounded-md"
+              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
             />
           </div>
           <div className="flex flex-col sm:flex-row gap-4 col-span-2">
@@ -168,7 +168,7 @@ export default function ShippingAddress({
                 required
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
-                className="bg-zinc-100 w-full p-3  rounded-md"
+                className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
               />
             </div>
             <div className="flex flex-col gap-2 flex-1">
@@ -182,7 +182,7 @@ export default function ShippingAddress({
                 placeholder="State"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
-                className="bg-zinc-100 w-full p-3  rounded-md"
+                className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
               />
             </div>
             <div className="flex flex-col gap-2 flex-1">
@@ -196,7 +196,7 @@ export default function ShippingAddress({
                 placeholder="Postal Code"
                 value={postalCode}
                 onChange={(e) => setPostalCode(e.target.value)}
-                className="bg-zinc-100 w-full p-3  rounded-md"
+                className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
               />
             </div>
           </div>
@@ -211,7 +211,7 @@ export default function ShippingAddress({
               placeholder="Phone"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="bg-zinc-100 w-full p-3  rounded-md"
+              className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] rounded-md"
             />
           </div>
           <div className="col-span-2">
