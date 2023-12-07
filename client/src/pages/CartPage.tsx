@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem";
 import { useState } from "react";
 
-const cartItems = [
+export const cartItems = [
   {
     _id: "12345678",
     name: "Plaid Flannel Shirt",
@@ -129,7 +129,7 @@ export default function CartPage() {
             </div>
             <Link
               to={"/checkout"}
-              className="bg-accent-blue-100 p-2 text-center text-white rounded-md font-semibold hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400"
+              className="bg-accent-blue-100 duration-300 p-2 text-center text-white rounded-md font-semibold hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400"
             >
               Proceed To Checkout
             </Link>
