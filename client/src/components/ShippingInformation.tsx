@@ -34,7 +34,7 @@ export default function ShippingInformation({
       setShippingInformations(data);
     }
     fetchShippingInformations();
-  }, [setShippingInformation]);
+  }, []);
 
   function handleSetShippingInformation(e: React.FormEvent) {
     e.preventDefault();
