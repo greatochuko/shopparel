@@ -8,6 +8,7 @@ import ProductDetailPage from "./pages/ProductDetailPage";
 import ScrollToTop from "./components/ScrollToTop";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import ProfilePage from "./pages/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
           { path: "/product/:productId", element: <ProductDetailPage /> },
           { path: "/cart", element: <CartPage /> },
           { path: "/checkout", element: <CheckoutPage /> },
+          { path: "/account", element: <ProfilePage /> },
         ],
       },
     ],
