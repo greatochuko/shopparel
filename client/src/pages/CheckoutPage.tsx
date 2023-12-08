@@ -5,6 +5,7 @@ import OrderSummary from "../components/OrderSummary";
 import { Link } from "react-router-dom";
 
 export type ShippingInformationType = {
+  _id: string;
   firstName: string;
   lastName: string;
   country: string;
