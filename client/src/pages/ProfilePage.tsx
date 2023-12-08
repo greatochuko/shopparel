@@ -113,7 +113,9 @@ export default function ProfilePage() {
                     Edit
                   </button>
                   <button
-                    onClick={() => openModal("delete-shipping-info")}
+                    onClick={() =>
+                      openModal("delete-shipping-info", shippingInformation)
+                    }
                     className="font-semibold border-2 border-zinc-500 text-zinc-500 hover:bg-zinc-700 hover:text-white hover:border-zinc-700 focus-visible:ring ring-blue-400 p-0.5 px-2 rounded-md duration-300"
                   >
                     Remove
