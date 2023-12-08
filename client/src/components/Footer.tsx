@@ -32,7 +32,7 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="p-8 text-white md:p-12 bg-zinc-800">
+    <footer className="p-8 text-white md:p-12 bg-zinc-800 mt-auto">
       <div className="flex flex-wrap justify-between w-full max-w-5xl gap-8 pb-4 mx-auto border-b border-b-zinc-500">
         {footerLinks.map((footerLink) => (
           <div key={footerLink.title}>

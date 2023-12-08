@@ -18,17 +18,20 @@ export default function ProfilePageLayout() {
         &gt; My Account &gt;
         <span className="font-semibold"> Personal Info</span>
       </p>
-      <div className="flex gap-10 mt-6">
-        <section className="w-72 ">
-          <SectionHeader title={`Hello, ${user?.firstName || "Great"} `} />
+      <div className="flex flex-col sm:flex-row gap-10 mt-6">
+        <section className="sm:w-40 lg:w-72 w-full">
+          <SectionHeader title={`Hello, ${user?.firstName} `} />
           <p className="mt-2">Welcome to your account</p>
-          <ul role="navigation" className="my-6 flex flex-col">
-            <li>
+          <ul
+            role="navigation"
+            className="my-6 flex sm:flex-col flex-row whitespace-nowrap"
+          >
+            <li className="flex-1">
               <Link
                 to={"/account"}
-                className={`p-3 flex items-center gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
+                className={`p-3 flex items-center justify-center sm:justify-normal gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
                   pathname === "/account"
-                    ? "border-l-4 border-zinc-700 bg-zinc-100"
+                    ? "sm:border-l-4 sm:border-b-0 border-b-2 border-zinc-700 bg-zinc-100"
                     : ""
                 }`}
               >
@@ -56,15 +59,21 @@ export default function ProfilePageLayout() {
                     ></path>
                   </g>
                 </svg>
-                My info
+                <span
+                  className={`${
+                    pathname === "/account" ? "block" : "hidden"
+                  } sm:block`}
+                >
+                  My info
+                </span>
               </Link>
             </li>
-            <li>
+            <li className="flex-1">
               <Link
                 to={"/wishlist"}
-                className={`p-3 flex items-center gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
+                className={`p-3 flex items-center justify-center sm:justify-normal gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
                   pathname === "/wishlist"
-                    ? "border-l-4 border-zinc-700 bg-zinc-100"
+                    ? "sm:border-l-4 sm:border-b-0 border-b-2 border-zinc-700 bg-zinc-100"
                     : ""
                 }`}
               >
@@ -91,15 +100,21 @@ export default function ProfilePageLayout() {
                     ></path>
                   </g>
                 </svg>
-                Wishlist
+                <span
+                  className={`${
+                    pathname === "/wishlist" ? "" : "hidden"
+                  } sm:block`}
+                >
+                  Wishlist
+                </span>
               </Link>
             </li>
-            <li>
+            <li className="flex-1">
               <Link
                 to={"/orders"}
-                className={`p-3 flex items-center gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
+                className={`p-3 flex items-center justify-center sm:justify-normal gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
                   pathname === "/orders"
-                    ? "border-l-4 border-zinc-700 bg-zinc-100"
+                    ? "sm:border-l-4 sm:border-b-0 border-b-2 border-zinc-700 bg-zinc-100"
                     : ""
                 }`}
               >
@@ -135,13 +150,19 @@ export default function ProfilePageLayout() {
                     ></path>
                   </g>
                 </svg>
-                My orders
+                <span
+                  className={`${
+                    pathname === "/orders" ? "" : "hidden"
+                  } sm:block`}
+                >
+                  My orders
+                </span>
               </Link>
             </li>
-            <li>
+            <li className="flex-1">
               <Link
                 to={""}
-                className="p-3 flex items-center gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 "
+                className="p-3 flex items-center justify-center sm:justify-normal gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 "
               >
                 <svg
                   height={20}
@@ -167,7 +188,7 @@ export default function ProfilePageLayout() {
                     ></path>
                   </g>
                 </svg>
-                Sign out
+                <span className="hidden sm:block">Sign out</span>
               </Link>
             </li>
           </ul>
