@@ -8,19 +8,23 @@ export default function ProfilePage() {
   const { user } = useUserContext();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalType, setModalType] = useState("");
+  const [shippingInformation, setShippingInformation] =
+    useState<ShippingInformationType | null>(null);
   const [shippingInformations, setShippingInformations] = useState<
     ShippingInformationType[] | null
   >(null);
 
   const { pathname } = useLocation();
 
-  function openModal(type: string) {
+  function openModal(type: string, shippingInfo?: ShippingInformationType) {
+    setShippingInformation(shippingInfo || null);
     setModalIsOpen(true);
     setModalType(type);
   }
 
   function closeModal() {
     setModalIsOpen(false);
+    setShippingInformation(null);
     setModalType("");
   }
 
@@ -101,7 +105,9 @@ export default function ProfilePage() {
                 <p>{shippingInformation.streetAddress}</p>
                 <div className="flex gap-4">
                   <button
-                    onClick={() => openModal("edit-shipping-info")}
+                    onClick={() =>
+                      openModal("edit-shipping-info", shippingInformation)
+                    }
                     className="font-semibold border-2 border-zinc-500 text-zinc-500 hover:bg-zinc-700 hover:text-white hover:border-zinc-700 focus-visible:ring ring-blue-400 p-0.5 px-2 rounded-md duration-300"
                   >
                     Edit
@@ -118,7 +124,13 @@ export default function ProfilePage() {
           </div>
         </div>
       </section>
-      {modalIsOpen ? <Modal closeModal={closeModal} type={modalType} /> : null}
+      {modalIsOpen ? (
+        <Modal
+          closeModal={closeModal}
+          type={modalType}
+          shippingInfo={shippingInformation}
+        />
+      ) : null}
     </>
   );
 }

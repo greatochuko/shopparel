@@ -1,33 +1,43 @@
 import { useState } from "react";
 import { ShippingInformationType } from "../pages/CheckoutPage";
 import useUserContext from "../hooks/useUserContext";
+import ShippingInformationForm from "./ShippingInformationForm";
 
 export type Value =
   | ({
       firstName?: string;
       lastName?: string;
       email?: string;
-      passeord?: string;
+      password?: string;
     } & ShippingInformationType)
   | null;
 
 type ModalProps = {
   closeModal: () => void;
   type: string;
-  shippingInfo?: ShippingInformationType;
+  shippingInfo: ShippingInformationType | null;
 };
 
 export default function Modal({ type, shippingInfo, closeModal }: ModalProps) {
   const { user } = useUserContext();
-
   const [firstName, setFirstName] = useState(user?.firstName);
   const [lastName, setLastName] = useState(user?.lastName);
   const [email, setEmail] = useState(user?.email);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  console.clear();
-  console.log(user);
+
+  function handleChangeName(e: React.FormEvent) {
+    e.preventDefault();
+  }
+
+  function handleChangeEmail(e: React.FormEvent) {
+    e.preventDefault();
+  }
+
+  function handleChangePassword(e: React.FormEvent) {
+    e.preventDefault();
+  }
 
   return (
     <div
@@ -39,8 +49,11 @@ export default function Modal({ type, shippingInfo, closeModal }: ModalProps) {
         className="w-[90%] max-w-2xl sm:w-fit bg-white rounded-lg animate-zoom-in shadow-md overflow-hidden flex flex-col justify-between"
       >
         {type === "name" ? (
-          <form className="w-full sm:min-w-[500px] flex flex-col gap-4 p-6 ">
-            <div className="flex flex-col gap-2">
+          <form
+            onSubmit={handleChangeName}
+            className="w-full sm:min-w-[500px] flex flex-col gap-4 pt-6"
+          >
+            <div className="flex flex-col gap-2 px-6">
               <label htmlFor="first-name" className="w-fit">
                 First Name
               </label>
@@ -54,7 +67,7 @@ export default function Modal({ type, shippingInfo, closeModal }: ModalProps) {
                 className="p-3 bg-zinc-100 rounded-md focus-visible:ring ring-blue-400"
               />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 px-6">
               <label htmlFor="last-name" className="w-fit">
                 Last Name
               </label>
@@ -67,11 +80,29 @@ export default function Modal({ type, shippingInfo, closeModal }: ModalProps) {
                 className="p-3 bg-zinc-100 rounded-md focus-visible:ring ring-blue-400"
               />
             </div>
+            <div className="bg-zinc-100 p-4 flex justify-end gap-4">
+              <button
+                type="button"
+                onClick={closeModal}
+                className="p-2 border border-zinc-300 hover:border-zinc-400 focus-visible:ring ring-blue-400 px-4 rounded-md bg-zinc-200 hover:bg-zinc-300 active:bg-[#ccc] duration-300"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="p-2 focus-visible:ring ring-green-800 px-4 rounded-md bg-green-600 hover:bg-green-700 active:bg-green-800 text-white duration-300"
+              >
+                Submit
+              </button>
+            </div>
           </form>
         ) : null}
         {type === "email" ? (
-          <form className="w-full sm:min-w-[500px] flex flex-col gap-4 p-6 ">
-            <div className="flex flex-col gap-2">
+          <form
+            onSubmit={handleChangeEmail}
+            className="w-full sm:min-w-[500px] flex flex-col gap-4 pt-6"
+          >
+            <div className="flex flex-col gap-2 px-6">
               <label htmlFor="email" className="w-fit">
                 Email
               </label>
@@ -85,11 +116,29 @@ export default function Modal({ type, shippingInfo, closeModal }: ModalProps) {
                 className="p-3 bg-zinc-100 rounded-md focus-visible:ring ring-blue-400"
               />
             </div>
+            <div className="bg-zinc-100 p-4 flex justify-end gap-4">
+              <button
+                type="button"
+                onClick={closeModal}
+                className="p-2 border border-zinc-300 hover:border-zinc-400 focus-visible:ring ring-blue-400 px-4 rounded-md bg-zinc-200 hover:bg-zinc-300 active:bg-[#ccc] duration-300"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="p-2 focus-visible:ring ring-green-800 px-4 rounded-md bg-green-600 hover:bg-green-700 active:bg-green-800 text-white duration-300"
+              >
+                Submit
+              </button>
+            </div>
           </form>
         ) : null}
         {type === "password" ? (
-          <form className="w-full sm:min-w-[500px] flex flex-col gap-4 p-6 ">
-            <div className="flex flex-col gap-2">
+          <form
+            onSubmit={handleChangePassword}
+            className="w-full sm:min-w-[500px] flex flex-col gap-4 pt-6"
+          >
+            <div className="flex flex-col gap-2 px-6">
               <label htmlFor="password" className="w-fit">
                 Old Password
               </label>
@@ -103,7 +152,7 @@ export default function Modal({ type, shippingInfo, closeModal }: ModalProps) {
                 className="p-3 bg-zinc-100 rounded-md focus-visible:ring ring-blue-400"
               />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 px-6">
               <label htmlFor="new-password" className="w-fit">
                 New Password
               </label>
@@ -116,7 +165,7 @@ export default function Modal({ type, shippingInfo, closeModal }: ModalProps) {
                 className="p-3 bg-zinc-100 rounded-md focus-visible:ring ring-blue-400"
               />
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 px-6">
               <label htmlFor="confirm-password" className="w-fit">
                 Confirm New Password
               </label>
@@ -129,16 +178,32 @@ export default function Modal({ type, shippingInfo, closeModal }: ModalProps) {
                 className="p-3 bg-zinc-100 rounded-md focus-visible:ring ring-blue-400"
               />
             </div>
+            <div className="bg-zinc-100 p-4 flex justify-end gap-4">
+              <button
+                type="button"
+                onClick={closeModal}
+                className="p-2 border border-zinc-300 hover:border-zinc-400 focus-visible:ring ring-blue-400 px-4 rounded-md bg-zinc-200 hover:bg-zinc-300 active:bg-[#ccc] duration-300"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="p-2 focus-visible:ring ring-green-800 px-4 rounded-md bg-green-600 hover:bg-green-700 active:bg-green-800 text-white duration-300"
+              >
+                Submit
+              </button>
+            </div>
           </form>
         ) : null}
-        <div className="bg-zinc-100 p-4 flex justify-end gap-4">
-          <button className="p-2 border border-zinc-300 hover:border-zinc-400 focus-visible:ring ring-blue-400 px-4 rounded-md bg-zinc-200 hover:bg-zinc-300 active:bg-[#ccc] duration-300">
-            Cancel
-          </button>
-          <button className="p-2 focus-visible:ring ring-green-800 px-4 rounded-md bg-green-600 hover:bg-green-700 active:bg-green-800 text-white duration-300">
-            Submit
-          </button>
-        </div>
+        {type === "add-new-shipping-info" ? (
+          <ShippingInformationForm closeModal={closeModal} />
+        ) : null}
+        {type === "edit-shipping-info" ? (
+          <ShippingInformationForm
+            closeModal={closeModal}
+            shippingInformation={shippingInfo}
+          />
+        ) : null}
       </div>
     </div>
   );
