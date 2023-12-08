@@ -35,7 +35,7 @@ export default function Modal({ type, shippingInfo, closeModal }: ModalProps) {
         className="w-[90%] max-w-2xl sm:w-fit bg-white rounded-lg animate-zoom-in shadow-md overflow-hidden flex flex-col justify-between"
       >
         {type === "name" ? (
-          <form className="w-96 flex flex-col gap-4 p-6 ">
+          <form className="w-full flex flex-col gap-4 p-6 ">
             <div className="flex flex-col gap-2">
               <label htmlFor="first-name" className="w-fit">
                 First Name

@@ -8,7 +8,8 @@ import { GoogleUserCredentials } from "./LoginForm";
 
 export default function SignupForm() {
   const [email, setEmail] = useState("");
-  const [fullName, setFullName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -16,7 +17,7 @@ export default function SignupForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const canSubmit = Boolean(
-    email && fullName && password && confirmPassword === password
+    email && firstName && lastName && password && confirmPassword === password
   );
 
   const { user, setUser } = useUserContext();
@@ -30,7 +31,13 @@ export default function SignupForm() {
     );
     const googleClientId = response.clientId as string;
     const { email, name } = userData;
-    const data = await loginUserWithGoogle(email, name, googleClientId);
+    const [googleFirstName, googleLastName] = name.split(" ");
+    const data = await loginUserWithGoogle(
+      email,
+      googleFirstName,
+      googleLastName,
+      googleClientId
+    );
     if (data.error) return;
     setUser(data);
   }
@@ -44,7 +51,7 @@ export default function SignupForm() {
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    const data = await signupUser(fullName, email, password);
+    const data = await signupUser(firstName, lastName, email, password);
     if (data.error) {
       setError(data.error);
       setLoading(false);
@@ -80,13 +87,24 @@ export default function SignupForm() {
         <p className="px-5 mx-auto -mt-3.5 text-center bg-white w-fit">OR</p>
       </div>
       <div className="flex flex-col gap-2">
-        <label htmlFor="fullName">Full Name</label>
+        <label htmlFor="firstName">First Name</label>
         <input
-          value={fullName}
-          onChange={(e) => setFullName(e.target.value)}
-          id="fullName"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          id="firstName"
           type="text"
-          placeholder="John Doe"
+          placeholder="John"
+          className="p-3 border rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 border-zinc-300"
+        />
+      </div>
+      <div className="flex flex-col gap-2">
+        <label htmlFor="lastName">Last Name</label>
+        <input
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          id="lastName"
+          type="text"
+          placeholder="Doe"
           className="p-3 border rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 border-zinc-300"
         />
       </div>

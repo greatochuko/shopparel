@@ -1,14 +1,15 @@
 export const BASE_URL = "http://localhost:5000/api";
 
 export async function signupUser(
-  fullName: string,
+  firstName: string,
+  lastName: string,
   email: string,
   password: string
 ) {
   try {
     const res = await fetch(`${BASE_URL}/signup`, {
       method: "POST",
-      body: JSON.stringify({ fullName, email, password }),
+      body: JSON.stringify({ firstName, lastName, email, password }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -40,13 +41,14 @@ export async function loginUser(email: string, password: string) {
 
 export async function loginUserWithGoogle(
   email: string,
-  name: string,
+  firstName: string,
+  lastName: string,
   googleClientId: string
 ) {
   try {
     const res = await fetch(`${BASE_URL}/login/google`, {
       method: "POST",
-      body: JSON.stringify({ email, name, googleClientId }),
+      body: JSON.stringify({ email, firstName, lastName, googleClientId }),
       headers: {
         "Content-Type": "application/json",
       },

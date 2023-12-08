@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useUserContext from "../hooks/useUserContext";
 import { ShippingInformationType } from "./CheckoutPage";
 import Modal from "../components/Modal";
+import { Navigate, useLocation } from "react-router-dom";
 
 export default function ProfilePage() {
   const { user } = useUserContext();
@@ -10,6 +11,8 @@ export default function ProfilePage() {
   const [shippingInformations, setShippingInformations] = useState<
     ShippingInformationType[] | null
   >(null);
+
+  const { pathname } = useLocation();
 
   function openModal(type: string) {
     setModalIsOpen(true);
@@ -31,6 +34,8 @@ export default function ProfilePage() {
     fetchShippingInformations();
   }, []);
 
+  if (!user) return <Navigate to={`/login?redirect=${pathname}`} />;
+
   return (
     <>
       <section className="flex-1">
@@ -39,7 +44,7 @@ export default function ProfilePage() {
           <div className="py-2 border-b border-zinc-100">
             <h2>Your Name</h2>
             <p className="flex justify-between font-semibold items-center">
-              {user?.firstName || "Great Ogheneochuko"}
+              {user?.firstName} {user?.lastName}
               <button
                 onClick={() => openModal("name")}
                 className="p-1 hover:text-accent-blue-100 focus-visible:ring focus-visible:ring-blue-400 rounded-sm"
