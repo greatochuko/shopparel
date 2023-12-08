@@ -9,6 +9,7 @@ import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import ProfilePage from "./pages/ProfilePage";
 import AuthPage from "./pages/AuthPage";
+import ProfilePageLayout from "./components/ProfilePageLayout";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +25,10 @@ const router = createBrowserRouter([
           { path: "/product/:productId", element: <ProductDetailPage /> },
           { path: "/cart", element: <CartPage /> },
           { path: "/checkout", element: <CheckoutPage /> },
-          { path: "/account", element: <ProfilePage /> },
+          {
+            element: <ProfilePageLayout />,
+            children: [{ path: "/account", element: <ProfilePage /> }],
+          },
         ],
       },
     ],
