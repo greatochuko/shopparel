@@ -106,6 +106,7 @@ export default function CartPage() {
               <input
                 type="text"
                 value={couponCode}
+                name="coupon"
                 onChange={(e) => setCouponCode(e.target.value)}
                 className="text-sm border-zinc-400 border-2 w-[100%] sm:w-auto border-r-0 rounded-s-md focus-visible:ring focus-visible:ring-blue-400 px-2"
               />
