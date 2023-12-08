@@ -65,7 +65,11 @@ export default function Header() {
                 <Link
                   title="My account"
                   to={"/account"}
-                  className="grid p-1 px-1.5 group duration-200 rounded-md hover:bg-accent-blue-100 border border-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2  bg-zinc-100 place-content-center"
+                  className={`${
+                    pathname === "/account"
+                      ? " bg-accent-blue-100"
+                      : "bg-zinc-100"
+                  } grid p-1 px-1.5 group duration-200 rounded-md hover:bg-accent-blue-100 border border-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 place-content-center`}
                 >
                   <svg
                     height={20}
@@ -84,7 +88,7 @@ export default function Header() {
                       <path
                         className="duration-200 group-hover:stroke-white"
                         d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
-                        stroke="#333"
+                        stroke={pathname === "/account" ? "white" : "#333"}
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"

@@ -27,7 +27,12 @@ export default function LoginForm() {
     );
     const googleClientId = response.clientId as string;
     const { email, name } = userData;
-    const data = await loginUserWithGoogle(email, name, googleClientId);
+    const data = await loginUserWithGoogle(
+      email,
+      name.split(" ")[0],
+      name.split(" ")[1],
+      googleClientId
+    );
     if (data.error) return;
     setUser(data);
   }

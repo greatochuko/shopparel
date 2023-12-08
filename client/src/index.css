@@ -26,4 +26,31 @@
   .scrollbar-hidden::-webkit-scrollbar {
     display: none;
   }
+
+  .animate-zoom-in {
+    animation: zoom-in forwards 0.3s;
+  }
+
+  .animate-fade-in {
+    animation: fade-in forwards 0.3s;
+  }
+
+  @keyframes zoom-in {
+    0% {
+      scale: 0.9;
+    }
+    100% {
+      scale: 1;
+    }
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+      backdrop-filter: blur(2px);
+    }
+  }
 }

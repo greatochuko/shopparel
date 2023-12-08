@@ -32,7 +32,7 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="p-8 text-white md:p-12 bg-zinc-800">
+    <footer className="p-8 text-white md:p-12 bg-zinc-800 mt-auto">
       <div className="flex flex-wrap justify-between w-full max-w-5xl gap-8 pb-4 mx-auto border-b border-b-zinc-500">
         {footerLinks.map((footerLink) => (
           <div key={footerLink.title}>
@@ -41,7 +41,7 @@ export default function Footer() {
               {footerLink.links.map((link) => (
                 <li key={link}>
                   <Link
-                    className="text-sm text-zinc-300 hover:text-white"
+                    className="text-sm text-zinc-300 hover:text-white focus-visible:ring ring-blue-500 p-1 rounded-md"
                     to={``}
                   >
                     {link}
@@ -55,7 +55,7 @@ export default function Footer() {
           <Link
             to={"https://linkedin.com/in/greatochuko"}
             target="_blank"
-            className="p-1.5 duration-200 rounded-md hover:bg-white bg-zinc-300 flex-center "
+            className="p-1.5 duration-200 rounded-md hover:bg-white bg-zinc-300 flex-center focus-visible:ring ring-blue-500 ring-offset-1 ring-offset-zinc-800"
           >
             <svg
               height={18}
@@ -98,7 +98,7 @@ export default function Footer() {
           <Link
             to={"https://twitter.com/greatochuko123"}
             target="_blank"
-            className="p-1.5 duration-200 rounded-md hover:bg-white bg-zinc-300 flex-center "
+            className="p-1.5 duration-200 rounded-md hover:bg-white bg-zinc-300 flex-center  focus-visible:ring ring-blue-500 ring-offset-1 ring-offset-zinc-800"
           >
             <svg
               height={18}
@@ -141,7 +141,7 @@ export default function Footer() {
           <Link
             to={"https://github.com/greatochuko"}
             target="_blank"
-            className="p-1.5 duration-200 rounded-md hover:bg-white bg-zinc-300 flex-center "
+            className="p-1.5 duration-200 rounded-md hover:bg-white bg-zinc-300 flex-center focus-visible:ring ring-blue-500 ring-offset-1 ring-offset-zinc-800"
           >
             <svg
               height={18}
@@ -186,7 +186,14 @@ export default function Footer() {
         </div>
       </div>
       <p className="pt-4 text-sm text-center text-zinc-400">
-        Copyright © {new Date().getFullYear()} Shopparel. All rights reserved.
+        Copyright © {new Date().getFullYear()}{" "}
+        <Link
+          to={"/"}
+          className="focus-visible:ring ring-blue-500 ring-offset-1 inline-block ring-offset-zinc-800"
+        >
+          Shopparel
+        </Link>
+        . All rights reserved.
       </p>
     </footer>
   );

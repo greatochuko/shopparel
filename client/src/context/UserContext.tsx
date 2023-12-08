@@ -2,7 +2,8 @@ import React, { createContext, useEffect, useState } from "react";
 import { fetchUser } from "../services/userServices";
 
 export type UserType = {
-  fullName: string;
+  firstName: string;
+  lastName: string;
   email: string;
   imgUrl: string;
   _id: string;

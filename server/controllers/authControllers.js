@@ -3,10 +3,11 @@ import bcrypt from "bcrypt";
 
 export async function signup(req, res) {
   try {
-    const { fullName, email, password } = req.body;
+    const { firstName, lastName, email, password } = req.body;
 
     // Handle errors
-    if (!fullName) throw new Error("Full Name Field is required");
+    if (!firstName) throw new Error("Full Name Field is required");
+    if (!lastName) throw new Error("Full Name Field is required");
     if (!password) throw new Error("Password Field is required");
     if (password.length < 8)
       throw new Error("Password must be at least 8 characters long");
@@ -21,7 +22,8 @@ export async function signup(req, res) {
 
     // Create new user
     const newUser = await User.create({
-      fullName,
+      firstName,
+      lastName,
       email,
       password: hashedPassword,
     });
@@ -62,16 +64,21 @@ export async function login(req, res) {
 
 export async function loginWithGoogle(req, res) {
   try {
-    const { email, name, googleClientId } = req.body;
+    const { email, firstName, lastName, googleClientId } = req.body;
 
     // Handle errors
     if (!email) throw new Error("Email Field is required");
-    if (!name) throw new Error("Password Field is required");
+    if (!firstName || !lastName) throw new Error("Name Field is required");
 
     // Find or create user
     let user = await User.findOne({ email });
     if (!user)
-      user = await User.create({ email, fullName: name, googleClientId });
+      user = await User.create({
+        email,
+        firstName,
+        lastName,
+        googleClientId,
+      });
 
     req.session.userId = user._id;
 
