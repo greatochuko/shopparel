@@ -7,7 +7,7 @@ export default function ProfilePageLayout() {
   const { pathname } = useLocation();
 
   return (
-    <main className="mt-[78px] pt-1 flex flex-col gap-4  max-w-7xl w-[90%] mx-auto mb-2 text-zinc-700">
+    <main className="mt-[78px] pt-1 flex flex-col gap-4  max-w-7xl w-[90%] mx-auto text-zinc-700 mb-10">
       <p>
         <Link
           to={"/"}
