@@ -16,7 +16,7 @@ export default function ProfilePageLayout() {
           Home
         </Link>
         &gt; My Account &gt;
-        <span className="font-semibold">Personal Info</span>
+        <span className="font-semibold"> Personal Info</span>
       </p>
       <div className="flex gap-10 mt-6">
         <section className="w-72 ">

@@ -5,17 +5,20 @@ import Modal from "../components/Modal";
 
 export default function ProfilePage() {
   const { user } = useUserContext();
-  const [modalIsOpen, setModalIsOpen] = useState({ open: false, type: "" });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
   const [shippingInformations, setShippingInformations] = useState<
     ShippingInformationType[] | null
   >(null);
 
   function openModal(type: string) {
-    setModalIsOpen({ open: true, type });
+    setModalIsOpen(true);
+    setModalType(type);
   }
 
   function closeModal() {
-    setModalIsOpen({ open: false, type: "" });
+    setModalIsOpen(false);
+    setModalType("");
   }
 
   useEffect(() => {
@@ -38,7 +41,7 @@ export default function ProfilePage() {
             <p className="flex justify-between font-semibold items-center">
               {user?.firstName || "Great Ogheneochuko"}
               <button
-                onClick={() => openModal("fullName")}
+                onClick={() => openModal("name")}
                 className="p-1 hover:text-accent-blue-100 focus-visible:ring focus-visible:ring-blue-400 rounded-sm"
               >
                 Change
@@ -73,7 +76,10 @@ export default function ProfilePage() {
         <div className="flex flex-col gap-4 mt-10">
           <h2 className="text-xl font-semibold flex justify-between items-center">
             Shipping Information
-            <button className="text-base hover:text-accent-blue-100 rounded-sm p-1 focus-visible:ring focus-visible:ring-blue-400">
+            <button
+              onClick={() => openModal("add-new-shipping-info")}
+              className="text-base hover:text-accent-blue-100 rounded-sm p-1 focus-visible:ring focus-visible:ring-blue-400"
+            >
               Add New
             </button>
           </h2>
@@ -89,10 +95,16 @@ export default function ProfilePage() {
                 <p>{shippingInformation.phone}</p>
                 <p>{shippingInformation.streetAddress}</p>
                 <div className="flex gap-4">
-                  <button className="font-semibold border-2 border-zinc-500 text-zinc-500 hover:bg-zinc-700 hover:text-white hover:border-zinc-700 focus-visible:ring ring-blue-400 p-0.5 px-2 rounded-md duration-300">
+                  <button
+                    onClick={() => openModal("edit-shipping-info")}
+                    className="font-semibold border-2 border-zinc-500 text-zinc-500 hover:bg-zinc-700 hover:text-white hover:border-zinc-700 focus-visible:ring ring-blue-400 p-0.5 px-2 rounded-md duration-300"
+                  >
                     Edit
                   </button>
-                  <button className="font-semibold border-2 border-zinc-500 text-zinc-500 hover:bg-zinc-700 hover:text-white hover:border-zinc-700 focus-visible:ring ring-blue-400 p-0.5 px-2 rounded-md duration-300">
+                  <button
+                    onClick={() => openModal("delete-shipping-info")}
+                    className="font-semibold border-2 border-zinc-500 text-zinc-500 hover:bg-zinc-700 hover:text-white hover:border-zinc-700 focus-visible:ring ring-blue-400 p-0.5 px-2 rounded-md duration-300"
+                  >
                     Remove
                   </button>
                 </div>
@@ -101,7 +113,7 @@ export default function ProfilePage() {
           </div>
         </div>
       </section>
-      {modalIsOpen.open ? <Modal closeModal={closeModal} /> : null}
+      {modalIsOpen ? <Modal closeModal={closeModal} type={modalType} /> : null}
     </>
   );
 }
