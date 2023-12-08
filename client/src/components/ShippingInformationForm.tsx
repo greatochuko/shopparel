@@ -32,7 +32,7 @@ export default function ShippingInformationForm({
   }
   return (
     <form className="" onSubmit={handleAddNewShippingInfo}>
-      <div className="flex flex-col sm:grid sm:grid-cols-2 gap-x-4 gap-y-8 p-6 max-h-[80vh] overflow-y-scroll">
+      <div className="flex flex-col sm:grid sm:grid-cols-2 gap-x-4 gap-y-8 p-6 max-h-[70vh] overflow-y-scroll">
         <div className="flex flex-col gap-2">
           <label htmlFor="shipping-first-name" className="font-semibold">
             First Name*
