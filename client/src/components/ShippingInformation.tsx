@@ -1,23 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SectionHeader from "./SectionHeader";
 import { ShippingInformationType } from "../pages/CheckoutPage";
 import { Link } from "react-router-dom";
-
-const shippingInformations = [
-  {
-    _id: "123456",
-    firstName: "Great",
-    lastName: "Ochuko",
-    country: "Nigeria",
-    company: null,
-    streetAddress: "Ekosodin",
-    apartment: "123 block 2",
-    city: "Benin",
-    state: "Edo",
-    postalCode: "320012",
-    phone: "7048078103",
-  },
-];
 
 export default function ShippingInformation({
   setShippingInformation,
@@ -26,9 +10,10 @@ export default function ShippingInformation({
     React.SetStateAction<ShippingInformationType | null>
   >;
 }) {
-  const [address, setAddress] = useState(
-    shippingInformations.length ? shippingInformations[0]._id : "new"
-  );
+  const [shippingInformations, setShippingInformations] = useState<
+    ShippingInformationType[] | null
+  >(null);
+  const [information, setInformation] = useState<string | null>(null);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [country, setCountry] = useState("");
@@ -41,9 +26,20 @@ export default function ShippingInformation({
   const [phone, setPhone] = useState("");
   const [saveInfo, setSaveInfo] = useState(false);
 
+  useEffect(() => {
+    async function fetchShippingInformations() {
+      const res = await fetch("/data/shippingInformations.json");
+      if (!res.ok) return;
+      const data = await res.json();
+      setShippingInformations(data);
+    }
+    fetchShippingInformations();
+  }, [setShippingInformation]);
+
   function handleSetShippingInformation(e: React.FormEvent) {
     e.preventDefault();
-    setShippingInformation({
+    const newShippingInfo = {
+      _id: crypto.randomUUID(),
       firstName,
       lastName,
       country,
@@ -54,9 +50,17 @@ export default function ShippingInformation({
       state,
       postalCode,
       phone,
-    });
-  }
+    };
 
+    setShippingInformations((curr) => [
+      ...(curr as ShippingInformationType[]),
+      newShippingInfo,
+    ]);
+    setShippingInformation(newShippingInfo);
+    setInformation(newShippingInfo._id);
+  }
+  if (!shippingInformations)
+    return <h1 className="h-screen flex-center">Loading</h1>;
   return (
     <section className="flex flex-col gap-10 flex-1">
       <SectionHeader title="Shipping Information" />
@@ -73,11 +77,18 @@ export default function ShippingInformation({
               name={shippingInformation._id}
               value={shippingInformation._id}
               id={shippingInformation._id}
-              checked={address === shippingInformation._id}
-              onChange={() => setAddress(shippingInformation._id)}
+              checked={information === shippingInformation._id}
+              onChange={() => setInformation(shippingInformation._id)}
+              onClick={() =>
+                setShippingInformation(
+                  shippingInformations.find(
+                    (info) => info._id === shippingInformation._id
+                  ) as ShippingInformationType
+                )
+              }
               onKeyDown={(e) => {
                 if (e.code !== "Tab") e.preventDefault();
-                if (e.code === "Enter") setAddress(shippingInformation._id);
+                if (e.code === "Enter") setInformation(shippingInformation._id);
               }}
             />
             <label htmlFor={shippingInformation._id} className="font-semibold">
@@ -99,11 +110,12 @@ export default function ShippingInformation({
             name="new-shipping-address"
             value={"new"}
             id="new"
-            checked={address === "new"}
-            onChange={() => setAddress("new")}
+            checked={information === "new"}
+            onChange={() => setInformation("new")}
+            onClick={() => setShippingInformation(null)}
             onKeyDown={(e) => {
               if (e.code !== "Tab") e.preventDefault();
-              if (e.code === "Enter") setAddress("new");
+              if (e.code === "Enter") setInformation("new");
             }}
           />
           <label htmlFor="new" className="font-semibold">
@@ -113,7 +125,7 @@ export default function ShippingInformation({
           </label>
         </div>
       </div>
-      {address === "new" ? (
+      {information === "new" ? (
         <form
           className="flex flex-col sm:grid sm:grid-cols-2 gap-x-4 gap-y-8"
           onSubmit={handleSetShippingInformation}
