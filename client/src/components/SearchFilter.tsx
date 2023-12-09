@@ -67,7 +67,7 @@ export default function SearchFilter({
   products: ProductType[];
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const query = searchParams.get("q") || "";
+  const query = searchParams.get("query") || "";
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -89,7 +89,7 @@ export default function SearchFilter({
     >
       <h2
         onClick={toggleOpenFilter}
-        className="cursor-pointer md:cursor-auto flex items-center justify-between p-2 text-base font-semibold border-b"
+        className="flex items-center justify-between p-2 text-base font-semibold border-b cursor-pointer md:cursor-auto"
       >
         Filter
         <span>
@@ -120,7 +120,7 @@ export default function SearchFilter({
       <div className="gap-2 p-3 mt-auto flex-center">
         <button
           onClick={clearFilters}
-          className="flex-1 font-semibold p-2 text-sm text-white duration-300 bg-red-500 rounded-md whitespace-nowrap focus-visible:ring focus-visible:ring-red-300 hover:bg-red-600 active:bg-red-700"
+          className="flex-1 p-2 text-sm font-semibold text-white duration-300 bg-red-500 rounded-md whitespace-nowrap focus-visible:ring focus-visible:ring-red-300 hover:bg-red-600 active:bg-red-700"
         >
           Clear All Filters
         </button>

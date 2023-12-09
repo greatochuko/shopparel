@@ -4,6 +4,7 @@ import ChangeNameForm from "./ChangeNameForm";
 import ChangeEmailForm from "./ChangeEmailForm";
 import ChangePasswordForm from "./ChangePasswordForm";
 import DeleteShippingInfoModal from "./DeleteShippingInfoModal";
+import SignoutModal from "./SignoutModal";
 
 export type Value =
   | ({
@@ -50,6 +51,7 @@ export default function Modal({ type, shippingInfo, closeModal }: ModalProps) {
             shippingInfo={shippingInfo as ShippingInformationType}
           />
         ) : null}
+        {type === "signout" ? <SignoutModal closeModal={closeModal} /> : null}
       </div>
     </div>
   );
