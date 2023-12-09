@@ -10,6 +10,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import ProfilePage from "./pages/ProfilePage";
 import AuthPage from "./pages/AuthPage";
 import ProfilePageLayout from "./components/ProfilePageLayout";
+import WishlistPage from "./pages/WishlistPage";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,10 @@ const router = createBrowserRouter([
           { path: "/checkout", element: <CheckoutPage /> },
           {
             element: <ProfilePageLayout />,
-            children: [{ path: "/account", element: <ProfilePage /> }],
+            children: [
+              { path: "/account", element: <ProfilePage /> },
+              { path: "/wishlist", element: <WishlistPage /> },
+            ],
           },
         ],
       },

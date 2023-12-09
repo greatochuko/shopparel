@@ -31,7 +31,7 @@ export default function ProfilePageLayout() {
           <span className="font-semibold"> Personal Info</span>
         </p>
         <div className="flex flex-col sm:flex-row gap-10 mt-6">
-          <section className="sm:w-40 lg:w-72 w-full">
+          <section className="sm:w-40 lg:w-64 w-full">
             <SectionHeader title={`Hello, ${user?.firstName} `} />
             <p className="mt-2">Welcome to your account</p>
             <ul
