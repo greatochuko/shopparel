@@ -12,10 +12,11 @@ export const products = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John",
+          lastName: "Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
-          _id: "123abc",
+          _id: "123abc1",
         },
         date: "November 12, 2023",
         rating: 3,
@@ -23,7 +24,7 @@ export const products = [
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
       },
     ],
-    _id: "123abc",
+    _id: "123abc1",
     sizes: ["l", "m", "xl", "s", "xs"],
     categories: ["V-Neck T-Shirts"],
     colors: ["black"],
@@ -38,10 +39,11 @@ export const products = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John",
+          lastName: "Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
-          _id: "123abc",
+          _id: "123abc2",
         },
         date: "November 12, 2023",
         rating: 3,
@@ -49,7 +51,7 @@ export const products = [
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
       },
     ],
-    _id: "123abc",
+    _id: "123abc2",
     sizes: ["l", "m", "xl", "s", "2xl"],
     categories: ["sweater"],
     colors: ["yellow", "orange"],
@@ -64,10 +66,11 @@ export const products = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John",
+          lastName: "Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
-          _id: "123abc",
+          _id: "123abc3",
         },
         date: "November 12, 2023",
         rating: 3,
@@ -75,7 +78,7 @@ export const products = [
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
       },
     ],
-    _id: "123abc",
+    _id: "123abc3",
     sizes: ["l", "m", "xl", "s"],
     categories: ["jeans", "trousers"],
     colors: ["navy", "black", "blue"],
@@ -90,10 +93,11 @@ export const products = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John",
+          lastName: "Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
-          _id: "123abc",
+          _id: "123abc4",
         },
         date: "November 12, 2023",
         rating: 3,
@@ -101,7 +105,7 @@ export const products = [
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
       },
     ],
-    _id: "123abc",
+    _id: "123abc4",
     sizes: ["l", "m", "xl", "2xl"],
     categories: ["coats", "jackets", "sweater"],
     colors: ["black"],
@@ -116,10 +120,11 @@ export const products = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John",
+          lastName: "Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
-          _id: "123abc",
+          _id: "123abc5",
         },
         date: "November 12, 2023",
         rating: 3,
@@ -127,7 +132,7 @@ export const products = [
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
       },
     ],
-    _id: "123abc",
+    _id: "123abc5",
     sizes: ["l", "m", "s", "xs"],
     categories: ["Casual Dresses", "Formal Dresses"],
     colors: ["red", "orange"],
@@ -142,10 +147,11 @@ export const products = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John",
+          lastName: "Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
-          _id: "123abc",
+          _id: "123abc6",
         },
         date: "November 12, 2023",
         rating: 3,
@@ -153,7 +159,7 @@ export const products = [
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
       },
     ],
-    _id: "123abc",
+    _id: "123abc6",
     sizes: ["l", "xl", "m", "s", "xs", "xxs"],
     categories: ["Casual Dresses", "Summer Dresses", "Party Dresses"],
     colors: ["yellow", "blue"],
@@ -168,10 +174,11 @@ export const products = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John",
+          lastName: "Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
-          _id: "123abc",
+          _id: "123abc7",
         },
         date: "November 12, 2023",
         rating: 3,
@@ -179,7 +186,7 @@ export const products = [
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
       },
     ],
-    _id: "123abc",
+    _id: "123abc7",
     sizes: ["l", "xl", "m", "s", "xs", "xxs", "2xl"],
     categories: ["Polo Shirts", "Crewneck T-Shirts"],
     colors: ["black", "navy"],
@@ -194,10 +201,11 @@ export const products = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John",
+          lastName: "Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
-          _id: "123abc",
+          _id: "123abc8",
         },
         date: "November 12, 2023",
         rating: 3,
@@ -205,7 +213,7 @@ export const products = [
           "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
       },
     ],
-    _id: "123abc",
+    _id: "123abc8",
     sizes: ["3xl", "2xl", "l", "m", "xl", "s", "xs"],
     categories: [
       "Flannel Shirts",
