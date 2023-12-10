@@ -1,4 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { cartItems } from "./CartPage";
 
 const orders = [
   {
@@ -118,6 +119,47 @@ export default function OrderDetailPage() {
           <div className="w-4 h-4 bg-zinc-400 rounded-full"></div>
           <p>Delivered</p>
         </div>
+      </div>
+      <div className="flex flex-col gap-4 p-4 rounded-md bg-zinc-100 text-sm mt-6">
+        {cartItems.map((cartItem) => (
+          <div key={cartItem._id} className="flex justify-between">
+            <div className="flex gap-4">
+              <div className="min-w-[80px] w-20 h-20 bg-zinc-200 rounded-md">
+                <img
+                  src={cartItem.imgUrl}
+                  alt=""
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <div className="flex flex-col gap-1">
+                <h3 className="font-semibold">{cartItem.name}</h3>
+                <p>
+                  Color:{" "}
+                  <span className="font-semibold uppercase">
+                    {cartItem.color}
+                  </span>
+                </p>
+                <p>
+                  Size:{" "}
+                  <span className="font-semibold uppercase">
+                    {cartItem.size}
+                  </span>
+                </p>
+              </div>
+            </div>
+            <div className="flex sm:gap-4 lg:gap-10 items-center lg:text-base">
+              <p className="whitespace-nowrap">
+                Qty: <span className="font-semibold">{cartItem.quantity}</span>
+              </p>
+              <p className="whitespace-nowrap">
+                Total Price:{" "}
+                <span className="font-semibold">
+                  ${(cartItem.price * cartItem.quantity).toFixed(2)}
+                </span>
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
