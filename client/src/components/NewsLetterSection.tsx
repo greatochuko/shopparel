@@ -2,14 +2,14 @@ import NewsLetterForm from "./NewsLetterForm";
 
 export default function NewsLetterSection() {
   return (
-    <div className="flex max-w-7xl w-full sm:w-[90%] mx-auto aspect-[1.5] md:aspect-[3] sm:rounded-md overflow-hidden">
-      <div className="flex-1 relative overflow-hidden">
+    <div className="flex">
+      <div className="flex-1 relative">
         <img
           src="/newsletter-image-1.jpg"
           alt="Subscribe to our Newsletter"
-          className="blur-[2px] w-full h-full object-cover"
+          className="blur-[2px] w-full -z-10 h-full absolute object-cover"
         />
-        <div className=" bg-black/50 flex items-center absolute w-full h-full top-0 text-white p-4 sm:p-10">
+        <div className=" bg-black/50 flex items-center w-full h-full text-white p-4 py-8 sm:p-10">
           <div className="max-w-[500px] flex flex-col gap-4">
             <h2 className="text-xl sm:text-2xl font-bold">
               Subscribe to Our Newsletter
