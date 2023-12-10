@@ -49,6 +49,8 @@ const feedbacks = [
 
 export default function FeedbackSection() {
   const [index, setIndex] = useState(0);
+  console.clear();
+  console.log(index);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -56,7 +58,6 @@ export default function FeedbackSection() {
         let feedbackShown = 3;
         if (window.innerWidth < 1024) feedbackShown = 2;
         if (window.innerWidth < 768) feedbackShown = 1;
-
         if (curr + 1 >= feedbacks.length / feedbackShown) return 0;
         return curr + 1;
       });
@@ -73,7 +74,7 @@ export default function FeedbackSection() {
       <div className="relative">
         <div
           style={{
-            marginLeft: `${-(100 * index)}%`,
+            marginLeft: `calc(${-(100 * index)}% - ${index * 15}px)`,
           }}
           className={`flex gap-4 w-fit duration-500`}
         >
@@ -84,9 +85,36 @@ export default function FeedbackSection() {
       </div>
 
       <div className={`flex-center gap-2`}>
-        <div className="w-4 h-2 duration-200 rounded-full bg-zinc-600"></div>
-        <div className="w-2 h-2 duration-200 rounded-full bg-zinc-200"></div>
-        <div className="w-2 h-2 duration-200 rounded-full bg-zinc-200"></div>
+        <div
+          className={`${
+            index === 0 ? "w-4 bg-zinc-600" : "w-2 bg-zinc-200"
+          } h-2 duration-300 rounded`}
+        ></div>
+        <div
+          className={`${
+            index === 1 ? "w-4 bg-zinc-600" : "w-2 bg-zinc-200"
+          } h-2 duration-300 rounded`}
+        ></div>
+        <div
+          className={`${
+            index === 2 ? "w-4 bg-zinc-600" : "w-2 bg-zinc-200"
+          } h-2 duration-300 rounded lg:hidden`}
+        ></div>
+        <div
+          className={`${
+            index === 3 ? "w-4 bg-zinc-600" : "w-2 bg-zinc-200"
+          } h-2 duration-300 rounded md:hidden`}
+        ></div>
+        <div
+          className={`${
+            index === 4 ? "w-4 bg-zinc-600" : "w-2 bg-zinc-200"
+          } h-2 duration-300 rounded md:hidden`}
+        ></div>
+        <div
+          className={`${
+            index === 5 ? "w-4 bg-zinc-600" : "w-2 bg-zinc-200"
+          } h-2 duration-300 rounded md:hidden`}
+        ></div>
       </div>
     </div>
   );
