@@ -50,6 +50,8 @@ export default function OrderPage() {
   const [filter, setFilter] = useState("active");
   const [orders, setOrders] = useState(demoOrders);
 
+  const filteredOrders = orders.filter((order) => order.status === filter);
+
   return (
     <section className="flex flex-col flex-1 gap-6">
       <h1 className="text-xl font-semibold">My Orders</h1>
@@ -101,7 +103,7 @@ export default function OrderPage() {
         </li>
       </ul>
       <div className="flex flex-col gap-4">
-        {orders.map((order) => (
+        {filteredOrders.map((order) => (
           <Order key={order._id} order={order} />
         ))}
       </div>
