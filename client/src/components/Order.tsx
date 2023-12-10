@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-type OrderType = {
+export type OrderType = {
   _id: string;
   orderDate: string;
   deliveryDate: string;
