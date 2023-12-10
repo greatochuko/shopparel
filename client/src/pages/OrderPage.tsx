@@ -53,7 +53,7 @@ export default function OrderPage() {
   return (
     <section className="flex flex-col flex-1 gap-6">
       <h1 className="text-xl font-semibold">My Orders</h1>
-      <ul className="flex border-b-[3px] justify-between text-lg font-semibold">
+      <ul className="flex border-b-[3px] justify-between text-base sm:text-lg font-semibold">
         <li
           role="button"
           tabIndex={0}

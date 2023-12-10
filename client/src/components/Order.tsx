@@ -45,7 +45,7 @@ export default function Order({ order }: { order: OrderType }) {
       </div>
       <Link
         to={`/orders/${order._id}`}
-        className="p-2 px-4 font-semibold text-center text-white duration-300 rounded-md whitespace-nowrap bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
+        className="p-2 px-4 text-sm font-semibold text-center text-white duration-300 rounded-md sm:text-base whitespace-nowrap bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
       >
         View Order
       </Link>
