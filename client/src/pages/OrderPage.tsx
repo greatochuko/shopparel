@@ -49,7 +49,7 @@ const demoOrders = [
 
 export default function OrderPage() {
   const [filter, setFilter] = useState("active");
-  const [orders, setOrders] = useState<OrderType[]>([]);
+  const [orders, setOrders] = useState<OrderType[]>(demoOrders);
 
   const filteredOrders = orders.filter((order) => order.status === filter);
 

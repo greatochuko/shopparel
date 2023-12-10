@@ -127,7 +127,7 @@ export default function ProfilePageLayout() {
                 <Link
                   to={"/orders"}
                   className={`p-3 flex items-center justify-center md:justify-normal gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
-                    pathname === "/orders"
+                    pathname.includes("/orders")
                       ? "md:border-l-4 md:border-b-0 border-b-2 border-zinc-700 bg-zinc-100"
                       : ""
                   }`}
@@ -166,7 +166,7 @@ export default function ProfilePageLayout() {
                   </svg>
                   <span
                     className={`${
-                      pathname === "/orders" ? "" : "hidden"
+                      pathname.includes("/orders") ? "" : "hidden"
                     } sm:block`}
                   >
                     My orders
