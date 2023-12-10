@@ -1,5 +1,6 @@
 import React, { createContext, useEffect, useState } from "react";
 import { fetchUser } from "../services/userServices";
+import FullScreenLoader from "../components/FullScreenLoader";
 
 export type UserType = {
   firstName: string;
@@ -37,7 +38,7 @@ export default function UserProvider({
     refreshUser();
   }, []);
 
-  if (!refreshed) return <h1>Shopparel</h1>;
+  if (!refreshed) return <FullScreenLoader />;
 
   return (
     <UserContext.Provider value={{ user, setUser }}>

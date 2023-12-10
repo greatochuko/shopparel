@@ -53,4 +53,17 @@
       backdrop-filter: blur(2px);
     }
   }
+
+  .animate-loader {
+    animation: loader 5s;
+  }
+
+  @keyframes loader {
+    0% {
+      width: 0%;
+    }
+    100% {
+      width: 100%;
+    }
+  }
 }
