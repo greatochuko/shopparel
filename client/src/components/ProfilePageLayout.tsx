@@ -25,27 +25,27 @@ export default function ProfilePageLayout() {
         <p>
           <Link
             to={"/"}
-            className="hover:underline focus-visible:ring ring-blue-400 rounded-md p-1"
+            className="p-1 rounded-md hover:underline focus-visible:ring ring-blue-400"
           >
             Home
           </Link>
           &gt; My Account &gt;
           <span className="font-semibold"> Personal Info</span>
         </p>
-        <div className="flex flex-col sm:flex-row gap-10 mt-6">
-          <section className="sm:w-40 lg:w-64 w-full">
+        <div className="flex flex-col gap-10 mt-6 md:flex-row">
+          <section className="w-full md:w-40 lg:w-64">
             <SectionHeader title={`Hello, ${user?.firstName} `} />
             <p className="mt-2">Welcome to your account</p>
             <ul
               role="navigation"
-              className="my-6 flex sm:flex-col flex-row whitespace-nowrap"
+              className="flex flex-row my-6 md:flex-col whitespace-nowrap"
             >
               <li className="flex-1">
                 <Link
                   to={"/account"}
-                  className={`p-3 flex items-center justify-center sm:justify-normal gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
+                  className={`p-3 flex items-center justify-center md:justify-normal gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
                     pathname === "/account"
-                      ? "sm:border-l-4 sm:border-b-0 border-b-2 border-zinc-700 bg-zinc-100"
+                      ? "md:border-l-4 md:border-b-0 border-b-2 border-zinc-700 bg-zinc-100"
                       : ""
                   }`}
                 >
@@ -85,9 +85,9 @@ export default function ProfilePageLayout() {
               <li className="flex-1">
                 <Link
                   to={"/wishlist"}
-                  className={`p-3 flex items-center justify-center sm:justify-normal gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
+                  className={`p-3 flex items-center justify-center md:justify-normal gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
                     pathname === "/wishlist"
-                      ? "sm:border-l-4 sm:border-b-0 border-b-2 border-zinc-700 bg-zinc-100"
+                      ? "md:border-l-4 md:border-b-0 border-b-2 border-zinc-700 bg-zinc-100"
                       : ""
                   }`}
                 >
@@ -126,9 +126,9 @@ export default function ProfilePageLayout() {
               <li className="flex-1">
                 <Link
                   to={"/orders"}
-                  className={`p-3 flex items-center justify-center sm:justify-normal gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
+                  className={`p-3 flex items-center justify-center md:justify-normal gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
                     pathname === "/orders"
-                      ? "sm:border-l-4 sm:border-b-0 border-b-2 border-zinc-700 bg-zinc-100"
+                      ? "md:border-l-4 md:border-b-0 border-b-2 border-zinc-700 bg-zinc-100"
                       : ""
                   }`}
                 >
@@ -176,7 +176,7 @@ export default function ProfilePageLayout() {
               <li
                 role="button"
                 onClick={openSignoutModal}
-                className="cursor-pointer flex-1 p-3 flex items-center justify-center sm:justify-normal gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 "
+                className="flex items-center justify-center flex-1 gap-2 p-3 duration-200 cursor-pointer md:justify-normal hover:bg-zinc-100 focus-visible:bg-zinc-100 "
               >
                 <svg
                   height={20}
@@ -209,9 +209,9 @@ export default function ProfilePageLayout() {
           <Outlet />
         </div>
         {pathname === "/wishlist" ? (
-          <section className="mt-10 w-full">
+          <section className="w-full mt-10">
             <SectionHeader title="Recently Viewed" />
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+            <div className="grid grid-cols-2 gap-4 mt-6 md:grid-cols-4">
               {products.slice(0, 4).map((product) => (
                 <Product key={product._id} product={product} />
               ))}

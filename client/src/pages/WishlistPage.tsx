@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const demoWishlistItems = [
   {
@@ -60,16 +61,16 @@ export default function WishlistPage() {
       {wishlistItems.length ? (
         <>
           <h1 className="text-xl font-semibold">Wishlist</h1>
-          <ul className="mt-4 flex flex-col gap-4">
+          <ul className="flex flex-col gap-4 mt-4">
             {wishlistItems.map((product) => (
               <li
                 key={product._id}
-                className="py-2 flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+                className="flex flex-col items-start justify-between gap-4 py-2 md:flex-row md:items-center"
               >
-                <div className="flex gap-4 items-center">
+                <div className="flex items-center gap-4">
                   <button
                     onClick={() => removeProductFromWishlist(product._id)}
-                    className="group p-1 focus-visible:ring ring-blue-400 duration-300 hover:bg-zinc-100 rounded-md"
+                    className="p-1 duration-300 rounded-md group focus-visible:ring ring-blue-400 hover:bg-zinc-100"
                   >
                     <svg
                       height={20}
@@ -86,7 +87,7 @@ export default function WishlistPage() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         stroke="#000"
-                        className="stroke-zinc-500 group-hover:stroke-black duration-300"
+                        className="duration-300 stroke-zinc-500 group-hover:stroke-black"
                         strokeWidth="6.272"
                       >
                         <line x1="8.06" y1="8.06" x2="55.41" y2="55.94"></line>
@@ -98,25 +99,25 @@ export default function WishlistPage() {
                       </g>
                     </svg>
                   </button>
-                  <div className="flex gap-4 flex-1 items-center">
-                    <div className="bg-zinc-200 w-20 h-20 aspect-square rounded-md">
+                  <div className="flex items-center flex-1 gap-4">
+                    <div className="w-20 h-20 rounded-md bg-zinc-200 aspect-square">
                       <img
                         src={product.imgUrl}
                         alt=""
-                        className="w-full h-full object-contain"
+                        className="object-contain w-full h-full"
                       />
                     </div>
                     <div className="flex flex-col gap-2 text-sm sm:text-base">
                       <h2 className="font-semibold">{product.name}</h2>
                       <p>
                         Color:{" "}
-                        <span className="font-semibold uppercase text-xs sm:text-sm">
+                        <span className="text-xs font-semibold uppercase sm:text-sm">
                           {product.color}
                         </span>
                       </p>
                       <p>
                         Size:{" "}
-                        <span className="font-semibold uppercase text-xs sm:text-sm">
+                        <span className="text-xs font-semibold uppercase sm:text-sm">
                           {product.size}
                         </span>
                       </p>
@@ -124,12 +125,12 @@ export default function WishlistPage() {
                   </div>
                 </div>
                 <div className="flex gap-4 ml-[44px] md:ml-0 items-center">
-                  <p className="font-semibold w-24">
+                  <p className="w-24 font-semibold">
                     ${product.price.toFixed(2)}
                   </p>
                   <button
                     onClick={() => addProductToCart(product._id)}
-                    className="rounded-md bg-accent-blue-100 whitespace-nowrap p-2 px-4 duration-300 focus-visible:ring ring-blue-400 hover:bg-accent-blue-200 active:bg-accent-blue-300 text-white"
+                    className="p-2 px-4 text-white duration-300 rounded-md bg-accent-blue-100 whitespace-nowrap focus-visible:ring ring-blue-400 hover:bg-accent-blue-200 active:bg-accent-blue-300"
                   >
                     <span
                       className="hidden md:block lg:hidden"
@@ -157,7 +158,7 @@ export default function WishlistPage() {
                         </g>
                       </svg>
                     </span>
-                    <span className="md:hidden lg:block text-sm sm:text-base">
+                    <span className="text-sm md:hidden lg:block sm:text-base">
                       Add To Cart
                     </span>
                   </button>
@@ -197,15 +198,18 @@ export default function WishlistPage() {
               </g>
             </svg>
           </div>
-          <div className="flex-center text-center flex-col">
-            <h1 className="text-xl sm:text-2xl font-semibold">
+          <div className="flex-col text-center flex-center">
+            <h1 className="text-xl font-semibold sm:text-2xl">
               Your wishlist is empty
             </h1>
             <p>You don't have any products in your wishlist yet</p>
           </div>
-          <button className="py-2 px-4 font-semibold text-base sm:text-lg bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400 rounded-md text-white duration-300">
+          <Link
+            to={"/search?q="}
+            className="px-4 py-2 text-base font-semibold text-white duration-300 rounded-md sm:text-lg bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
+          >
             Continue Shopping
-          </button>
+          </Link>
         </div>
       )}
     </section>

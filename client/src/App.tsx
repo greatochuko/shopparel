@@ -11,6 +11,7 @@ import ProfilePage from "./pages/ProfilePage";
 import AuthPage from "./pages/AuthPage";
 import ProfilePageLayout from "./components/ProfilePageLayout";
 import WishlistPage from "./pages/WishlistPage";
+import OrderPage from "./pages/OrderPage";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
             children: [
               { path: "/account", element: <ProfilePage /> },
               { path: "/wishlist", element: <WishlistPage /> },
+              { path: "/orders", element: <OrderPage /> },
             ],
           },
         ],
