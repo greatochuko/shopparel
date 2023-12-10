@@ -22,7 +22,7 @@ const orders = [
     _id: "123456c",
     orderDate: new Date().toDateString(),
     deliveryDate: new Date("12 12 2024").toDateString(),
-    status: "cancelled",
+    status: "canceled",
     paymentMethod: "card",
     totalPrice: 2893,
   },
@@ -30,7 +30,7 @@ const orders = [
     _id: "123456d",
     orderDate: new Date().toDateString(),
     deliveryDate: new Date("12 12 2024").toDateString(),
-    status: "cancelled",
+    status: "canceled",
     paymentMethod: "cash on delivery",
     totalPrice: 2893,
   },
@@ -85,7 +85,7 @@ export default function OrderDetailPage() {
         </button>
         Order Details
       </h1>
-      <div className="flex gap-2 flex-col sm:flex-row p-4 rounded-md bg-zinc-100 items-center justify-between">
+      <div className="flex gap-2 flex-col sm:flex-row p-4 rounded-md bg-zinc-100 sm:items-center justify-between">
         <div className="flex flex-col gap-1 text-sm sm:text-base">
           <p className="font-semibold sm:text-lg">Order ID: {order?._id}</p>
           <p>
@@ -97,32 +97,60 @@ export default function OrderDetailPage() {
             <span className="font-semibold">{order?.deliveryDate}</span>
           </p>
         </div>
-        <p>
+        <p className=" text-sm sm:text-base">
           Total Price:{" "}
-          <span className="font-semibold"> ${order?.totalPrice}</span>
+          <span className="font-semibold">
+            {" "}
+            ${order?.totalPrice.toFixed(2)}
+          </span>
         </p>
       </div>
-      <div className="flex relative bg-zinc-100 h-1 w-[90%] max-w-xl mx-auto rounded-full">
-        <div className="flex-center flex-col gap-2 h-fit absolute -top-1.5 -translate-x-[50%] text-sm font-semibold">
+      <div className="flex relative bg-zinc-100 h-1 w-[90%] max-w-xl mx-auto font-semibold text-xs rounded-full">
+        <div className="flex-center flex-col gap-2 h-fit absolute -top-1.5 -translate-x-[50%]">
           <div className="w-4 h-4 bg-zinc-800 rounded-full"></div>
-          <p>Order Placed</p>
+          <p className="hidden sm:block">Order Placed</p>
+          <p className="sm:hidden">Placed</p>
         </div>
-        <div className="flex-center flex-col gap-2 h-fit absolute -top-1.5 left-[33%] text-sm font-semibold">
-          <div className="w-4 h-4 bg-zinc-800 border-[3px] border-zinc-400 rounded-full"></div>
-          <p>In Progress</p>
+        <div className="flex-center flex-col gap-2 h-fit absolute -top-1.5 left-[25%]">
+          {order?.status === "canceled" ? (
+            <div className="w-4 h-4 bg-red-600 border-zinc-400 rounded-full"></div>
+          ) : (
+            <div
+              className={`w-4 h-4 bg-zinc-800 ${
+                order?.status === "active" ? "border-[3px]" : ""
+              } border-zinc-400 rounded-full`}
+            ></div>
+          )}
+          <p className="hidden sm:block">
+            {order?.status === "canceled" ? "Order Canceled" : "In Progress"}
+          </p>
+          <p className="sm:hidden">
+            {order?.status === "canceled" ? "Canceled" : "In Progress"}
+          </p>
         </div>
-        <div className="flex-center flex-col gap-2 h-fit absolute -top-1.5 left-[66%] text-sm font-semibold text-zinc-400">
-          <div className="w-4 h-4 bg-zinc-400 rounded-full"></div>
+        <div className="flex-center flex-col gap-2 h-fit absolute -top-1.5 left-[60%] sm:left-[63%] text-zinc-400">
+          <div
+            className={`w-4 h-4 ${
+              order?.status === "completed" ? "bg-zinc-800" : "bg-zinc-400"
+            } rounded-full`}
+          ></div>
           <p>Shipped</p>
         </div>
-        <div className="flex-center flex-col gap-2 h-fit absolute -top-1.5 right-0 translate-x-[50%] text-sm font-semibold text-zinc-400">
-          <div className="w-4 h-4 bg-zinc-400 rounded-full"></div>
+        <div className="flex-center flex-col gap-2 h-fit absolute -top-1.5 right-0 translate-x-[50%] text-zinc-400">
+          <div
+            className={`w-4 h-4 ${
+              order?.status === "completed" ? "bg-green-600" : "bg-zinc-400"
+            } rounded-full`}
+          ></div>
           <p>Delivered</p>
         </div>
       </div>
       <div className="flex flex-col gap-4 p-4 rounded-md bg-zinc-100 text-sm mt-6">
         {cartItems.map((cartItem) => (
-          <div key={cartItem._id} className="flex justify-between">
+          <div
+            key={cartItem._id}
+            className="flex flex-col sm:flex-row justify-between"
+          >
             <div className="flex gap-4">
               <div className="min-w-[80px] w-20 h-20 bg-zinc-200 rounded-md">
                 <img
@@ -147,7 +175,7 @@ export default function OrderDetailPage() {
                 </p>
               </div>
             </div>
-            <div className="flex sm:gap-4 lg:gap-10 items-center lg:text-base">
+            <div className="flex gap-4 lg:gap-10 items-center lg:text-base mt-4 border-b pb-4">
               <p className="whitespace-nowrap">
                 Qty: <span className="font-semibold">{cartItem.quantity}</span>
               </p>
