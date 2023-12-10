@@ -68,7 +68,7 @@ export default function Product({ product }: { product: ProductType }) {
       </button>
 
       <div className="flex flex-col items-start justify-between gap-1 sm:flex-row text-zinc-700">
-        <div className="flex flex-col flex-1 gap-1 max-w-[60%] ">
+        <div className="flex flex-col flex-1 gap-1 sm:max-w-[65%] w-full">
           <Link
             to={`/product/${(product._id + " " + product.name)
               .toLowerCase()
