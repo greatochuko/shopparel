@@ -49,8 +49,6 @@ const feedbacks = [
 
 export default function FeedbackSection() {
   const [index, setIndex] = useState(0);
-  console.clear();
-  console.log(index);
 
   useEffect(() => {
     const interval = setInterval(() => {

@@ -72,7 +72,7 @@ export default function Hero() {
   }
 
   return (
-    <section className={`relative min-h-[250px] max-h-[90vh] aspect-video `}>
+    <section className={`relative min-h-[250px] max-h-[90vh] aspect-[2] `}>
       <button
         className="-translate-y-[50%] absolute z-10 top-[50%] left-0 group py-8 pr-4"
         onClick={showPreviousHeroProduct}
