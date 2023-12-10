@@ -136,18 +136,18 @@ export default function Hero() {
           style={{ backgroundColor }}
           key={product.name}
           className={`flex absolute px-4 items-center justify-evenly w-full h-full duration-500 ${
-            i !== currentIndex ? "opacity-0" : "opacity-100"
+            i !== currentIndex ? "opacity-0 z-0" : "opacity-100 z-[2]"
           }`}
         >
           <div className={`flex w-fit max-w-[40%] justify-center text-white `}>
             <div className="flex flex-col w-full gap-4 sm:gap-6 lg:gap-8 ">
               <Link
                 to={`/category/${product.categories[0]}`}
-                className="text-lg sm:text-xl lg:text-2xl xl:text-[2vw]"
+                className="text-[min(4vw,16px)] hover:underline w-fit sm:text-xl lg:text-2xl xl:text-[2vw] capitalize"
               >
                 {product.categories[0]}
               </Link>
-              <h2 className="text-2xl font-bold sm:text-3xl md:text-5xl lg:text-6xl xl:text-[5vw]">
+              <h2 className="text-[5vw] font-bold sm:text-3xl md:text-5xl lg:text-6xl xl:text-[5vw]">
                 {product.name}
               </h2>
               <Link
@@ -155,7 +155,7 @@ export default function Hero() {
                   .split(" ")
                   .join("-")
                   .toLowerCase()}`}
-                className="px-4 py-2 text-base font-semibold duration-200 bg-white rounded-md sm:px-6 sm:py-3 sm:text-lg lg:text-xl whitespace-nowrap hover:shadow-md hover:shadow-black/50 text-zinc-700 hover:text-zinc-900 w-fit"
+                className="px-3 py-1.5 text-[min(4vw,16px)] font-semibold duration-200 bg-white rounded-md sm:px-6 sm:py-3 sm:text-lg lg:text-xl whitespace-nowrap hover:shadow-md hover:shadow-black/50 text-zinc-700 hover:text-zinc-900 w-fit"
               >
                 Shop Now
               </Link>

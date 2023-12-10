@@ -21,7 +21,8 @@ const womenProducts = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John Doe",
+          lastName: "John Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
           _id: "123abc",
@@ -47,7 +48,8 @@ const womenProducts = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John Doe",
+          lastName: "John Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
           _id: "123abc",
@@ -73,7 +75,8 @@ const womenProducts = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John Doe",
+          lastName: "John Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
           _id: "123abc",
@@ -99,7 +102,8 @@ const womenProducts = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John Doe",
+          lastName: "John Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
           _id: "123abc",
@@ -127,7 +131,8 @@ const menProducts = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John Doe",
+          lastName: "John Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
           _id: "123abc",
@@ -153,7 +158,8 @@ const menProducts = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John Doe",
+          lastName: "John Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
           _id: "123abc",
@@ -179,7 +185,8 @@ const menProducts = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John Doe",
+          lastName: "John Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
           _id: "123abc",
@@ -205,7 +212,8 @@ const menProducts = [
     reviews: [
       {
         user: {
-          fullName: "John Doe",
+          firstName: "John Doe",
+          lastName: "John Doe",
           imgUrl: "/feedback-user-image-1.jpg",
           email: "john@gmail.com",
           _id: "123abc",
