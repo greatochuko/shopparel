@@ -1,3 +1,4 @@
+import About from "../components/About";
 import CategoryProducts from "../components/CategoryProducts";
 import CategorySection from "../components/CategorySection";
 import FeedbackSection from "../components/FeedbackSection";
@@ -232,7 +233,8 @@ export default function HomePage() {
   return (
     <main className="pt-[70px] min-h-[80dvh] flex flex-col gap-8 mb-8">
       <Hero />
-      <CategorySection />
+      <About />
+      {/* <CategorySection /> */}
       <NewArrival />
       <NewsLetterSection />
       <CategoryProducts products={menProducts}>
