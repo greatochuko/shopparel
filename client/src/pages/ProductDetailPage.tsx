@@ -23,7 +23,8 @@ const product = {
   reviews: [
     {
       user: {
-        fullName: "John Doe",
+        firstName: "John",
+        lastName: "Doe",
         imgUrl: "/feedback-user-image-1.jpg",
         email: "john@gmail.com",
         _id: "123abc",
@@ -35,7 +36,8 @@ const product = {
     },
     {
       user: {
-        fullName: "John Doe",
+        firstName: "John",
+        lastName: "Doe",
         imgUrl: "/feedback-user-image-2.jpg",
         email: "john@gmail.com",
         _id: "123abcd",
@@ -47,7 +49,8 @@ const product = {
     },
     {
       user: {
-        fullName: "John Doe",
+        firstName: "John",
+        lastName: "Doe",
         imgUrl: "/feedback-user-image-3.jpg",
         email: "john@gmail.com",
         _id: "123abce",

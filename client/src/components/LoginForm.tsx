@@ -100,6 +100,7 @@ export default function LoginForm() {
             className="w-full p-3 pr-12 border rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 border-zinc-300"
           />
           <button
+            type="button"
             onClick={() => setShowPassword((curr) => !curr)}
             className="hover:bg-zinc-200 focus-visible:ring-accent-blue-100 focus-visible:ring-2 bg-zinc-100 active:scale-90 absolute right-2 duration-300 top-[50%] -translate-y-[50%] rounded-full flex items-center gap-1 px-2 py-1 text-sm text-[#555] hover:text-[#333]"
           >

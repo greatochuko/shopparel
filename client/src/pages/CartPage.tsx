@@ -60,7 +60,7 @@ export default function CartPage() {
       <h1 className="mt-4 text-zinc-400  mx-auto max-w-7xl w-[90%] font-semibold">
         <Link
           to={"/"}
-          className="hover:underline hover:text-zinc-700 focus-visible:ring focus-visible:ring-blue-400 focus-visible:text-zinc-700 rounded-md focus-visible:ring-offset-2"
+          className="rounded-md hover:underline hover:text-zinc-700 focus-visible:ring focus-visible:ring-blue-400 focus-visible:text-zinc-700 focus-visible:ring-offset-2"
         >
           Home
         </Link>{" "}
@@ -68,11 +68,11 @@ export default function CartPage() {
       </h1>
       <div className="overflow-x-scroll scrollbar-hidden mx-auto max-w-7xl w-[90%]">
         <div className="mx-auto min-w-fit">
-          <div className="flex justify-between gap-3 mb-4 bg-zinc-700 uppercase py-4 last:border-none text-white">
+          <div className="flex justify-between gap-3 py-4 mb-4 text-white uppercase bg-zinc-700 last:border-none">
             <div className="flex gap-2 flex-1 min-w-[200px] uppercase text-sm font-semibold">
               <p className="pl-4">Product Information</p>
             </div>
-            <div className="flex-1 flex gap-2 justify-between font-semibold text-sm">
+            <div className="flex justify-between flex-1 gap-2 text-sm font-semibold">
               <div className="flex-1 min-w-[100px] flex-center">Price</div>
               <div className="flex-1 min-w-[100px] flex-center">Quantity</div>
               <div className="flex-1 min-w-[100px] flex-center">Shipping</div>
@@ -87,16 +87,16 @@ export default function CartPage() {
           ))}
         </div>
         <Link
-          to={"/"}
-          className="group text-sm text-zinc-500 font-semibold hover:text-zinc-700 focus-visible:ring ml-2 focus-visible:ring-blue-400 rounded-md"
+          to={"/search?q="}
+          className="ml-2 text-sm font-semibold rounded-md group text-zinc-500 hover:text-zinc-700 focus-visible:ring focus-visible:ring-blue-400"
         >
           <span className="hover:underline">Continue Shopping</span>
-          <span className="group-hover:ml-1 duration-300"> &rarr;</span>
+          <span className="duration-300 group-hover:ml-1"> &rarr;</span>
         </Link>
       </div>
-      <div className="bg-zinc-200 py-10">
+      <div className="py-10 bg-zinc-200">
         <div className="mx-auto max-w-7xl w-[90%] flex flex-col md:flex-row flex-wrap justify-between text-zinc-800 gap-10">
-          <div className="flex flex-col gap-2 flex-1">
+          <div className="flex flex-col flex-1 gap-2">
             <h3 className="text-xl font-semibold">Coupon Codes</h3>
             <p className="text-sm">Enter your coupon code if you have one</p>
             <form
@@ -117,7 +117,7 @@ export default function CartPage() {
                 Apply Coupon
               </button>
             </form>
-            <p className="text-red-600 text-sm">{couponError}</p>
+            <p className="text-sm text-red-600">{couponError}</p>
           </div>
           <div className="flex flex-col gap-2 flex-1 max-w-[300px]">
             <div className="grid grid-cols-2 border-b">
@@ -125,12 +125,12 @@ export default function CartPage() {
               <p>${subTotal}</p>
               <p>Shipping</p>
               <p className="mb-4">${totalShipping}</p>
-              <p className=" font-semibold">Grand Total</p>
+              <p className="font-semibold ">Grand Total</p>
               <p className="mb-4 font-semibold">${grandTotal}</p>
             </div>
             <Link
               to={"/checkout"}
-              className="bg-accent-blue-100 duration-300 p-2 text-center text-white rounded-md font-semibold hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400"
+              className="p-2 font-semibold text-center text-white duration-300 rounded-md bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400"
             >
               Proceed To Checkout
             </Link>

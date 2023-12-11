@@ -40,9 +40,10 @@ export default function SearchResults({
 
   return (
     <div className="flex-1">
-      <div className="flex flex-wrap gap-2 justify-between items-center mb-4">
+      <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
         <h2>
-          Search Results for <span className="font-semibold">{query}</span>
+          Search Results for "
+          <span className="font-semibold">{query || " "}</span>"
         </h2>
         <div className="flex gap-4">
           <button
@@ -67,7 +68,7 @@ export default function SearchResults({
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {filteredProducts.map((product) => (
           <Product key={product.name} product={product} />
         ))}

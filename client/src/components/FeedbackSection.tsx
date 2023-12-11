@@ -56,10 +56,11 @@ export default function FeedbackSection() {
         let feedbackShown = 3;
         if (window.innerWidth < 1024) feedbackShown = 2;
         if (window.innerWidth < 768) feedbackShown = 1;
+        return 0;
         if (curr + 1 >= feedbacks.length / feedbackShown) return 0;
         return curr + 1;
       });
-    }, 10000);
+    }, 3000);
 
     return () => {
       clearInterval(interval);

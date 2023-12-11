@@ -22,7 +22,7 @@ export default function Review({ review }: { review: ReviewType }) {
         <div className="flex gap-4">
           <div className="flex flex-col text-sm">
             <h3 className="font-semibold uppercase">
-              {review.user.firstName + review.user.lastName}
+              {review.user.firstName} {review.user.lastName}
             </h3>
             <p>{review.date}</p>
           </div>
@@ -38,7 +38,7 @@ export default function Review({ review }: { review: ReviewType }) {
           >
             Helpful
           </button>
-          <button className="text-sm duration-200 hover:text-black">
+          <button className="text-sm duration-200 hover:text-red-500">
             Report
           </button>
         </div>

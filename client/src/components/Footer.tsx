@@ -32,7 +32,7 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="p-8 text-white md:p-12 bg-zinc-800 mt-auto">
+    <footer className="p-8 mt-auto text-white md:p-12 bg-zinc-800">
       <div className="flex flex-wrap justify-between w-full max-w-5xl gap-8 pb-4 mx-auto border-b border-b-zinc-500">
         {footerLinks.map((footerLink) => (
           <div key={footerLink.title}>
@@ -41,8 +41,8 @@ export default function Footer() {
               {footerLink.links.map((link) => (
                 <li key={link}>
                   <Link
-                    className="text-sm text-zinc-300 hover:text-white focus-visible:ring ring-blue-500 p-1 rounded-md"
-                    to={``}
+                    className="p-1 text-sm rounded-md text-zinc-300 hover:text-white focus-visible:ring ring-blue-500"
+                    to={`#`}
                   >
                     {link}
                   </Link>
@@ -189,7 +189,7 @@ export default function Footer() {
         Copyright © {new Date().getFullYear()}{" "}
         <Link
           to={"/"}
-          className="focus-visible:ring ring-blue-500 ring-offset-1 inline-block ring-offset-zinc-800"
+          className="inline-block focus-visible:ring ring-blue-500 ring-offset-1 ring-offset-zinc-800"
         >
           Shopparel
         </Link>

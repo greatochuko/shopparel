@@ -157,6 +157,7 @@ export default function Header() {
       </header>
       {/* Mobile Nav */}
       <ul
+        onClick={() => setMobileNavIsOpen(false)}
         className={`fixed left-0 z-20 flex flex-col w-screen pt-[70px] h-screen duration-300 gap-2 bg-white md:hidden ${
           mobileNavIsOpen ? " top-0" : " -top-[100%]"
         }`}
