@@ -1,9 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
-const navLinks = ["Men", "Women", "jewelry", "accessories"];
 import useUserContext from "../hooks/useUserContext";
 import SearchForm from "./SearchForm";
 import AuthLinks from "./AuthLinks";
+
+const navLinks = ["Jackets", "Jeans", "Casual Dresses", "Polo Shirts"];
 
 export default function Header() {
   const { pathname } = useLocation();
@@ -28,33 +29,18 @@ export default function Header() {
           </Link>
           <ul className="hidden gap-2 md:flex">
             {navLinks.map((navLink) => (
-              <li key={navLink} className="hidden xl:block">
+              <li key={navLink}>
                 <Link
-                  to={`/categories/${navLink
+                  to={`/search?q=&categories=${navLink
                     .toLowerCase()
                     .split(" ")
-                    .join(",")}`}
-                  className={`${
-                    pathname ===
-                    `/categories/${navLink.toLowerCase().split(" ").join(",")}`
-                      ? "font-bold "
-                      : " "
-                  } text-zinc-700 text-sm whitespace-nowrap duration-300   hover:text-accent-blue-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 p-2 rounded-md`}
+                    .join("+")}`}
+                  className="text-zinc-700 text-sm whitespace-nowrap duration-300 hover:text-accent-blue-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 p-2 rounded-md"
                 >
                   {navLink}
                 </Link>
               </li>
             ))}
-            <li key={"categories"}>
-              <Link
-                to={"/categories"}
-                className={`${
-                  pathname === "/categories" ? "font-bold " : " "
-                } text-zinc-700 text-sm whitespace-nowrap duration-300   hover:text-accent-blue-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 p-2 rounded-md`}
-              >
-                All Categories
-              </Link>
-            </li>
           </ul>
 
           <SearchForm />
@@ -69,7 +55,7 @@ export default function Header() {
                     pathname === "/account"
                       ? " bg-accent-blue-100"
                       : "bg-zinc-100"
-                  } grid p-1 px-1.5 group duration-200 rounded-md hover:bg-accent-blue-100 border border-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 place-content-center`}
+                  } p-1 px-1.5 group duration-200 hidden sm:grid rounded-md hover:bg-accent-blue-100 border border-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 place-content-center`}
                 >
                   <svg
                     height={20}
@@ -123,70 +109,58 @@ export default function Header() {
                 />
               </svg>
             </Link>
-          </div>
-          {/* Toggle Mobile Nav Button */}
-          <button
-            onClick={() => setMobileNavIsOpen((curr) => !curr)}
-            className="block p-1.5 rounded-md active:scale-90 hover:bg-zinc-200 duration-200 md:hidden bg-zinc-100 "
-          >
-            <svg
-              height={20}
-              width={20}
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+            {/* Toggle Mobile Nav Button */}
+            <button
+              onClick={() => setMobileNavIsOpen((curr) => !curr)}
+              className="block ml-2 p-1.5 rounded-md active:scale-90 hover:bg-zinc-200 duration-200 lg:hidden bg-zinc-100 "
             >
-              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-              <g
-                id="SVGRepo_tracerCarrier"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              ></g>
-              <g id="SVGRepo_iconCarrier">
-                <path
-                  d="M4 6H20M4 12H20M4 18H20"
-                  stroke="#000000"
-                  strokeWidth="2"
+              <svg
+                height={20}
+                width={20}
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                <g
+                  id="SVGRepo_tracerCarrier"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                ></path>
-              </g>
-            </svg>
-          </button>
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  <path
+                    d="M4 6H20M4 12H20M4 18H20"
+                    stroke="#000000"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></path>
+                </g>
+              </svg>
+            </button>
+          </div>
         </nav>
       </header>
       {/* Mobile Nav */}
       <ul
         onClick={() => setMobileNavIsOpen(false)}
-        className={`fixed left-0 z-20 flex flex-col w-screen pt-[70px] h-screen duration-300 gap-2 bg-white md:hidden ${
+        className={`fixed left-0 z-20 flex flex-col w-screen pt-[70px] h-screen duration-300 gap-2 bg-white lg:hidden ${
           mobileNavIsOpen ? " top-0" : " -top-[100%]"
         }`}
       >
         {navLinks.map((navLink) => (
           <li key={navLink}>
             <Link
-              to={`/categories/${navLink.toLowerCase().split(" ").join(",")}`}
-              className={`${
-                pathname ===
-                `/categories/${navLink.toLowerCase().split(" ").join(",")}`
-                  ? "font-bold "
-                  : " "
-              } text-zinc-700 block text-lg whitespace-nowrap duration-300 hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 p-2 px-4 rounded-md`}
+              to={`/search?q=&categories=${navLink
+                .toLowerCase()
+                .split(" ")
+                .join("+")}`}
+              className="text-zinc-700 block text-lg whitespace-nowrap duration-300 hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 p-2 px-4 rounded-md"
             >
               {navLink}
             </Link>
           </li>
         ))}
-        <li key={"categories"}>
-          <Link
-            to={"/categories"}
-            className={`${
-              pathname === "/categories" ? "font-bold " : " "
-            } text-zinc-700 block text-lg whitespace-nowrap duration-300 hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 p-2 px-4 rounded-md`}
-          >
-            All Categories
-          </Link>
-        </li>
 
         {user ? (
           <>

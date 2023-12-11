@@ -25,7 +25,7 @@ export default function CategorySection() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {categories.map((category) => (
           <Link
-            to={`/categories/${category.url}`}
+            to={`/search/?q=&categories=${category.url}`}
             key={category.title}
             style={{
               backgroundColor: category.color + "77",
