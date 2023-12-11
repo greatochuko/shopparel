@@ -2,7 +2,7 @@ import NewsLetterForm from "./NewsLetterForm";
 
 export default function NewsLetterSection() {
   return (
-    <div className="flex">
+    <div className="flex max-h-[450px]">
       <div className="flex-1 relative">
         <img
           src="/newsletter-image-1.jpg"
@@ -27,7 +27,7 @@ export default function NewsLetterSection() {
         <img
           src="/newsletter-image-2.jpg"
           alt="Subscribe to our Newsletter"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-top"
         />
       </div>
     </div>
