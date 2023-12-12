@@ -1,6 +1,5 @@
 import About from "../components/About";
 import CategoryProducts from "../components/CategoryProducts";
-import CategorySection from "../components/CategorySection";
 import FeedbackSection from "../components/FeedbackSection";
 import Hero from "../components/Hero";
 import NewArrival from "../components/NewArrival";
@@ -234,14 +233,13 @@ export default function HomePage() {
     <main className="pt-[70px] min-h-[80dvh] flex flex-col gap-8 mb-8">
       <Hero />
       <About />
-      {/* <CategorySection /> */}
       <NewArrival />
       <NewsLetterSection />
       <CategoryProducts products={menProducts}>
-        <SectionHeader title="Men's Wears" url="/category/men" />
+        <SectionHeader title="Men's Wears" />
       </CategoryProducts>
       <CategoryProducts products={womenProducts}>
-        <SectionHeader title="Women's Wears" url="/category/women" />
+        <SectionHeader title="Women's Wears" />
       </CategoryProducts>
       <TopBrands />
       <FeedbackSection />
