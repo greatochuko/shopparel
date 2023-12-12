@@ -38,6 +38,7 @@ export type CartProviderValue = {
   cartItems: CartItemType[] | [];
   addItemToCart: (item: CartItemType) => void;
   increaseItemQuantity: (item: CartItemType) => void;
+  decreaseItemQuantity: (item: CartItemType) => void;
 };
 
 export const CartContext = createContext<CartProviderValue | null>(null);
@@ -53,6 +54,12 @@ export default function CartProvider({
     setCartItems((curr) => [...curr, item]);
   }
 
+  function removeItemFromCart(item: CartItemType) {
+    setCartItems((curr) =>
+      curr.filter((cartItem) => cartItem._id !== item._id)
+    );
+  }
+
   function increaseItemQuantity(item: CartItemType) {
     setCartItems((curr) =>
       curr.map((cartItem) => {
@@ -65,12 +72,25 @@ export default function CartProvider({
   }
 
   function decreaseItemQuantity(item: CartItemType) {
-    setCartItems((curr) => [...curr, item]);
+    setCartItems((curr) =>
+      curr.map((cartItem) => {
+        if (cartItem._id === item._id) {
+          if (cartItem.quantity > 1) cartItem.quantity -= 1;
+          else removeItemFromCart(item);
+        }
+        return cartItem;
+      })
+    );
   }
 
   return (
     <CartContext.Provider
-      value={{ cartItems, addItemToCart, increaseItemQuantity }}
+      value={{
+        cartItems,
+        addItemToCart,
+        increaseItemQuantity,
+        decreaseItemQuantity,
+      }}
     >
       {children}
     </CartContext.Provider>

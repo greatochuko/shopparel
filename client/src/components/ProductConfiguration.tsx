@@ -8,7 +8,12 @@ export default function ProductConfiguration({
 }: {
   product: ProductType;
 }) {
-  const { cartItems, addItemToCart, increaseItemQuantity } = useCartContext();
+  const {
+    cartItems,
+    addItemToCart,
+    increaseItemQuantity,
+    decreaseItemQuantity,
+  } = useCartContext();
   const productInCart = cartItems.find(
     (cartItem) => cartItem._id === product._id
   );
@@ -21,7 +26,9 @@ export default function ProductConfiguration({
     if (productInCart) increaseItemQuantity(productInCart);
   }
 
-  function handleDecreaseQuantity() {}
+  function handleDecreaseQuantity() {
+    if (productInCart) decreaseItemQuantity(productInCart);
+  }
 
   function handleAddItemToCart() {
     addItemToCart({
