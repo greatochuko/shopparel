@@ -3,7 +3,6 @@ import SectionHeader from "./SectionHeader";
 import useUserContext from "../hooks/useUserContext";
 import { useState } from "react";
 import Modal from "./Modal";
-import { products } from "../pages/SearchPage";
 import Product from "./Product";
 
 export default function ProfilePageLayout() {
@@ -211,11 +210,11 @@ export default function ProfilePageLayout() {
         {pathname === "/wishlist" ? (
           <section className="w-full mt-10">
             <SectionHeader title="Recently Viewed" />
-            <div className="grid grid-cols-2 gap-4 mt-6 md:grid-cols-4">
+            {/* <div className="grid grid-cols-2 gap-4 mt-6 md:grid-cols-4">
               {products.slice(0, 4).map((product) => (
                 <Product key={product._id} product={product} />
               ))}
-            </div>
+            </div> */}
           </section>
         ) : null}
       </main>

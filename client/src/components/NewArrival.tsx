@@ -1,7 +1,7 @@
-import Product from "./Product";
+import Product, { ProductType } from "./Product";
 import SectionHeader from "./SectionHeader";
 
-const newArrivals = [
+const demoNewArrivals = [
   {
     name: "Relaxed Fit V-Neck Tee",
     imgUrl: "/women-product-1.png",
@@ -43,7 +43,11 @@ const newArrivals = [
     _id: "123abc",
   },
 ];
-export default function NewArrival() {
+export default function NewArrival({
+  newArrivals,
+}: {
+  newArrivals: ProductType[];
+}) {
   return (
     <div className="max-w-7xl w-[90%] mx-auto flex flex-col gap-4">
       <SectionHeader title="New Arrivals" />

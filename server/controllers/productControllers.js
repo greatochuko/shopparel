@@ -11,6 +11,21 @@ export async function getAllProduct(req, res) {
   }
 }
 
+export async function getProduct(req, res) {
+  try {
+    const { productId } = req.params;
+    const product = await Product.findById(productId);
+    // .populate({
+    //   path: "reviews",
+    //   populate: { path: "user", select: "imgUrl firstName lastName" },
+    // });
+    res.json(product);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ error: error.message });
+  }
+}
+
 export async function searchProducts(req, res) {
   try {
     const { query } = req.query;

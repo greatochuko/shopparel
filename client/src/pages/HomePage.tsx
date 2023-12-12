@@ -26,15 +26,19 @@ export default function HomePage() {
     <main className="pt-[70px] min-h-[80dvh] flex flex-col gap-8 mb-8">
       <Hero />
       <About />
-      <NewArrival />
+      <NewArrival newArrivals={products.slice(0, 4)} />
       <NewsLetterSection />
       <CategoryProducts
-        products={products.filter((product) => product.gender === "male")}
+        products={products
+          .filter((product) => product.gender === "male")
+          .slice(0, 4)}
       >
         <SectionHeader title="Men's Wears" />
       </CategoryProducts>
       <CategoryProducts
-        products={products.filter((product) => product.gender === "female")}
+        products={products
+          .filter((product) => product.gender === "female")
+          .slice(0, 4)}
       >
         <SectionHeader title="Women's Wears" />
       </CategoryProducts>
