@@ -6,7 +6,6 @@ export default function SearchForm() {
   const query = searchParams.get("query");
   const [searchQuery, setSearchQuery] = useState(query || "");
   const navigate = useNavigate();
-  console.log(query);
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();

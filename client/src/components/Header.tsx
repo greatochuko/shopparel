@@ -35,7 +35,7 @@ export default function Header() {
                     .toLowerCase()
                     .split(" ")
                     .join("+")}`}
-                  className="text-zinc-700 text-sm whitespace-nowrap duration-300 hover:text-accent-blue-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 p-2 rounded-md"
+                  className="p-2 text-sm duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
                 >
                   {navLink}
                 </Link>
@@ -155,7 +155,7 @@ export default function Header() {
                 .toLowerCase()
                 .split(" ")
                 .join("+")}`}
-              className="text-zinc-700 block text-lg whitespace-nowrap duration-300 hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 p-2 px-4 rounded-md"
+              className="block p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
             >
               {navLink}
             </Link>
@@ -194,6 +194,77 @@ export default function Header() {
                   </g>
                 </svg>
                 My Account
+              </Link>
+            </li>
+            <li className="sm:hidden">
+              <Link
+                to={"/wishlist"}
+                className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
+              >
+                <svg
+                  height={20}
+                  width={20}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path
+                      d="M15.7 4C18.87 4 21 6.98 21 9.76C21 15.39 12.16 20 12 20C11.84 20 3 15.39 3 9.76C3 6.98 5.13 4 8.3 4C10.12 4 11.31 4.91 12 5.71C12.69 4.91 13.88 4 15.7 4Z"
+                      stroke="#333"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                  </g>
+                </svg>
+                Wishlist
+              </Link>
+            </li>
+            <li className="sm:hidden">
+              <Link
+                to={"/orders"}
+                className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
+              >
+                <svg
+                  height={20}
+                  width={20}
+                  viewBox="0 -0.5 25 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M5.50063 16.1407C5.46273 18.2335 7.1278 19.9613 9.22063 20.0007H15.7806C17.8735 19.9613 19.5385 18.2335 19.5006 16.1407L19.0636 11.4527C18.9527 9.68529 17.716 8.19053 16.0006 7.75065C15.6432 7.64667 15.2729 7.59348 14.9006 7.59265H10.1006C9.72837 7.59348 9.35808 7.64667 9.00063 7.75065C7.28636 8.19067 6.05026 9.68433 5.93863 11.4507L5.50063 16.1407Z"
+                      stroke="#333"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                    <path
+                      d="M16.0006 9.38862V7.36762C15.9629 5.4718 14.3965 3.96493 12.5006 4.00062C10.6047 3.96493 9.03835 5.4718 9.00061 7.36762V9.38762"
+                      stroke="#333"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                  </g>
+                </svg>
+                Orders
               </Link>
             </li>
           </>
