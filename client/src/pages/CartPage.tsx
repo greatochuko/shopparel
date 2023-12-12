@@ -1,43 +1,12 @@
 import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem";
 import { useState } from "react";
-
-export const cartItems = [
-  {
-    _id: "12345678",
-    name: "Plaid Flannel Shirt",
-    imgUrl: "/men-product-4.png",
-    color: "yellow",
-    size: "l",
-    price: 299,
-    shipping: 0,
-    quantity: 1,
-  },
-  {
-    _id: "12345679",
-    name: "Classic Cotton Crew Neck Tee",
-    imgUrl: "/men-product-3.png",
-    color: "yellow",
-    size: "l",
-    price: 299,
-    shipping: 24,
-    quantity: 3,
-  },
-  {
-    _id: "12345670",
-    name: "Wrap Maxi Dress",
-    imgUrl: "/women-product-3.png",
-    color: "yellow",
-    size: "l",
-    price: 299,
-    shipping: 0,
-    quantity: 2,
-  },
-];
+import useCartContext from "../hooks/useCartContext";
 
 export default function CartPage() {
   const [couponError, setCouponError] = useState("");
   const [couponCode, setCouponCode] = useState("");
+  const { cartItems } = useCartContext();
 
   const subTotal = cartItems
     .reduce((acc, curr) => acc + curr.price * curr.quantity, 0)

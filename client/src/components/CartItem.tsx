@@ -1,17 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { CartItemType } from "../context/CartContext";
 
 type CartItemProps = {
-  cartItem: {
-    _id: string;
-    name: string;
-    imgUrl: string;
-    color: string;
-    size: string;
-    price: number;
-    shipping: number;
-    quantity: number;
-  };
+  cartItem: CartItemType;
 };
 
 export default function CartItem({ cartItem }: CartItemProps) {
@@ -26,20 +18,20 @@ export default function CartItem({ cartItem }: CartItemProps) {
 
   return (
     <div
-      className="flex justify-between gap-3 border-b pb-4 last:border-none text-zinc-700"
+      className="flex justify-between gap-3 pb-4 border-b last:border-none text-zinc-700"
       key={cartItem._id}
     >
       <div className="flex gap-2 flex-1 min-w-[200px]">
         <img
           src={cartItem.imgUrl}
           alt={cartItem.name}
-          className="w-20 object-contain rounded-md bg-zinc-200 aspect-square"
+          className="object-contain w-20 rounded-md bg-zinc-200 aspect-square"
         />
         <div className="flex flex-col gap-1">
           <Link
             tabIndex={0}
             to={`/product/${cartItem._id + cartItem.name.split(" ").join("-")}`}
-            className="font-semibold hover:text-accent-blue-100 focus-visible:ring rounded-md focus-visible:ring-offset-2 focus-visible:ring-blue-400 focus-visible:text-accent-blue-100 duration-200"
+            className="font-semibold duration-200 rounded-md hover:text-accent-blue-100 focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-blue-400 focus-visible:text-accent-blue-100"
           >
             {cartItem.name}
           </Link>
@@ -48,11 +40,11 @@ export default function CartItem({ cartItem }: CartItemProps) {
           </p>
           <p className="text-sm">
             Size:{" "}
-            <span className="uppercase font-semibold">{cartItem.size}</span>
+            <span className="font-semibold uppercase">{cartItem.size}</span>
           </p>
         </div>
       </div>
-      <div className="flex-1 flex gap-2 justify-between text-sm">
+      <div className="flex justify-between flex-1 gap-2 text-sm">
         <div className="font-bold flex-1 min-w-[100px] flex-center">
           ${cartItem.price.toFixed(2)}
         </div>
@@ -60,7 +52,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
           <div className="flex gap-2">
             <button
               onClick={handleDecreaseQuantity}
-              className="bg-accent-blue-100 h-7 w-7 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 rounded-md shadow-md active:shadow-none text-3xl shadow-zinc-300 text-white"
+              className="text-3xl text-white rounded-md shadow-md bg-accent-blue-100 h-7 w-7 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300"
             >
               <svg
                 height={14}
@@ -99,14 +91,14 @@ export default function CartItem({ cartItem }: CartItemProps) {
                 </g>
               </svg>
             </button>
-            <p className="flex-center w-6 font-semibold text-zinc-600 text-base">
+            <p className="w-6 text-base font-semibold flex-center text-zinc-600">
               {quantity}
             </p>
             <button
               onClick={() => {
                 setQuantity((curr) => curr + 1);
               }}
-              className="bg-accent-blue-100 h-7 w-7 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 rounded-md shadow-md active:shadow-none text-3xl shadow-zinc-300 text-white"
+              className="text-3xl text-white rounded-md shadow-md bg-accent-blue-100 h-7 w-7 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300"
             >
               <svg
                 height={14}
@@ -161,7 +153,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
           ${subTotal.toFixed(2)}
         </div>
         <div className="font-bold flex-1 min-w-[100px] flex-center">
-          <button className="group p-2 duration-300 active:scale-90 rounded-md focus-visible:ring focus-visible:ring-red-300">
+          <button className="p-2 duration-300 rounded-md group active:scale-90 focus-visible:ring focus-visible:ring-red-300">
             <svg
               width={20}
               height={20}
@@ -179,7 +171,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
                 <path
                   d="M10 11V17"
                   stroke="#666"
-                  className="group-hover:stroke-red-500 duration-300 group-focus-visible:stroke-red-500"
+                  className="duration-300 group-hover:stroke-red-500 group-focus-visible:stroke-red-500"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -187,7 +179,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
                 <path
                   d="M14 11V17"
                   stroke="#666"
-                  className="group-hover:stroke-red-500 duration-300 group-focus-visible:stroke-red-500"
+                  className="duration-300 group-hover:stroke-red-500 group-focus-visible:stroke-red-500"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -195,7 +187,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
                 <path
                   d="M4 7H20"
                   stroke="#666"
-                  className="group-hover:stroke-red-500 duration-300 group-focus-visible:stroke-red-500"
+                  className="duration-300 group-hover:stroke-red-500 group-focus-visible:stroke-red-500"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -203,7 +195,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
                 <path
                   d="M6 7H12H18V18C18 19.6569 16.6569 21 15 21H9C7.34315 21 6 19.6569 6 18V7Z"
                   stroke="#666"
-                  className="group-hover:stroke-red-500 duration-300 group-focus-visible:stroke-red-500"
+                  className="duration-300 group-hover:stroke-red-500 group-focus-visible:stroke-red-500"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -211,7 +203,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
                 <path
                   d="M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5V7H9V5Z"
                   stroke="#666"
-                  className="group-hover:stroke-red-500 duration-300 group-focus-visible:stroke-red-500"
+                  className="duration-300 group-hover:stroke-red-500 group-focus-visible:stroke-red-500"
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"

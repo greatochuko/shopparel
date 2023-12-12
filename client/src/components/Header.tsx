@@ -27,7 +27,7 @@ export default function Header() {
           >
             S
           </Link>
-          <ul className="hidden gap-2 md:flex">
+          <ul className="hidden gap-2 lg:flex">
             {navLinks.map((navLink) => (
               <li key={navLink}>
                 <Link
