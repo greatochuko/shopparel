@@ -12,12 +12,10 @@ export default function SearchPage() {
 
   useEffect(() => {
     async function searchProducts() {
-      if (query) {
-        const data = await fetchSearchProducts(query as string);
+      const data = await fetchSearchProducts(query as string);
 
-        if (data.error) return;
-        setProducts(data);
-      }
+      if (data.error) return;
+      setProducts(data);
     }
     searchProducts();
   }, [query]);
