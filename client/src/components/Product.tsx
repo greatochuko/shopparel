@@ -8,6 +8,7 @@ export type ProductType = {
   imgUrl: string;
   brand: string;
   price: number;
+  gender: string;
   colors: string[];
   categories: string[];
   sizes: string[];

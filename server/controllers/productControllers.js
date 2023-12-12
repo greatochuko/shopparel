@@ -2,7 +2,9 @@ import { Product } from "../models/Product.js";
 
 export async function getAllProduct(req, res) {
   try {
-    const products = await Product.find();
+    const products = await Product.find().select(
+      "name imgUrl brand price gender"
+    );
     res.json(products);
   } catch (error) {
     res.status(400).json({ error: error.message });
