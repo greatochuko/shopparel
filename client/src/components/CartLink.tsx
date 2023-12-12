@@ -9,7 +9,7 @@ export default function CartLink() {
     <Link
       title="cart"
       to={"/cart"}
-      className={`border ml-2 relative border-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 grid p-1 px-1.5 group duration-200 rounded-md hover:bg-accent-blue-100 place-content-center ${
+      className={`border relative border-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 grid p-1 px-1.5 group duration-200 rounded-md hover:bg-accent-blue-100 place-content-center ${
         pathname === "/cart" ? " bg-accent-blue-100" : "bg-zinc-100"
       }`}
     >
