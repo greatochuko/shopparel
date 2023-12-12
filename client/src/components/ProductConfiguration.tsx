@@ -2,6 +2,7 @@ import { ProductType } from "./Product";
 import { useState } from "react";
 import Rating from "../components/Rating";
 import useCartContext from "../hooks/useCartContext";
+import useUserContext from "../hooks/useUserContext";
 
 export default function ProductConfiguration({
   product,
@@ -14,6 +15,7 @@ export default function ProductConfiguration({
     increaseItemQuantity,
     decreaseItemQuantity,
   } = useCartContext();
+  const { user } = useUserContext();
   const productInCart = cartItems.find(
     (cartItem) => cartItem._id === product._id
   );
@@ -31,8 +33,10 @@ export default function ProductConfiguration({
   }
 
   function handleAddItemToCart() {
+    if (!user) return;
     addItemToCart({
       _id: product._id,
+      userId: user._id,
       name: product.name,
       imgUrl: product.imgUrl,
       color: currentColor,

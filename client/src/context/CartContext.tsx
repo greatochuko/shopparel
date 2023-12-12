@@ -1,8 +1,10 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
+import { fetchAddToCart } from "../services/cartServices";
 
 const demoCartItems = [
   {
     _id: "12345679",
+    userId: "65738973a4dfe79b73873662",
     name: "Classic Cotton Crew Neck Tee",
     imgUrl: "/men-product-3.png",
     color: "yellow",
@@ -13,6 +15,7 @@ const demoCartItems = [
   },
   {
     _id: "12345670",
+    userId: "65738973a4dfe79b73873662",
     name: "Wrap Maxi Dress",
     imgUrl: "/women-product-3.png",
     color: "yellow",
@@ -25,6 +28,7 @@ const demoCartItems = [
 
 export type CartItemType = {
   _id: string;
+  userId: string;
   name: string;
   imgUrl: string;
   color: string;
@@ -51,7 +55,9 @@ export default function CartProvider({
 }) {
   const [cartItems, setCartItems] = useState<CartItemType[]>(demoCartItems);
 
-  function addItemToCart(item: CartItemType) {
+  async function addItemToCart(item: CartItemType) {
+    const data = await fetchAddToCart(item);
+    if (data.error) return;
     setCartItems((curr) => [...curr, item]);
   }
 
