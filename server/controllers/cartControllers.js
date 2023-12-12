@@ -1,11 +1,21 @@
 import { CartItem } from "../models/Cart.js";
 
-export function addProduct(req, res) {
+export async function getCartItems(req, res) {
+  try {
+    const { userId } = req.params;
+    const cartItems = await CartItem.find({ userId });
+    res.json(cartItems);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+}
+
+export async function addProduct(req, res) {
   try {
     const { userId, name, imgUrl, color, size, price, shipping, quantity } =
       req.body;
 
-    const newCartItem = CartItem.create({
+    const newCartItem = await CartItem.create({
       userId,
       name,
       imgUrl,
@@ -16,6 +26,16 @@ export function addProduct(req, res) {
       quantity,
     });
     res.json(newCartItem);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+}
+
+export async function removeProduct(req, res) {
+  try {
+    const { cartItemId } = req.params;
+    const deletedCartItem = await CartItem.findByIdAndDelete(cartItemId);
+    res.json(deletedCartItem);
   } catch (error) {
     res.json({ error: error.message });
   }

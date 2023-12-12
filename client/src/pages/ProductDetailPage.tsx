@@ -5,7 +5,7 @@ import Review from "../components/Review";
 import SimilarProducts from "../components/SimilarProducts";
 
 const product = {
-  _id: "123abc",
+  _id: "65782abd1cbe177fc8b75306",
   name: "Plaid Flannel Shirt",
   imgUrl: "/men-product-4.png",
   images: [

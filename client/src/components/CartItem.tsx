@@ -39,7 +39,9 @@ export default function CartItem({ cartItem }: CartItemProps) {
         <div className="flex flex-col gap-1">
           <Link
             tabIndex={0}
-            to={`/product/${cartItem._id + cartItem.name.split(" ").join("-")}`}
+            to={`/product/${
+              cartItem._id + "-" + cartItem.name.split(" ").join("-")
+            }`}
             className="font-semibold duration-200 rounded-md hover:text-accent-blue-100 focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-blue-400 focus-visible:text-accent-blue-100"
           >
             {cartItem.name}

@@ -1,5 +1,7 @@
-import { createContext, useState } from "react";
-import { fetchAddToCart } from "../services/cartServices";
+import { createContext, useEffect, useState } from "react";
+import { fetchAddToCart, fetchCart } from "../services/cartServices";
+import useUserContext from "../hooks/useUserContext";
+import FullScreenLoader from "../components/FullScreenLoader";
 
 const demoCartItems = [
   {
@@ -53,7 +55,24 @@ export default function CartProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [cartItems, setCartItems] = useState<CartItemType[]>(demoCartItems);
+  const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+  const [refreshed, setRefreshed] = useState(false);
+  const { user } = useUserContext();
+
+  useEffect(() => {
+    async function refreshUser() {
+      if (!user?._id) return;
+      const data = await fetchCart(user._id);
+
+      if (data.error) {
+        return setRefreshed(true);
+      }
+
+      setCartItems(data);
+      setRefreshed(true);
+    }
+    refreshUser();
+  }, [user?._id]);
 
   async function addItemToCart(item: CartItemType) {
     const data = await fetchAddToCart(item);
@@ -89,6 +108,8 @@ export default function CartProvider({
       })
     );
   }
+
+  if (!refreshed) return <FullScreenLoader />;
 
   return (
     <CartContext.Provider
