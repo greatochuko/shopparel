@@ -15,6 +15,7 @@ export default function ProductConfiguration({
     addItemToCart,
     increaseItemQuantity,
     decreaseItemQuantity,
+    removeItemFromCart,
   } = useCartContext();
   const { user } = useUserContext();
   const productInCart = cartItems.find(
@@ -31,7 +32,13 @@ export default function ProductConfiguration({
   }
 
   function handleDecreaseQuantity() {
-    if (productInCart) decreaseItemQuantity(productInCart._id);
+    if (productInCart) {
+      if (productInCart.quantity <= 1) {
+        removeItemFromCart(productInCart._id);
+        return;
+      }
+      decreaseItemQuantity(productInCart._id);
+    }
   }
 
   function handleAddItemToCart() {
