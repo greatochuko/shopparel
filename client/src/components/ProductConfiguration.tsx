@@ -8,18 +8,18 @@ export default function ProductConfiguration({
 }: {
   product: ProductType;
 }) {
-  const { cartItems, addItemToCart } = useCartContext();
+  const { cartItems, addItemToCart, increaseItemQuantity } = useCartContext();
   const productInCart = cartItems.find(
     (cartItem) => cartItem._id === product._id
   );
-  console.clear();
-  console.log(productInCart);
   const quantity = productInCart ? productInCart.quantity : 0;
 
   const [currentSize, setCurrentSize] = useState(product.sizes[0]);
   const [currentColor, setCurrentColor] = useState(product.colors[0]);
 
-  function handleIncreaseQuantity() {}
+  function handleIncreaseQuantity() {
+    if (productInCart) increaseItemQuantity(productInCart);
+  }
 
   function handleDecreaseQuantity() {}
 

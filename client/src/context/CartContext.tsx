@@ -37,6 +37,7 @@ export type CartItemType = {
 export type CartProviderValue = {
   cartItems: CartItemType[] | [];
   addItemToCart: (item: CartItemType) => void;
+  increaseItemQuantity: (item: CartItemType) => void;
 };
 
 export const CartContext = createContext<CartProviderValue | null>(null);
@@ -49,13 +50,28 @@ export default function CartProvider({
   const [cartItems, setCartItems] = useState<CartItemType[]>(demoCartItems);
 
   function addItemToCart(item: CartItemType) {
-    console.log("Adding");
+    setCartItems((curr) => [...curr, item]);
+  }
 
+  function increaseItemQuantity(item: CartItemType) {
+    setCartItems((curr) =>
+      curr.map((cartItem) => {
+        if (cartItem._id === item._id) {
+          cartItem.quantity += 1;
+        }
+        return cartItem;
+      })
+    );
+  }
+
+  function decreaseItemQuantity(item: CartItemType) {
     setCartItems((curr) => [...curr, item]);
   }
 
   return (
-    <CartContext.Provider value={{ cartItems, addItemToCart }}>
+    <CartContext.Provider
+      value={{ cartItems, addItemToCart, increaseItemQuantity }}
+    >
       {children}
     </CartContext.Provider>
   );
