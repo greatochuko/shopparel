@@ -16,11 +16,11 @@ export default function CartItem({ cartItem }: CartItemProps) {
   }
 
   function handleDecreaseQuantity() {
-    decreaseItemQuantity(cartItem);
+    decreaseItemQuantity(cartItem._id as string);
   }
 
   function handleRemoveItemFromCart() {
-    removeItemFromCart(cartItem._id);
+    removeItemFromCart(cartItem._id as string);
   }
 
   const subTotal = cartItem.price * quantity + cartItem.shipping;

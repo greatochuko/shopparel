@@ -8,8 +8,9 @@ import useUserContext from "../hooks/useUserContext";
 import FullScreenLoader from "../components/FullScreenLoader";
 
 export type CartItemType = {
-  _id: string;
+  _id?: string;
   userId: string;
+  productId: string;
   name: string;
   imgUrl: string;
   color: string;
@@ -24,7 +25,7 @@ export type CartProviderValue = {
   addItemToCart: (item: CartItemType) => void;
   removeItemFromCart: (itemId: string) => void;
   increaseItemQuantity: (item: CartItemType) => void;
-  decreaseItemQuantity: (item: CartItemType) => void;
+  decreaseItemQuantity: (itemId: string) => void;
 };
 
 export const CartContext = createContext<CartProviderValue | null>(null);
@@ -56,7 +57,7 @@ export default function CartProvider({
   async function addItemToCart(item: CartItemType) {
     const data = await fetchAddToCart(item);
     if (data.error) return;
-    setCartItems((curr) => [...curr, item]);
+    setCartItems((curr) => [...curr, data]);
   }
 
   async function removeItemFromCart(itemId: string) {
@@ -76,12 +77,12 @@ export default function CartProvider({
     );
   }
 
-  function decreaseItemQuantity(item: CartItemType) {
+  function decreaseItemQuantity(itemId: string) {
     setCartItems((curr) =>
       curr.map((cartItem) => {
-        if (cartItem._id === item._id) {
+        if (cartItem._id === itemId) {
           if (cartItem.quantity > 1) cartItem.quantity -= 1;
-          else removeItemFromCart(item._id);
+          else removeItemFromCart(itemId);
         }
         return cartItem;
       })

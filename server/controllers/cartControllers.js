@@ -12,11 +12,21 @@ export async function getCartItems(req, res) {
 
 export async function addProduct(req, res) {
   try {
-    const { userId, name, imgUrl, color, size, price, shipping, quantity } =
-      req.body;
+    const {
+      userId,
+      productId,
+      name,
+      imgUrl,
+      color,
+      size,
+      price,
+      shipping,
+      quantity,
+    } = req.body;
 
     const newCartItem = await CartItem.create({
       userId,
+      productId,
       name,
       imgUrl,
       color,
