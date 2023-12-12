@@ -20,7 +20,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
   }
 
   function handleRemoveItemFromCart() {
-    removeItemFromCart(cartItem);
+    removeItemFromCart(cartItem._id);
   }
 
   const subTotal = cartItem.price * quantity + cartItem.shipping;

@@ -1,32 +1,11 @@
 import { createContext, useEffect, useState } from "react";
-import { fetchAddToCart, fetchCart } from "../services/cartServices";
+import {
+  fetchAddToCart,
+  fetchCart,
+  fetchRemoveFromCart,
+} from "../services/cartServices";
 import useUserContext from "../hooks/useUserContext";
 import FullScreenLoader from "../components/FullScreenLoader";
-
-const demoCartItems = [
-  {
-    _id: "12345679",
-    userId: "65738973a4dfe79b73873662",
-    name: "Classic Cotton Crew Neck Tee",
-    imgUrl: "/men-product-3.png",
-    color: "yellow",
-    size: "l",
-    price: 299,
-    shipping: 24,
-    quantity: 3,
-  },
-  {
-    _id: "12345670",
-    userId: "65738973a4dfe79b73873662",
-    name: "Wrap Maxi Dress",
-    imgUrl: "/women-product-3.png",
-    color: "yellow",
-    size: "l",
-    price: 299,
-    shipping: 0,
-    quantity: 2,
-  },
-];
 
 export type CartItemType = {
   _id: string;
@@ -43,7 +22,7 @@ export type CartItemType = {
 export type CartProviderValue = {
   cartItems: CartItemType[] | [];
   addItemToCart: (item: CartItemType) => void;
-  removeItemFromCart: (item: CartItemType) => void;
+  removeItemFromCart: (itemId: string) => void;
   increaseItemQuantity: (item: CartItemType) => void;
   decreaseItemQuantity: (item: CartItemType) => void;
 };
@@ -80,10 +59,10 @@ export default function CartProvider({
     setCartItems((curr) => [...curr, item]);
   }
 
-  function removeItemFromCart(item: CartItemType) {
-    setCartItems((curr) =>
-      curr.filter((cartItem) => cartItem._id !== item._id)
-    );
+  async function removeItemFromCart(itemId: string) {
+    const data = await fetchRemoveFromCart(itemId);
+    if (data?.error) return;
+    setCartItems((curr) => curr.filter((cartItem) => cartItem._id !== itemId));
   }
 
   function increaseItemQuantity(item: CartItemType) {
@@ -102,7 +81,7 @@ export default function CartProvider({
       curr.map((cartItem) => {
         if (cartItem._id === item._id) {
           if (cartItem.quantity > 1) cartItem.quantity -= 1;
-          else removeItemFromCart(item);
+          else removeItemFromCart(item._id);
         }
         return cartItem;
       })

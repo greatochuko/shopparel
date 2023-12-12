@@ -4,7 +4,7 @@ import { BASE_URL } from "./authServices";
 export async function fetchCart(userId: string) {
   try {
     const res = await fetch(`${BASE_URL}/cart/${userId}`);
-    const data = res.json();
+    const data = await res.json();
     return data;
   } catch (error) {
     return { error: (error as Error).message };
@@ -18,7 +18,21 @@ export async function fetchAddToCart(cartItem: CartItemType) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(cartItem),
     });
-    const data = res.json();
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}
+
+export async function fetchRemoveFromCart(cartItemId: string) {
+  try {
+    const res = await fetch(`${BASE_URL}/cart/${cartItemId}`, {
+      method: "DELETE",
+    });
+
+    const data = await res.json();
+
     return data;
   } catch (error) {
     return { error: (error as Error).message };

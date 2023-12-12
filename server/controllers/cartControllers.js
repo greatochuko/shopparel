@@ -35,6 +35,7 @@ export async function removeProduct(req, res) {
   try {
     const { cartItemId } = req.params;
     const deletedCartItem = await CartItem.findByIdAndDelete(cartItemId);
+    if (!deletedCartItem) throw new Error("Invalid Cart Item ID");
     res.json(deletedCartItem);
   } catch (error) {
     res.json({ error: error.message });
