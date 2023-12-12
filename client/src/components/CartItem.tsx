@@ -12,15 +12,15 @@ export default function CartItem({ cartItem }: CartItemProps) {
     useCartContext();
 
   function handleIncreaseQuantity() {
-    increaseItemQuantity(cartItem);
+    increaseItemQuantity(cartItem._id);
   }
 
   function handleDecreaseQuantity() {
-    decreaseItemQuantity(cartItem._id as string);
+    decreaseItemQuantity(cartItem._id);
   }
 
   function handleRemoveItemFromCart() {
-    removeItemFromCart(cartItem._id as string);
+    removeItemFromCart(cartItem._id);
   }
 
   const subTotal = cartItem.price * quantity + cartItem.shipping;
@@ -40,7 +40,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
           <Link
             tabIndex={0}
             to={`/product/${
-              cartItem._id + "-" + cartItem.name.split(" ").join("-")
+              cartItem.productId + "-" + cartItem.name.split(" ").join("-")
             }`}
             className="font-semibold duration-200 rounded-md hover:text-accent-blue-100 focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-blue-400 focus-visible:text-accent-blue-100"
           >

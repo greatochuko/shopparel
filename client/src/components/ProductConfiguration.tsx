@@ -27,17 +27,18 @@ export default function ProductConfiguration({
   const [loading, setLoading] = useState(false);
 
   function handleIncreaseQuantity() {
-    if (productInCart) increaseItemQuantity(productInCart);
+    if (productInCart) increaseItemQuantity(productInCart._id);
   }
 
   function handleDecreaseQuantity() {
-    if (productInCart) decreaseItemQuantity(productInCart._id as string);
+    if (productInCart) decreaseItemQuantity(productInCart._id);
   }
 
   function handleAddItemToCart() {
     if (!user) return;
     setLoading(true);
     addItemToCart({
+      _id: product._id,
       productId: product._id,
       userId: user._id,
       name: product.name,

@@ -25,6 +25,34 @@ export async function fetchAddToCart(cartItem: CartItemType) {
   }
 }
 
+export async function fetchIncreaseQuantity(cartItemId: string) {
+  try {
+    const res = await fetch(`${BASE_URL}/cart/inc/${cartItemId}`, {
+      method: "POST",
+    });
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}
+
+export async function fetchDecreaseQuantity(cartItemId: string) {
+  try {
+    const res = await fetch(`${BASE_URL}/cart/dec/${cartItemId}`, {
+      method: "POST",
+    });
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}
+
 export async function fetchRemoveFromCart(cartItemId: string) {
   try {
     const res = await fetch(`${BASE_URL}/cart/${cartItemId}`, {

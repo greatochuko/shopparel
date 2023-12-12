@@ -41,6 +41,32 @@ export async function addProduct(req, res) {
   }
 }
 
+export async function increaseProductQuantity(req, res) {
+  try {
+    const { cartItemId } = req.params;
+    const deletedCartItem = await CartItem.findByIdAndUpdate(cartItemId, {
+      $inc: { quantity: 1 },
+    });
+    if (!deletedCartItem) throw new Error("Invalid Cart Item ID");
+    res.json(deletedCartItem);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+}
+
+export async function decreaseProductQuantity(req, res) {
+  try {
+    const { cartItemId } = req.params;
+    const deletedCartItem = await CartItem.findByIdAndUpdate(cartItemId, {
+      $inc: { quantity: -1 },
+    });
+    if (!deletedCartItem) throw new Error("Invalid Cart Item ID");
+    res.json(deletedCartItem);
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+}
+
 export async function removeProduct(req, res) {
   try {
     const { cartItemId } = req.params;
