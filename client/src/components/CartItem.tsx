@@ -1,17 +1,26 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { CartItemType } from "../context/CartContext";
+import useCartContext from "../hooks/useCartContext";
 
 type CartItemProps = {
   cartItem: CartItemType;
 };
 
 export default function CartItem({ cartItem }: CartItemProps) {
-  const [quantity, setQuantity] = useState(cartItem.quantity);
+  const quantity = cartItem.quantity;
+  const { increaseItemQuantity, decreaseItemQuantity, removeItemFromCart } =
+    useCartContext();
+
+  function handleIncreaseQuantity() {
+    increaseItemQuantity(cartItem);
+  }
 
   function handleDecreaseQuantity() {
-    if (quantity <= 1) return;
-    setQuantity((curr) => curr - 1);
+    decreaseItemQuantity(cartItem);
+  }
+
+  function handleRemoveItemFromCart() {
+    removeItemFromCart(cartItem);
   }
 
   const subTotal = cartItem.price * quantity + cartItem.shipping;
@@ -52,7 +61,8 @@ export default function CartItem({ cartItem }: CartItemProps) {
           <div className="flex gap-2">
             <button
               onClick={handleDecreaseQuantity}
-              className="text-3xl text-white rounded-md shadow-md bg-accent-blue-100 h-7 w-7 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300"
+              disabled={quantity <= 1}
+              className="text-3xl text-white rounded-md shadow-md group disabled:bg-zinc-200 disabled:shadow-none bg-accent-blue-100 h-7 w-7 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300"
             >
               <svg
                 height={14}
@@ -81,6 +91,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
                       id="Icon-Set-Filled"
                       transform="translate(-414.000000, -1049.000000)"
                       fill="#fff"
+                      className="group-disabled:fill-zinc-700"
                     >
                       <path
                         d="M442,1049 L418,1049 C415.791,1049 414,1050.79 414,1053 C414,1055.21 415.791,1057 418,1057 L442,1057 C444.209,1057 446,1055.21 446,1053 C446,1050.79 444.209,1049 442,1049"
@@ -95,9 +106,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
               {quantity}
             </p>
             <button
-              onClick={() => {
-                setQuantity((curr) => curr + 1);
-              }}
+              onClick={handleIncreaseQuantity}
               className="text-3xl text-white rounded-md shadow-md bg-accent-blue-100 h-7 w-7 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300"
             >
               <svg
@@ -153,7 +162,10 @@ export default function CartItem({ cartItem }: CartItemProps) {
           ${subTotal.toFixed(2)}
         </div>
         <div className="font-bold flex-1 min-w-[100px] flex-center">
-          <button className="p-2 duration-300 rounded-md group active:scale-90 focus-visible:ring focus-visible:ring-red-300">
+          <button
+            onClick={handleRemoveItemFromCart}
+            className="p-2 duration-300 rounded-md group active:scale-90 focus-visible:ring focus-visible:ring-red-300"
+          >
             <svg
               width={20}
               height={20}

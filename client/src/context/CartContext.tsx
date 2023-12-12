@@ -37,6 +37,7 @@ export type CartItemType = {
 export type CartProviderValue = {
   cartItems: CartItemType[] | [];
   addItemToCart: (item: CartItemType) => void;
+  removeItemFromCart: (item: CartItemType) => void;
   increaseItemQuantity: (item: CartItemType) => void;
   decreaseItemQuantity: (item: CartItemType) => void;
 };
@@ -90,6 +91,7 @@ export default function CartProvider({
         addItemToCart,
         increaseItemQuantity,
         decreaseItemQuantity,
+        removeItemFromCart,
       }}
     >
       {children}

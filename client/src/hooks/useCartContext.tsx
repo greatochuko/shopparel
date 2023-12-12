@@ -7,11 +7,13 @@ export default function useCartContext() {
     addItemToCart,
     increaseItemQuantity,
     decreaseItemQuantity,
+    removeItemFromCart,
   } = useContext(CartContext) as CartProviderValue;
   return {
     cartItems,
     addItemToCart,
     increaseItemQuantity,
     decreaseItemQuantity,
+    removeItemFromCart,
   };
 }
