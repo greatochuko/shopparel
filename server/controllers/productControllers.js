@@ -11,6 +11,21 @@ export async function getAllProduct(req, res) {
   }
 }
 
+export async function searchProducts(req, res) {
+  try {
+    const { query } = req.query;
+    const products = await Product.find().select(
+      "name imgUrl brand price gender colors sizes categories"
+    );
+    const searchedProducts = products.filter((product) =>
+      product.name.toLowerCase().includes(query.toLowerCase())
+    );
+    res.json(searchedProducts);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 export async function createProduct(req, res) {
   try {
     const {

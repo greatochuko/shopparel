@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 export default function SearchForm() {
   const [searchParams] = useSearchParams();
-  const query = searchParams.get("query");
+  const query = searchParams.get("q");
   const [searchQuery, setSearchQuery] = useState(query || "");
   const navigate = useNavigate();
 
