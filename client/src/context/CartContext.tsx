@@ -1,16 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 const demoCartItems = [
-  {
-    _id: "12345678",
-    name: "Plaid Flannel Shirt",
-    imgUrl: "/men-product-4.png",
-    color: "yellow",
-    size: "l",
-    price: 299,
-    shipping: 0,
-    quantity: 1,
-  },
   {
     _id: "12345679",
     name: "Classic Cotton Crew Neck Tee",
@@ -46,22 +36,21 @@ export type CartItemType = {
 
 export type CartProviderValue = {
   cartItems: CartItemType[] | [];
-  addItemToCart: ((item: CartItemType) => void) | null;
+  addItemToCart: (item: CartItemType) => void;
 };
 
-export const CartContext = createContext<CartProviderValue>({
-  cartItems: [],
-  addItemToCart: null,
-});
+export const CartContext = createContext<CartProviderValue | null>(null);
 
 export default function CartProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+  const [cartItems, setCartItems] = useState<CartItemType[]>(demoCartItems);
 
   function addItemToCart(item: CartItemType) {
+    console.log("Adding");
+
     setCartItems((curr) => [...curr, item]);
   }
 

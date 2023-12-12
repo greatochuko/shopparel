@@ -1,20 +1,39 @@
 import { ProductType } from "./Product";
 import { useState } from "react";
 import Rating from "../components/Rating";
+import useCartContext from "../hooks/useCartContext";
 
 export default function ProductConfiguration({
   product,
 }: {
   product: ProductType;
 }) {
+  const { cartItems, addItemToCart } = useCartContext();
+  const productInCart = cartItems.find(
+    (cartItem) => cartItem._id === product._id
+  );
+  console.clear();
+  console.log(productInCart);
+  const quantity = productInCart ? productInCart.quantity : 0;
+
   const [currentSize, setCurrentSize] = useState(product.sizes[0]);
   const [currentColor, setCurrentColor] = useState(product.colors[0]);
-  const [quantity, setQuantity] = useState(1);
-  const [productInCart, setProductInCart] = useState(false);
 
-  function handleDecreaseQuantity() {
-    if (quantity <= 1) return setProductInCart(false);
-    setQuantity((curr) => curr - 1);
+  function handleIncreaseQuantity() {}
+
+  function handleDecreaseQuantity() {}
+
+  function handleAddItemToCart() {
+    addItemToCart({
+      _id: product._id,
+      name: product.name,
+      imgUrl: product.imgUrl,
+      color: currentColor,
+      size: currentSize,
+      price: product.price,
+      shipping: 19.99,
+      quantity: 1,
+    });
   }
 
   return (
@@ -100,7 +119,7 @@ export default function ProductConfiguration({
           <div className="flex gap-2">
             <button
               onClick={handleDecreaseQuantity}
-              className="bg-accent-blue-100 h-9 w-9 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 rounded-md shadow-md active:shadow-none text-3xl shadow-zinc-300 text-white"
+              className="text-3xl text-white rounded-md shadow-md bg-accent-blue-100 h-9 w-9 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300"
             >
               <svg
                 height={16}
@@ -139,14 +158,12 @@ export default function ProductConfiguration({
                 </g>
               </svg>
             </button>
-            <p className="flex-center w-8 font-semibold text-zinc-600 text-xl">
+            <p className="w-8 text-xl font-semibold flex-center text-zinc-600">
               {quantity}
             </p>
             <button
-              onClick={() => {
-                setQuantity((curr) => curr + 1);
-              }}
-              className="bg-accent-blue-100 h-9 w-9 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 rounded-md shadow-md active:shadow-none text-3xl shadow-zinc-300 text-white"
+              onClick={handleIncreaseQuantity}
+              className="text-3xl text-white rounded-md shadow-md bg-accent-blue-100 h-9 w-9 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300"
             >
               <svg
                 height={16}
@@ -163,7 +180,6 @@ export default function ProductConfiguration({
                   strokeLinejoin="round"
                 ></g>
                 <g id="SVGRepo_iconCarrier">
-                  <title>plus</title> <desc>Created with Sketch Beta.</desc>
                   <defs> </defs>
                   <g
                     id="Page-1"
@@ -189,8 +205,8 @@ export default function ProductConfiguration({
           </div>
         ) : (
           <button
-            onClick={() => setProductInCart(true)}
-            className="p-3 w-full flex-center sm:px-6 focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 gap-2 self-stretch text-sm text-white duration-300 rounded-md bg-accent-blue-100 hover:bg-accent-blue-200 active:scale-95"
+            onClick={handleAddItemToCart}
+            className="self-stretch w-full gap-2 p-3 text-sm text-white duration-300 rounded-md flex-center sm:px-6 focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 bg-accent-blue-100 hover:bg-accent-blue-200 active:scale-95"
           >
             <svg
               width={20}
