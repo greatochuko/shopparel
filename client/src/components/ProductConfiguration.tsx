@@ -37,20 +37,18 @@ export default function ProductConfiguration({
   function handleAddItemToCart() {
     if (!user) return;
     setLoading(true);
-    setTimeout(() => {
-      addItemToCart({
-        productId: product._id,
-        userId: user._id,
-        name: product.name,
-        imgUrl: product.imgUrl,
-        color: currentColor,
-        size: currentSize,
-        price: product.price,
-        shipping: 19.99,
-        quantity: 1,
-      });
-      setLoading(false);
-    }, 3000);
+    addItemToCart({
+      productId: product._id,
+      userId: user._id,
+      name: product.name,
+      imgUrl: product.imgUrl,
+      color: currentColor,
+      size: currentSize,
+      price: product.price,
+      shipping: 19.99,
+      quantity: 1,
+    });
+    setLoading(false);
   }
 
   return (
