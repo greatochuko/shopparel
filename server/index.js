@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRouter from "./routes/authRoutes.js";
 import userRouter from "./routes/userRoutes.js";
+import cartRouter from "./routes/cartRoutes.js";
 
 dotenv.config();
 
@@ -37,8 +38,11 @@ app.use(
 // MIDDLEWARES
 app.use(cors({ origin: ["http://localhost:5173"], credentials: true }));
 app.use(express.json());
+
+// ROUTES
 app.use("/api", authRouter);
-app.use("/api", userRouter);
+app.use("/api/user", userRouter);
+app.use("/api/cart", cartRouter);
 
 async function startServer() {
   try {

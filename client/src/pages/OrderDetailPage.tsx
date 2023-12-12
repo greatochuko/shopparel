@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { cartItems } from "./CartPage";
+import useCartContext from "../hooks/useCartContext";
 
 const orders = [
   {
@@ -55,17 +55,18 @@ const orders = [
 export default function OrderDetailPage() {
   const navigate = useNavigate();
   const { orderId } = useParams();
+  const { cartItems } = useCartContext();
 
   const order = orders.find((order) => order._id === orderId);
   return (
-    <section className="flex flex-col gap-10 flex-1">
-      <h1 className="text-xl font-semibold items-center flex">
+    <section className="flex flex-col flex-1 gap-10">
+      <h1 className="flex items-center text-xl font-semibold">
         <button onClick={() => navigate(-1)} className="px-1 group">
           <svg
             height={25}
             width={25}
             fill="#000000"
-            className="fill-zinc-500 hover:fill-black stroke-zinc-500 duration-300 hover:stroke-black"
+            className="duration-300 fill-zinc-500 hover:fill-black stroke-zinc-500 hover:stroke-black"
             viewBox="-12 0 32 32"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +86,7 @@ export default function OrderDetailPage() {
         </button>
         Order Details
       </h1>
-      <div className="flex gap-2 flex-col sm:flex-row p-4 rounded-md bg-zinc-100 sm:items-center justify-between">
+      <div className="flex flex-col justify-between gap-2 p-4 rounded-md sm:flex-row bg-zinc-100 sm:items-center">
         <div className="flex flex-col gap-1 text-sm sm:text-base">
           <p className="font-semibold sm:text-lg">Order ID: {order?._id}</p>
           <p>
@@ -97,7 +98,7 @@ export default function OrderDetailPage() {
             <span className="font-semibold">{order?.deliveryDate}</span>
           </p>
         </div>
-        <p className=" text-sm sm:text-base">
+        <p className="text-sm  sm:text-base">
           Total Price:{" "}
           <span className="font-semibold">
             {" "}
@@ -107,13 +108,13 @@ export default function OrderDetailPage() {
       </div>
       <div className="flex relative bg-zinc-100 h-1 w-[90%] max-w-xl mx-auto font-semibold text-xs rounded-full">
         <div className="flex-center flex-col gap-2 h-fit absolute -top-1.5 -translate-x-[50%]">
-          <div className="w-4 h-4 bg-zinc-800 rounded-full"></div>
+          <div className="w-4 h-4 rounded-full bg-zinc-800"></div>
           <p className="hidden sm:block">Order Placed</p>
           <p className="sm:hidden">Placed</p>
         </div>
         <div className="flex-center flex-col gap-2 h-fit absolute -top-1.5 left-[25%]">
           {order?.status === "canceled" ? (
-            <div className="w-4 h-4 bg-red-600 border-zinc-400 rounded-full"></div>
+            <div className="w-4 h-4 bg-red-600 rounded-full border-zinc-400"></div>
           ) : (
             <div
               className={`w-4 h-4 bg-zinc-800 ${
@@ -145,18 +146,18 @@ export default function OrderDetailPage() {
           <p>Delivered</p>
         </div>
       </div>
-      <div className="flex flex-col gap-4 p-4 rounded-md bg-zinc-100 text-sm mt-6">
+      <div className="flex flex-col gap-4 p-4 mt-6 text-sm rounded-md bg-zinc-100">
         {cartItems.map((cartItem) => (
           <div
             key={cartItem._id}
-            className="flex flex-col sm:flex-row justify-between"
+            className="flex flex-col justify-between sm:flex-row"
           >
             <div className="flex gap-4">
               <div className="min-w-[80px] w-20 h-20 bg-zinc-200 rounded-md">
                 <img
                   src={cartItem.imgUrl}
                   alt=""
-                  className="w-full h-full object-contain"
+                  className="object-contain w-full h-full"
                 />
               </div>
               <div className="flex flex-col gap-1">
@@ -175,7 +176,7 @@ export default function OrderDetailPage() {
                 </p>
               </div>
             </div>
-            <div className="flex gap-4 lg:gap-10 items-center lg:text-base mt-4 border-b pb-4">
+            <div className="flex items-center gap-4 pb-4 mt-4 border-b lg:gap-10 lg:text-base">
               <p className="whitespace-nowrap">
                 Qty: <span className="font-semibold">{cartItem.quantity}</span>
               </p>

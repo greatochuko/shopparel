@@ -1,22 +1,24 @@
-import { cartItems } from "../pages/CartPage";
+import useCartContext from "../hooks/useCartContext";
 
 export default function OrderSummary() {
+  const { cartItems } = useCartContext();
+
   return (
     <section className="lg:block hidden h-fit sticky w-[400px] border p-4 border-zinc-200 rounded-md top-[80px] right-0">
-      <h2 className="border-b pb-3 border-zinc-100 text-xl font-semibold">
+      <h2 className="pb-3 text-xl font-semibold border-b border-zinc-100">
         Order Summary
       </h2>
       <ul className="flex flex-col gap-4">
         {cartItems.map((cartItem) => (
           <li
             key={cartItem._id}
-            className="border-b border-zinc-100 py-2 flex gap-4 items-start"
+            className="flex items-start gap-4 py-2 border-b border-zinc-100"
           >
-            <div className="w-16 aspect-square bg-zinc-100 rounded-md overflow-hidden">
+            <div className="w-16 overflow-hidden rounded-md aspect-square bg-zinc-100">
               <img
                 src={cartItem.imgUrl}
                 alt=""
-                className="w-full h-full object-contain"
+                className="object-contain w-full h-full"
               />
             </div>
             <div className="flex flex-col gap-1 text-sm">
@@ -25,16 +27,16 @@ export default function OrderSummary() {
               </h3>
               <p>
                 Color -{" "}
-                <span className="uppercase font-semibold">
+                <span className="font-semibold uppercase">
                   {cartItem.color}
                 </span>
               </p>
               <p>
                 Size -{" "}
-                <span className="uppercase font-semibold">{cartItem.size}</span>
+                <span className="font-semibold uppercase">{cartItem.size}</span>
               </p>
             </div>
-            <p className="font-semibold ml-auto">
+            <p className="ml-auto font-semibold">
               ${cartItem.price * cartItem.quantity}
             </p>
           </li>

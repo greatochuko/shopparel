@@ -1,20 +1,54 @@
 import { ProductType } from "./Product";
 import { useState } from "react";
 import Rating from "../components/Rating";
+import useCartContext from "../hooks/useCartContext";
+import useUserContext from "../hooks/useUserContext";
+import LoadingIndicator from "./LoadingIndicator";
 
 export default function ProductConfiguration({
   product,
 }: {
   product: ProductType;
 }) {
+  const {
+    cartItems,
+    addItemToCart,
+    increaseItemQuantity,
+    decreaseItemQuantity,
+  } = useCartContext();
+  const { user } = useUserContext();
+  const productInCart = cartItems.find(
+    (cartItem) => cartItem.productId === product._id
+  );
+  const quantity = productInCart ? productInCart.quantity : 0;
+
   const [currentSize, setCurrentSize] = useState(product.sizes[0]);
   const [currentColor, setCurrentColor] = useState(product.colors[0]);
-  const [quantity, setQuantity] = useState(1);
-  const [productInCart, setProductInCart] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  function handleIncreaseQuantity() {
+    if (productInCart) increaseItemQuantity(productInCart);
+  }
 
   function handleDecreaseQuantity() {
-    if (quantity <= 1) return setProductInCart(false);
-    setQuantity((curr) => curr - 1);
+    if (productInCart) decreaseItemQuantity(productInCart._id as string);
+  }
+
+  function handleAddItemToCart() {
+    if (!user) return;
+    setLoading(true);
+    addItemToCart({
+      productId: product._id,
+      userId: user._id,
+      name: product.name,
+      imgUrl: product.imgUrl,
+      color: currentColor,
+      size: currentSize,
+      price: product.price,
+      shipping: 19.99,
+      quantity: 1,
+    });
+    setLoading(false);
   }
 
   return (
@@ -100,7 +134,7 @@ export default function ProductConfiguration({
           <div className="flex gap-2">
             <button
               onClick={handleDecreaseQuantity}
-              className="bg-accent-blue-100 h-9 w-9 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 rounded-md shadow-md active:shadow-none text-3xl shadow-zinc-300 text-white"
+              className="text-3xl text-white rounded-md shadow-md bg-accent-blue-100 h-9 w-9 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300"
             >
               <svg
                 height={16}
@@ -139,14 +173,12 @@ export default function ProductConfiguration({
                 </g>
               </svg>
             </button>
-            <p className="flex-center w-8 font-semibold text-zinc-600 text-xl">
+            <p className="w-8 text-xl font-semibold flex-center text-zinc-600">
               {quantity}
             </p>
             <button
-              onClick={() => {
-                setQuantity((curr) => curr + 1);
-              }}
-              className="bg-accent-blue-100 h-9 w-9 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 rounded-md shadow-md active:shadow-none text-3xl shadow-zinc-300 text-white"
+              onClick={handleIncreaseQuantity}
+              className="text-3xl text-white rounded-md shadow-md bg-accent-blue-100 h-9 w-9 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300"
             >
               <svg
                 height={16}
@@ -163,7 +195,6 @@ export default function ProductConfiguration({
                   strokeLinejoin="round"
                 ></g>
                 <g id="SVGRepo_iconCarrier">
-                  <title>plus</title> <desc>Created with Sketch Beta.</desc>
                   <defs> </defs>
                   <g
                     id="Page-1"
@@ -189,24 +220,30 @@ export default function ProductConfiguration({
           </div>
         ) : (
           <button
-            onClick={() => setProductInCart(true)}
-            className="p-3 w-full flex-center sm:px-6 focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 gap-2 self-stretch text-sm text-white duration-300 rounded-md bg-accent-blue-100 hover:bg-accent-blue-200 active:scale-95"
+            onClick={handleAddItemToCart}
+            className="self-stretch w-full gap-2 p-3 text-sm text-white duration-300 rounded-md flex-center sm:px-6 focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 bg-accent-blue-100 hover:bg-accent-blue-200 active:scale-95"
           >
-            <svg
-              width={20}
-              height={20}
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M2.5 3.33334H3.00526C3.85578 3.33334 4.56986 3.97376 4.6621 4.81926L5.3379 11.0141C5.43014 11.8596 6.14422 12.5 6.99474 12.5H14.205C14.9669 12.5 15.6317 11.9834 15.82 11.2452L16.9699 6.73593C17.2387 5.68213 16.4425 4.65742 15.355 4.65742H5.5M5.52063 15.5208H6.14563M5.52063 16.1458H6.14563M14.6873 15.5208H15.3123M14.6873 16.1458H15.3123M6.66667 15.8333C6.66667 16.2936 6.29357 16.6667 5.83333 16.6667C5.3731 16.6667 5 16.2936 5 15.8333C5 15.3731 5.3731 15 5.83333 15C6.29357 15 6.66667 15.3731 6.66667 15.8333ZM15.8333 15.8333C15.8333 16.2936 15.4602 16.6667 15 16.6667C14.5398 16.6667 14.1667 16.2936 14.1667 15.8333C14.1667 15.3731 14.5398 15 15 15C15.4602 15 15.8333 15.3731 15.8333 15.8333Z"
-                stroke="#fff"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-              />
-            </svg>
-            Add To Cart
+            {loading ? (
+              <LoadingIndicator />
+            ) : (
+              <>
+                <svg
+                  width={20}
+                  height={20}
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2.5 3.33334H3.00526C3.85578 3.33334 4.56986 3.97376 4.6621 4.81926L5.3379 11.0141C5.43014 11.8596 6.14422 12.5 6.99474 12.5H14.205C14.9669 12.5 15.6317 11.9834 15.82 11.2452L16.9699 6.73593C17.2387 5.68213 16.4425 4.65742 15.355 4.65742H5.5M5.52063 15.5208H6.14563M5.52063 16.1458H6.14563M14.6873 15.5208H15.3123M14.6873 16.1458H15.3123M6.66667 15.8333C6.66667 16.2936 6.29357 16.6667 5.83333 16.6667C5.3731 16.6667 5 16.2936 5 15.8333C5 15.3731 5.3731 15 5.83333 15C6.29357 15 6.66667 15.3731 6.66667 15.8333ZM15.8333 15.8333C15.8333 16.2936 15.4602 16.6667 15 16.6667C14.5398 16.6667 14.1667 16.2936 14.1667 15.8333C14.1667 15.3731 14.5398 15 15 15C15.4602 15 15.8333 15.3731 15.8333 15.8333Z"
+                    stroke="#fff"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                Add To Cart
+              </>
+            )}
           </button>
         )}
       </div>
