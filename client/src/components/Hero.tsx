@@ -99,7 +99,7 @@ export default function Hero({
                 {product.name}
               </h2>
               <Link
-                to={`/product/${(product.name + product._id)
+                to={`/product/${(product._id + "-" + product.name)
                   .split(" ")
                   .join("-")
                   .toLowerCase()}`}
