@@ -11,7 +11,13 @@ export default function OrderPage() {
     async function getOrders() {
       const data = await fetchOrders();
       if (data.error) return;
-      setOrders(data);
+      // setOrders(data);
+      setOrders(
+        [...data].sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        )
+      );
     }
     getOrders();
   }, []);
