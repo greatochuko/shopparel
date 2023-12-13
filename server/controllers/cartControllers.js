@@ -3,7 +3,7 @@ import { CartItem } from "../models/Cart.js";
 export async function getCartItems(req, res) {
   try {
     const { userId } = req.params;
-    const cartItems = await CartItem.find({ userId });
+    const cartItems = await CartItem.find({ userId, ordered: false });
     res.json(cartItems);
   } catch (error) {
     res.status(401).json({ error: error.message });
