@@ -43,7 +43,7 @@ export default function CartProvider({
 
   useEffect(() => {
     async function refreshUser() {
-      if (!user?._id) return;
+      if (!user?._id) return setRefreshed(true);
       const data = await fetchCart(user._id);
 
       if (data.error) {

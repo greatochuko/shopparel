@@ -1,10 +1,20 @@
+import { useNavigate } from "react-router-dom";
+import useUserContext from "../hooks/useUserContext";
+import { logoutUser } from "../services/authServices";
+
 export default function SignoutModal({
   closeModal,
 }: {
   closeModal: () => void;
 }) {
-  function handleSignout() {
-    return;
+  const { setUser } = useUserContext();
+  const navigate = useNavigate();
+
+  async function handleSignout() {
+    const data = await logoutUser();
+    if (data.error) return;
+    setUser(null);
+    navigate("/login");
   }
   return (
     <div className="w-full sm:mi`n-w-[500px] flex flex-col gap-4 pt-6">

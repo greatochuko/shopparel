@@ -88,3 +88,8 @@ export async function loginWithGoogle(req, res) {
     res.status(401).json({ error: error.message });
   }
 }
+
+export async function logout(req, res) {
+  req.session.userId = null;
+  res.json("Logout Successful!");
+}

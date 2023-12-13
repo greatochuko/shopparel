@@ -18,7 +18,7 @@ export async function signupUser(
     const data = await res.json();
     return data;
   } catch (error) {
-    return error;
+    return { error: (error as Error).message };
   }
 }
 
@@ -35,7 +35,7 @@ export async function loginUser(email: string, password: string) {
     const data = await res.json();
     return data;
   } catch (error) {
-    return error;
+    return { error: (error as Error).message };
   }
 }
 
@@ -57,6 +57,19 @@ export async function loginUserWithGoogle(
     const data = await res.json();
     return data;
   } catch (error) {
-    return error;
+    return { error: (error as Error).message };
+  }
+}
+
+export async function logoutUser() {
+  try {
+    const res = await fetch(`${BASE_URL}/logout`, {
+      method: "POST",
+      credentials: "include",
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
   }
 }
