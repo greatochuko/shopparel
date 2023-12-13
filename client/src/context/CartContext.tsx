@@ -8,6 +8,7 @@ import {
 } from "../services/cartServices";
 import useUserContext from "../hooks/useUserContext";
 import FullScreenLoader from "../components/FullScreenLoader";
+import { fetchUser } from "../services/userServices";
 
 export type CartItemType = {
   _id: string;
@@ -39,22 +40,28 @@ export default function CartProvider({
 }) {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const [refreshed, setRefreshed] = useState(false);
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
 
   useEffect(() => {
     async function refreshUser() {
+      // Fetch and set Initial user context
+      const userData = await fetchUser();
+      if (userData.error) {
+        return setRefreshed(true);
+      }
+      setUser(userData);
+
+      // Fetch and set Initial user context
       if (!user?._id) return setRefreshed(true);
       const data = await fetchCart(user._id);
-
       if (data.error) {
         return setRefreshed(true);
       }
-
       setCartItems(data);
       setRefreshed(true);
     }
     refreshUser();
-  }, [user?._id]);
+  }, [user?._id, setUser]);
 
   async function addItemToCart(item: CartItemType) {
     const data = await fetchAddToCart(item);

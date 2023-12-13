@@ -1,6 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
-import { fetchUser } from "../services/userServices";
-import FullScreenLoader from "../components/FullScreenLoader";
+import React, { createContext, useState } from "react";
 
 export type UserType = {
   firstName: string;
@@ -23,23 +21,6 @@ export default function UserProvider({
   children: React.ReactNode;
 }) {
   const [user, setUser] = useState<UserType | null>(null);
-  const [refreshed, setRefreshed] = useState(false);
-
-  useEffect(() => {
-    async function refreshUser() {
-      const data = await fetchUser();
-
-      if (data.error) {
-        return setRefreshed(true);
-      }
-      setUser(data);
-      setRefreshed(true);
-    }
-    refreshUser();
-  }, []);
-
-  if (!refreshed) return <FullScreenLoader />;
-
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {children}
