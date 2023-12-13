@@ -21,7 +21,7 @@ export async function createOrder(req, res) {
       status: "active",
       paymentMethod,
       products,
-    }).populate({ path: "products", select: "ordered" });
+    });
 
     // Set all cart items to ordered
     products.forEach(async (productId) => {

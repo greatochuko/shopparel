@@ -9,6 +9,7 @@ export default function useCartContext() {
     decreaseItemQuantity,
     removeItemFromCart,
     clearCart,
+    clearOrderCart,
   } = useContext(CartContext) as CartProviderValue;
   return {
     cartItems,
@@ -17,5 +18,6 @@ export default function useCartContext() {
     decreaseItemQuantity,
     removeItemFromCart,
     clearCart,
+    clearOrderCart,
   };
 }

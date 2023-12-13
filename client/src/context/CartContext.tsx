@@ -31,6 +31,7 @@ export type CartProviderValue = {
   increaseItemQuantity: (itemId: string) => void;
   decreaseItemQuantity: (itemId: string) => void;
   clearCart: () => void;
+  clearOrderCart: () => void;
 };
 
 export const CartContext = createContext<CartProviderValue | null>(null);
@@ -112,6 +113,10 @@ export default function CartProvider({
     setCartItems([]);
   }
 
+  async function clearOrderCart() {
+    setCartItems([]);
+  }
+
   if (!refreshed) return <FullScreenLoader />;
 
   return (
@@ -123,6 +128,7 @@ export default function CartProvider({
         decreaseItemQuantity,
         removeItemFromCart,
         clearCart,
+        clearOrderCart,
       }}
     >
       {children}

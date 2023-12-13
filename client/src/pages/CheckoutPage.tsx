@@ -24,7 +24,7 @@ export default function CheckoutPage() {
   const [shippingInformation, setShippingInformation] =
     useState<ShippingInformationType | null>(null);
   const [paymentType, setPaymentType] = useState("stripe");
-  const { cartItems } = useCartContext();
+  const { cartItems, clearOrderCart } = useCartContext();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
@@ -34,8 +34,9 @@ export default function CheckoutPage() {
       paymentType,
       cartItems.map((item) => item._id)
     );
+
     if (data.error) return setLoading(false);
-    // clearCart();
+    clearOrderCart();
     navigate("/orders");
     setLoading(false);
   }
