@@ -9,6 +9,7 @@ export type OrderType = {
   paymentMethod: string;
   products: CartItemType[];
   ordered: boolean;
+  createdAt: string;
 };
 
 export default function Order({ order }: { order: OrderType }) {
