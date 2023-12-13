@@ -66,3 +66,18 @@ export async function fetchRemoveFromCart(cartItemId: string) {
     return { error: (error as Error).message };
   }
 }
+
+export async function fetchClearCart() {
+  try {
+    const res = await fetch(`${BASE_URL}/cart/`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+
+    const data = await res.json();
+
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}

@@ -4,7 +4,7 @@ export default function OrderSummary() {
   const { cartItems } = useCartContext();
 
   return (
-    <section className="lg:block hidden h-fit sticky w-[400px] border p-4 border-zinc-200 rounded-md top-[80px] right-0">
+    <section className="h-fit lg:sticky lg:w-[400px] border p-4 border-zinc-200 rounded-md top-[80px] right-0">
       <h2 className="pb-3 text-xl font-semibold border-b border-zinc-100">
         Order Summary
       </h2>

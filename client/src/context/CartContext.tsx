@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import {
   fetchAddToCart,
   fetchCart,
+  fetchClearCart,
   fetchDecreaseQuantity,
   fetchIncreaseQuantity,
   fetchRemoveFromCart,
@@ -29,6 +30,7 @@ export type CartProviderValue = {
   removeItemFromCart: (itemId: string) => void;
   increaseItemQuantity: (itemId: string) => void;
   decreaseItemQuantity: (itemId: string) => void;
+  clearCart: () => void;
 };
 
 export const CartContext = createContext<CartProviderValue | null>(null);
@@ -104,6 +106,12 @@ export default function CartProvider({
     );
   }
 
+  async function clearCart() {
+    const data = await fetchClearCart();
+    if (data?.error) return;
+    setCartItems([]);
+  }
+
   if (!refreshed) return <FullScreenLoader />;
 
   return (
@@ -114,6 +122,7 @@ export default function CartProvider({
         increaseItemQuantity,
         decreaseItemQuantity,
         removeItemFromCart,
+        clearCart,
       }}
     >
       {children}

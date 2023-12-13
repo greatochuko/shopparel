@@ -9,7 +9,6 @@ export default function DeleteShippingInfoModal({
 }) {
   function handleDeleteShippingInfo(e: React.FormEvent) {
     e.preventDefault();
-    console.log(shippingInfo._id);
   }
   return (
     <div className="w-full sm:min-w-[500px] flex flex-col gap-4 pt-6">

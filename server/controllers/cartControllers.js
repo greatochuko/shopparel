@@ -6,7 +6,7 @@ export async function getCartItems(req, res) {
     const cartItems = await CartItem.find({ userId });
     res.json(cartItems);
   } catch (error) {
-    res.json({ error: error.message });
+    res.status(401).json({ error: error.message });
   }
 }
 
@@ -37,7 +37,7 @@ export async function addProduct(req, res) {
     });
     res.json(newCartItem);
   } catch (error) {
-    res.json({ error: error.message });
+    res.status(401).json({ error: error.message });
   }
 }
 
@@ -50,7 +50,7 @@ export async function increaseProductQuantity(req, res) {
     if (!deletedCartItem) throw new Error("Invalid Cart Item ID");
     res.json(deletedCartItem);
   } catch (error) {
-    res.json({ error: error.message });
+    res.status(401).json({ error: error.message });
   }
 }
 
@@ -63,7 +63,7 @@ export async function decreaseProductQuantity(req, res) {
     if (!deletedCartItem) throw new Error("Invalid Cart Item ID");
     res.json(deletedCartItem);
   } catch (error) {
-    res.json({ error: error.message });
+    res.status(401).json({ error: error.message });
   }
 }
 
@@ -74,6 +74,17 @@ export async function removeProduct(req, res) {
     if (!deletedCartItem) throw new Error("Invalid Cart Item ID");
     res.json(deletedCartItem);
   } catch (error) {
-    res.json({ error: error.message });
+    res.status(401).json({ error: error.message });
+  }
+}
+
+export async function clearCart(req, res) {
+  try {
+    const { userId } = req.session;
+    if (!userId) throw new Error("User is unauthenticated");
+    await CartItem.deleteMany({ userId });
+    res.json("Cart cleared successfully");
+  } catch (error) {
+    res.status(401).json({ error: error.message });
   }
 }
