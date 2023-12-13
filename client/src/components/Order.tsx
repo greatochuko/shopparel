@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { CartItemType } from "../context/CartContext";
 
 export type OrderType = {
   _id: string;
@@ -6,6 +7,8 @@ export type OrderType = {
   deliveryDate: string;
   status: string;
   paymentMethod: string;
+  products: CartItemType[];
+  ordered: boolean;
 };
 
 export default function Order({ order }: { order: OrderType }) {
@@ -16,11 +19,16 @@ export default function Order({ order }: { order: OrderType }) {
           Order ID: #{order._id}
         </p>
         <p>
-          Order Date: <span className="font-semibold">{order.orderDate}</span>
+          Order Date:{" "}
+          <span className="font-semibold">
+            {new Date(order.createdAt).toDateString()}
+          </span>
         </p>
         <p>
           Delivery Date:{" "}
-          <span className="font-semibold">{order.deliveryDate}</span>
+          <span className="font-semibold">
+            {new Date(order.deliveryDate).toDateString()}
+          </span>
         </p>
         <p>
           Order Status:{" "}

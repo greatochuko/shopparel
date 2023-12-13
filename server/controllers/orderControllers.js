@@ -35,3 +35,13 @@ export async function createOrder(req, res) {
     res.status(401).json({ error: error.message });
   }
 }
+
+export async function getOrder(req, res) {
+  try {
+    const { orderId } = req.params;
+    const order = await Order.findById(orderId).populate("products");
+    res.json(order);
+  } catch (error) {
+    res.status(401).json({ error: error.message });
+  }
+}

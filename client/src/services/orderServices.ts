@@ -24,3 +24,13 @@ export async function createOrder(paymentMethod: string, products: string[]) {
     return { error: (error as Error).message };
   }
 }
+
+export async function fetchOrder(orderId: string) {
+  try {
+    const res = await fetch(`${BASE_URL}/order/${orderId}`);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}

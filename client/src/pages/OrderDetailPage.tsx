@@ -1,63 +1,23 @@
 import { useNavigate, useParams } from "react-router-dom";
-import useCartContext from "../hooks/useCartContext";
-
-const orders = [
-  {
-    _id: "123456a",
-    orderDate: new Date().toDateString(),
-    deliveryDate: new Date("12 12 2024").toDateString(),
-    status: "active",
-    paymentMethod: "card",
-    totalPrice: 2893,
-  },
-  {
-    _id: "123456b",
-    orderDate: new Date().toDateString(),
-    deliveryDate: new Date("12 12 2024").toDateString(),
-    status: "active",
-    paymentMethod: "cash on delivery",
-    totalPrice: 2893,
-  },
-  {
-    _id: "123456c",
-    orderDate: new Date().toDateString(),
-    deliveryDate: new Date("12 12 2024").toDateString(),
-    status: "canceled",
-    paymentMethod: "card",
-    totalPrice: 2893,
-  },
-  {
-    _id: "123456d",
-    orderDate: new Date().toDateString(),
-    deliveryDate: new Date("12 12 2024").toDateString(),
-    status: "canceled",
-    paymentMethod: "cash on delivery",
-    totalPrice: 2893,
-  },
-  {
-    _id: "123456e",
-    orderDate: new Date().toDateString(),
-    deliveryDate: new Date("12 12 2024").toDateString(),
-    status: "completed",
-    paymentMethod: "card",
-    totalPrice: 2893,
-  },
-  {
-    _id: "123456f",
-    orderDate: new Date().toDateString(),
-    deliveryDate: new Date("12 12 2024").toDateString(),
-    status: "completed",
-    paymentMethod: "cash on delivery",
-    totalPrice: 2893,
-  },
-];
+import { useEffect, useState } from "react";
+import { OrderType } from "../components/Order";
+import { fetchOrder } from "../services/orderServices";
 
 export default function OrderDetailPage() {
   const navigate = useNavigate();
   const { orderId } = useParams();
-  const { cartItems } = useCartContext();
+  const [order, setOrder] = useState<OrderType | null>(null);
 
-  const order = orders.find((order) => order._id === orderId);
+  useEffect(() => {
+    async function getOrder() {
+      const data = await fetchOrder(orderId as string);
+
+      if (data.error) return;
+      setOrder(data);
+    }
+    getOrder();
+  }, [orderId]);
+
   return (
     <section className="flex flex-col flex-1 gap-10">
       <h1 className="flex items-center text-xl font-semibold">
@@ -95,14 +55,18 @@ export default function OrderDetailPage() {
           </p>
           <p>
             Delivery Date:{" "}
-            <span className="font-semibold">{order?.deliveryDate}</span>
+            <span className="font-semibold">
+              {new Date(order?.deliveryDate as string).toDateString()}
+            </span>
           </p>
         </div>
-        <p className="text-sm  sm:text-base">
+        <p className="text-sm sm:text-base">
           Total Price:{" "}
           <span className="font-semibold">
-            {" "}
-            ${order?.totalPrice.toFixed(2)}
+            $
+            {order?.products
+              .reduce((acc, curr) => acc + curr.price * curr.quantity, 0)
+              .toFixed(2)}
           </span>
         </p>
       </div>
@@ -147,7 +111,7 @@ export default function OrderDetailPage() {
         </div>
       </div>
       <div className="flex flex-col gap-4 p-4 mt-6 text-sm rounded-md bg-zinc-100">
-        {cartItems.map((cartItem) => (
+        {order?.products.map((cartItem) => (
           <div
             key={cartItem._id}
             className="flex flex-col justify-between sm:flex-row"
