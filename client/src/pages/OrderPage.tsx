@@ -1,55 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Order, { OrderType } from "../components/Order";
 import EmptyOrders from "../components/EmptyOrders";
-
-const demoOrders = [
-  {
-    _id: "123456a",
-    orderDate: new Date().toDateString(),
-    deliveryDate: new Date("12 12 2024").toDateString(),
-    status: "active",
-    paymentMethod: "card",
-  },
-  {
-    _id: "123456b",
-    orderDate: new Date().toDateString(),
-    deliveryDate: new Date("12 12 2024").toDateString(),
-    status: "active",
-    paymentMethod: "cash on delivery",
-  },
-  {
-    _id: "123456c",
-    orderDate: new Date().toDateString(),
-    deliveryDate: new Date("12 12 2024").toDateString(),
-    status: "cancelled",
-    paymentMethod: "card",
-  },
-  {
-    _id: "123456d",
-    orderDate: new Date().toDateString(),
-    deliveryDate: new Date("12 12 2024").toDateString(),
-    status: "cancelled",
-    paymentMethod: "cash on delivery",
-  },
-  {
-    _id: "123456e",
-    orderDate: new Date().toDateString(),
-    deliveryDate: new Date("12 12 2024").toDateString(),
-    status: "completed",
-    paymentMethod: "card",
-  },
-  {
-    _id: "123456f",
-    orderDate: new Date().toDateString(),
-    deliveryDate: new Date("12 12 2024").toDateString(),
-    status: "completed",
-    paymentMethod: "cash on delivery",
-  },
-];
+import { fetchOrders } from "../services/orderServices";
 
 export default function OrderPage() {
   const [filter, setFilter] = useState("active");
-  const [orders, setOrders] = useState<OrderType[]>(demoOrders);
+  const [orders, setOrders] = useState<OrderType[]>([]);
+
+  useEffect(() => {
+    async function getOrders() {
+      const data = await fetchOrders();
+      if (data.error) return;
+      setOrders(data);
+    }
+    getOrders();
+  }, []);
 
   const filteredOrders = orders.filter((order) => order.status === filter);
 
