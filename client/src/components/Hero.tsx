@@ -1,62 +1,12 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { ProductType } from "./Product";
 
-const heroProducts = [
-  {
-    name: "Relaxed Fit V-Neck Tee",
-    imgUrl: "/women-product-1.png",
-    brand: "Helen",
-    price: 299,
-    images: ["a"],
-    rating: 4,
-    reviews: [
-      {
-        user: {
-          fullName: "John Doe",
-          imgUrl: "/feedback-user-image-1.jpg",
-          email: "john@gmail.com",
-          _id: "123abc",
-        },
-        date: "November 12, 2023",
-        rating: 3,
-        review:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
-      },
-    ],
-    _id: "123abc",
-    sizes: ["l", "m", "xl", "s", "xs"],
-    categories: ["V-Neck T-Shirts"],
-    colors: ["black"],
-  },
-  {
-    name: "Off-the-Shoulder Knit Sweater",
-    imgUrl: "/women-product-2.png",
-    brand: "Helen",
-    price: 299,
-    images: ["a"],
-    rating: 4,
-    reviews: [
-      {
-        user: {
-          fullName: "John Doe",
-          imgUrl: "/feedback-user-image-1.jpg",
-          email: "john@gmail.com",
-          _id: "123abc",
-        },
-        date: "November 12, 2023",
-        rating: 3,
-        review:
-          "Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, fugiat corrupti obcaecati facilis odit vel dignissimos porro exercitationem aliquam molestiae temporibus impedit rem illum cupiditate dolorem harum ipsum unde magni!",
-      },
-    ],
-    _id: "123abc",
-    sizes: ["l", "m", "xl", "s", "2xl"],
-    categories: ["sweater"],
-    colors: ["yellow", "orange"],
-  },
-];
-
-export default function Hero() {
+export default function Hero({
+  heroProducts,
+}: {
+  heroProducts: ProductType[];
+}) {
   const [currentIndex, setcurrentIndex] = useState(0);
   const colors = ["#7F7CB6", "#FB9489"];
   const backgroundColor = colors[currentIndex];
@@ -74,13 +24,13 @@ export default function Hero() {
   return (
     <section className={`relative min-h-[250px] max-h-[90vh] aspect-[2] `}>
       <button
-        className="-translate-y-[50%] absolute z-10 top-[50%] left-0 group py-8 pr-4"
+        className="-translate-y-[50%] sm:opacity-70 hover:opacity-100 duration-300 absolute z-10 top-[50%] sm:left-2 left-1 p-1 sm:p-2 bg-black/30 sm:bg-black/50 rounded-full"
         onClick={showPreviousHeroProduct}
       >
         <svg
-          height={40}
-          width={40}
-          className="sm:w-[50px] sm:h-[50px]"
+          height={20}
+          width={20}
+          className="sm:w-[30px] sm:h-[30px]"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +43,6 @@ export default function Hero() {
           ></g>
           <g id="SVGRepo_iconCarrier">
             <path
-              className="duration-200 fill-white/50 group-hover:fill-white"
               fillRule="evenodd"
               clipRule="evenodd"
               d="M15.5 17C15.5 17.4045 15.2564 17.7691 14.8827 17.9239C14.509 18.0787 14.0789 17.9931 13.7929 17.7071L8.79289 12.7071C8.40237 12.3166 8.40237 11.6834 8.79289 11.2929L13.7929 6.29289C14.0789 6.00689 14.509 5.92134 14.8827 6.07612C15.2564 6.2309 15.5 6.59554 15.5 7V17Z"
@@ -103,13 +52,13 @@ export default function Hero() {
         </svg>
       </button>
       <button
-        className="-translate-y-[50%] absolute z-10 top-[50%] right-0 group py-8 pl-4"
+        className="-translate-y-[50%] sm:opacity-70 hover:opacity-100 duration-300 absolute z-10 top-[50%] sm:right-2 right-1 p-1 sm:p-2 bg-black/30 sm:bg-black/50 rounded-full"
         onClick={showNextHeroProduct}
       >
         <svg
-          height={40}
-          width={40}
-          className="sm:w-[50px] sm:h-[50px]"
+          height={20}
+          width={20}
+          className="sm:w-[30px] sm:h-[30px]"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +71,6 @@ export default function Hero() {
           ></g>
           <g id="SVGRepo_iconCarrier">
             <path
-              className="duration-200 fill-white/50 group-hover:fill-white"
               fillRule="evenodd"
               clipRule="evenodd"
               d="M8.5 17C8.5 17.4045 8.74364 17.7691 9.11732 17.9239C9.49099 18.0787 9.92111 17.9931 10.2071 17.7071L15.2071 12.7071C15.5976 12.3166 15.5976 11.6834 15.2071 11.2929L10.2071 6.29289C9.92111 6.00689 9.49099 5.92134 9.11732 6.07612C8.74364 6.2309 8.5 6.59554 8.5 7V17Z"
@@ -142,10 +90,10 @@ export default function Hero() {
           <div className={`flex w-fit max-w-[40%] justify-center text-white `}>
             <div className="flex flex-col w-full gap-4 sm:gap-6 lg:gap-8 ">
               <Link
-                to={`/category/${product.categories[0]}`}
+                to={`/category/${product.brand}`}
                 className="text-[min(4vw,16px)] hover:underline w-fit sm:text-xl lg:text-2xl xl:text-[2vw] capitalize"
               >
-                {product.categories[0]}
+                {product.brand}
               </Link>
               <h2 className="text-[5vw] font-bold sm:text-3xl md:text-5xl lg:text-6xl xl:text-[5vw]">
                 {product.name}

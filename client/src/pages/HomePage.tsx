@@ -24,7 +24,7 @@ export default function HomePage() {
 
   return (
     <main className="pt-[70px] min-h-[80dvh] flex flex-col gap-8 mb-8">
-      <Hero />
+      <Hero heroProducts={products.slice(0, 2)} />
       <About />
       <NewArrival newArrivals={products.slice(0, 4)} />
       <NewsLetterSection />
