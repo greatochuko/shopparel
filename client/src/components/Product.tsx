@@ -21,8 +21,6 @@ export type ProductType = {
 export default function Product({ product }: { product: ProductType }) {
   const [liked, setLiked] = useState(false);
 
-  console.log(product);
-
   async function toggleAddToWishlist(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();

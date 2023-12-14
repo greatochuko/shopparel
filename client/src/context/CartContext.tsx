@@ -1,15 +1,11 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import {
   fetchAddToCart,
-  fetchCart,
   fetchClearCart,
   fetchDecreaseQuantity,
   fetchIncreaseQuantity,
   fetchRemoveFromCart,
 } from "../services/cartServices";
-import useUserContext from "../hooks/useUserContext";
-import FullScreenLoader from "../components/FullScreenLoader";
-import { fetchUser } from "../services/userServices";
 
 export type CartItemType = {
   _id: string;
@@ -32,6 +28,7 @@ export type CartProviderValue = {
   decreaseItemQuantity: (itemId: string) => void;
   clearCart: () => void;
   clearOrderCart: () => void;
+  setCartItems: React.Dispatch<React.SetStateAction<CartItemType[]>>;
 };
 
 export const CartContext = createContext<CartProviderValue | null>(null);
@@ -42,29 +39,27 @@ export default function CartProvider({
   children: React.ReactNode;
 }) {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
-  const [refreshed, setRefreshed] = useState(false);
-  const { user, setUser } = useUserContext();
 
-  useEffect(() => {
-    async function refreshUser() {
-      // Fetch and set Initial user context
-      const userData = await fetchUser();
-      if (userData.error) {
-        return setRefreshed(true);
-      }
-      setUser(userData);
+  // useEffect(() => {
+  //   async function refreshUser() {
+  //     // Fetch and set Initial user context
+  //     const userData = await fetchUser();
+  //     if (userData.error) {
+  //       return setRefreshed(true);
+  //     }
+  //     setUser(userData);
 
-      // Fetch and set Initial user context
-      if (!user?._id) return setRefreshed(true);
-      const data = await fetchCart(user._id);
-      if (data.error) {
-        return setRefreshed(true);
-      }
-      setCartItems(data);
-      setRefreshed(true);
-    }
-    refreshUser();
-  }, [user?._id, setUser]);
+  //     // Fetch and set Initial user context
+  //     if (!user?._id) return setRefreshed(true);
+  //     const data = await fetchCart(user._id);
+  //     if (data.error) {
+  //       return setRefreshed(true);
+  //     }
+  //     setCartItems(data);
+  //     setRefreshed(true);
+  //   }
+  //   refreshUser();
+  // }, [user?._id, setUser]);
 
   async function addItemToCart(item: CartItemType) {
     const data = await fetchAddToCart(item);
@@ -117,8 +112,6 @@ export default function CartProvider({
     setCartItems([]);
   }
 
-  if (!refreshed) return <FullScreenLoader />;
-
   return (
     <CartContext.Provider
       value={{
@@ -129,6 +122,7 @@ export default function CartProvider({
         removeItemFromCart,
         clearCart,
         clearOrderCart,
+        setCartItems,
       }}
     >
       {children}

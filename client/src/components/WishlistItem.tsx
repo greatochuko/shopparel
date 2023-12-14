@@ -1,15 +1,5 @@
 import { Link } from "react-router-dom";
-
-export type WishlistItemType = {
-  _id: string;
-  name: string;
-  imgUrl: string;
-  color: string;
-  size: string;
-  price: number;
-  shipping: number;
-  quantity: number;
-};
+import { WishlistItemType } from "../context/WishlistContext";
 
 export default function WishlistItem({
   product,

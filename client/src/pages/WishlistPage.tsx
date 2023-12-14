@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import EmptyWishlist from "../components/EmptyWishlist";
 import { fetchWishlist } from "../services/wishlistServices";
-import WishlistItem, { WishlistItemType } from "../components/WishlistItem";
+import WishlistItem from "../components/WishlistItem";
+import { WishlistItemType } from "../context/WishlistContext";
 
 export default function WishlistPage() {
   const [wishlist, setWishlist] = useState<WishlistItemType[]>([]);
