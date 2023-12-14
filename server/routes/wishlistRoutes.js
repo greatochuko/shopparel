@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { getWishlistItems } from "../controllers/wishlistControllers.js";
+import {
+  getWishlistItems,
+  addProductToWishlist,
+} from "../controllers/wishlistControllers.js";
 
 const wishlistRouter = Router();
 
 wishlistRouter.get("/", getWishlistItems);
+wishlistRouter.post("/", addProductToWishlist);
 
 export default wishlistRouter;

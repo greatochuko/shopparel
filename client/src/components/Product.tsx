@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ReviewType } from "./Review";
 import { useState } from "react";
+import { fetchAddProductToWishlist } from "../services/wishlistServices";
 
 export type ProductType = {
   _id: string;
@@ -18,11 +19,26 @@ export type ProductType = {
 };
 
 export default function Product({ product }: { product: ProductType }) {
-  const [isLiked, setIsLiked] = useState(false);
-  function handleToggleLike(e: React.MouseEvent) {
+  const [liked, setLiked] = useState(false);
+
+  console.log(product);
+
+  async function toggleAddToWishlist(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
-    setIsLiked((curr) => !curr);
+    const data = await fetchAddProductToWishlist(
+      product._id,
+      product.name,
+      product.imgUrl,
+      product.colors[0],
+      product.sizes[0],
+      product.price,
+      12.99
+    );
+    console.log(data);
+    if (data.error) return;
+
+    setLiked((curr) => !curr);
   }
 
   return (
@@ -42,7 +58,7 @@ export default function Product({ product }: { product: ProductType }) {
       </Link>
       <button
         className="p-1.5 rounded-full z-[5] bg-white focus-visible:ring focus-visible:ring-blue-400 active:scale-90 duration-200 hover:shadow-lg absolute right-2 top-2"
-        onClick={handleToggleLike}
+        onClick={toggleAddToWishlist}
       >
         <svg
           width={20}
@@ -64,9 +80,9 @@ export default function Product({ product }: { product: ProductType }) {
               d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
               stroke="#000000"
               className={`${
-                isLiked
+                liked
                   ? "stroke-accent-blue-100 fill-accent-blue-100"
-                  : "stroke-black fill-none"
+                  : "stroke-zinc-800 fill-none"
               }`}
               strokeWidth="2"
               strokeLinecap="round"
