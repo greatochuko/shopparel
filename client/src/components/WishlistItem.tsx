@@ -16,7 +16,10 @@ export default function WishlistItem({
   const [currentColor, setCurrentColor] = useState(product.colors[0]);
 
   const productInCart = cartItems.find(
-    (cartItem) => cartItem.productId === product.productId
+    (cartItem) =>
+      cartItem.productId === product.productId &&
+      cartItem.size === currentSize &&
+      cartItem.color === currentColor
   );
 
   function handleAddItemToCart() {

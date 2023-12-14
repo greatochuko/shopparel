@@ -31,7 +31,7 @@ export default function CartLink() {
       <p
         className={`absolute -top-2 -right-2 border bg-white text-accent-blue-100 text-sm w-5 shadow-md flex-center h-5 rounded-full`}
       >
-        {cartItems.length}
+        {cartItems.reduce((acc, curr) => acc + curr.quantity, 0)}
       </p>
     </Link>
   );

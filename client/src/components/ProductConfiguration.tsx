@@ -13,13 +13,15 @@ export default function ProductConfiguration({
 }) {
   const { cartItems, addItemToCart } = useCartContext();
   const { user } = useUserContext();
-  const productInCart = cartItems.find(
-    (cartItem) => cartItem.productId === product._id
-  );
-
   const [currentSize, setCurrentSize] = useState(product.sizes[0]);
   const [currentColor, setCurrentColor] = useState(product.colors[0]);
   const [loading, setLoading] = useState(false);
+  const productInCart = cartItems.find(
+    (cartItem) =>
+      cartItem.productId === product._id &&
+      cartItem.size === currentSize &&
+      cartItem.color === currentColor
+  );
 
   function handleAddItemToCart() {
     if (!user) return;
