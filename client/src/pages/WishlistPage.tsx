@@ -1,5 +1,6 @@
 import { useState } from "react";
 import EmptyWishlist from "../components/EmptyWishlist";
+import { Link } from "react-router-dom";
 
 const demoWishlistItems = [
   {
@@ -46,7 +47,8 @@ type WishlistItem = {
 };
 
 export default function WishlistPage() {
-  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
+  const [wishlistItems, setWishlistItems] =
+    useState<WishlistItem[]>(demoWishlistItems);
 
   function removeProductFromWishlist(id: string) {
     console.log(id);
@@ -70,7 +72,7 @@ export default function WishlistPage() {
                 <div className="flex items-center gap-4">
                   <button
                     onClick={() => removeProductFromWishlist(product._id)}
-                    className="p-1 duration-300 rounded-md group focus-visible:ring ring-blue-400 hover:bg-zinc-100"
+                    className="p-1 duration-300 rounded-md group focus-visible:ring ring-blue-400 hover:bg-red-200"
                   >
                     <svg
                       height={20}
@@ -87,8 +89,8 @@ export default function WishlistPage() {
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         stroke="#000"
-                        className="duration-300 stroke-zinc-500 group-hover:stroke-black"
-                        strokeWidth="6.272"
+                        className="duration-300 stroke-zinc-500 group-hover:stroke-red-600"
+                        strokeWidth="8"
                       >
                         <line x1="8.06" y1="8.06" x2="55.41" y2="55.94"></line>
                         <line x1="55.94" y1="8.06" x2="8.59" y2="55.94"></line>
@@ -108,7 +110,16 @@ export default function WishlistPage() {
                       />
                     </div>
                     <div className="flex flex-col gap-2 text-sm sm:text-base">
-                      <h2 className="font-semibold">{product.name}</h2>
+                      <Link
+                        to={`/product/${(
+                          product._id +
+                          "-" +
+                          product.name.split(" ").join("-")
+                        ).toLowerCase()}`}
+                        className="font-semibold hover:underline"
+                      >
+                        {product.name}
+                      </Link>
                       <p>
                         Color:{" "}
                         <span className="text-xs font-semibold uppercase sm:text-sm">
