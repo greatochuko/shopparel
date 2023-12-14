@@ -26,11 +26,6 @@ export type WishlistProviderValue = {
   wishlist: WishlistItemType[] | [];
   addProductToWishlist: (item: WishlistItemType) => void;
   removeProductFromWishlist: (wishlistId: string) => void;
-  moveProductFromWishlistToCart: (
-    product: WishlistItemType,
-    color: string,
-    size: string
-  ) => void;
 };
 
 export const WishlistContext = createContext<WishlistProviderValue | null>(
@@ -45,7 +40,7 @@ export default function WishlistProvider({
   const [wishlist, setWishlist] = useState<WishlistItemType[]>([]);
   const [refreshed, setRefreshed] = useState(false);
   const { user, setUser } = useUserContext();
-  const { setCartItems, addItemToCart } = useCartContext();
+  const { setCartItems } = useCartContext();
 
   // console.log(wishlist);
 
@@ -102,27 +97,6 @@ export default function WishlistProvider({
     setWishlist((curr) => curr.filter((product) => product._id !== wishlistId));
   }
 
-  async function moveProductFromWishlistToCart(
-    product: WishlistItemType,
-    size: string,
-    color: string
-  ) {
-    const item = {
-      _id: "1",
-      userId: "1",
-      productId: product.productId,
-      name: product.name,
-      imgUrl: product.imgUrl,
-      color: size,
-      size: color,
-      price: product.price,
-      shipping: product.shipping,
-      quantity: 1,
-    };
-    addItemToCart(item);
-    removeProductFromWishlist(product._id);
-  }
-
   if (!refreshed) return <FullScreenLoader />;
 
   return (
@@ -131,7 +105,6 @@ export default function WishlistProvider({
         wishlist,
         addProductToWishlist,
         removeProductFromWishlist,
-        moveProductFromWishlistToCart,
       }}
     >
       {children}
