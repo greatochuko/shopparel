@@ -1,4 +1,4 @@
-import { CartItem } from "../models/Cart.js";
+import { Cart } from "../models/Cart.js";
 import { Order } from "../models/Order.js";
 
 export async function getOrders(req, res) {
@@ -25,7 +25,7 @@ export async function createOrder(req, res) {
 
     // Set all cart items to ordered
     products.forEach(async (productId) => {
-      const product = await CartItem.findById(productId);
+      const product = await Cart.findById(productId);
       product.ordered = true;
       product.save();
     });
