@@ -33,9 +33,13 @@ To run Shopparel locally, follow these steps:
    git clone https://github.com/your-username/shopparel.git
    ```
 
-2. Install dependencies:
+2. Install dependencies in both frontend and backend:
    ```bash
-   cd shopparel
+   cd shopparel/client
+   npm install
+   ```
+   ```bash
+   cd shopparel/server
    npm install
    ```
 
@@ -58,11 +62,16 @@ To run Shopparel locally, follow these steps:
 Now, your MongoDB database is ready for Shopparel. Adjust the connection details and other configurations as per your environment.
 
 4. Configure environment variables:
-   - Create a `.env` file and set up variables like `DATABASE_URL`, `SECRET_KEY`, etc.
+   - Create a `.env` file and set up variables like `SESSION_SECRET`, etc.
 
 5. Start the application:
    ```bash
-   npm start
+   cd shopparel/client
+   npm run dev
+   ```
+   ```bash
+   cd shopparel/server
+   npm run dev
    ```
 
 Visit `http://localhost:5173` in your web browser to access Shopparel.
