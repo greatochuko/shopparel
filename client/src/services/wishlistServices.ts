@@ -10,6 +10,19 @@ export async function fetchWishlist() {
   }
 }
 
+export async function fetchRemoveProductFromWishlist(wishlistId: string) {
+  try {
+    const res = await fetch(`${BASE_URL}/wishlist/${wishlistId}`, {
+      method: "DELETE",
+      credentials: "include",
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}
+
 export async function fetchAddProductToWishlist(
   productId: string,
   name: string,

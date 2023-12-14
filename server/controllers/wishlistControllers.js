@@ -32,3 +32,13 @@ export async function addProductToWishlist(req, res) {
     res.status(400).json({ error: error.message });
   }
 }
+
+export async function removeProductFromWishlist(req, res) {
+  try {
+    const { wishlistId } = req.params;
+    await Wishlist.findByIdAndDelete(wishlistId);
+    res.json("Product removed from wishlist successfully");
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}

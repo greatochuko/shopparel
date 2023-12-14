@@ -1,20 +1,9 @@
-import { useEffect, useState } from "react";
 import EmptyWishlist from "../components/EmptyWishlist";
-import { fetchWishlist } from "../services/wishlistServices";
 import WishlistItem from "../components/WishlistItem";
-import { WishlistItemType } from "../context/WishlistContext";
+import useWishlistContext from "../hooks/useWishlistContext";
 
 export default function WishlistPage() {
-  const [wishlist, setWishlist] = useState<WishlistItemType[]>([]);
-
-  useEffect(() => {
-    async function getWishlist() {
-      const data = await fetchWishlist();
-      console.log(data);
-      setWishlist(data);
-    }
-    getWishlist();
-  }, []);
+  const { wishlist } = useWishlistContext();
 
   return (
     <section className="flex-1">

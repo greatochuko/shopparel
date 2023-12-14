@@ -1,6 +1,7 @@
 import { createContext, useEffect, useState } from "react";
 import {
   fetchAddProductToWishlist,
+  fetchRemoveProductFromWishlist,
   fetchWishlist,
 } from "../services/wishlistServices";
 import useUserContext from "../hooks/useUserContext";
@@ -24,6 +25,7 @@ export type WishlistItemType = {
 export type WishlistProviderValue = {
   wishlist: WishlistItemType[] | [];
   addProductToWishlist: (item: WishlistItemType) => void;
+  removeProductFromWishlist: (wishlistId: string) => void;
 };
 
 export const WishlistContext = createContext<WishlistProviderValue | null>(
@@ -39,6 +41,8 @@ export default function WishlistProvider({
   const [refreshed, setRefreshed] = useState(false);
   const { user, setUser } = useUserContext();
   const { setCartItems } = useCartContext();
+
+  // console.log(wishlist);
 
   useEffect(() => {
     async function refreshUser() {
@@ -61,6 +65,7 @@ export default function WishlistProvider({
       // Fetch and set Initial Wishlist context
       if (!user?._id) return setRefreshed(true);
       const wishlistData = await fetchWishlist();
+
       if (wishlistData.error) {
         return setRefreshed(true);
       }
@@ -81,7 +86,13 @@ export default function WishlistProvider({
       product.shipping
     );
     if (data.error) return;
-    setCartItems((curr) => [...curr, data]);
+    setWishlist((curr) => [...curr, data]);
+  }
+
+  async function removeProductFromWishlist(wishlistId: string) {
+    const data = await fetchRemoveProductFromWishlist(wishlistId);
+    if (data.error) return;
+    setWishlist((curr) => curr.filter((product) => product._id !== wishlistId));
   }
 
   if (!refreshed) return <FullScreenLoader />;
@@ -91,6 +102,7 @@ export default function WishlistProvider({
       value={{
         wishlist,
         addProductToWishlist,
+        removeProductFromWishlist,
       }}
     >
       {children}

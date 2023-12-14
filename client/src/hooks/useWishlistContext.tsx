@@ -5,11 +5,11 @@ import {
 } from "../context/WishlistContext";
 
 export default function useWishlistContext() {
-  const { addProductToWishlist, wishlist } = useContext(
-    WishlistContext
-  ) as WishlistProviderValue;
+  const { wishlist, addProductToWishlist, removeProductFromWishlist } =
+    useContext(WishlistContext) as WishlistProviderValue;
   return {
-    addProductToWishlist,
     wishlist,
+    addProductToWishlist,
+    removeProductFromWishlist,
   };
 }
