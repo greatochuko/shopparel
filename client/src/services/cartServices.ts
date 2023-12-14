@@ -1,9 +1,9 @@
 import { CartItemType } from "../context/CartContext";
 import { BASE_URL } from "./authServices";
 
-export async function fetchCart(userId: string) {
+export async function fetchCart() {
   try {
-    const res = await fetch(`${BASE_URL}/cart/${userId}`);
+    const res = await fetch(`${BASE_URL}/cart`, { credentials: "include" });
     const data = await res.json();
     return data;
   } catch (error) {
@@ -16,6 +16,7 @@ export async function fetchAddToCart(cartItem: CartItemType) {
     const res = await fetch(`${BASE_URL}/cart`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
       body: JSON.stringify(cartItem),
     });
     const data = await res.json();

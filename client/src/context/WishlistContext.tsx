@@ -26,6 +26,11 @@ export type WishlistProviderValue = {
   wishlist: WishlistItemType[] | [];
   addProductToWishlist: (item: WishlistItemType) => void;
   removeProductFromWishlist: (wishlistId: string) => void;
+  moveProductFromWishlistToCart: (
+    product: WishlistItemType,
+    color: string,
+    size: string
+  ) => void;
 };
 
 export const WishlistContext = createContext<WishlistProviderValue | null>(
@@ -40,7 +45,7 @@ export default function WishlistProvider({
   const [wishlist, setWishlist] = useState<WishlistItemType[]>([]);
   const [refreshed, setRefreshed] = useState(false);
   const { user, setUser } = useUserContext();
-  const { setCartItems } = useCartContext();
+  const { setCartItems, addItemToCart } = useCartContext();
 
   // console.log(wishlist);
 
@@ -56,7 +61,7 @@ export default function WishlistProvider({
 
       // Fetch and set Initial Cart context
       if (!user?._id) return setRefreshed(true);
-      const cartData = await fetchCart(user._id);
+      const cartData = await fetchCart();
       if (cartData.error) {
         return setRefreshed(true);
       }
@@ -76,6 +81,7 @@ export default function WishlistProvider({
   }, [setCartItems, setUser, user?._id]);
 
   async function addProductToWishlist(product: WishlistItemType) {
+    const resData = { ok: false };
     const data = await fetchAddProductToWishlist(
       product.productId,
       product.name,
@@ -87,12 +93,34 @@ export default function WishlistProvider({
     );
     if (data.error) return;
     setWishlist((curr) => [...curr, data]);
+    return (resData.ok = true);
   }
 
   async function removeProductFromWishlist(wishlistId: string) {
     const data = await fetchRemoveProductFromWishlist(wishlistId);
     if (data.error) return;
     setWishlist((curr) => curr.filter((product) => product._id !== wishlistId));
+  }
+
+  async function moveProductFromWishlistToCart(
+    product: WishlistItemType,
+    size: string,
+    color: string
+  ) {
+    const item = {
+      _id: "1",
+      userId: "1",
+      productId: product.productId,
+      name: product.name,
+      imgUrl: product.imgUrl,
+      color: size,
+      size: color,
+      price: product.price,
+      shipping: product.shipping,
+      quantity: 1,
+    };
+    addItemToCart(item);
+    removeProductFromWishlist(product._id);
   }
 
   if (!refreshed) return <FullScreenLoader />;
@@ -103,6 +131,7 @@ export default function WishlistProvider({
         wishlist,
         addProductToWishlist,
         removeProductFromWishlist,
+        moveProductFromWishlistToCart,
       }}
     >
       {children}

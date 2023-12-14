@@ -40,27 +40,6 @@ export default function CartProvider({
 }) {
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
 
-  // useEffect(() => {
-  //   async function refreshUser() {
-  //     // Fetch and set Initial user context
-  //     const userData = await fetchUser();
-  //     if (userData.error) {
-  //       return setRefreshed(true);
-  //     }
-  //     setUser(userData);
-
-  //     // Fetch and set Initial user context
-  //     if (!user?._id) return setRefreshed(true);
-  //     const data = await fetchCart(user._id);
-  //     if (data.error) {
-  //       return setRefreshed(true);
-  //     }
-  //     setCartItems(data);
-  //     setRefreshed(true);
-  //   }
-  //   refreshUser();
-  // }, [user?._id, setUser]);
-
   async function addItemToCart(item: CartItemType) {
     const data = await fetchAddToCart(item);
     if (data.error) return;

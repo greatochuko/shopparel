@@ -8,14 +8,10 @@ export default function WishlistItem({
 }: {
   product: WishlistItemType;
 }) {
-  const { removeProductFromWishlist } = useWishlistContext();
+  const { removeProductFromWishlist, moveProductFromWishlistToCart } =
+    useWishlistContext();
   const [currentSize, setCurrentSize] = useState(product.sizes[0]);
   const [currentColor, setCurrentColor] = useState(product.colors[0]);
-
-  function addProductToCart() {
-    console.log(product._id);
-    removeProductFromWishlist(product._id);
-  }
 
   return (
     <li className="flex flex-col items-start justify-between gap-4 py-2 md:flex-row md:items-center">
@@ -107,7 +103,9 @@ export default function WishlistItem({
       <div className="flex gap-4 ml-[44px] md:ml-0 items-center">
         <p className="w-24 font-semibold">${product.price.toFixed(2)}</p>
         <button
-          onClick={addProductToCart}
+          onClick={() =>
+            moveProductFromWishlistToCart(product, currentColor, currentSize)
+          }
           className="p-2 px-4 text-white duration-300 rounded-md bg-accent-blue-100 whitespace-nowrap focus-visible:ring ring-blue-400 hover:bg-accent-blue-200 active:bg-accent-blue-300"
         >
           <span className="hidden md:block lg:hidden" title="Add To Cart">

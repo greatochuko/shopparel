@@ -9,7 +9,7 @@ import {
 } from "../controllers/cartControllers.js";
 
 const cartRouter = Router();
-cartRouter.get("/:userId", getCartItems);
+cartRouter.get("/", getCartItems);
 cartRouter.post("/", addProduct);
 cartRouter.post("/inc/:cartItemId", increaseProductQuantity);
 cartRouter.post("/dec/:cartItemId", decreaseProductQuantity);

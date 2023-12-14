@@ -2,7 +2,8 @@ import { Cart } from "../models/Cart.js";
 
 export async function getCartItems(req, res) {
   try {
-    const { userId } = req.params;
+    const { userId } = req.session;
+    if (!userId) throw new Error("User is unauthenticated");
     const cartItems = await Cart.find({ userId, ordered: false });
     res.json(cartItems);
   } catch (error) {
@@ -12,17 +13,10 @@ export async function getCartItems(req, res) {
 
 export async function addProduct(req, res) {
   try {
-    const {
-      userId,
-      productId,
-      name,
-      imgUrl,
-      color,
-      size,
-      price,
-      shipping,
-      quantity,
-    } = req.body;
+    const { userId } = req.session;
+    if (!userId) throw new Error("User is unauthenticated");
+    const { productId, name, imgUrl, color, size, price, shipping, quantity } =
+      req.body;
 
     const newCartItem = await Cart.create({
       userId,
