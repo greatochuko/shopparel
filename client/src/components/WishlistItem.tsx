@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { WishlistItemType } from "../context/WishlistContext";
 import useWishlistContext from "../hooks/useWishlistContext";
+import { useState } from "react";
 
 export default function WishlistItem({
   product,
@@ -8,6 +9,8 @@ export default function WishlistItem({
   product: WishlistItemType;
 }) {
   const { removeProductFromWishlist } = useWishlistContext();
+  const [currentSize, setCurrentSize] = useState(product.sizes[0]);
+  const [currentColor, setCurrentColor] = useState(product.colors[0]);
 
   function addProductToCart() {
     console.log(product._id);
@@ -59,7 +62,7 @@ export default function WishlistItem({
           <div className="flex flex-col gap-2 text-sm sm:text-base">
             <Link
               to={`/product/${(
-                product._id +
+                product.productId +
                 "-" +
                 product.name.split(" ").join("-")
               ).toLowerCase()}`}
@@ -69,15 +72,34 @@ export default function WishlistItem({
             </Link>
             <p>
               Color:{" "}
-              <span className="text-xs font-semibold uppercase sm:text-sm">
-                {product.colors.map((color) => color)}
-              </span>
+              <select
+                name="color"
+                onChange={(e) => setCurrentColor(e.target.value)}
+                value={currentColor}
+                style={{ color: currentColor }}
+                className="uppercase text-xs font-semibold sm:text-sm"
+              >
+                {product.colors.map((color) => (
+                  <option key={color} value={color}>
+                    {color}
+                  </option>
+                ))}
+              </select>
             </p>
             <p>
               Size:{" "}
-              <span className="text-xs font-semibold uppercase sm:text-sm">
-                {product.sizes.map((size) => size)}
-              </span>
+              <select
+                name="size"
+                onChange={(e) => setCurrentSize(e.target.value)}
+                value={currentSize}
+                className="uppercase text-xs font-semibold sm:text-sm"
+              >
+                {product.sizes.map((size) => (
+                  <option key={size} value={size}>
+                    {size}
+                  </option>
+                ))}
+              </select>
             </p>
           </div>
         </div>
