@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import useUserContext from "../hooks/useUserContext";
 import { ShippingInformationType } from "./CheckoutPage";
 import Modal from "../components/Modal";
-import { Navigate, useLocation } from "react-router-dom";
 
 export default function ProfilePage() {
   const { user } = useUserContext();
@@ -13,8 +12,6 @@ export default function ProfilePage() {
   const [shippingInformations, setShippingInformations] = useState<
     ShippingInformationType[] | null
   >(null);
-
-  const { pathname } = useLocation();
 
   function openModal(type: string, shippingInfo?: ShippingInformationType) {
     setShippingInformation(shippingInfo || null);
@@ -37,8 +34,6 @@ export default function ProfilePage() {
     }
     fetchShippingInformations();
   }, []);
-
-  if (!user) return <Navigate to={`/login?redirect=${pathname}`} />;
 
   return (
     <>

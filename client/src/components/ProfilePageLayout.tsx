@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
+import { Link, Outlet, useLocation, Navigate } from "react-router-dom";
 import SectionHeader from "./SectionHeader";
 import useUserContext from "../hooks/useUserContext";
 import { useState } from "react";
@@ -17,6 +17,8 @@ export default function ProfilePageLayout() {
   function closeSignoutModal() {
     setModalIsOpen(false);
   }
+
+  if (!user) return <Navigate to={`/login?redirect=${pathname}`} replace />;
 
   return (
     <>
