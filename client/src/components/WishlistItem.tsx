@@ -1,25 +1,24 @@
 import { Link } from "react-router-dom";
 import { WishlistItemType } from "../context/WishlistContext";
+import useWishlistContext from "../hooks/useWishlistContext";
 
 export default function WishlistItem({
   product,
 }: {
   product: WishlistItemType;
 }) {
-  function removeProductFromWishlist() {
-    console.log(product._id);
-  }
+  const { removeProductFromWishlist } = useWishlistContext();
 
   function addProductToCart() {
     console.log(product._id);
-    removeProductFromWishlist();
+    removeProductFromWishlist(product._id);
   }
 
   return (
     <li className="flex flex-col items-start justify-between gap-4 py-2 md:flex-row md:items-center">
       <div className="flex items-center gap-4">
         <button
-          onClick={removeProductFromWishlist}
+          onClick={() => removeProductFromWishlist(product._id)}
           className="p-1 duration-300 rounded-md group focus-visible:ring ring-blue-400 hover:bg-red-200"
         >
           <svg
@@ -71,13 +70,13 @@ export default function WishlistItem({
             <p>
               Color:{" "}
               <span className="text-xs font-semibold uppercase sm:text-sm">
-                {product.color}
+                {product.colors.map((color) => color)}
               </span>
             </p>
             <p>
               Size:{" "}
               <span className="text-xs font-semibold uppercase sm:text-sm">
-                {product.size}
+                {product.sizes.map((size) => size)}
               </span>
             </p>
           </div>

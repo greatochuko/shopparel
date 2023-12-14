@@ -15,15 +15,23 @@ export async function addProductToWishlist(req, res) {
   try {
     const { userId } = req.session;
     if (!userId) throw new Error("user is unauthenticated");
-    const { productId, name, imgUrl, color, size, price, shipping, quantity } =
-      req.body;
+    const {
+      productId,
+      name,
+      imgUrl,
+      colors,
+      sizes,
+      price,
+      shipping,
+      quantity,
+    } = req.body;
     const newWishlist = await Wishlist.create({
       userId,
       productId,
       name,
       imgUrl,
-      color,
-      size,
+      colors,
+      sizes,
       price,
       shipping,
     });

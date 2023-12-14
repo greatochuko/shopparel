@@ -27,8 +27,8 @@ export async function fetchAddProductToWishlist(
   productId: string,
   name: string,
   imgUrl: string,
-  color: string,
-  size: string,
+  colors: string[],
+  sizes: string[],
   price: number,
   shipping: number
 ) {
@@ -41,8 +41,8 @@ export async function fetchAddProductToWishlist(
         productId,
         name,
         imgUrl,
-        color,
-        size,
+        colors,
+        sizes,
         price,
         shipping,
       }),

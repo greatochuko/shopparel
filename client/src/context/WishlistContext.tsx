@@ -15,8 +15,8 @@ export type WishlistItemType = {
   productId: string;
   name: string;
   imgUrl: string;
-  color: string;
-  size: string;
+  colors: string[];
+  sizes: string[];
   price: number;
   shipping: number;
   quantity: number;
@@ -80,8 +80,8 @@ export default function WishlistProvider({
       product.productId,
       product.name,
       product.imgUrl,
-      product.color,
-      product.size,
+      product.colors,
+      product.sizes,
       product.price,
       product.shipping
     );
