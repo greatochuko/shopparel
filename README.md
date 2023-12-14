@@ -92,7 +92,7 @@ Visit `http://localhost:5173` in your web browser to access Shopparel.
 
 ## Screenshots
 
-![Homepage](/images/homepage.png)
+![Homepage](/images/home-page.png)
 *Homepage showcasing the latest trends.*
 
 ![Product Page](/images/product-page.png)
