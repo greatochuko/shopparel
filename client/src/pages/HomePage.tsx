@@ -17,7 +17,12 @@ export default function HomePage() {
     async function getProducts() {
       const data = await fetchProducts();
       if (data.error) return;
-      setProducts(data);
+      setProducts(
+        [...data].sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        )
+      );
     }
     getProducts();
   }, []);

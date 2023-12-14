@@ -22,7 +22,10 @@ export default function OrderPage() {
     getOrders();
   }, []);
 
-  const filteredOrders = orders.filter((order) => order.status === filter);
+  const filteredOrders =
+    filter === "all"
+      ? [...orders]
+      : orders.filter((order) => order.status === filter);
 
   return (
     <section className="flex flex-col flex-1 gap-6">
@@ -30,6 +33,21 @@ export default function OrderPage() {
         <>
           <h1 className="text-xl font-semibold">My Orders</h1>
           <ul className="flex border-b-[3px] justify-between text-base sm:text-lg font-semibold">
+            <li
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.code === "Enter") setFilter("all");
+              }}
+              onClick={() => setFilter("all")}
+              className={`p-2 ${
+                filter === "all"
+                  ? "bg-zinc-100 border-zinc-700 "
+                  : "border-transparent"
+              } hover:bg-zinc-100 rounded-t-md border-b-[3px] -mb-[2px] cursor-pointer focus-visible:ring ring-blue-400 duration-300`}
+            >
+              All
+            </li>
             <li
               role="button"
               tabIndex={0}
