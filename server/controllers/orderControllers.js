@@ -45,3 +45,17 @@ export async function getOrder(req, res) {
     res.status(401).json({ error: error.message });
   }
 }
+
+export async function cancelOrder(req, res) {
+  try {
+    const { orderId } = req.params;
+    const order = await Order.findByIdAndUpdate(
+      orderId,
+      { status: "cancelled" },
+      { new: true }
+    );
+    res.json(order);
+  } catch (error) {
+    res.status(401).json({ error: error.message });
+  }
+}

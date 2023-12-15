@@ -1,22 +1,31 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { OrderType } from "../components/Order";
-import { fetchOrder } from "../services/orderServices";
+import { cancelOrder, fetchOrder } from "../services/orderServices";
+import LoadingIndicator from "../components/LoadingIndicator";
 
 export default function OrderDetailPage() {
   const navigate = useNavigate();
   const { orderId } = useParams();
   const [order, setOrder] = useState<OrderType | null>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function getOrder() {
       const data = await fetchOrder(orderId as string);
-
       if (data.error) return;
       setOrder(data);
     }
     getOrder();
   }, [orderId]);
+
+  async function handleCancelOrder() {
+    setLoading(true);
+    const data = await cancelOrder(orderId as string);
+    if (data.error) return setLoading(false);
+    setOrder(data);
+    setLoading(false);
+  }
 
   return (
     <section className="flex flex-col flex-1 gap-10">
@@ -77,7 +86,7 @@ export default function OrderDetailPage() {
           <p className="sm:hidden">Placed</p>
         </div>
         <div className="flex-center flex-col gap-2 h-fit absolute -top-1.5 left-[25%]">
-          {order?.status === "canceled" ? (
+          {order?.status === "cancelled" ? (
             <div className="w-4 h-4 bg-red-600 rounded-full border-zinc-400"></div>
           ) : (
             <div
@@ -87,10 +96,10 @@ export default function OrderDetailPage() {
             ></div>
           )}
           <p className="hidden sm:block">
-            {order?.status === "canceled" ? "Order Canceled" : "In Progress"}
+            {order?.status === "cancelled" ? "Order Cancelled" : "In Progress"}
           </p>
           <p className="sm:hidden">
-            {order?.status === "canceled" ? "Canceled" : "In Progress"}
+            {order?.status === "cancelled" ? "Cancelled" : "In Progress"}
           </p>
         </div>
         <div className="flex-center flex-col gap-2 h-fit absolute -top-1.5 left-[60%] sm:left-[63%] text-zinc-400">
@@ -154,6 +163,14 @@ export default function OrderDetailPage() {
           </div>
         ))}
       </div>
+      {order?.status === "active" ? (
+        <button
+          onClick={handleCancelOrder}
+          className="w-full p-2 text-white duration-300 bg-red-500 rounded-md hover:bg-red-600 active:bg-red-700 sm:w-36 flex-center"
+        >
+          {loading ? <LoadingIndicator /> : "Cancel Order"}
+        </button>
+      ) : null}
     </section>
   );
 }
