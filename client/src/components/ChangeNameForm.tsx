@@ -1,18 +1,28 @@
 import { useState } from "react";
 import useUserContext from "../hooks/useUserContext";
+import { updateUserFullName } from "../services/userServices";
+import LoadingIndicator from "./LoadingIndicator";
 
 export default function ChangeNameForm({
   closeModal,
 }: {
   closeModal: () => void;
 }) {
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
 
-  const [firstName, setFirstName] = useState(user?.firstName);
-  const [lastName, setLastName] = useState(user?.lastName);
+  const [firstName, setFirstName] = useState(user?.firstName as string);
+  const [lastName, setLastName] = useState(user?.lastName as string);
+  const [loading, setLoading] = useState(false);
 
-  function handleChangeName(e: React.FormEvent) {
+  async function handleChangeName(e: React.FormEvent) {
     e.preventDefault();
+    setLoading(true);
+    const data = await updateUserFullName(firstName, lastName);
+
+    if (data.error) return setLoading(false);
+    setUser(data);
+    setLoading(false);
+    closeModal();
   }
 
   return (
@@ -59,7 +69,7 @@ export default function ChangeNameForm({
           type="submit"
           className="p-2 focus-visible:ring ring-green-800 px-4 rounded-md bg-green-600 hover:bg-green-700 active:bg-green-800 text-white duration-300"
         >
-          Submit
+          {loading ? <LoadingIndicator /> : "Submit"}
         </button>
       </div>
     </form>

@@ -5,7 +5,24 @@ export async function getUser(req, res) {
     const user = await User.findById(req.session.userId);
     if (!user) throw new Error("User not Authenticated");
 
-    req.session.userId = user._id;
+    res.json(user);
+  } catch (error) {
+    res.status(401).json({ error: error.message });
+  }
+}
+
+export async function updateName(req, res) {
+  try {
+    if (!req.session.userId) throw new Error("User not Authenticated");
+    const { firstName, lastName } = req.body;
+    const user = await User.findByIdAndUpdate(
+      req.session.userId,
+      {
+        firstName,
+        lastName,
+      },
+      { new: true }
+    );
 
     res.json(user);
   } catch (error) {
