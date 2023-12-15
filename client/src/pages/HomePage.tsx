@@ -12,39 +12,63 @@ import { ProductType } from "../components/Product";
 
 export default function HomePage() {
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function getProducts() {
+      setError("");
+      setLoading(true);
       const data = await fetchProducts();
-      if (data.error) return;
+      if (data.error) {
+        setError("There was an error fetching products");
+        setLoading(true);
+        return;
+      }
       setProducts(
         [...data].sort(
           (a, b) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         )
       );
+      setLoading(false);
     }
     getProducts();
   }, []);
+
+  async function refreshProducts() {
+    setError("");
+    setLoading(true);
+    const data = await fetchProducts();
+    if (data.error) {
+      setError("There was an error fetching products");
+      setLoading(true);
+      return;
+    }
+    setProducts(
+      [...data].sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      )
+    );
+    setLoading(false);
+  }
 
   return (
     <main className="pt-[70px] min-h-[80dvh] flex flex-col gap-8 mb-8">
       <Hero heroProducts={products.slice(0, 2)} />
       <About />
-      <NewArrival newArrivals={products.slice(0, 4)} />
+      <NewArrival
+        newArrivals={products.slice(0, 4)}
+        loading={loading}
+        error={error}
+        refreshProducts={refreshProducts}
+      />
       <NewsLetterSection />
-      <CategoryProducts
-        products={products
-          .filter((product) => product.gender === "male")
-          .slice(0, 4)}
-      >
+      <CategoryProducts gender="male">
         <SectionHeader title="Men's Wears" />
       </CategoryProducts>
-      <CategoryProducts
-        products={products
-          .filter((product) => product.gender === "female")
-          .slice(0, 4)}
-      >
+      <CategoryProducts gender="female">
         <SectionHeader title="Women's Wears" />
       </CategoryProducts>
       <TopBrands />
