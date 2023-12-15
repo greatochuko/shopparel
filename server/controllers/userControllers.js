@@ -2,7 +2,7 @@ import { User } from "../models/User.js";
 
 export async function getUser(req, res) {
   try {
-    const user = await User.findById(req.session.userId);
+    const user = await User.findById(req.session.userId).select("-password");
     if (!user) throw new Error("User not Authenticated");
 
     res.json(user);
@@ -22,7 +22,7 @@ export async function updateName(req, res) {
         lastName,
       },
       { new: true }
-    );
+    ).select("-password");
 
     res.json(user);
   } catch (error) {
