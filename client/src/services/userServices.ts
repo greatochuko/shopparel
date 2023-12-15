@@ -14,8 +14,24 @@ export async function fetchUser() {
 export async function updateUserFullName(firstName: string, lastName: string) {
   try {
     const res = await fetch(`${BASE_URL}/user/name`, {
-      method: "POST",
+      method: "PATCH",
       body: JSON.stringify({ firstName, lastName }),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
+
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function changePassword(oldPassword: string, newPassword: string) {
+  try {
+    const res = await fetch(`${BASE_URL}/user/password`, {
+      method: "PUT",
+      body: JSON.stringify({ oldPassword, newPassword }),
       headers: { "Content-Type": "application/json" },
       credentials: "include",
     });

@@ -67,6 +67,7 @@ export default function ChangeNameForm({
         </button>
         <button
           type="submit"
+          disabled={loading}
           className="p-2 focus-visible:ring ring-green-800 px-4 rounded-md bg-green-600 hover:bg-green-700 active:bg-green-800 text-white duration-300"
         >
           {loading ? <LoadingIndicator /> : "Submit"}

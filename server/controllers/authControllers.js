@@ -48,6 +48,9 @@ export async function login(req, res) {
     const user = await User.findOne({ email });
     if (!user) throw new Error("Invalid username and password combination");
 
+    // Check if user password is available
+    if (!user.password) throw new Error("Login with google instead");
+
     // Compare password
     const passwordIsCorrect = await bcrypt.compare(password, user.password);
 

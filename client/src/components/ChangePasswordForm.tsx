@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { changePassword } from "../services/userServices";
+import LoadingIndicator from "./LoadingIndicator";
 
 export default function ChangePasswordForm({
   closeModal,
@@ -8,11 +10,19 @@ export default function ChangePasswordForm({
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  function handleChangePassword(e: React.FormEvent) {
+  async function handleChangePassword(e: React.FormEvent) {
     e.preventDefault();
-  }
+    setLoading(true);
+    const data = await changePassword(oldPassword, newPassword);
 
+    if (data.error) return setLoading(false);
+    setLoading(false);
+    closeModal();
+  }
+  const cannotSubmit =
+    confirmPassword !== newPassword || !confirmPassword || !newPassword;
   return (
     <form
       onSubmit={handleChangePassword}
@@ -29,7 +39,7 @@ export default function ChangePasswordForm({
           autoFocus
           value={oldPassword}
           onChange={(e) => setOldPassword(e.target.value)}
-          className="p-3 bg-zinc-100 rounded-md focus-visible:ring ring-blue-400"
+          className="p-3 rounded-md bg-zinc-100 focus-visible:ring ring-blue-400"
         />
       </div>
       <div className="flex flex-col gap-2 px-6">
@@ -37,12 +47,12 @@ export default function ChangePasswordForm({
           New Password
         </label>
         <input
-          type="new-password"
+          type="password"
           name="new-password"
           id="new-password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
-          className="p-3 bg-zinc-100 rounded-md focus-visible:ring ring-blue-400"
+          className="p-3 rounded-md bg-zinc-100 focus-visible:ring ring-blue-400"
         />
       </div>
       <div className="flex flex-col gap-2 px-6">
@@ -50,15 +60,15 @@ export default function ChangePasswordForm({
           Confirm New Password
         </label>
         <input
-          type="confirm-password"
+          type="password"
           name="confirm-password"
           id="confirm-password"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          className="p-3 bg-zinc-100 rounded-md focus-visible:ring ring-blue-400"
+          className="p-3 rounded-md bg-zinc-100 focus-visible:ring ring-blue-400"
         />
       </div>
-      <div className="bg-zinc-100 p-4 flex justify-end gap-4">
+      <div className="flex justify-end gap-4 p-4 bg-zinc-100">
         <button
           type="button"
           onClick={closeModal}
@@ -68,9 +78,10 @@ export default function ChangePasswordForm({
         </button>
         <button
           type="submit"
-          className="p-2 focus-visible:ring ring-green-800 px-4 rounded-md bg-green-600 hover:bg-green-700 active:bg-green-800 text-white duration-300"
+          disabled={loading || cannotSubmit}
+          className="p-2 px-4 text-white duration-300 bg-green-600 rounded-md disabled:bg-zinc-400 focus-visible:ring ring-green-800 hover:bg-green-700 active:bg-green-800"
         >
-          Submit
+          {loading ? <LoadingIndicator /> : "Submit"}
         </button>
       </div>
     </form>

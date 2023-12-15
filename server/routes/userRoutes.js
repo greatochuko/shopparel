@@ -1,9 +1,14 @@
 import { Router } from "express";
-import { getUser, updateName } from "../controllers/userControllers.js";
+import {
+  changePassword,
+  getUser,
+  updateName,
+} from "../controllers/userControllers.js";
 
 const userRouter = Router();
 
 userRouter.get("/", getUser);
-userRouter.post("/name", updateName);
+userRouter.patch("/name", updateName);
+userRouter.put("/password", changePassword);
 
 export default userRouter;
