@@ -9,6 +9,7 @@ import FullScreenLoader from "../components/FullScreenLoader";
 import { fetchUser } from "../services/userServices";
 import { fetchCart } from "../services/cartServices";
 import useCartContext from "../hooks/useCartContext";
+import { CartItemType } from "./CartContext";
 
 export type WishlistItemType = {
   _id: string;
@@ -48,18 +49,22 @@ export default function WishlistProvider({
     async function refreshUser() {
       // Fetch and set Initial User context
       const userData = await fetchUser();
-      if (userData.error) {
-        return setRefreshed(true);
+      if (!userData.error) {
+        setUser(userData);
       }
-
-      setUser(userData);
 
       // Fetch and set Initial Cart context
-      if (!user?._id) return setRefreshed(true);
-      const cartData = await fetchCart();
-      if (cartData.error) {
-        return setRefreshed(true);
+      if (!user?._id) {
+        const localCart: CartItemType[] = JSON.parse(
+          localStorage.getItem("cart") as string
+        );
+        setCartItems(localCart || []);
+        setRefreshed(true);
+        return;
       }
+      const cartData = await fetchCart();
+      if (cartData.error) return setRefreshed(true);
+
       setCartItems(cartData);
 
       // Fetch and set Initial Wishlist context

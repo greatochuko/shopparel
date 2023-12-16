@@ -30,7 +30,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
       className="flex justify-between gap-3 pb-4 border-b last:border-none text-zinc-700"
       key={cartItem._id}
     >
-      <div className="flex gap-2 flex-1 min-w-[200px]">
+      <div className="flex gap-2 flex-1 min-w-[250px]">
         <img
           src={cartItem.imgUrl}
           alt={cartItem.name}
