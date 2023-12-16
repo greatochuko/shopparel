@@ -11,3 +11,41 @@ export async function getShippingInformations(req, res) {
     res.status(400).json({ error: error.message });
   }
 }
+
+export async function addShippingInformation(req, res) {
+  try {
+    const { userId } = req.session;
+    if (!userId)
+      return res.status(401).json({ error: "User is unauthenticated" });
+    const {
+      firstName,
+      lastName,
+      country,
+      company,
+      streetAddress,
+      apartment,
+      city,
+      state,
+      postalCode,
+      phone,
+    } = req.body;
+
+    const newShippingInfo = await ShippingInformation.create({
+      userId,
+      firstName,
+      lastName,
+      country,
+      company,
+      streetAddress,
+      apartment,
+      city,
+      state,
+      postalCode,
+      phone,
+    });
+
+    res.json(newShippingInfo);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}

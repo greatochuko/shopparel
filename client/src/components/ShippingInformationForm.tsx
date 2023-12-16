@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { ShippingInformationType } from "../pages/CheckoutPage";
+import { fetchAddNewShippingInfo } from "../services/shippingInfoServices";
+import useUserContext from "../hooks/useUserContext";
 
 export default function ShippingInformationForm({
   closeModal,
@@ -8,6 +10,7 @@ export default function ShippingInformationForm({
   closeModal: () => void;
   shippingInformation?: ShippingInformationType | null;
 }) {
+  const { user } = useUserContext();
   const [firstName, setFirstName] = useState(
     shippingInformation?.firstName || ""
   );
@@ -27,8 +30,24 @@ export default function ShippingInformationForm({
   );
   const [phone, setPhone] = useState(shippingInformation?.phone || "");
 
-  function handleAddNewShippingInfo(e: React.FormEvent) {
+  async function handleAddNewShippingInfo(e: React.FormEvent) {
     e.preventDefault();
+    const data = await fetchAddNewShippingInfo({
+      _id: "1",
+      userId: user?._id as string,
+      firstName,
+      lastName,
+      country,
+      company,
+      streetAddress,
+      apartment,
+      city,
+      state,
+      postalCode,
+      phone,
+    });
+    if (data.error) return;
+    closeModal();
   }
   return (
     <form className="" onSubmit={handleAddNewShippingInfo}>

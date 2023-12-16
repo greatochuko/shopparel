@@ -8,6 +8,7 @@ import useCartContext from "../hooks/useCartContext";
 
 export type ShippingInformationType = {
   _id: string;
+  userId: string;
   firstName: string;
   lastName: string;
   country: string;

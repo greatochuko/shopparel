@@ -11,7 +11,7 @@ const shippingInformationSchema = new mongoose.Schema({
   city: { type: String, required: true },
   state: { type: String, required: true },
   postalCode: { type: String, required: true },
-  phoneNumber: { type: String, required: true },
+  phone: { type: String, required: true },
 });
 
 export const ShippingInformation = mongoose.model(
