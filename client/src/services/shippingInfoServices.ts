@@ -30,6 +30,23 @@ export async function fetchAddNewShippingInfo(
   }
 }
 
+export async function fetchEditShippingInfo(
+  shippingInfo: ShippingInformationType
+) {
+  try {
+    const res = await fetch(`${BASE_URL}/shipping/${shippingInfo._id}`, {
+      method: "PATCH",
+      body: JSON.stringify(shippingInfo),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}
+
 export async function fetchDeleteShippingInfo(shippingInfoId: string) {
   try {
     const res = await fetch(`${BASE_URL}/shipping/${shippingInfoId}`, {

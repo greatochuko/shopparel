@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { ShippingInformationType } from "../pages/CheckoutPage";
-import { fetchAddNewShippingInfo } from "../services/shippingInfoServices";
+import {
+  fetchAddNewShippingInfo,
+  fetchEditShippingInfo,
+} from "../services/shippingInfoServices";
 import useUserContext from "../hooks/useUserContext";
 
 export default function ShippingInformationForm({
@@ -53,17 +56,19 @@ export default function ShippingInformationForm({
       phone,
     });
     if (data.error) return;
-    setShippingInformations((curr) => [
-      ...(curr as ShippingInformationType[]),
-      data,
-    ]);
+    setShippingInformations((curr) =>
+      [...(curr as ShippingInformationType[]), data].sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      )
+    );
     closeModal();
   }
   async function handleEditShippingInfo(e: React.FormEvent) {
     e.preventDefault();
-    return;
-    const data = await fetchAddNewShippingInfo({
-      _id: "1",
+    // return;
+    const editedShippingInfo = {
+      _id: shippingInformation?._id as string,
       userId: user?._id as string,
       firstName,
       lastName,
@@ -75,8 +80,14 @@ export default function ShippingInformationForm({
       state,
       postalCode,
       phone,
-    });
+    };
+    const data = await fetchEditShippingInfo(editedShippingInfo);
     if (data.error) return;
+    setShippingInformations((curr) =>
+      (curr as ShippingInformationType[]).map((info) =>
+        info._id === shippingInformation?._id ? editedShippingInfo : info
+      )
+    );
     closeModal();
   }
   return (

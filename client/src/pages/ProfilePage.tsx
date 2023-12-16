@@ -30,7 +30,12 @@ export default function ProfilePage() {
     async function getShippingInformations() {
       const data = await fetchShippingInformations();
       if (data.error) return;
-      setShippingInformations(data);
+      setShippingInformations(
+        [...data].sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        )
+      );
     }
     getShippingInformations();
   }, []);
