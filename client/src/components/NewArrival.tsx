@@ -19,10 +19,10 @@ export default function NewArrival({
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
         {loading ? (
           <>
-            <ProductWireframe key={1} />
-            <ProductWireframe key={2} />
-            <ProductWireframe key={3} />
-            <ProductWireframe key={4} />
+            <ProductWireframe />
+            <ProductWireframe />
+            <ProductWireframe />
+            <ProductWireframe />
           </>
         ) : error ? (
           <p className="flex-center flex-col h-60 w-full  col-span-4">

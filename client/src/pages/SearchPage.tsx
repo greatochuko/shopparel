@@ -7,22 +7,26 @@ import { fetchSearchProducts } from "../services/productServices";
 
 export default function SearchPage() {
   const [products, setProducts] = useState<ProductType[]>([]);
+  const [loading, setLoading] = useState(false);
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
 
   useEffect(() => {
     async function searchProducts() {
+      setLoading(true);
       const data = await fetchSearchProducts(query as string);
 
-      if (data.error) return;
+      if (data.error) return setLoading(false);
       setProducts(data);
+      setLoading(false);
     }
     searchProducts();
   }, [query]);
+
   return (
     <main className="pt-[102px] h-fit max-w-7xl w-[90%] mx-auto flex flex-col md:flex-row gap-8 mb-8 text-zinc-500">
       <SearchFilter products={products} />
-      <SearchResults products={products} />
+      <SearchResults products={products} loading={loading} />
     </main>
   );
 }

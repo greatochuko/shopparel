@@ -1,10 +1,13 @@
 import { useSearchParams } from "react-router-dom";
 import Product, { ProductType } from "./Product";
+import ProductWireframe from "./ProductWireframe";
 
 export default function SearchResults({
   products,
+  loading,
 }: {
   products: ProductType[];
+  loading: boolean;
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortBy = searchParams.get("sortBy");
@@ -69,9 +72,18 @@ export default function SearchResults({
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {filteredProducts.map((product) => (
-          <Product key={product.name} product={product} />
-        ))}
+        {loading ? (
+          <>
+            <ProductWireframe />
+            <ProductWireframe />
+            <ProductWireframe />
+            <ProductWireframe />
+          </>
+        ) : (
+          filteredProducts.map((product) => (
+            <Product key={product.name} product={product} />
+          ))
+        )}
       </div>
     </div>
   );
