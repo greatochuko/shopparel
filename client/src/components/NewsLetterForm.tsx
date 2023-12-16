@@ -13,6 +13,7 @@ export default function NewsLetterForm() {
         type="email"
         value={email}
         name="email"
+        required
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Your Email Address..."
         className=" text-sm sm:test-base p-3 flex-1 rounded-full bg-black/50 border border-white/20 duration-300 focus-visible:ring-2 ring-white placeholder:text-white"
