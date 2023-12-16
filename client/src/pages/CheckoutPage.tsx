@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ShippingInformation from "../components/ShippingInformation";
+import ShippingInformationSection from "../components/ShippingInformationSection";
 import PaymentMethod from "../components/PaymentMethod";
 import OrderSummary from "../components/OrderSummary";
 import { Link, useNavigate } from "react-router-dom";
@@ -47,7 +47,7 @@ export default function CheckoutPage() {
       <h1 className="text-2xl font-semibold">Checkout</h1>
       <div className="relative flex flex-col-reverse gap-10 lg:flex-row">
         <div className="flex flex-col flex-1 gap-10">
-          <ShippingInformation
+          <ShippingInformationSection
             setShippingInformation={setShippingInformation}
           />
           {shippingInformation ? (

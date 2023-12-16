@@ -3,11 +3,13 @@ import useUserContext from "../hooks/useUserContext";
 import { ShippingInformationType } from "./CheckoutPage";
 import Modal from "../components/Modal";
 import { fetchShippingInformations } from "../services/shippingInfoServices";
+import ShippingInformation from "../components/ShippingInformation";
 
 export default function ProfilePage() {
   const { user } = useUserContext();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalType, setModalType] = useState("");
+  const [loading, setLoading] = useState(false);
   const [shippingInformation, setShippingInformation] =
     useState<ShippingInformationType | null>(null);
   const [shippingInformations, setShippingInformations] = useState<
@@ -28,14 +30,16 @@ export default function ProfilePage() {
 
   useEffect(() => {
     async function getShippingInformations() {
+      setLoading(true);
       const data = await fetchShippingInformations();
-      if (data.error) return;
+      if (data.error) return setLoading(false);
       setShippingInformations(
         [...data].sort(
           (a, b) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         )
       );
+      setLoading(false);
     }
     getShippingInformations();
   }, []);
@@ -93,37 +97,18 @@ export default function ProfilePage() {
             </button>
           </h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {shippingInformations?.length ? (
+            {loading ? (
+              <>
+                <div className="bg-zinc-300 animate-pulse rounded-md h-44"></div>
+                <div className="bg-zinc-300 animate-pulse rounded-md h-44"></div>
+              </>
+            ) : shippingInformations?.length ? (
               shippingInformations?.map((shippingInformation) => (
-                <div
+                <ShippingInformation
+                  shippingInformation={shippingInformation}
                   key={shippingInformation._id}
-                  className="flex flex-col gap-3 p-4 rounded-md bg-zinc-100"
-                >
-                  <p className="font-semibold">
-                    {shippingInformation.firstName}{" "}
-                    {shippingInformation.lastName}
-                  </p>
-                  <p>{shippingInformation.phone}</p>
-                  <p>{shippingInformation.streetAddress}</p>
-                  <div className="flex gap-4">
-                    <button
-                      onClick={() =>
-                        openModal("edit-shipping-info", shippingInformation)
-                      }
-                      className="font-semibold border-2 border-zinc-500 text-zinc-500 hover:bg-zinc-700 hover:text-white hover:border-zinc-700 focus-visible:ring ring-blue-400 p-0.5 px-2 rounded-md duration-300"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() =>
-                        openModal("delete-shipping-info", shippingInformation)
-                      }
-                      className="font-semibold border-2 border-zinc-500 text-zinc-500 hover:bg-red-600 hover:text-white hover:border-red-600 focus-visible:ring ring-blue-400 p-0.5 px-2 rounded-md duration-300"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </div>
+                  openModal={openModal}
+                />
               ))
             ) : (
               <p className="h-32 flex-center col-span-2 text-zinc-500">
