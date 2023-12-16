@@ -2,21 +2,25 @@ import { useEffect, useState } from "react";
 import Order, { OrderType } from "../components/Order";
 import EmptyOrders from "../components/EmptyOrders";
 import { fetchOrders } from "../services/orderServices";
+import OrderWireframe from "../components/OrderWireframe";
 
 export default function OrderPage() {
   const [filter, setFilter] = useState("all");
   const [orders, setOrders] = useState<OrderType[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function getOrders() {
+      setLoading(true);
       const data = await fetchOrders();
-      if (data.error) return;
+      if (data.error) return setLoading(false);
       setOrders(
         [...data].sort(
           (a, b) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         )
       );
+      setLoading(false);
     }
     getOrders();
   }, []);
@@ -95,9 +99,17 @@ export default function OrderPage() {
             </li>
           </ul>
           <div className="flex flex-col gap-4">
-            {filteredOrders.map((order) => (
-              <Order key={order._id} order={order} />
-            ))}
+            {loading ? (
+              <>
+                <OrderWireframe />
+                <OrderWireframe />
+                <OrderWireframe />
+              </>
+            ) : (
+              filteredOrders.map((order) => (
+                <Order key={order._id} order={order} />
+              ))
+            )}
           </div>
         </>
       ) : (
