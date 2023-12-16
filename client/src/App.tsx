@@ -13,6 +13,7 @@ import ProfilePageLayout from "./components/ProfilePageLayout";
 import WishlistPage from "./pages/WishlistPage";
 import OrderPage from "./pages/OrderPage";
 import OrderDetailPage from "./pages/OrderDetailPage";
+import Authenticate from "./components/Authenticate";
 
 const router = createBrowserRouter([
   {
@@ -27,14 +28,19 @@ const router = createBrowserRouter([
           { path: "/search", element: <SearchPage /> },
           { path: "/product/:productId", element: <ProductDetailPage /> },
           { path: "/cart", element: <CartPage /> },
-          { path: "/checkout", element: <CheckoutPage /> },
           {
-            element: <ProfilePageLayout />,
+            element: <Authenticate />,
             children: [
-              { path: "/account", element: <ProfilePage /> },
-              { path: "/wishlist", element: <WishlistPage /> },
-              { path: "/orders", element: <OrderPage /> },
-              { path: "/orders/:orderId", element: <OrderDetailPage /> },
+              { path: "/checkout", element: <CheckoutPage /> },
+              {
+                element: <ProfilePageLayout />,
+                children: [
+                  { path: "/account", element: <ProfilePage /> },
+                  { path: "/wishlist", element: <WishlistPage /> },
+                  { path: "/orders", element: <OrderPage /> },
+                  { path: "/orders/:orderId", element: <OrderDetailPage /> },
+                ],
+              },
             ],
           },
         ],
