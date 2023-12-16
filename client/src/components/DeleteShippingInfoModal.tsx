@@ -1,14 +1,27 @@
 import { ShippingInformationType } from "../pages/CheckoutPage";
+import { fetchDeleteShippingInfo } from "../services/shippingInfoServices";
 
 export default function DeleteShippingInfoModal({
   closeModal,
   shippingInfo,
+  setShippingInformations,
 }: {
   closeModal: () => void;
   shippingInfo: ShippingInformationType;
+  setShippingInformations: React.Dispatch<
+    React.SetStateAction<ShippingInformationType[] | null>
+  >;
 }) {
-  function handleDeleteShippingInfo(e: React.FormEvent) {
+  async function handleDeleteShippingInfo(e: React.FormEvent) {
     e.preventDefault();
+    const data = await fetchDeleteShippingInfo(shippingInfo._id);
+    if (data.error) return;
+    setShippingInformations((curr) =>
+      (curr as ShippingInformationType[]).filter(
+        (info) => info._id !== shippingInfo._id
+      )
+    );
+    closeModal();
   }
   return (
     <div className="w-full sm:min-w-[500px] flex flex-col gap-4 pt-6">

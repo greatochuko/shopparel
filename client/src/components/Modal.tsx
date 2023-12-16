@@ -19,9 +19,17 @@ type ModalProps = {
   closeModal: () => void;
   type: string;
   shippingInfo: ShippingInformationType | null;
+  setShippingInformations: React.Dispatch<
+    React.SetStateAction<ShippingInformationType[] | null>
+  >;
 };
 
-export default function Modal({ type, shippingInfo, closeModal }: ModalProps) {
+export default function Modal({
+  type,
+  shippingInfo,
+  closeModal,
+  setShippingInformations,
+}: ModalProps) {
   return (
     <div
       onClick={closeModal}
@@ -37,18 +45,24 @@ export default function Modal({ type, shippingInfo, closeModal }: ModalProps) {
           <ChangePasswordForm closeModal={closeModal} />
         ) : null}
         {type === "add-new-shipping-info" ? (
-          <ShippingInformationForm closeModal={closeModal} />
+          <ShippingInformationForm
+            closeModal={closeModal}
+            setShippingInformations={setShippingInformations}
+          />
         ) : null}
         {type === "edit-shipping-info" ? (
           <ShippingInformationForm
+            type="edit"
             closeModal={closeModal}
             shippingInformation={shippingInfo}
+            setShippingInformations={setShippingInformations}
           />
         ) : null}
         {type === "delete-shipping-info" ? (
           <DeleteShippingInfoModal
             closeModal={closeModal}
             shippingInfo={shippingInfo as ShippingInformationType}
+            setShippingInformations={setShippingInformations}
           />
         ) : null}
         {type === "signout" ? <SignoutModal closeModal={closeModal} /> : null}

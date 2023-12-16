@@ -5,10 +5,16 @@ import useUserContext from "../hooks/useUserContext";
 
 export default function ShippingInformationForm({
   closeModal,
+  type,
   shippingInformation,
+  setShippingInformations,
 }: {
   closeModal: () => void;
+  type?: string;
   shippingInformation?: ShippingInformationType | null;
+  setShippingInformations: React.Dispatch<
+    React.SetStateAction<ShippingInformationType[] | null>
+  >;
 }) {
   const { user } = useUserContext();
   const [firstName, setFirstName] = useState(
@@ -47,10 +53,39 @@ export default function ShippingInformationForm({
       phone,
     });
     if (data.error) return;
+    setShippingInformations((curr) => [
+      ...(curr as ShippingInformationType[]),
+      data,
+    ]);
+    closeModal();
+  }
+  async function handleEditShippingInfo(e: React.FormEvent) {
+    e.preventDefault();
+    return;
+    const data = await fetchAddNewShippingInfo({
+      _id: "1",
+      userId: user?._id as string,
+      firstName,
+      lastName,
+      country,
+      company,
+      streetAddress,
+      apartment,
+      city,
+      state,
+      postalCode,
+      phone,
+    });
+    if (data.error) return;
     closeModal();
   }
   return (
-    <form className="" onSubmit={handleAddNewShippingInfo}>
+    <form
+      className=""
+      onSubmit={
+        type === "edit" ? handleEditShippingInfo : handleAddNewShippingInfo
+      }
+    >
       <div className="flex flex-col sm:grid sm:grid-cols-2 gap-x-4 gap-y-8 p-6 max-h-[70vh] overflow-y-scroll">
         <div className="flex flex-col gap-2">
           <label htmlFor="shipping-first-name" className="font-semibold">

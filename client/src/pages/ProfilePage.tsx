@@ -133,6 +133,7 @@ export default function ProfilePage() {
           closeModal={closeModal}
           type={modalType}
           shippingInfo={shippingInformation}
+          setShippingInformations={setShippingInformations}
         />
       ) : null}
     </>

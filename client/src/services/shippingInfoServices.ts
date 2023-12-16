@@ -7,8 +7,6 @@ export async function fetchShippingInformations() {
       credentials: "include",
     });
     const data = await res.json();
-    console.log(data);
-
     return data;
   } catch (error) {
     return { error: (error as Error).message };
@@ -23,6 +21,19 @@ export async function fetchAddNewShippingInfo(
       method: "POST",
       body: JSON.stringify(newShippingInfo),
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}
+
+export async function fetchDeleteShippingInfo(shippingInfoId: string) {
+  try {
+    const res = await fetch(`${BASE_URL}/shipping/${shippingInfoId}`, {
+      method: "DELETE",
       credentials: "include",
     });
     const data = await res.json();

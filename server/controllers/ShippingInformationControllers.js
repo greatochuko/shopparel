@@ -49,3 +49,17 @@ export async function addShippingInformation(req, res) {
     res.status(400).json({ error: error.message });
   }
 }
+
+export async function deleteShippingInformation(req, res) {
+  try {
+    const { userId } = req.session;
+    if (!userId)
+      return res.status(401).json({ error: "User is unauthenticated" });
+    const { shippingInfoId } = req.params;
+
+    await ShippingInformation.findByIdAndDelete(shippingInfoId);
+    res.json("Shipping Info deleted successfully");
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
