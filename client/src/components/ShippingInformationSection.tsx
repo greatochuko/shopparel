@@ -3,6 +3,7 @@ import SectionHeader from "./SectionHeader";
 import { ShippingInformationType } from "../pages/CheckoutPage";
 import { Link } from "react-router-dom";
 import useUserContext from "../hooks/useUserContext";
+import { fetchShippingInformations } from "../services/shippingInfoServices";
 
 export default function ShippingInformationSection({
   setShippingInformation,
@@ -12,8 +13,8 @@ export default function ShippingInformationSection({
   >;
 }) {
   const [shippingInformations, setShippingInformations] = useState<
-    ShippingInformationType[] | null
-  >(null);
+    ShippingInformationType[]
+  >([]);
   const { user } = useUserContext();
   const [information, setInformation] = useState<string | null>(null);
   const [firstName, setFirstName] = useState("");
@@ -27,15 +28,22 @@ export default function ShippingInformationSection({
   const [postalCode, setPostalCode] = useState("");
   const [phone, setPhone] = useState("");
   const [saveInfo, setSaveInfo] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    async function fetchShippingInformations() {
-      const res = await fetch("/data/shippingInformations.json");
-      if (!res.ok) return;
-      const data = await res.json();
-      setShippingInformations(data);
+    async function getShippingInformations() {
+      setLoading(true);
+      const data = await fetchShippingInformations();
+      if (data.error) return setLoading(false);
+      setShippingInformations(
+        [...data].sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        )
+      );
+      setLoading(false);
     }
-    fetchShippingInformations();
+    getShippingInformations();
   }, []);
 
   function handleSetShippingInformation(e: React.FormEvent) {
@@ -62,8 +70,8 @@ export default function ShippingInformationSection({
     setShippingInformation(newShippingInfo);
     setInformation(newShippingInfo._id);
   }
-  if (!shippingInformations)
-    return <h1 className="h-screen flex-center">Loading</h1>;
+
+  if (loading) return <h1 className="h-full flex-center">Loading</h1>;
   return (
     <section className="flex flex-col gap-10 flex-1">
       <SectionHeader title="Shipping Information" />
