@@ -150,12 +150,17 @@ export default function CartProvider({
   }
 
   async function clearCart() {
-    const data = await fetchClearCart();
-    if (data?.error) return;
+    if (user) {
+      const data = await fetchClearCart();
+      if (data?.error) return;
+    } else {
+      localStorage.setItem("cart", JSON.stringify([]));
+    }
     setCartItems([]);
   }
 
   async function clearOrderCart() {
+    localStorage.setItem("cart", JSON.stringify([]));
     setCartItems([]);
   }
 
