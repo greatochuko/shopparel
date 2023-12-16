@@ -6,6 +6,7 @@ import {
   fetchIncreaseQuantity,
   fetchRemoveFromCart,
 } from "../services/cartServices";
+import useUserContext from "../hooks/useUserContext";
 
 export type CartItemType = {
   _id: string;
@@ -38,12 +39,25 @@ export default function CartProvider({
 }: {
   children: React.ReactNode;
 }) {
+  const { user } = useUserContext();
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
 
   async function addItemToCart(item: CartItemType) {
-    const data = await fetchAddToCart(item);
-    if (data.error) return;
-    setCartItems((curr) => [...curr, data]);
+    let data: CartItemType & { error: string };
+    if (!user) {
+      const localCart: CartItemType[] = JSON.parse(
+        localStorage.getItem("cart") as string
+      );
+      if (localCart) {
+        localStorage.setItem("cart", JSON.stringify([...localCart, item]));
+      } else {
+        localStorage.setItem("cart", JSON.stringify([item]));
+      }
+    } else {
+      data = await fetchAddToCart(item);
+      if (data.error) return;
+    }
+    setCartItems((curr) => [...curr, data || item]);
   }
 
   async function removeItemFromCart(itemId: string) {
@@ -53,8 +67,30 @@ export default function CartProvider({
   }
 
   async function increaseItemQuantity(itemId: string) {
-    const data = await fetchIncreaseQuantity(itemId);
-    if (data?.error) return;
+    if (!user) {
+      const localCart: CartItemType[] = JSON.parse(
+        localStorage.getItem("cart") as string
+      );
+      const productInCart = localCart.find(
+        (cartItem) => cartItem._id === itemId
+      );
+      if (!productInCart) return;
+      localStorage.setItem(
+        "cart",
+        JSON.stringify(
+          localCart.map((cartItem) => {
+            if (cartItem._id === productInCart._id) {
+              cartItem.quantity += 1;
+              return cartItem;
+            }
+            return cartItem;
+          })
+        )
+      );
+    } else {
+      const data = await fetchIncreaseQuantity(itemId);
+      if (data?.error) return;
+    }
 
     setCartItems((curr) =>
       curr.map((cartItem) => {

@@ -5,7 +5,6 @@ import useCartContext from "../hooks/useCartContext";
 import useUserContext from "../hooks/useUserContext";
 import LoadingIndicator from "./LoadingIndicator";
 import QuantityController from "./QuantityController";
-import { CartItemType } from "../context/CartContext";
 
 export default function ProductConfiguration({
   product,
@@ -27,6 +26,7 @@ export default function ProductConfiguration({
   function handleAddItemToCart() {
     const newItem = {
       _id: crypto.randomUUID(),
+      userId: user?._id || "123",
       productId: product._id,
       name: product.name,
       imgUrl: product.imgUrl,
@@ -36,45 +36,9 @@ export default function ProductConfiguration({
       shipping: 19.99,
       quantity: 1,
     };
-    if (!user) {
-      const localCart: CartItemType[] = JSON.parse(
-        localStorage.getItem("cart") as string
-      );
-      if (!localCart) {
-        localStorage.setItem("cart", JSON.stringify([newItem]));
-        return;
-      }
-      const productInCart = localCart.find(
-        (cartItem) =>
-          cartItem.productId === newItem.productId &&
-          cartItem.color === newItem.color &&
-          cartItem.size == newItem.size
-      );
-      console.log(productInCart);
-      if (productInCart) {
-        localStorage.setItem(
-          "cart",
-          JSON.stringify(
-            localCart.map((cartItem) => {
-              if (cartItem._id === productInCart._id) {
-                cartItem.quantity += 1;
-                return cartItem;
-              }
-              return cartItem;
-            })
-          )
-        );
-        return;
-      }
-
-      localStorage.setItem("cart", JSON.stringify([...localCart, newItem]));
-
-      return;
-    }
     setLoading(true);
     addItemToCart({
       ...newItem,
-      userId: user._id,
     });
     setLoading(false);
   }
