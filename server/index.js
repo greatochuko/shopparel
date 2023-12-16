@@ -10,6 +10,7 @@ import cartRouter from "./routes/cartRoutes.js";
 import productRouter from "./routes/productRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import wishlistRouter from "./routes/wishlistRoutes.js";
+import shippingInfoRouter from "./routes/ShippingInformationRoutes.js";
 
 dotenv.config();
 
@@ -49,6 +50,7 @@ app.use("/api", orderRouter);
 app.use("/api/user", userRouter);
 app.use("/api/wishlist", wishlistRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/shipping", shippingInfoRouter);
 
 async function startServer() {
   try {
