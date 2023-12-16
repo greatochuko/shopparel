@@ -7,13 +7,13 @@ export default function SignoutModal({
 }: {
   closeModal: () => void;
 }) {
-  const { setUser } = useUserContext();
+  const { updateUser } = useUserContext();
   const navigate = useNavigate();
 
   async function handleSignout() {
     const data = await logoutUser();
     if (data.error) return;
-    setUser(null);
+    updateUser(null);
     navigate("/login");
   }
   return (

@@ -82,3 +82,49 @@ export async function clearCart(req, res) {
     res.status(401).json({ error: error.message });
   }
 }
+
+export async function syncCart(req, res) {
+  try {
+    const { userId } = req.session;
+    if (!userId)
+      return res.status(401).json({ error: "User is unauthenticated" });
+
+    const cartItems = req.body;
+
+    const cart = await Cart.find({ userId });
+    cartItems.forEach(async (cartItem) => {
+      const productInCart = cart.find(
+        (item) => item.productId.toString() === cartItem.productId
+      );
+      if (productInCart) {
+        productInCart.quantity += cartItem.quantity;
+        await productInCart.save();
+      } else {
+        const {
+          productId,
+          name,
+          imgUrl,
+          color,
+          size,
+          price,
+          shipping,
+          quantity,
+        } = cartItem;
+        await Cart.create({
+          userId,
+          productId,
+          name,
+          imgUrl,
+          color,
+          size,
+          price,
+          shipping,
+          quantity,
+        });
+      }
+    });
+    res.json(cart);
+  } catch (error) {
+    res.status(401).json({ error: error.message });
+  }
+}

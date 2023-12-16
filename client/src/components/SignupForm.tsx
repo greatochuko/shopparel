@@ -20,7 +20,7 @@ export default function SignupForm() {
     email && firstName && lastName && password && confirmPassword === password
   );
 
-  const { user, setUser } = useUserContext();
+  const { user, updateUser } = useUserContext();
 
   const [searchParams] = useSearchParams();
   const redirectUrl = searchParams.get("redirect");
@@ -39,7 +39,7 @@ export default function SignupForm() {
       googleClientId
     );
     if (data.error) return;
-    setUser(data);
+    updateUser(data);
   }
 
   function handleConfirmPassword(e: React.ChangeEvent<HTMLInputElement>) {
@@ -57,7 +57,7 @@ export default function SignupForm() {
       setLoading(false);
       return;
     }
-    setUser(data);
+    updateUser(data);
     setLoading(false);
   }
 

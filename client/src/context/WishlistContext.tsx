@@ -40,7 +40,7 @@ export default function WishlistProvider({
 }) {
   const [wishlist, setWishlist] = useState<WishlistItemType[]>([]);
   const [refreshed, setRefreshed] = useState(false);
-  const { user, setUser } = useUserContext();
+  const { user, updateUser } = useUserContext();
   const { setCartItems } = useCartContext();
 
   // console.log(wishlist);
@@ -50,7 +50,7 @@ export default function WishlistProvider({
       // Fetch and set Initial User context
       const userData = await fetchUser();
       if (!userData.error) {
-        setUser(userData);
+        updateUser(userData);
       }
 
       // Fetch and set Initial Cart context
@@ -78,7 +78,7 @@ export default function WishlistProvider({
       setRefreshed(true);
     }
     refreshUser();
-  }, [setCartItems, setUser, user?._id]);
+  }, [setCartItems, updateUser, user?._id]);
 
   async function addProductToWishlist(product: WishlistItemType) {
     const resData = { ok: false };

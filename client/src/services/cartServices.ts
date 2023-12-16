@@ -82,3 +82,18 @@ export async function fetchClearCart() {
     return { error: (error as Error).message };
   }
 }
+
+export async function fetchSyncCart(cartItems: CartItemType[]) {
+  try {
+    const res = await fetch(`${BASE_URL}/cart/sync`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      body: JSON.stringify(cartItems),
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}

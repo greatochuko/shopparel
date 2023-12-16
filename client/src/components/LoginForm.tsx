@@ -19,7 +19,7 @@ export default function LoginForm() {
 
   const { user } = useUserContext();
 
-  const { setUser } = useUserContext();
+  const { updateUser } = useUserContext();
 
   async function handleGoogleLogin(response: CredentialResponse) {
     const userData: JwtPayload & GoogleUserCredentials = jwtDecode(
@@ -34,7 +34,7 @@ export default function LoginForm() {
       googleClientId
     );
     if (data.error) return;
-    setUser(data);
+    updateUser(data);
   }
 
   async function handleSignup(e: React.FormEvent) {
@@ -46,7 +46,7 @@ export default function LoginForm() {
       setLoading(false);
       return;
     }
-    setUser(data);
+    updateUser(data);
     setLoading(false);
   }
 
