@@ -5,7 +5,7 @@ export async function getShippingInformations(req, res) {
     const { userId } = req.session;
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
-    const userShippingInformations = ShippingInformation.find({ userId });
+    const userShippingInformations = await ShippingInformation.find({ userId });
     res.json(userShippingInformations);
   } catch (error) {
     res.status(400).json({ error: error.message });

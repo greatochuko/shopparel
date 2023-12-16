@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useUserContext from "../hooks/useUserContext";
 import { ShippingInformationType } from "./CheckoutPage";
 import Modal from "../components/Modal";
+import { fetchShippingInformations } from "../services/shippingInfoServices";
 
 export default function ProfilePage() {
   const { user } = useUserContext();
@@ -26,13 +27,12 @@ export default function ProfilePage() {
   }
 
   useEffect(() => {
-    async function fetchShippingInformations() {
-      const res = await fetch("/data/shippingInformations.json");
-      if (!res.ok) return;
-      const data = await res.json();
+    async function getShippingInformations() {
+      const data = await fetchShippingInformations();
+      if (data.error) return;
       setShippingInformations(data);
     }
-    fetchShippingInformations();
+    getShippingInformations();
   }, []);
 
   return (
@@ -88,36 +88,43 @@ export default function ProfilePage() {
             </button>
           </h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {shippingInformations?.map((shippingInformation) => (
-              <div
-                key={shippingInformation._id}
-                className="flex flex-col gap-3 p-4 rounded-md bg-zinc-100"
-              >
-                <p className="font-semibold">
-                  {shippingInformation.firstName} {shippingInformation.lastName}
-                </p>
-                <p>{shippingInformation.phone}</p>
-                <p>{shippingInformation.streetAddress}</p>
-                <div className="flex gap-4">
-                  <button
-                    onClick={() =>
-                      openModal("edit-shipping-info", shippingInformation)
-                    }
-                    className="font-semibold border-2 border-zinc-500 text-zinc-500 hover:bg-zinc-700 hover:text-white hover:border-zinc-700 focus-visible:ring ring-blue-400 p-0.5 px-2 rounded-md duration-300"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() =>
-                      openModal("delete-shipping-info", shippingInformation)
-                    }
-                    className="font-semibold border-2 border-zinc-500 text-zinc-500 hover:bg-red-600 hover:text-white hover:border-red-600 focus-visible:ring ring-blue-400 p-0.5 px-2 rounded-md duration-300"
-                  >
-                    Remove
-                  </button>
+            {shippingInformations?.length ? (
+              shippingInformations?.map((shippingInformation) => (
+                <div
+                  key={shippingInformation._id}
+                  className="flex flex-col gap-3 p-4 rounded-md bg-zinc-100"
+                >
+                  <p className="font-semibold">
+                    {shippingInformation.firstName}{" "}
+                    {shippingInformation.lastName}
+                  </p>
+                  <p>{shippingInformation.phone}</p>
+                  <p>{shippingInformation.streetAddress}</p>
+                  <div className="flex gap-4">
+                    <button
+                      onClick={() =>
+                        openModal("edit-shipping-info", shippingInformation)
+                      }
+                      className="font-semibold border-2 border-zinc-500 text-zinc-500 hover:bg-zinc-700 hover:text-white hover:border-zinc-700 focus-visible:ring ring-blue-400 p-0.5 px-2 rounded-md duration-300"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() =>
+                        openModal("delete-shipping-info", shippingInformation)
+                      }
+                      className="font-semibold border-2 border-zinc-500 text-zinc-500 hover:bg-red-600 hover:text-white hover:border-red-600 focus-visible:ring ring-blue-400 p-0.5 px-2 rounded-md duration-300"
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))
+            ) : (
+              <p className="h-32 flex-center col-span-2 text-zinc-500">
+                You have no Addresses saved yet
+              </p>
+            )}
           </div>
         </div>
       </section>
