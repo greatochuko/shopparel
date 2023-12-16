@@ -103,8 +103,30 @@ export default function CartProvider({
   }
 
   async function decreaseItemQuantity(itemId: string) {
-    const data = await fetchDecreaseQuantity(itemId);
-    if (data?.error) return;
+    if (!user) {
+      const localCart: CartItemType[] = JSON.parse(
+        localStorage.getItem("cart") as string
+      );
+      const productInCart = localCart.find(
+        (cartItem) => cartItem._id === itemId
+      );
+      if (!productInCart) return;
+      localStorage.setItem(
+        "cart",
+        JSON.stringify(
+          localCart.map((cartItem) => {
+            if (cartItem._id === productInCart._id) {
+              cartItem.quantity -= 1;
+              return cartItem;
+            }
+            return cartItem;
+          })
+        )
+      );
+    } else {
+      const data = await fetchDecreaseQuantity(itemId);
+      if (data?.error) return;
+    }
 
     setCartItems((curr) =>
       curr.map((cartItem) => {
