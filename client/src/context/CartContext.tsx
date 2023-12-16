@@ -61,8 +61,18 @@ export default function CartProvider({
   }
 
   async function removeItemFromCart(itemId: string) {
-    const data = await fetchRemoveFromCart(itemId);
-    if (data?.error) return;
+    if (user) {
+      const data = await fetchRemoveFromCart(itemId);
+      if (data?.error) return;
+    } else {
+      const localCart: CartItemType[] = JSON.parse(
+        localStorage.getItem("cart") as string
+      );
+      localStorage.setItem(
+        "cart",
+        JSON.stringify(localCart.filter((cartItem) => cartItem._id !== itemId))
+      );
+    }
     setCartItems((curr) => curr.filter((cartItem) => cartItem._id !== itemId));
   }
 
