@@ -3,6 +3,7 @@ import CartItem from "../components/CartItem";
 import { useState } from "react";
 import useCartContext from "../hooks/useCartContext";
 import EmptyCart from "../components/EmptyCart";
+import MobileCartITem from "../components/MobileCartITem";
 
 export default function CartPage() {
   const [couponError, setCouponError] = useState("");
@@ -37,34 +38,47 @@ export default function CartPage() {
         &gt; <span className="text-zinc-700">Cart</span>
       </h1>
       {cartItems.length ? (
-        <div className="overflow-x-scroll scrollbar-hidden mx-auto max-w-7xl w-[90%]">
-          <div className="mx-auto min-w-fit">
-            <div className="flex justify-between gap-3 py-4 mb-4 text-white uppercase bg-zinc-700 last:border-none">
-              <div className="flex gap-2 flex-1 min-w-[200px] uppercase text-sm font-semibold">
-                <p className="pl-4">Product Information</p>
-              </div>
-              <div className="flex justify-between flex-1 gap-2 text-sm font-semibold">
-                <div className="flex-1 min-w-[100px] flex-center">Price</div>
-                <div className="flex-1 min-w-[100px] flex-center">Quantity</div>
-                <div className="flex-1 min-w-[100px] flex-center">Shipping</div>
-                <div className="flex-1 min-w-[100px] flex-center">SubTotal</div>
-                <div className="flex-1 min-w-[100px] flex-center">Action</div>
+        <>
+          <div className="overflow-x-scroll scrollbar-hidden mx-auto max-w-7xl w-[90%] ">
+            <div className="mx-auto min-w-fit">
+              <div className="flex justify-between gap-3 py-4 mb-4 text-white uppercase bg-zinc-700 last:border-none">
+                <div className="flex gap-2 flex-1 min-w-[250px] uppercase text-sm font-semibold">
+                  <p className="pl-4">Product Information</p>
+                </div>
+                <div className="flex justify-between flex-1 gap-2 text-sm font-semibold">
+                  <div className="flex-1 min-w-[100px] flex-center">Price</div>
+                  <div className="flex-1 min-w-[100px] flex-center">
+                    Quantity
+                  </div>
+                  <div className="flex-1 min-w-[100px] flex-center">
+                    Shipping
+                  </div>
+                  <div className="flex-1 min-w-[100px] flex-center">
+                    SubTotal
+                  </div>
+                  <div className="flex-1 min-w-[100px] flex-center">Action</div>
+                </div>
               </div>
             </div>
+            <div className="flex flex-col gap-4 mx-auto min-w-fit">
+              {cartItems.map((cartItem) => (
+                <CartItem key={cartItem._id} cartItem={cartItem} />
+              ))}
+            </div>
+            <Link
+              to={"/search?q="}
+              className="ml-2 text-sm font-semibold rounded-md group text-zinc-500 hover:text-zinc-700 focus-visible:ring focus-visible:ring-blue-400"
+            >
+              <span className="hover:underline">Continue Shopping</span>
+              <span className="duration-300 group-hover:ml-1"> &rarr;</span>
+            </Link>
           </div>
-          <div className="flex flex-col gap-4 mx-auto min-w-fit">
+          {/* <div className="flex gap-2 flex-col w-[90%] mx-auto lg:hidden">
             {cartItems.map((cartItem) => (
-              <CartItem key={cartItem._id} cartItem={cartItem} />
+              <MobileCartITem key={cartItem._id} cartItem={cartItem} />
             ))}
-          </div>
-          <Link
-            to={"/search?q="}
-            className="ml-2 text-sm font-semibold rounded-md group text-zinc-500 hover:text-zinc-700 focus-visible:ring focus-visible:ring-blue-400"
-          >
-            <span className="hover:underline">Continue Shopping</span>
-            <span className="duration-300 group-hover:ml-1"> &rarr;</span>
-          </Link>
-        </div>
+          </div> */}
+        </>
       ) : (
         <EmptyCart />
       )}

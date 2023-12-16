@@ -3,8 +3,10 @@ import useCartContext from "../hooks/useCartContext";
 
 export default function QuantityController({
   product,
+  size,
 }: {
   product: CartItemType;
+  size?: "small";
 }) {
   const { removeItemFromCart, increaseItemQuantity, decreaseItemQuantity } =
     useCartContext();
@@ -21,14 +23,16 @@ export default function QuantityController({
     decreaseItemQuantity(product._id);
   }
   return (
-    <div className="flex gap-2">
+    <div className={`flex ${size === "small" ? "" : "gap-2"}`}>
       <button
         onClick={handleDecreaseQuantity}
-        className="text-3xl text-white rounded-md shadow-md bg-accent-blue-100 h-9 w-9 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300"
+        className={`rounded-md shadow-md bg-accent-blue-100 ${
+          size === "small" ? "h-6 w-6" : "h-9 w-9"
+        } flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300`}
       >
         <svg
-          height={16}
-          width={16}
+          height={size === "small" ? 12 : 16}
+          width={size === "small" ? 12 : 16}
           viewBox="0 -12 32 32"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -63,16 +67,22 @@ export default function QuantityController({
           </g>
         </svg>
       </button>
-      <p className="w-8 text-xl font-semibold flex-center text-zinc-600">
+      <p
+        className={`w-8 ${
+          size === "small" ? "text-base" : "text-xl"
+        } font-semibold flex-center text-zinc-600`}
+      >
         {product.quantity}
       </p>
       <button
         onClick={handleIncreaseQuantity}
-        className="text-3xl text-white rounded-md shadow-md bg-accent-blue-100 h-9 w-9 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300"
+        className={`rounded-md shadow-md bg-accent-blue-100 ${
+          size === "small" ? "h-6 w-6" : "h-9 w-9"
+        } flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300`}
       >
         <svg
-          height={16}
-          width={16}
+          height={size === "small" ? 12 : 16}
+          width={size === "small" ? 12 : 16}
           viewBox="0 0 32 32"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
