@@ -123,7 +123,7 @@ export default function OrderDetailPage() {
         {order?.products.map((cartItem) => (
           <div
             key={cartItem._id}
-            className="flex flex-col justify-between sm:flex-row"
+            className="flex flex-col justify-between border-b pb-4 sm:flex-row"
           >
             <div className="flex gap-4">
               <div className="min-w-[80px] w-20 h-20 bg-zinc-200 rounded-md">
@@ -149,7 +149,7 @@ export default function OrderDetailPage() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-4 pb-4 mt-4 border-b lg:gap-10 lg:text-base">
+            <div className="flex items-center gap-4 pb-4 mt-4 lg:gap-10 lg:text-base">
               <p className="whitespace-nowrap">
                 Qty: <span className="font-semibold">{cartItem.quantity}</span>
               </p>
