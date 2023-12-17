@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function EmptyOrders() {
   return (
-    <div className="border w-full max-w-xl py-10 aspect-[1.3] shadow rounded-md mx-auto flex-center flex-col gap-8 p-4">
+    <div className="border w-[90%] max-w-xl py-10 aspect-[1.3] shadow rounded-md mx-auto flex-center flex-col gap-8 p-4">
       <div className="w-[35%] aspect-square rounded-full bg-green-100 flex-center">
         <svg
           height="50%"

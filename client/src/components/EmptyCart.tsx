@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export default function EmptyCart() {
   return (
-    <div className="border w-full max-w-xl py-10 aspect-[1.3] shadow rounded-md mx-auto flex-center flex-col gap-8 p-4">
+    <div className="border w-[90%] max-w-xl py-10 aspect-[1.3] shadow rounded-md mx-auto flex-center flex-col gap-8 p-4">
       <div className="w-[35%] aspect-square rounded-full bg-green-100 flex-center">
         <svg
           width="50%"
@@ -21,8 +21,8 @@ export default function EmptyCart() {
         </svg>
       </div>
       <div className="flex-col text-center flex-center">
-        <h1 className="text-xl font-semibold sm:text-2xl">
-          Your wishlist is empty and sad :(
+        <h1 className="text-lg font-semibold sm:text-2xl">
+          Your cart is empty and sad :(
         </h1>
         <p>Add something to make it happy!</p>
       </div>
