@@ -5,10 +5,16 @@ import { ProductType } from "./Product";
 export default function PriceFilter({ products }: { products: ProductType[] }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const productPriceArray = products.map((product) => product.price);
+  const urlMaxPrice = searchParams.get("maxPrice");
+
   const [minPrice, setMinPrice] = useState(searchParams.get("minPrice") || 0);
   const [maxPrice, setMaxPrice] = useState(
-    searchParams.get("maxPrice") ||
-      Math.max(...products.map((product) => product.price))
+    urlMaxPrice
+      ? parseInt(urlMaxPrice)
+      : productPriceArray.length
+      ? Math.max(...productPriceArray)
+      : 1000
   );
 
   function handleSetMinPrice() {
@@ -35,7 +41,13 @@ export default function PriceFilter({ products }: { products: ProductType[] }) {
             }}
             onMouseUp={handleSetMinPrice}
             min={0}
-            max={Math.max(...products.map((product) => product.price))}
+            max={
+              urlMaxPrice
+                ? parseInt(urlMaxPrice)
+                : productPriceArray.length
+                ? Math.max(...productPriceArray)
+                : 1000
+            }
             className="w-full focus-visible:ring rounded-md p-1 focus-visible:ring-blue-400"
           />
           <input
@@ -43,11 +55,17 @@ export default function PriceFilter({ products }: { products: ProductType[] }) {
             value={maxPrice}
             onChange={(e) => {
               if (Number(e.target.value) < Number(minPrice)) return;
-              setMaxPrice(e.target.value);
+              setMaxPrice(parseInt(e.target.value));
             }}
             onMouseUp={handleSetMaxPrice}
             min={0}
-            max={Math.max(...products.map((product) => product.price))}
+            max={
+              urlMaxPrice
+                ? parseInt(urlMaxPrice)
+                : productPriceArray.length
+                ? Math.max(...productPriceArray)
+                : 1000
+            }
             className="w-full focus-visible:ring rounded-md p-1 focus-visible:ring-blue-400 "
           />
         </div>

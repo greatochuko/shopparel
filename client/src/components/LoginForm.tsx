@@ -42,7 +42,6 @@ export default function LoginForm() {
     e.preventDefault();
     setLoading(true);
     const data = await loginUser(email, password);
-    console.log(data);
 
     if (data.error) {
       setError(data.error);

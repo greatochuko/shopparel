@@ -43,7 +43,6 @@ export default function WishlistProvider({
   const { user, updateUser } = useUserContext();
   const { setCartItems } = useCartContext();
 
-  // console.log(wishlist);
 
   useEffect(() => {
     async function refreshUser() {

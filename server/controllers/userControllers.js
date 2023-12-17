@@ -4,7 +4,6 @@ import bcrypt from "bcrypt";
 export async function getUser(req, res) {
   try {
     const { userId } = req.session;
-    console.log(userId);
     if (!userId) throw new Error("User is not Authenticated");
     const user = await User.findById(userId).select("-password");
 
