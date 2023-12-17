@@ -10,8 +10,8 @@ export default function MobileCartITem({
 }) {
   const { removeItemFromCart } = useCartContext();
   return (
-    <div className="bg-zinc-100 rounded-md p-2 border flex justify-between gap-2 flex-col sm:flex-row">
-      <div className="flex gap-2 flex-1">
+    <div className="flex flex-col justify-between gap-2 p-2 border rounded-md bg-zinc-100 sm:flex-row">
+      <div className="flex flex-1 gap-2">
         <img
           src={cartItem.imgUrl}
           alt={cartItem.name}
@@ -23,7 +23,7 @@ export default function MobileCartITem({
             to={`/product/${
               cartItem.productId + "-" + cartItem.name.split(" ").join("-")
             }`}
-            className="font-semibold text-sm sm:text-base duration-200 rounded-md hover:text-accent-blue-100 focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-blue-400 focus-visible:text-accent-blue-100"
+            className="text-sm font-semibold duration-200 rounded-md sm:text-base hover:text-accent-blue-100 focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-blue-400 focus-visible:text-accent-blue-100"
           >
             {cartItem.name}
           </Link>
@@ -36,7 +36,7 @@ export default function MobileCartITem({
           </p>
         </div>
       </div>
-      <div className="flex justify-between items-center sm:flex-col sm:items-end">
+      <div className="flex items-center justify-between sm:flex-col sm:items-end">
         <QuantityController product={cartItem} size="small" />
         <button
           onClick={() => removeItemFromCart(cartItem._id)}
