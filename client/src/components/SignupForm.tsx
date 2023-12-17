@@ -5,6 +5,7 @@ import useUserContext from "../hooks/useUserContext";
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { GoogleUserCredentials } from "./LoginForm";
+import LoadingIndicator from "./LoadingIndicator";
 
 export default function SignupForm() {
   const [email, setEmail] = useState("");
@@ -283,7 +284,7 @@ export default function SignupForm() {
         disabled={!canSubmit}
         className="px-6 py-3 font-semibold text-white duration-300 rounded-md disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:bg-accent-blue-200"
       >
-        {loading ? "Loading..." : "Sign Up"}
+        {loading ? <LoadingIndicator /> : "Sign Up"}
       </button>
     </form>
   );

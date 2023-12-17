@@ -26,13 +26,14 @@ export default function UserProvider({
   const updateUser = useCallback(async function updateUser(
     userData: UserType | null
   ) {
-    setUser(userData);
     const localStorageCart = localStorage.getItem("cart");
-    if (!localStorageCart) return;
-    const localCart = JSON.parse(localStorageCart);
-    const data = await fetchSyncCart(localCart);
-    if (data.error) return;
-    localStorage.removeItem("cart");
+    if (localStorageCart) {
+      const localCart = JSON.parse(localStorageCart);
+      const data = await fetchSyncCart(localCart);
+      if (data.error) return;
+      localStorage.removeItem("cart");
+    }
+    setUser(userData);
   },
   []);
 

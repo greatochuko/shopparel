@@ -25,7 +25,7 @@ export default function NewArrival({
             <ProductWireframe />
           </>
         ) : error ? (
-          <p className="flex-center flex-col h-60 w-full  col-span-4">
+          <p className="flex-center flex-col h-60 w-full text-sm sm:text-base col-span-4">
             ❌{` ${error} `}❌
             <button
               onClick={refreshProducts}

@@ -39,7 +39,7 @@ export default function CartPage() {
       </h1>
       {cartItems.length ? (
         <>
-          <div className="overflow-x-scroll scrollbar-hidden mx-auto max-w-7xl w-[90%] ">
+          <div className="overflow-x-scroll scrollbar-hidden mx-auto max-w-7xl w-[90%] hidden md:block">
             <div className="mx-auto min-w-fit">
               <div className="flex justify-between gap-3 py-4 mb-4 text-white uppercase bg-zinc-700 last:border-none">
                 <div className="flex gap-2 flex-1 min-w-[250px] uppercase text-sm font-semibold">
@@ -73,11 +73,11 @@ export default function CartPage() {
               <span className="duration-300 group-hover:ml-1"> &rarr;</span>
             </Link>
           </div>
-          {/* <div className="flex gap-2 flex-col w-[90%] mx-auto lg:hidden">
+          <div className="flex gap-2 flex-col w-[90%] mx-auto md:hidden">
             {cartItems.map((cartItem) => (
               <MobileCartITem key={cartItem._id} cartItem={cartItem} />
             ))}
-          </div> */}
+          </div>
         </>
       ) : (
         <EmptyCart />

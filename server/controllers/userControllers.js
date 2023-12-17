@@ -3,8 +3,10 @@ import bcrypt from "bcrypt";
 
 export async function getUser(req, res) {
   try {
-    const user = await User.findById(req.session.userId).select("-password");
-    if (!user) throw new Error("User not Authenticated");
+    const { userId } = req.session;
+    console.log(userId);
+    if (!userId) throw new Error("User is not Authenticated");
+    const user = await User.findById(userId).select("-password");
 
     res.json(user);
   } catch (error) {
@@ -14,7 +16,7 @@ export async function getUser(req, res) {
 
 export async function updateName(req, res) {
   try {
-    if (!req.session.userId) throw new Error("User not Authenticated");
+    if (!req.session.userId) throw new Error("User is not Authenticated");
     const { firstName, lastName } = req.body;
     const user = await User.findByIdAndUpdate(
       req.session.userId,
@@ -33,7 +35,7 @@ export async function updateName(req, res) {
 
 export async function changePassword(req, res) {
   try {
-    if (!req.session.userId) throw new Error("User not Authenticated");
+    if (!req.session.userId) throw new Error("User is not Authenticated");
     const { oldPassword, newPassword } = req.body;
     const user = await User.findById(req.session.userId);
     let oldPasswordIsCorrect = false;

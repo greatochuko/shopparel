@@ -22,7 +22,7 @@ export default function HomePage() {
       const data = await fetchProducts();
       if (data.error) {
         setError("There was an error fetching products");
-        setLoading(true);
+        setLoading(false);
         return;
       }
       setProducts(

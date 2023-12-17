@@ -4,6 +4,7 @@ import { loginUser, loginUserWithGoogle } from "../services/authServices";
 import useUserContext from "../hooks/useUserContext";
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { jwtDecode, JwtPayload } from "jwt-decode";
+import LoadingIndicator from "./LoadingIndicator";
 
 export type GoogleUserCredentials = { email: string; name: string };
 
@@ -37,10 +38,12 @@ export default function LoginForm() {
     updateUser(data);
   }
 
-  async function handleSignup(e: React.FormEvent) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     const data = await loginUser(email, password);
+    console.log(data);
+
     if (data.error) {
       setError(data.error);
       setLoading(false);
@@ -55,7 +58,7 @@ export default function LoginForm() {
   return (
     <form
       className=" sm:w-[90%] max-w-xl flex flex-col items-stretch gap-6 mx-auto"
-      onSubmit={handleSignup}
+      onSubmit={handleLogin}
     >
       <div>
         <h1 className="text-2xl font-semibold">Login</h1>
@@ -168,9 +171,9 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={!canSubmit}
-        className="px-6 py-3 font-semibold text-white duration-300 rounded-md disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:bg-accent-blue-200"
+        className="px-6 h-12 font-semibold flex-center text-white duration-300 rounded-md disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:bg-accent-blue-200"
       >
-        {loading ? "Loading..." : "Login"}
+        {loading ? <LoadingIndicator /> : "Login"}
       </button>
     </form>
   );

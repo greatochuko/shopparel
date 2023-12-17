@@ -24,7 +24,7 @@ export default function CategoryProducts({
 
       if (data.error) {
         setError("There was an error fetching products");
-        setLoading(true);
+        setLoading(false);
         return;
       }
 
@@ -75,7 +75,7 @@ export default function CategoryProducts({
             <ProductWireframe />
           </>
         ) : error ? (
-          <p className="flex-col w-full col-span-4 flex-center h-60">
+          <p className="flex-col w-full col-span-4 flex-center h-60 text-sm sm:text-base">
             ❌{` ${error} `}❌
             <button
               onClick={refreshProducts}
