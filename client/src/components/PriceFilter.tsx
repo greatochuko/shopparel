@@ -5,19 +5,19 @@ import { ProductType } from "./Product";
 export default function PriceFilter({ products }: { products: ProductType[] }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [minPrice, setMinPrice] = useState(searchParams.get("minPrice") || "0");
+  const [minPrice, setMinPrice] = useState(searchParams.get("minPrice") || 0);
   const [maxPrice, setMaxPrice] = useState(
     searchParams.get("maxPrice") ||
-      Math.max(...products.map((product) => product.price)).toString()
+      Math.max(...products.map((product) => product.price))
   );
 
   function handleSetMinPrice() {
-    searchParams.set("minPrice", minPrice);
+    searchParams.set("minPrice", minPrice.toString());
     setSearchParams(searchParams);
   }
 
   function handleSetMaxPrice() {
-    searchParams.set("maxPrice", maxPrice);
+    searchParams.set("maxPrice", maxPrice.toString());
     setSearchParams(searchParams);
   }
 
