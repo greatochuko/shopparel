@@ -114,7 +114,7 @@ export default function SearchFilter({
           <CategoryFilter key={category.title} category={category} />
         ))}
       </div>
-      <PriceFilter products={products} />
+      <PriceFilter />
       <ColorFilter products={products} />
       <SizeFilter products={products} />
       <div className="gap-2 p-3 mt-auto flex-center">

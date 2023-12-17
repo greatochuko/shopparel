@@ -1,20 +1,14 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { ProductType } from "./Product";
 
-export default function PriceFilter({ products }: { products: ProductType[] }) {
+export default function PriceFilter() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const productPriceArray = products.map((product) => product.price);
   const urlMaxPrice = searchParams.get("maxPrice");
 
   const [minPrice, setMinPrice] = useState(searchParams.get("minPrice") || 0);
   const [maxPrice, setMaxPrice] = useState(
-    urlMaxPrice
-      ? parseInt(urlMaxPrice)
-      : productPriceArray.length
-      ? Math.max(...productPriceArray)
-      : 1000
+    urlMaxPrice ? parseInt(urlMaxPrice) : 1000
   );
 
   function handleSetMinPrice() {
@@ -29,8 +23,8 @@ export default function PriceFilter({ products }: { products: ProductType[] }) {
 
   return (
     <div className="border-b">
-      <div className=" text-base font-semibold border-b p-2">Price</div>
-      <div className="py-6 px-3">
+      <div className="p-2 text-base font-semibold border-b ">Price</div>
+      <div className="px-3 py-6">
         <div className="w-[90%] mx-auto ">
           <input
             type="range"
@@ -41,14 +35,8 @@ export default function PriceFilter({ products }: { products: ProductType[] }) {
             }}
             onMouseUp={handleSetMinPrice}
             min={0}
-            max={
-              urlMaxPrice
-                ? parseInt(urlMaxPrice)
-                : productPriceArray.length
-                ? Math.max(...productPriceArray)
-                : 1000
-            }
-            className="w-full focus-visible:ring rounded-md p-1 focus-visible:ring-blue-400"
+            max={1000}
+            className="w-full p-1 rounded-md focus-visible:ring focus-visible:ring-blue-400"
           />
           <input
             type="range"
@@ -59,22 +47,16 @@ export default function PriceFilter({ products }: { products: ProductType[] }) {
             }}
             onMouseUp={handleSetMaxPrice}
             min={0}
-            max={
-              urlMaxPrice
-                ? parseInt(urlMaxPrice)
-                : productPriceArray.length
-                ? Math.max(...productPriceArray)
-                : 1000
-            }
-            className="w-full focus-visible:ring rounded-md p-1 focus-visible:ring-blue-400 "
+            max={1000}
+            className="w-full p-1 rounded-md focus-visible:ring focus-visible:ring-blue-400 "
           />
         </div>
         <div className="flex items-center w-full gap-4 p-2 overflow-hidden justify-evenly">
-          <p className="p-2 flex gap-1 items-center justify-center rounded-md border-2 w-20">
+          <p className="flex items-center justify-center w-20 gap-1 p-2 border-2 rounded-md">
             <span>$</span>
             {minPrice}
           </p>
-          <p className="p-2 flex gap-1 items-center justify-center rounded-md border-2 w-20">
+          <p className="flex items-center justify-center w-20 gap-1 p-2 border-2 rounded-md">
             <span>$</span>
             {maxPrice}
           </p>
