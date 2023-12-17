@@ -56,7 +56,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
         </div>
       </div>
       <div className="flex justify-between flex-1 gap-2 text-sm">
-        <div className="font-bold flex-1 min-w-[78px] lg:min-w-[100px] flex-center">
+        <div className="font-bold flex-1 min-w-[100px] flex-center">
           ${cartItem.price.toFixed(2)}
         </div>
         <div className="font-bold flex-1 min-w-[100px] flex-center">
@@ -152,7 +152,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
           </div>
         </div>
         <div
-          className={`font-bold flex-1 min-w-[78px] lg:min-w-[100px] uppercase flex-center ${
+          className={`font-bold flex-1 min-w-[100px] uppercase flex-center ${
             cartItem.shipping === 0 ? "font-normal text-zinc-500" : ""
           }`}
         >
@@ -160,10 +160,10 @@ export default function CartItem({ cartItem }: CartItemProps) {
             ? "Free"
             : "$" + cartItem.shipping.toFixed(2)}
         </div>
-        <div className="font-bold flex-1 min-w-[78px] lg:min-w-[100px] flex-center">
+        <div className="font-bold flex-1 min-w-[100px] hidden lg:flex-center">
           ${subTotal.toFixed(2)}
         </div>
-        <div className="font-bold flex-1 min-w-[78px] lg:min-w-[100px] flex-center">
+        <div className="font-bold flex-1 min-w-[100px] flex-center">
           <button
             onClick={handleRemoveItemFromCart}
             className="p-2 duration-300 rounded-md group active:scale-90 focus-visible:ring focus-visible:ring-red-300"

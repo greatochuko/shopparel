@@ -10,7 +10,7 @@ export default function MobileCartITem({
 }) {
   const { removeItemFromCart } = useCartContext();
   return (
-    <div className="flex flex-col justify-between gap-2 p-2 border rounded-md bg-zinc-100 sm:flex-row">
+    <div className="flex flex-col justify-between gap-2 p-2 border rounded-md text-zinc-700 bg-zinc-100 sm:flex-row">
       <div className="flex flex-1 gap-2">
         <img
           src={cartItem.imgUrl}
@@ -33,6 +33,12 @@ export default function MobileCartITem({
           <p className="text-sm">
             Size:{" "}
             <span className="font-semibold uppercase">{cartItem.size}</span>
+          </p>
+          <p className="text-sm">
+            Price:{" "}
+            <span className="font-semibold uppercase">
+              ${cartItem.price.toFixed(2)}
+            </span>
           </p>
         </div>
       </div>

@@ -46,21 +46,17 @@ export default function CartPage() {
                   <p className="pl-4">Product Information</p>
                 </div>
                 <div className="flex justify-between flex-1 gap-2 text-sm font-semibold">
-                  <div className="flex-1 min-w-[78px] lg:min-w-[100px] flex-center">
-                    Price
-                  </div>
+                  <div className="flex-1 min-w-[100px] flex-center">Price</div>
                   <div className="flex-1 min-w-[100px] flex-center">
                     Quantity
                   </div>
-                  <div className="flex-1 min-w-[78px] lg:min-w-[100px] flex-center">
+                  <div className="flex-1 min-w-[100px] flex-center">
                     Shipping
                   </div>
-                  <div className="flex-1 min-w-[78px] lg:min-w-[100px] flex-center">
+                  <div className="flex-1 hidden lg:flex-center min-w-[100px]">
                     SubTotal
                   </div>
-                  <div className="flex-1 min-w-[78px] lg:min-w-[100px] flex-center">
-                    Action
-                  </div>
+                  <div className="flex-1 min-w-[100px] flex-center">Action</div>
                 </div>
               </div>
             </div>
