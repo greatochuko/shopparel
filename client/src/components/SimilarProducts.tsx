@@ -1,10 +1,31 @@
-import { useState } from "react";
-import { products } from "../pages/SearchPage";
+import { useEffect, useState } from "react";
 import SectionHeader from "./SectionHeader";
-import Product from "./Product";
+import Product, { ProductType } from "./Product";
+import { fetchSimilarProducts } from "../services/productServices";
+import ProductWireframe from "./ProductWireframe";
 
-export default function SimilarProducts() {
+export default function SimilarProducts({
+  productCategories,
+  productId,
+}: {
+  productCategories: string[];
+  productId: string;
+}) {
+  const [products, setProducts] = useState<ProductType[]>([]);
   const [carouselPos, setCarouselPos] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function getProduct() {
+      setLoading(true);
+      const data = await fetchSimilarProducts(productCategories, productId);
+
+      if (data.error) return setLoading(false);
+      setProducts(data);
+      setLoading(false);
+    }
+    getProduct();
+  }, [productCategories, productId]);
 
   function scrollLeft() {
     const carouselWidth =
@@ -88,9 +109,22 @@ export default function SimilarProducts() {
                 : -(carouselPos * 150 + carouselPos * 16),
           }}
         >
-          {products.map((product) => (
-            <Product key={product.name} product={product} />
-          ))}
+          {loading ? (
+            <>
+              <ProductWireframe />
+              <ProductWireframe />
+              <ProductWireframe />
+              <ProductWireframe />
+              <ProductWireframe />
+              <ProductWireframe />
+              <ProductWireframe />
+              <ProductWireframe />
+            </>
+          ) : (
+            products.map((product) => (
+              <Product key={product.name} product={product} />
+            ))
+          )}
         </div>
       </div>
     </section>

@@ -3,6 +3,7 @@ import {
   createProduct,
   getAllProduct,
   getProduct,
+  getSimilarProducts,
   populate,
   searchProducts,
 } from "../controllers/productControllers.js";
@@ -14,5 +15,6 @@ productRouter.get("/product/:productId", getProduct);
 productRouter.get("/products/search", searchProducts);
 productRouter.post("/products", createProduct);
 productRouter.post("/products/populate", populate);
+productRouter.get("/products/similar", getSimilarProducts);
 
 export default productRouter;

@@ -29,3 +29,18 @@ export async function fetchSearchProducts(query: string) {
     return { error: (error as Error).message };
   }
 }
+
+export async function fetchSimilarProducts(
+  categories: string[],
+  productId: string
+) {
+  try {
+    const res = await fetch(
+      `${BASE_URL}/products/similar?categories=${categories}&productId=${productId}`
+    );
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}
