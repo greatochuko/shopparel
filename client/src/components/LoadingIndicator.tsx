@@ -1,4 +1,8 @@
-export default function LoadingIndicator() {
+export default function LoadingIndicator({
+  className,
+}: {
+  className?: string;
+}) {
   return (
     <svg
       height={20}
@@ -16,7 +20,12 @@ export default function LoadingIndicator() {
       ></g>
       <g id="SVGRepo_iconCarrier">
         {" "}
-        <g fill="#fff" fillRule="evenodd" clipRule="evenodd">
+        <g
+          fill="#fff"
+          fillRule="evenodd"
+          clipRule="evenodd"
+          className={className}
+        >
           {" "}
           <path
             d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8z"

@@ -5,6 +5,7 @@ import useCartContext from "../hooks/useCartContext";
 import useUserContext from "../hooks/useUserContext";
 import LoadingIndicator from "./LoadingIndicator";
 import QuantityController from "./QuantityController";
+import useWishlistContext from "../hooks/useWishlistContext";
 
 export default function ProductConfiguration({
   product,
@@ -12,15 +13,22 @@ export default function ProductConfiguration({
   product: ProductType;
 }) {
   const { cartItems, addItemToCart } = useCartContext();
+  const { wishlist, addProductToWishlist, removeProductFromWishlist } =
+    useWishlistContext();
   const { user } = useUserContext();
   const [currentSize, setCurrentSize] = useState(product.sizes[0]);
   const [currentColor, setCurrentColor] = useState(product.colors[0]);
   const [loading, setLoading] = useState(false);
+  const [wishlistLoading, setWishlistLoading] = useState(false);
+
   const productInCart = cartItems.find(
     (cartItem) =>
       cartItem.productId === product._id &&
       cartItem.size === currentSize &&
       cartItem.color === currentColor
+  );
+  const productInWishlist = wishlist.find(
+    (cartItem) => cartItem.productId === product._id
   );
 
   function handleAddItemToCart() {
@@ -41,6 +49,27 @@ export default function ProductConfiguration({
       ...newItem,
     });
     setLoading(false);
+  }
+
+  function toggleAddItemToWishlist() {
+    setWishlistLoading(true);
+
+    if (productInWishlist) {
+      removeProductFromWishlist(productInWishlist._id);
+    } else {
+      addProductToWishlist({
+        _id: product._id,
+        productId: product._id,
+        name: product.name,
+        imgUrl: product.imgUrl,
+        colors: product.colors,
+        sizes: product.sizes,
+        price: product.price,
+        shipping: 19.99,
+        quantity: 1,
+      });
+    }
+    setWishlistLoading(false);
   }
 
   return (
@@ -125,32 +154,75 @@ export default function ProductConfiguration({
         {productInCart ? (
           <QuantityController product={productInCart} />
         ) : (
-          <button
-            onClick={handleAddItemToCart}
-            className="self-stretch w-full gap-2 p-3 text-sm text-white duration-300 rounded-md flex-center sm:px-6 focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 bg-accent-blue-100 hover:bg-accent-blue-200 active:scale-95"
-          >
-            {loading ? (
-              <LoadingIndicator />
-            ) : (
-              <>
-                <svg
-                  width={20}
-                  height={20}
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M2.5 3.33334H3.00526C3.85578 3.33334 4.56986 3.97376 4.6621 4.81926L5.3379 11.0141C5.43014 11.8596 6.14422 12.5 6.99474 12.5H14.205C14.9669 12.5 15.6317 11.9834 15.82 11.2452L16.9699 6.73593C17.2387 5.68213 16.4425 4.65742 15.355 4.65742H5.5M5.52063 15.5208H6.14563M5.52063 16.1458H6.14563M14.6873 15.5208H15.3123M14.6873 16.1458H15.3123M6.66667 15.8333C6.66667 16.2936 6.29357 16.6667 5.83333 16.6667C5.3731 16.6667 5 16.2936 5 15.8333C5 15.3731 5.3731 15 5.83333 15C6.29357 15 6.66667 15.3731 6.66667 15.8333ZM15.8333 15.8333C15.8333 16.2936 15.4602 16.6667 15 16.6667C14.5398 16.6667 14.1667 16.2936 14.1667 15.8333C14.1667 15.3731 14.5398 15 15 15C15.4602 15 15.8333 15.3731 15.8333 15.8333Z"
-                    stroke="#fff"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-                Add To Cart
-              </>
-            )}
-          </button>
+          <div className="flex flex-col md:flex-row w-full gap-4">
+            <button
+              onClick={handleAddItemToCart}
+              className="self-stretch font-semibold flex-1 w-full gap-2 p-3 text-sm text-white duration-300 rounded-md flex-center focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 bg-accent-blue-100 hover:bg-accent-blue-200 active:scale-95"
+            >
+              {loading ? (
+                <LoadingIndicator />
+              ) : (
+                <>
+                  <svg
+                    width={20}
+                    height={20}
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M2.5 3.33334H3.00526C3.85578 3.33334 4.56986 3.97376 4.6621 4.81926L5.3379 11.0141C5.43014 11.8596 6.14422 12.5 6.99474 12.5H14.205C14.9669 12.5 15.6317 11.9834 15.82 11.2452L16.9699 6.73593C17.2387 5.68213 16.4425 4.65742 15.355 4.65742H5.5M5.52063 15.5208H6.14563M5.52063 16.1458H6.14563M14.6873 15.5208H15.3123M14.6873 16.1458H15.3123M6.66667 15.8333C6.66667 16.2936 6.29357 16.6667 5.83333 16.6667C5.3731 16.6667 5 16.2936 5 15.8333C5 15.3731 5.3731 15 5.83333 15C6.29357 15 6.66667 15.3731 6.66667 15.8333ZM15.8333 15.8333C15.8333 16.2936 15.4602 16.6667 15 16.6667C14.5398 16.6667 14.1667 16.2936 14.1667 15.8333C14.1667 15.3731 14.5398 15 15 15C15.4602 15 15.8333 15.3731 15.8333 15.8333Z"
+                      stroke="#fff"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  Add To Cart
+                </>
+              )}
+            </button>
+            <button
+              onClick={toggleAddItemToWishlist}
+              className="self-stretch flex-1 w-full whitespace-nowrap gap-2 p-3 font-semibold text-sm text-accent-blue-100 duration-300 rounded-md flex-center focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 border-2 border-accent-blue-100 hover:shadow-md hover:shadow-blue-300 active:scale-95"
+            >
+              {wishlistLoading ? (
+                <LoadingIndicator className="fill-accent-blue-100" />
+              ) : (
+                <>
+                  <svg
+                    width={20}
+                    height={20}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                    <g
+                      id="SVGRepo_tracerCarrier"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></g>
+                    <g id="SVGRepo_iconCarrier">
+                      {" "}
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
+                        stroke="#000000"
+                        className={`stroke-accent-blue-100 ${
+                          productInWishlist ? "fill-accent-blue-100" : ""
+                        }`}
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>{" "}
+                    </g>
+                  </svg>
+                  {productInWishlist ? "Added To Wishlist" : "Add To Wishlist"}
+                </>
+              )}
+            </button>
+          </div>
         )}
       </div>
     </div>
