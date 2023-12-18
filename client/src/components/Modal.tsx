@@ -23,6 +23,7 @@ type ModalProps = {
   setShippingInformations?: React.Dispatch<
     React.SetStateAction<ShippingInformationType[]>
   >;
+  productId?: string;
 };
 
 export default function Modal({
@@ -30,6 +31,7 @@ export default function Modal({
   shippingInfo,
   closeModal,
   setShippingInformations,
+  productId,
 }: ModalProps) {
   return (
     <div
@@ -67,7 +69,9 @@ export default function Modal({
           />
         ) : null}
         {type === "signout" ? <SignoutModal closeModal={closeModal} /> : null}
-        {type === "review" ? <ReviewForm closeModal={closeModal} /> : null}
+        {type === "review" ? (
+          <ReviewForm closeModal={closeModal} productId={productId as string} />
+        ) : null}
       </div>
     </div>
   );

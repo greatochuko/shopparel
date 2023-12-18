@@ -11,6 +11,7 @@ import productRouter from "./routes/productRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import wishlistRouter from "./routes/wishlistRoutes.js";
 import shippingInfoRouter from "./routes/ShippingInformationRoutes.js";
+import reviewRouter from "./routes/reviewRoutes.js";
 
 dotenv.config();
 
@@ -52,6 +53,7 @@ app.use(express.json());
 app.use("/api", authRouter);
 app.use("/api", productRouter);
 app.use("/api", orderRouter);
+app.use("/api", reviewRouter);
 app.use("/api/user", userRouter);
 app.use("/api/wishlist", wishlistRouter);
 app.use("/api/cart", cartRouter);

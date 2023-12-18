@@ -12,6 +12,7 @@ export default function OrderDetailPage() {
   const [loading, setLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalType, setModalType] = useState("");
+  const [currProductId, setCurrProductId] = useState("");
 
   useEffect(() => {
     async function getOrder() {
@@ -30,7 +31,8 @@ export default function OrderDetailPage() {
     setLoading(false);
   }
 
-  function openReviewModal() {
+  function openReviewModal(productId: string) {
+    setCurrProductId(productId);
     setModalIsOpen(true);
     setModalType("review");
   }
@@ -179,7 +181,7 @@ export default function OrderDetailPage() {
                   </p>
                 </div>
                 <button
-                  onClick={openReviewModal}
+                  onClick={() => openReviewModal(cartItem.productId)}
                   className="w-full p-2 text-white duration-300 rounded-md bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring focus-visible:ring-blue-400 flex-center"
                 >
                   {loading ? <LoadingIndicator /> : "Write a Review"}
@@ -197,7 +199,13 @@ export default function OrderDetailPage() {
           </button>
         ) : null}
       </section>
-      {modalIsOpen && <Modal type={modalType} closeModal={closeModal} />}
+      {modalIsOpen && (
+        <Modal
+          type={modalType}
+          closeModal={closeModal}
+          productId={currProductId}
+        />
+      )}
     </>
   );
 }
