@@ -14,9 +14,9 @@ export default function ShippingInformationForm({
 }: {
   closeModal: () => void;
   type?: string;
-  shippingInformation?: ShippingInformationType | null;
-  setShippingInformations: React.Dispatch<
-    React.SetStateAction<ShippingInformationType[] | null>
+  shippingInformation?: ShippingInformationType;
+  setShippingInformations?: React.Dispatch<
+    React.SetStateAction<ShippingInformationType[]>
   >;
 }) {
   const { user } = useUserContext();
@@ -56,12 +56,13 @@ export default function ShippingInformationForm({
       phone,
     });
     if (data.error) return;
-    setShippingInformations((curr) =>
-      [...(curr as ShippingInformationType[]), data].sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      )
-    );
+    setShippingInformations &&
+      setShippingInformations((curr) =>
+        [...(curr as ShippingInformationType[]), data].sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        )
+      );
     closeModal();
   }
   async function handleEditShippingInfo(e: React.FormEvent) {
@@ -83,11 +84,12 @@ export default function ShippingInformationForm({
     };
     const data = await fetchEditShippingInfo(editedShippingInfo);
     if (data.error) return;
-    setShippingInformations((curr) =>
-      (curr as ShippingInformationType[]).map((info) =>
-        info._id === shippingInformation?._id ? editedShippingInfo : info
-      )
-    );
+    setShippingInformations &&
+      setShippingInformations((curr) =>
+        (curr as ShippingInformationType[]).map((info) =>
+          info._id === shippingInformation?._id ? editedShippingInfo : info
+        )
+      );
     closeModal();
   }
   return (
@@ -180,8 +182,8 @@ export default function ShippingInformationForm({
             className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] focus-visible:ring ring-blue-400 rounded-md"
           />
         </div>
-        <div className="flex flex-col sm:flex-row gap-4 col-span-2">
-          <div className="flex flex-col gap-2 flex-1">
+        <div className="flex flex-col col-span-2 gap-4 sm:flex-row">
+          <div className="flex flex-col flex-1 gap-2">
             <label htmlFor="city" className="font-semibold">
               City*
             </label>
@@ -195,7 +197,7 @@ export default function ShippingInformationForm({
               className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] focus-visible:ring ring-blue-400 rounded-md"
             />
           </div>
-          <div className="flex flex-col gap-2 flex-1">
+          <div className="flex flex-col flex-1 gap-2">
             <label htmlFor="state" className="font-semibold">
               State*
             </label>
@@ -209,7 +211,7 @@ export default function ShippingInformationForm({
               className="bg-zinc-100 w-full p-3 sm:scroll-mt-[80px] focus-visible:ring ring-blue-400 rounded-md"
             />
           </div>
-          <div className="flex flex-col gap-2 flex-1">
+          <div className="flex flex-col flex-1 gap-2">
             <label htmlFor="postal-code" className="font-semibold">
               Postal Code*
             </label>
@@ -239,7 +241,7 @@ export default function ShippingInformationForm({
           />
         </div>
       </div>
-      <div className="bg-zinc-100 p-4 flex justify-end gap-4">
+      <div className="flex justify-end gap-4 p-4 bg-zinc-100">
         <button
           type="button"
           onClick={closeModal}
@@ -249,7 +251,7 @@ export default function ShippingInformationForm({
         </button>
         <button
           type="submit"
-          className="p-2 focus-visible:ring ring-green-800 px-4 rounded-md bg-green-600 hover:bg-green-700 active:bg-green-800 text-white duration-300"
+          className="p-2 px-4 text-white duration-300 bg-green-600 rounded-md focus-visible:ring ring-green-800 hover:bg-green-700 active:bg-green-800"
         >
           Submit
         </button>

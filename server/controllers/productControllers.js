@@ -73,6 +73,23 @@ export async function createProduct(req, res) {
   }
 }
 
+export async function getSimilarProducts(req, res) {
+  try {
+    const { categories, productId } = req.query;
+    const categoryList = categories.split(",");
+    const products = await Product.find();
+    const similarProducts = products.filter(
+      (product) =>
+        product.categories.some((category) =>
+          categoryList.includes(category)
+        ) && product._id.toString() !== productId
+    );
+    res.json(similarProducts);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 export async function populate(req, res) {
   const products = [
     {
@@ -248,21 +265,4 @@ export async function populate(req, res) {
     });
   });
   res.json("done");
-}
-
-export async function getSimilarProducts(req, res) {
-  try {
-    const { categories, productId } = req.query;
-    const categoryList = categories.split(",");
-    const products = await Product.find();
-    const similarProducts = products.filter(
-      (product) =>
-        product.categories.some((category) =>
-          categoryList.includes(category)
-        ) && product._id.toString() !== productId
-    );
-    res.json(similarProducts);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
 }

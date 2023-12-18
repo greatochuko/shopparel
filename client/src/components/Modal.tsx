@@ -5,6 +5,7 @@ import ChangeEmailForm from "./ChangeEmailForm";
 import ChangePasswordForm from "./ChangePasswordForm";
 import DeleteShippingInfoModal from "./DeleteShippingInfoModal";
 import SignoutModal from "./SignoutModal";
+import ReviewForm from "./ReviewForm";
 
 export type Value =
   | ({
@@ -18,9 +19,9 @@ export type Value =
 type ModalProps = {
   closeModal: () => void;
   type: string;
-  shippingInfo: ShippingInformationType | null;
-  setShippingInformations: React.Dispatch<
-    React.SetStateAction<ShippingInformationType[] | null>
+  shippingInfo?: ShippingInformationType;
+  setShippingInformations?: React.Dispatch<
+    React.SetStateAction<ShippingInformationType[]>
   >;
 };
 
@@ -33,7 +34,7 @@ export default function Modal({
   return (
     <div
       onClick={closeModal}
-      className="fixed z-50 bg-black/50 top-0 left-0 w-screen h-screen flex-center animate-fade-in"
+      className="fixed top-0 left-0 z-50 w-screen h-screen bg-black/50 flex-center animate-fade-in"
     >
       <div
         onClick={(e) => e.stopPropagation()}
@@ -66,6 +67,7 @@ export default function Modal({
           />
         ) : null}
         {type === "signout" ? <SignoutModal closeModal={closeModal} /> : null}
+        {type === "review" ? <ReviewForm closeModal={closeModal} /> : null}
       </div>
     </div>
   );

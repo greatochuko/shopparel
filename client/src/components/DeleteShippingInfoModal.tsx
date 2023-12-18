@@ -8,19 +8,20 @@ export default function DeleteShippingInfoModal({
 }: {
   closeModal: () => void;
   shippingInfo: ShippingInformationType;
-  setShippingInformations: React.Dispatch<
-    React.SetStateAction<ShippingInformationType[] | null>
+  setShippingInformations?: React.Dispatch<
+    React.SetStateAction<ShippingInformationType[]>
   >;
 }) {
   async function handleDeleteShippingInfo(e: React.FormEvent) {
     e.preventDefault();
     const data = await fetchDeleteShippingInfo(shippingInfo._id);
     if (data.error) return;
-    setShippingInformations((curr) =>
-      (curr as ShippingInformationType[]).filter(
-        (info) => info._id !== shippingInfo._id
-      )
-    );
+    setShippingInformations &&
+      setShippingInformations((curr) =>
+        (curr as ShippingInformationType[]).filter(
+          (info) => info._id !== shippingInfo._id
+        )
+      );
     closeModal();
   }
   return (
@@ -29,7 +30,7 @@ export default function DeleteShippingInfoModal({
         <h3 className="text-lg font-semibold">Delete Shipping Information</h3>
         <p>Are you sure you want to delete your shipping info?</p>
       </div>
-      <div className="bg-zinc-100 p-4 flex justify-end gap-4">
+      <div className="flex justify-end gap-4 p-4 bg-zinc-100">
         <button
           onClick={closeModal}
           className="p-2 border border-zinc-300 hover:border-zinc-400 focus-visible:ring ring-blue-400 px-4 rounded-md bg-zinc-200 hover:bg-zinc-300 active:bg-[#ccc] duration-300"
@@ -38,7 +39,7 @@ export default function DeleteShippingInfoModal({
         </button>
         <button
           onClick={handleDeleteShippingInfo}
-          className="p-2 focus-visible:ring ring-red-800 px-4 rounded-md bg-red-600 hover:bg-red-700 active:bg-red-800 text-white duration-300"
+          className="p-2 px-4 text-white duration-300 bg-red-600 rounded-md focus-visible:ring ring-red-800 hover:bg-red-700 active:bg-red-800"
         >
           Submit
         </button>
