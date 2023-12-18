@@ -34,7 +34,6 @@ export default function ReviewForm({
       reviewText,
       review?.user as string
     );
-    console.log(data);
 
     if (data.error) return setLoading(false);
     closeModal();

@@ -219,11 +219,7 @@ export default function ProfilePageLayout() {
         ) : null}
       </main>
       {modalIsOpen ? (
-        <Modal
-          type="signout"
-          closeModal={closeSignoutModal}
-          shippingInfo={null}
-        />
+        <Modal type="signout" closeModal={closeSignoutModal} />
       ) : null}
     </>
   );
