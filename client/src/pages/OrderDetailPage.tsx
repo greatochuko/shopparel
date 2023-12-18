@@ -141,7 +141,7 @@ export default function OrderDetailPage() {
           {order?.products.map((cartItem) => (
             <div
               key={cartItem._id}
-              className="flex flex-col justify-between pb-4 border-b last:border-b-0 last:pb-0 sm:flex-row"
+              className="flex flex-col justify-between pb-4 gap-4 border-b last:border-b-0 last:pb-0 sm:flex-row"
             >
               <div className="flex gap-4">
                 <div className="min-w-[80px] w-20 h-20 bg-zinc-200 rounded-md">
@@ -155,7 +155,7 @@ export default function OrderDetailPage() {
                   <h3 className="font-semibold">{cartItem.name}</h3>
                   <p>
                     Color:{" "}
-                    <span className="font-semibold uppercase">
+                    <span className="font-semibold uppercase text-xs sm:text-sm">
                       {cartItem.color}
                     </span>
                   </p>
@@ -167,8 +167,8 @@ export default function OrderDetailPage() {
                   </p>
                 </div>
               </div>
-              <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-4 pb-4 mt-4 lg:gap-10 lg:text-base">
+              <div className="flex sm:flex-col gap-2 justify-between items-center">
+                <div className="flex items-center gap-4 lg:gap-10 lg:text-base">
                   <p className="whitespace-nowrap">
                     Qty:{" "}
                     <span className="font-semibold">{cartItem.quantity}</span>
@@ -180,12 +180,14 @@ export default function OrderDetailPage() {
                     </span>
                   </p>
                 </div>
-                <button
-                  onClick={() => openReviewModal(cartItem.productId)}
-                  className="w-full p-2 text-white duration-300 rounded-md bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring focus-visible:ring-blue-400 flex-center"
-                >
-                  {loading ? <LoadingIndicator /> : "Write a Review"}
-                </button>
+                {order.status === "completed" && (
+                  <button
+                    onClick={() => openReviewModal(cartItem.productId)}
+                    className="sm:w-full p-2 text-white duration-300 rounded-md bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring focus-visible:ring-blue-400 flex-center"
+                  >
+                    Write a Review
+                  </button>
+                )}
               </div>
             </div>
           ))}

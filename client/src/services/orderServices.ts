@@ -2,7 +2,7 @@ import { BASE_URL } from "./authServices";
 
 export async function fetchOrders() {
   try {
-    const res = await fetch(`${BASE_URL}/orders`);
+    const res = await fetch(`${BASE_URL}/orders`, { credentials: "include" });
     const data = await res.json();
     return data;
   } catch (error) {

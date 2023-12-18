@@ -3,6 +3,8 @@ import { Order } from "../models/Order.js";
 
 export async function getOrders(req, res) {
   try {
+    const { userId } = req.session;
+    if (!userId) throw new Error("User is not Authenticated");
     const orders = await Order.find();
     res.json(orders);
   } catch (error) {

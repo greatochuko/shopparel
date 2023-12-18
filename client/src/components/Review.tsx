@@ -3,6 +3,7 @@ import { UserType } from "../context/UserContext";
 import Rating from "./Rating";
 
 export type ReviewType = {
+  _id: string;
   user: UserType;
   rating: number;
   date: string;
@@ -11,6 +12,7 @@ export type ReviewType = {
 
 export default function Review({ review }: { review: ReviewType }) {
   const [isHelpful, setIsHelpful] = useState(false);
+
   return (
     <div className="flex gap-2">
       <img
@@ -33,7 +35,9 @@ export default function Review({ review }: { review: ReviewType }) {
           <button
             onClick={() => setIsHelpful((curr) => !curr)}
             className={`px-4 py-1.5 text-sm duration-200 border rounded-md w-fit hover:shadow-md border-zinc-300 ${
-              isHelpful ? "border-accent-blue-100/70" : ""
+              isHelpful
+                ? "border-accent-blue-100/70 bg-green-600 text-white border-green-600"
+                : ""
             }`}
           >
             Helpful

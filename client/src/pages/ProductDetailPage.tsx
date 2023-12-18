@@ -46,10 +46,7 @@ export default function ProductDetailPage() {
               exercitationem.
             </p>
           </section>
-          <SimilarProducts
-            productCategories={product?.categories as string[]}
-            productId={product?._id as string}
-          />
+
           <section className="max-w-3xl">
             <SectionHeader title="User Reviews" />
             <div
@@ -58,13 +55,17 @@ export default function ProductDetailPage() {
             >
               {product?.reviews.length ? (
                 product?.reviews.map((review) => (
-                  <Review key={review.user._id} review={review} />
+                  <Review key={review._id} review={review} />
                 ))
               ) : (
                 <p className="h-20 flex-center">No reviews for this product</p>
               )}
             </div>
           </section>
+          <SimilarProducts
+            productCategories={product?.categories as string[]}
+            productId={product?._id as string}
+          />
         </>
       )}
     </main>
