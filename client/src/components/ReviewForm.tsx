@@ -1,22 +1,39 @@
 import { useState } from "react";
-import { createReview } from "../services/reviewServices";
+import { createReview, editReview } from "../services/reviewServices";
 import LoadingIndicator from "./LoadingIndicator";
+import { ReviewType } from "./Review";
 
 export default function ReviewForm({
   closeModal,
   productId,
+  review,
 }: {
   closeModal: () => void;
   productId: string;
+  review?: ReviewType;
 }) {
-  const [rating, setRating] = useState(4);
-  const [review, setReview] = useState("");
+  const [rating, setRating] = useState(review?.rating || 4);
+  const [reviewText, setReview] = useState(review?.review || "");
   const [loading, setLoading] = useState(false);
 
   async function handlePostReview(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    const data = await createReview(productId, rating, review);
+    const data = await createReview(productId, rating, reviewText);
+    if (data.error) return setLoading(false);
+    closeModal();
+    setLoading(false);
+  }
+
+  async function handleEditReview(e: React.FormEvent) {
+    e.preventDefault();
+    setLoading(true);
+    const data = await editReview(
+      review?._id as string,
+      rating,
+      reviewText,
+      review?.user as string
+    );
     console.log(data);
 
     if (data.error) return setLoading(false);
@@ -27,7 +44,7 @@ export default function ReviewForm({
   return (
     <form
       className="p-4 w-[90vw] max-w-[100%] flex flex-col gap-4 text-zinc-700"
-      onSubmit={handlePostReview}
+      onSubmit={review ? handleEditReview : handlePostReview}
     >
       <label htmlFor="rating">Rating</label>
       <div className="flex gap-4 ">
@@ -47,7 +64,7 @@ export default function ReviewForm({
       <textarea
         name="review"
         id="review"
-        value={review}
+        value={reviewText}
         onChange={(e) => setReview(e.target.value)}
         placeholder="Write a review"
         className="w-full p-2 border aspect-[2]"
@@ -63,7 +80,7 @@ export default function ReviewForm({
         </button>
         <button
           type="submit"
-          className="w-full p-2 px-4 font-semibold text-white duration-300 rounded-md bg-accent-blue-100 sm:w-40 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring focus-visible:ring-blue-400"
+          className="w-full p-2 px-4 font-semibold text-white duration-300 rounded-md bg-accent-blue-100 sm:w-40 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring focus-visible:ring-blue-400 flex-center"
         >
           {loading ? <LoadingIndicator /> : "Submit"}
         </button>

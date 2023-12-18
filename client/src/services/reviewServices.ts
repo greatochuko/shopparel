@@ -18,3 +18,23 @@ export async function createReview(
     return { error: (error as Error).message };
   }
 }
+
+export async function editReview(
+  reviewId: string,
+  rating: number,
+  review: string,
+  reviewUserId: string
+) {
+  try {
+    const res = await fetch(`${BASE_URL}/review/${reviewId}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ reviewUserId, rating, review }),
+      credentials: "include",
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}

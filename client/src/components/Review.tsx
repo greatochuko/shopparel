@@ -4,7 +4,7 @@ import Rating from "./Rating";
 
 export type ReviewType = {
   _id: string;
-  user: UserType;
+  user: UserType | string;
   rating: number;
   date: string;
   review: string;
@@ -16,7 +16,7 @@ export default function Review({ review }: { review: ReviewType }) {
   return (
     <div className="flex gap-2">
       <img
-        src={review.user.imgUrl}
+        src={(review.user as UserType).imgUrl}
         alt=""
         className="object-cover w-10 h-10 rounded-full"
       />
@@ -24,7 +24,8 @@ export default function Review({ review }: { review: ReviewType }) {
         <div className="flex gap-4">
           <div className="flex flex-col text-sm">
             <h3 className="font-semibold uppercase">
-              {review.user.firstName} {review.user.lastName}
+              {(review.user as UserType).firstName}{" "}
+              {(review.user as UserType).lastName}
             </h3>
             <p>{review.date}</p>
           </div>

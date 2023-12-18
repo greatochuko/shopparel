@@ -6,6 +6,7 @@ import ChangePasswordForm from "./ChangePasswordForm";
 import DeleteShippingInfoModal from "./DeleteShippingInfoModal";
 import SignoutModal from "./SignoutModal";
 import ReviewForm from "./ReviewForm";
+import { ReviewType } from "./Review";
 
 export type Value =
   | ({
@@ -24,6 +25,7 @@ type ModalProps = {
     React.SetStateAction<ShippingInformationType[]>
   >;
   productId?: string;
+  review?: ReviewType;
 };
 
 export default function Modal({
@@ -32,6 +34,7 @@ export default function Modal({
   closeModal,
   setShippingInformations,
   productId,
+  review,
 }: ModalProps) {
   return (
     <div
@@ -70,7 +73,11 @@ export default function Modal({
         ) : null}
         {type === "signout" ? <SignoutModal closeModal={closeModal} /> : null}
         {type === "review" ? (
-          <ReviewForm closeModal={closeModal} productId={productId as string} />
+          <ReviewForm
+            closeModal={closeModal}
+            productId={productId as string}
+            review={review}
+          />
         ) : null}
       </div>
     </div>

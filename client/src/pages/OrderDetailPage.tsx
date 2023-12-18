@@ -4,15 +4,19 @@ import { OrderType } from "../components/Order";
 import { cancelOrder, fetchOrder } from "../services/orderServices";
 import LoadingIndicator from "../components/LoadingIndicator";
 import Modal from "../components/Modal";
+import useUserContext from "../hooks/useUserContext";
+import { ReviewType } from "../components/Review";
 
 export default function OrderDetailPage() {
   const navigate = useNavigate();
+  const { user } = useUserContext();
   const { orderId } = useParams();
   const [order, setOrder] = useState<OrderType | null>(null);
   const [loading, setLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [modalType, setModalType] = useState("");
   const [currProductId, setCurrProductId] = useState("");
+  const [currReview, setCurrReview] = useState<ReviewType | null>(null);
 
   useEffect(() => {
     async function getOrder() {
@@ -31,16 +35,21 @@ export default function OrderDetailPage() {
     setLoading(false);
   }
 
-  function openReviewModal(productId: string) {
+  function openReviewModal(productId: string, review: ReviewType | null) {
+    setCurrReview(review);
     setCurrProductId(productId);
     setModalIsOpen(true);
     setModalType("review");
   }
 
   function closeModal() {
+    setCurrReview(null);
+    setCurrProductId("");
     setModalIsOpen(false);
     setModalType("");
   }
+
+  console.log(order);
 
   return (
     <>
@@ -182,10 +191,21 @@ export default function OrderDetailPage() {
                 </div>
                 {order.status === "completed" && (
                   <button
-                    onClick={() => openReviewModal(cartItem.productId)}
+                    onClick={() =>
+                      openReviewModal(
+                        cartItem.product?._id as string,
+                        cartItem.product?.reviews.find(
+                          (review) => review.user === user?._id
+                        ) || null
+                      )
+                    }
                     className="sm:w-full p-2 text-white duration-300 rounded-md bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring focus-visible:ring-blue-400 flex-center"
                   >
-                    Write a Review
+                    {cartItem.product?.reviews.find(
+                      (review) => review.user === user?._id
+                    )
+                      ? "Edit your review"
+                      : "Write a Review"}
                   </button>
                 )}
               </div>
@@ -206,6 +226,7 @@ export default function OrderDetailPage() {
           type={modalType}
           closeModal={closeModal}
           productId={currProductId}
+          review={currReview as ReviewType}
         />
       )}
     </>

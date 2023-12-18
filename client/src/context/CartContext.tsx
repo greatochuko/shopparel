@@ -7,11 +7,13 @@ import {
   fetchRemoveFromCart,
 } from "../services/cartServices";
 import useUserContext from "../hooks/useUserContext";
+import { ProductType } from "../components/Product";
 
 export type CartItemType = {
   _id: string;
   userId: string;
   productId: string;
+  product?: ProductType;
   name: string;
   imgUrl: string;
   color: string;

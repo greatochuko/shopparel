@@ -9,13 +9,15 @@ export async function getReviews(req, res) {
     });
     res.json(reviews);
   } catch (error) {
-    res.status(403).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 }
 
 export async function createReview(req, res) {
   try {
     const { userId } = req.session;
+    if (!userId)
+      return res.status(401).json({ error: "User is unauthenticated" });
     const { productId, rating, review } = req.body;
     const newReview = await Review.create({
       user: userId,
@@ -28,6 +30,30 @@ export async function createReview(req, res) {
     });
     res.json(newReview);
   } catch (error) {
-    res.status(403).json({ error: error.message });
+    res.status(400).json({ error: error.message });
+  }
+}
+
+export async function editReview(req, res) {
+  try {
+    const { userId } = req.session;
+    if (!userId)
+      return res.status(401).json({ error: "User is unauthenticated" });
+    const { reviewId } = req.params;
+    const { rating, review, reviewUserId } = req.body;
+    if (userId.toString() !== reviewUserId)
+      return res.status(401).json({ error: "User is unauthorized" });
+
+    const updatedReview = await Review.findByIdAndUpdate(
+      reviewId,
+      {
+        rating,
+        review,
+      },
+      { new: true }
+    );
+    res.json(updatedReview);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 }

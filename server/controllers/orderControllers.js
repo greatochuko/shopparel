@@ -41,7 +41,10 @@ export async function createOrder(req, res) {
 export async function getOrder(req, res) {
   try {
     const { orderId } = req.params;
-    const order = await Order.findById(orderId).populate("products");
+    const order = await Order.findById(orderId).populate({
+      path: "products",
+      populate: { path: "product", populate: { path: "reviews" } },
+    });
     res.json(order);
   } catch (error) {
     res.status(401).json({ error: error.message });
