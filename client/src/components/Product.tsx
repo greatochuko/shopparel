@@ -112,7 +112,7 @@ export default function Product({ product }: { product: ProductType }) {
           </Link>
           <Link
             to={`/brands/${product.brand}`}
-            className="text-sm hover:underline focus-visible:underline"
+            className="text-xs sm:text-sm hover:underline focus-visible:underline"
           >
             {product.brand}
           </Link>

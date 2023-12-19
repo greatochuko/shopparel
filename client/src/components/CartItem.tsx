@@ -40,7 +40,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
           <Link
             tabIndex={0}
             to={`/product/${
-              cartItem.productId + "-" + cartItem.name.split(" ").join("-")
+              cartItem.product + "-" + cartItem.name.split(" ").join("-")
             }`}
             className="font-semibold duration-200 rounded-md hover:text-accent-blue-100 focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-blue-400 focus-visible:text-accent-blue-100"
           >

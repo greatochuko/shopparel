@@ -12,8 +12,7 @@ import { ProductType } from "../components/Product";
 export type CartItemType = {
   _id: string;
   userId: string;
-  productId: string;
-  product?: ProductType;
+  product?: ProductType | string;
   name: string;
   imgUrl: string;
   color: string;

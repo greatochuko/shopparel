@@ -15,12 +15,12 @@ export async function addProduct(req, res) {
   try {
     const { userId } = req.session;
     if (!userId) throw new Error("User is unauthenticated");
-    const { product, name, imgUrl, color, size, price, shipping, quantity } =
+    const { productId, name, imgUrl, color, size, price, shipping, quantity } =
       req.body;
 
     const newCartItem = await Cart.create({
       userId,
-      product,
+      product: productId,
       name,
       imgUrl,
       color,
