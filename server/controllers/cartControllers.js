@@ -94,7 +94,7 @@ export async function syncCart(req, res) {
     const cart = await Cart.find({ userId });
     cartItems.forEach(async (cartItem) => {
       const productInCart = cart.find(
-        (item) => item.productId.toString() === cartItem.productId
+        (item) => item.product.toString() === cartItem.productId
       );
       if (productInCart) {
         productInCart.quantity += cartItem.quantity;
@@ -112,7 +112,7 @@ export async function syncCart(req, res) {
         } = cartItem;
         await Cart.create({
           userId,
-          productId,
+          product: productId,
           name,
           imgUrl,
           color,
