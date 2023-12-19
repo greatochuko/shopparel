@@ -10,6 +10,16 @@ export async function fetchProducts() {
   }
 }
 
+export async function fetchBrandProducts(brand: string) {
+  try {
+    const res = await fetch(`${BASE_URL}/products/brand/${brand}`);
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}
+
 export async function fetchProduct(productId: string) {
   try {
     const res = await fetch(`${BASE_URL}/product/${productId}`);

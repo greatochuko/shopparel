@@ -9,6 +9,17 @@ export async function getAllProduct(req, res) {
   }
 }
 
+export async function getBrandProducts(req, res) {
+  try {
+    const { brand } = req.params;
+    console.log(brand);
+    const products = await Product.find({ brand });
+    res.json(products);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 export async function getProduct(req, res) {
   try {
     const { productId } = req.params;
