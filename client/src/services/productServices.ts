@@ -20,9 +20,11 @@ export async function fetchProduct(productId: string) {
   }
 }
 
-export async function fetchSearchProducts(query: string) {
+export async function fetchSearchProducts(query: string, page: string) {
   try {
-    const res = await fetch(`${BASE_URL}/products/search?query=${query}`);
+    const res = await fetch(
+      `${BASE_URL}/products/search?query=${query}&page=${page}`
+    );
     const data = await res.json();
     return data;
   } catch (error) {

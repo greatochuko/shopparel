@@ -18,21 +18,27 @@ export async function getProduct(req, res) {
     });
     res.json(product);
   } catch (error) {
-    console.log(error.message);
     res.status(400).json({ error: error.message });
   }
 }
 
 export async function searchProducts(req, res) {
   try {
-    const { query } = req.query;
+    const { query, page } = req.query;
     const products = await Product.find().select(
       "name imgUrl brand price gender colors sizes categories"
     );
     const searchedProducts = products.filter((product) =>
       product.name.toLowerCase().includes(query.toLowerCase())
     );
-    res.json(searchedProducts);
+    const paginatedSearchedProducts = searchedProducts.slice(
+      16 * (page - 1 || 0),
+      16 * (page | 1)
+    );
+    res.json({
+      products: paginatedSearchedProducts,
+      totalProducts: searchedProducts.length,
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

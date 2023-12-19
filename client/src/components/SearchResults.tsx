@@ -1,13 +1,15 @@
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Product, { ProductType } from "./Product";
 import ProductWireframe from "./ProductWireframe";
 
 export default function SearchResults({
   products,
   loading,
+  totalPages,
 }: {
   products: ProductType[];
   loading: boolean;
+  totalPages: number;
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortBy = searchParams.get("sortBy");
@@ -85,6 +87,19 @@ export default function SearchResults({
           ))
         )}
       </div>
+      <ul className="flex gap-2 mt-10 flex-center">
+        <p>Page:</p>
+        {new Array(totalPages).fill("a").map((_, i) => (
+          <li role="button" key={i}>
+            <Link
+              to={`/search?q=${query}&page=${i + 1}`}
+              className="bg-zinc-100 border hover:shadow active:scale-90 duration-300 w-8 h-8 rounded-md flex-center"
+            >
+              {i + 1}
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

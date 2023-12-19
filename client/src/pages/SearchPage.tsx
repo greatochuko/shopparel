@@ -10,23 +10,30 @@ export default function SearchPage() {
   const [loading, setLoading] = useState(false);
   const [searchParams] = useSearchParams();
   const query = searchParams.get("q");
+  const page = searchParams.get("page");
+  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     async function searchProducts() {
       setLoading(true);
-      const data = await fetchSearchProducts(query as string);
-
+      window.scrollTo(0, 0);
+      const data = await fetchSearchProducts(query as string, page as string);
       if (data.error) return setLoading(false);
-      setProducts(data);
+      setProducts(data.products);
+      setTotalPages(Math.ceil(data.totalProducts / 16));
       setLoading(false);
     }
     searchProducts();
-  }, [query]);
+  }, [query, page]);
 
   return (
     <main className="pt-[102px] h-fit max-w-7xl w-[90%] mx-auto flex flex-col md:flex-row gap-8 mb-8 text-zinc-500">
       <SearchFilter products={products} />
-      <SearchResults products={products} loading={loading} />
+      <SearchResults
+        products={products}
+        loading={loading}
+        totalPages={totalPages}
+      />
     </main>
   );
 }
