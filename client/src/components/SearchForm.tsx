@@ -56,7 +56,7 @@ export default function SearchForm() {
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="flex-1 w-full py-2 text-sm duration-200 border-2 rounded-md bg-gray-50 focus-visible:border-zinc-300 px-7 text-zinc-700 border-zinc-100"
+        className="flex-1 w-full py-2 text-sm duration-200 border-2 rounded-md bg-zinc-50 focus-visible:border-zinc-300 px-7 text-zinc-700 border-zinc-100"
         placeholder="Search"
       />
       <button
