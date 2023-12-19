@@ -29,12 +29,13 @@ export async function searchProducts(req, res) {
       "name imgUrl brand price gender colors sizes categories"
     );
     const searchedProducts = products.filter((product) =>
-      product.name.toLowerCase().includes(query.toLowerCase())
+      product.name
+        .toLowerCase()
+        .includes(query !== "null" ? query.toLowerCase() : "")
     );
-    const paginatedSearchedProducts = searchedProducts.slice(
-      16 * (page - 1 || 0),
-      16 * (page | 1)
-    );
+    const start = page === "null" ? 0 : (parseInt(page) - 1) * 16;
+    const end = page === "null" ? 16 : parseInt(page) * 16;
+    const paginatedSearchedProducts = searchedProducts.slice(start, end);
     res.json({
       products: paginatedSearchedProducts,
       totalProducts: searchedProducts.length,

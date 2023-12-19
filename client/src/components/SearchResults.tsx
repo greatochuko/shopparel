@@ -17,6 +17,7 @@ export default function SearchResults({
   const colors = searchParams.get("colors")?.split(",");
   const categories = searchParams.get("categories")?.toLowerCase().split(",");
   const sizes = searchParams.get("sizes")?.toLowerCase().split(",");
+  const currentPage = searchParams.get("page");
 
   let filteredProducts = [...products];
 
@@ -93,7 +94,11 @@ export default function SearchResults({
           <li role="button" key={i}>
             <Link
               to={`/search?q=${query}&page=${i + 1}`}
-              className="bg-zinc-100 border hover:shadow active:scale-90 duration-300 w-8 h-8 rounded-md flex-center"
+              className={`border ${
+                (!currentPage && i === 0) || currentPage === (i + 1).toString()
+                  ? " bg-accent-blue-100 text-white"
+                  : " bg-zinc-100"
+              } hover:shadow active:scale-90 duration-300 w-8 h-8 rounded-md flex-center`}
             >
               {i + 1}
             </Link>
