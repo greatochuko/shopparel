@@ -31,6 +31,7 @@ export default function UserProvider({
       const localCart = JSON.parse(localStorageCart);
       const data = await fetchSyncCart(localCart);
       if (data.error) return;
+
       localStorage.removeItem("cart");
     }
     setUser(userData);

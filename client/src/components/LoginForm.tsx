@@ -48,7 +48,8 @@ export default function LoginForm() {
       setLoading(false);
       return;
     }
-    updateUser(data);
+    updateUser(data.user);
+    localStorage.setItem("token", data.token);
     setLoading(false);
   }
 
