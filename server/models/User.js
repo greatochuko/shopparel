@@ -8,6 +8,12 @@ const userSchema = new mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String },
     googleClientId: { type: String },
+    cart: { type: [mongoose.SchemaTypes.ObjectId], default: [], ref: "cart" },
+    wishlist: {
+      type: [mongoose.SchemaTypes.ObjectId],
+      default: [],
+      ref: "wishlist",
+    },
   },
   { timestamps: true }
 );

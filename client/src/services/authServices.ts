@@ -14,7 +14,6 @@ export async function signupUser(
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
     const data = await res.json();
     return data;
@@ -31,7 +30,6 @@ export async function loginUser(email: string, password: string) {
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
     });
     const data = await res.json();
     return data;
@@ -53,20 +51,6 @@ export async function loginUserWithGoogle(
       headers: {
         "Content-Type": "application/json",
       },
-      credentials: "include",
-    });
-    const data = await res.json();
-    return data;
-  } catch (error) {
-    return { error: (error as Error).message };
-  }
-}
-
-export async function logoutUser() {
-  try {
-    const res = await fetch(`${BASE_URL}/logout`, {
-      method: "POST",
-      credentials: "include",
     });
     const data = await res.json();
     return data;

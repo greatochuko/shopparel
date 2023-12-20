@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import useUserContext from "../hooks/useUserContext";
-import { logoutUser } from "../services/authServices";
 
 export default function SignoutModal({
   closeModal,
@@ -11,8 +10,6 @@ export default function SignoutModal({
   const navigate = useNavigate();
 
   async function handleSignout() {
-    const data = await logoutUser();
-    if (data.error) return;
     updateUser(null);
     localStorage.removeItem("token");
     navigate("/login");

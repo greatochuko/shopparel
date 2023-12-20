@@ -43,13 +43,16 @@ export default function WishlistProvider({
   const { user, updateUser } = useUserContext();
   const { setCartItems } = useCartContext();
 
-
   useEffect(() => {
     async function refreshUser() {
       // Fetch and set Initial User context
       const userData = await fetchUser();
+      console.clear();
+      console.log("something");
+
       if (!userData.error) {
-        updateUser(userData);
+        updateUser(null);
+        localStorage.removeItem("token");
       }
 
       // Fetch and set Initial Cart context
@@ -61,6 +64,7 @@ export default function WishlistProvider({
         setRefreshed(true);
         return;
       }
+
       const cartData = await fetchCart();
       if (cartData.error) return setRefreshed(true);
 

@@ -1,10 +1,19 @@
 import { Cart } from "../models/Cart.js";
+import jwt from "jsonwebtoken";
 
 export async function getCartItems(req, res) {
   try {
-    const { userId } = req.session;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ error: "Invalid Token" });
+
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {}
+
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
+
     const cartItems = await Cart.find({ userId, ordered: false });
     res.json(cartItems);
   } catch (error) {
@@ -14,7 +23,12 @@ export async function getCartItems(req, res) {
 
 export async function addProduct(req, res) {
   try {
-    const { userId } = req.session;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ error: "Invalid Token" });
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {}
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
     const { productId, name, imgUrl, color, size, price, shipping, quantity } =
@@ -39,7 +53,12 @@ export async function addProduct(req, res) {
 
 export async function increaseProductQuantity(req, res) {
   try {
-    const { userId } = req.session;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ error: "Invalid Token" });
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {}
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
     const { cartItemId } = req.params;
@@ -55,7 +74,12 @@ export async function increaseProductQuantity(req, res) {
 
 export async function decreaseProductQuantity(req, res) {
   try {
-    const { userId } = req.session;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ error: "Invalid Token" });
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {}
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
     const { cartItemId } = req.params;
@@ -71,7 +95,12 @@ export async function decreaseProductQuantity(req, res) {
 
 export async function removeProduct(req, res) {
   try {
-    const { userId } = req.session;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ error: "Invalid Token" });
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {}
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
     const { cartItemId } = req.params;
@@ -85,7 +114,12 @@ export async function removeProduct(req, res) {
 
 export async function clearCart(req, res) {
   try {
-    const { userId } = req.session;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ error: "Invalid Token" });
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {}
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
     await Cart.deleteMany({ userId });
@@ -97,7 +131,16 @@ export async function clearCart(req, res) {
 
 export async function syncCart(req, res) {
   try {
-    const { userId } = req.session;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ error: "Invalid Token" });
+
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {}
+
+    console.log(userId);
+
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
 

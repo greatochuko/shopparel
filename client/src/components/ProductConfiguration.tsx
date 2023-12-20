@@ -27,6 +27,9 @@ export default function ProductConfiguration({
       cartItem.size === currentSize &&
       cartItem.color === currentColor
   );
+
+  console.log(cartItems);
+
   const productInWishlist = wishlist.find(
     (cartItem) => cartItem.productId === product._id
   );
@@ -36,6 +39,7 @@ export default function ProductConfiguration({
       _id: crypto.randomUUID(),
       userId: user?._id || "123",
       productId: product._id,
+      product: product._id,
       name: product.name,
       imgUrl: product.imgUrl,
       color: currentColor,

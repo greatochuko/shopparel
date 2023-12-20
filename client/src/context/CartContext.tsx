@@ -56,7 +56,9 @@ export default function CartProvider({
       }
     } else {
       data = await fetchAddToCart(item);
-      if (data.error) return;
+      if (data.error) {
+        return;
+      }
     }
     setCartItems((curr) => [...curr, data || item]);
   }

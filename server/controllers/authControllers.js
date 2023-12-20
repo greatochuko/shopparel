@@ -29,9 +29,10 @@ export async function signup(req, res) {
       password: hashedPassword,
     });
 
-    req.session.userId = newUser._id;
-
-    res.status(201).json(newUser);
+    const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
+      expiresIn: "60s",
+    });
+    res.status(200).json({ newUser, token });
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
@@ -58,9 +59,8 @@ export async function login(req, res) {
     if (!passwordIsCorrect)
       throw new Error("Invalid username and password combination");
 
-    req.session.userId = user._id;
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "30s",
+      expiresIn: "60s",
     });
     res.status(200).json({ user, token });
   } catch (error) {
@@ -86,17 +86,12 @@ export async function loginWithGoogle(req, res) {
         googleClientId,
       });
 
-    req.session.userId = user._id;
-
-    res.json(user);
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "60s",
+    });
+    res.status(200).json({ user, token });
   } catch (error) {
     console.log(error.message);
     res.status(401).json({ error: error.message });
   }
-}
-
-export async function logout(req, res) {
-  // req.session.userId = null;
-  req.session.destroy();
-  res.json("Logout Successful!");
 }

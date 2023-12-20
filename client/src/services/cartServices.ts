@@ -3,7 +3,11 @@ import { BASE_URL } from "./authServices";
 
 export async function fetchCart() {
   try {
-    const res = await fetch(`${BASE_URL}/cart`, { credentials: "include" });
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${BASE_URL}/cart`, {
+      credentials: "include",
+      headers: { Authorization: `Bearer ${token}` },
+    });
     const data = await res.json();
     return data;
   } catch (error) {
@@ -13,9 +17,13 @@ export async function fetchCart() {
 
 export async function fetchAddToCart(cartItem: CartItemType) {
   try {
+    const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/cart`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       credentials: "include",
       body: JSON.stringify(cartItem),
     });
@@ -28,8 +36,10 @@ export async function fetchAddToCart(cartItem: CartItemType) {
 
 export async function fetchIncreaseQuantity(cartItemId: string) {
   try {
+    const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/cart/inc/${cartItemId}`, {
       method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     const data = await res.json();
@@ -42,8 +52,10 @@ export async function fetchIncreaseQuantity(cartItemId: string) {
 
 export async function fetchDecreaseQuantity(cartItemId: string) {
   try {
+    const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/cart/dec/${cartItemId}`, {
       method: "POST",
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     const data = await res.json();
@@ -56,8 +68,10 @@ export async function fetchDecreaseQuantity(cartItemId: string) {
 
 export async function fetchRemoveFromCart(cartItemId: string) {
   try {
+    const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/cart/${cartItemId}`, {
       method: "DELETE",
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     const data = await res.json();
@@ -70,9 +84,10 @@ export async function fetchRemoveFromCart(cartItemId: string) {
 
 export async function fetchClearCart() {
   try {
+    const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/cart/`, {
       method: "DELETE",
-      credentials: "include",
+      headers: { Authorization: `Bearer ${token}` },
     });
 
     const data = await res.json();
@@ -85,10 +100,13 @@ export async function fetchClearCart() {
 
 export async function fetchSyncCart(cartItems: CartItemType[]) {
   try {
+    const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/cart/sync`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(cartItems),
     });
     const data = await res.json();
