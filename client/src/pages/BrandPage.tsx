@@ -13,6 +13,8 @@ const brands = [
   { name: "Prada", url: "versace", imgUrl: "/versace.png" },
 ];
 
+// ["Gucci", "Luis Vuitton", "Chanel", "Nike", "Adidas", "Prada"];
+
 export default function BrandPage() {
   const { brandId } = useParams();
   const brand = brands.find((b) => b.url === brandId);
@@ -25,7 +27,7 @@ export default function BrandPage() {
     async function getProducts() {
       setError("");
       setLoading(true);
-      const data = await fetchBrandProducts(brand?.url as string);
+      const data = await fetchBrandProducts(brand?.name as string);
       if (data.error) {
         setError("There was an error fetching products");
         setLoading(false);
@@ -40,12 +42,12 @@ export default function BrandPage() {
       setLoading(false);
     }
     getProducts();
-  }, [brand?.url]);
+  }, [brand?.name]);
 
-  async function refreshProducts() {
+  async function refreshBrandProducts() {
     setError("");
     setLoading(true);
-    const data = await fetchBrandProducts(brand?.url as string);
+    const data = await fetchBrandProducts(brand?.name as string);
     if (data.error) {
       setError("There was an error fetching products");
       setLoading(true);
@@ -61,8 +63,8 @@ export default function BrandPage() {
   }
 
   return (
-    <main className="pt-[82px] h-fit max-w-7xl w-[90%] mx-auto flex flex-col md:flex-row gap-8 mb-8 text-zinc-700">
-      <div className="w-full aspect-[3] overflow-hidden rounded-lg bg-zinc-200 p-5">
+    <main className="pt-[82px] h-fit max-w-7xl w-[90%] mx-auto flex flex-col gap-8 mb-8 text-zinc-700">
+      <div className="w-full aspect-[3] overflow-hidden rounded-lg bg-zinc-200 p-5 lg:p-10">
         <img
           src={brand?.imgUrl}
           alt={brand?.name}
@@ -81,7 +83,7 @@ export default function BrandPage() {
           <p className="flex-col w-full col-span-4 flex-center h-60 text-sm sm:text-base">
             ❌{` ${error} `}❌
             <button
-              onClick={refreshProducts}
+              onClick={refreshBrandProducts}
               className="gap-2 px-3 py-1 mt-4 text-white duration-300 rounded-full bg-accent-blue-100 flex-center hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
             >
               <svg
