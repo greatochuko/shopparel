@@ -1,12 +1,21 @@
 import { User } from "../models/User.js";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
 export async function getUser(req, res) {
   try {
-    const { userId } = req.session;
-    if (!userId) throw new Error("User is not Authenticated");
-    const user = await User.findById(userId).select("-password");
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) throw new Error("User is not Authenticated");
 
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {
+      throw new Error(error.message);
+      return;
+    }
+
+    const user = await User.findById(userId).select("-password");
     res.json(user);
   } catch (error) {
     res.status(401).json({ error: error.message });

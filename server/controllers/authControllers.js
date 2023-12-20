@@ -1,5 +1,6 @@
 import { User } from "../models/User.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export async function signup(req, res) {
   try {
@@ -58,8 +59,10 @@ export async function login(req, res) {
       throw new Error("Invalid username and password combination");
 
     req.session.userId = user._id;
-
-    res.status(200).json(user);
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "30s",
+    });
+    res.status(200).json({ user, token });
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
@@ -93,6 +96,7 @@ export async function loginWithGoogle(req, res) {
 }
 
 export async function logout(req, res) {
-  req.session.userId = null;
+  // req.session.userId = null;
+  req.session.destroy();
   res.json("Logout Successful!");
 }
