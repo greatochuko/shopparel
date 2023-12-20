@@ -4,18 +4,20 @@ import { Order } from "../models/Order.js";
 export async function getOrders(req, res) {
   try {
     const { userId } = req.session;
-    if (!userId) throw new Error("User is not Authenticated");
+    if (!userId)
+      return res.status(401).json({ error: "User is unauthenticated" });
     const orders = await Order.find();
     res.json(orders);
   } catch (error) {
-    res.status(401).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 }
 
 export async function createOrder(req, res) {
   try {
     const { userId } = req.session;
-    if (!userId) throw new Error("User is not Authenticated");
+    if (!userId)
+      return res.status(401).json({ error: "User is unauthenticated" });
     const { paymentMethod, products } = req.body;
     const orders = await Order.create({
       userId,
@@ -34,7 +36,7 @@ export async function createOrder(req, res) {
 
     res.json(orders);
   } catch (error) {
-    res.status(401).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 }
 
@@ -47,7 +49,7 @@ export async function getOrder(req, res) {
     });
     res.json(order);
   } catch (error) {
-    res.status(401).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 }
 
@@ -61,6 +63,6 @@ export async function cancelOrder(req, res) {
     );
     res.json(order);
   } catch (error) {
-    res.status(401).json({ error: error.message });
+    res.status(400).json({ error: error.message });
   }
 }

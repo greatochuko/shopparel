@@ -3,7 +3,8 @@ import { Wishlist } from "../models/Wishlist.js";
 export async function getWishlistItems(req, res) {
   try {
     const { userId } = req.session;
-    if (!userId) throw new Error("user is unauthenticated");
+    if (!userId)
+      return res.status(401).json({ error: "User is unauthenticated" });
     const wishlist = await Wishlist.find({ userId });
     res.json(wishlist);
   } catch (error) {
@@ -14,7 +15,8 @@ export async function getWishlistItems(req, res) {
 export async function addProductToWishlist(req, res) {
   try {
     const { userId } = req.session;
-    if (!userId) throw new Error("user is unauthenticated");
+    if (!userId)
+      return res.status(401).json({ error: "User is unauthenticated" });
     const {
       productId,
       name,
@@ -43,6 +45,8 @@ export async function addProductToWishlist(req, res) {
 
 export async function removeProductFromWishlist(req, res) {
   try {
+    const { userId } = req.session;
+
     const { wishlistId } = req.params;
     await Wishlist.findByIdAndDelete(wishlistId);
     res.json("Product removed from wishlist successfully");
