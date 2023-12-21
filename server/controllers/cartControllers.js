@@ -1,5 +1,6 @@
 import { Cart } from "../models/Cart.js";
 import jwt from "jsonwebtoken";
+import { User } from "../models/User.js";
 
 export async function getCartItems(req, res) {
   try {
@@ -9,10 +10,9 @@ export async function getCartItems(req, res) {
     let userId;
     try {
       userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
-    } catch (error) {}
-
-    if (!userId)
-      return res.status(401).json({ error: "User is unauthenticated" });
+    } catch (error) {
+      return res.status(401).json({ error: error.message });
+    }
 
     const cartItems = await Cart.find({ userId, ordered: false });
     res.json(cartItems);
@@ -25,12 +25,14 @@ export async function addProduct(req, res) {
   try {
     const token = req.headers.authorization?.split(" ")[1];
     if (!token) return res.status(401).json({ error: "Invalid Token" });
+
     let userId;
     try {
       userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
-    } catch (error) {}
-    if (!userId)
-      return res.status(401).json({ error: "User is unauthenticated" });
+    } catch (error) {
+      return res.status(401).json({ error: error.message });
+    }
+
     const { productId, name, imgUrl, color, size, price, shipping, quantity } =
       req.body;
 
@@ -45,6 +47,8 @@ export async function addProduct(req, res) {
       shipping,
       quantity,
     });
+
+    await User.findByIdAndUpdate(userId, { $push: { cart: newCartItem._id } });
     res.json(newCartItem);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -58,9 +62,9 @@ export async function increaseProductQuantity(req, res) {
     let userId;
     try {
       userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
-    } catch (error) {}
-    if (!userId)
-      return res.status(401).json({ error: "User is unauthenticated" });
+    } catch (error) {
+      return res.status(401).json({ error: error.message });
+    }
     const { cartItemId } = req.params;
     const deletedCartItem = await Cart.findByIdAndUpdate(cartItemId, {
       $inc: { quantity: 1 },
@@ -79,9 +83,9 @@ export async function decreaseProductQuantity(req, res) {
     let userId;
     try {
       userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
-    } catch (error) {}
-    if (!userId)
-      return res.status(401).json({ error: "User is unauthenticated" });
+    } catch (error) {
+      return res.status(401).json({ error: error.message });
+    }
     const { cartItemId } = req.params;
     const deletedCartItem = await Cart.findByIdAndUpdate(cartItemId, {
       $inc: { quantity: -1 },
@@ -100,9 +104,9 @@ export async function removeProduct(req, res) {
     let userId;
     try {
       userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
-    } catch (error) {}
-    if (!userId)
-      return res.status(401).json({ error: "User is unauthenticated" });
+    } catch (error) {
+      return res.status(401).json({ error: error.message });
+    }
     const { cartItemId } = req.params;
     const deletedCartItem = await Cart.findByIdAndDelete(cartItemId);
     if (!deletedCartItem) throw new Error("Invalid Cart Item ID");
@@ -119,9 +123,9 @@ export async function clearCart(req, res) {
     let userId;
     try {
       userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
-    } catch (error) {}
-    if (!userId)
-      return res.status(401).json({ error: "User is unauthenticated" });
+    } catch (error) {
+      return res.status(401).json({ error: error.message });
+    }
     await Cart.deleteMany({ userId });
     res.json("Cart cleared successfully");
   } catch (error) {

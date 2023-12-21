@@ -20,7 +20,7 @@ export default function LoginForm() {
 
   const { user } = useUserContext();
 
-  const { updateUser } = useUserContext();
+  const { setUser } = useUserContext();
 
   async function handleGoogleLogin(response: CredentialResponse) {
     const userData: JwtPayload & GoogleUserCredentials = jwtDecode(
@@ -35,7 +35,7 @@ export default function LoginForm() {
       googleClientId
     );
     if (data.error) return;
-    updateUser(data);
+    setUser(data);
   }
 
   async function handleLogin(e: React.FormEvent) {
@@ -49,7 +49,7 @@ export default function LoginForm() {
       return;
     }
     localStorage.setItem("token", data.token);
-    updateUser(data.user);
+    setUser(data.user);
     setLoading(false);
   }
 
@@ -171,7 +171,7 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={!canSubmit}
-        className="px-6 h-12 font-semibold flex-center text-white duration-300 rounded-md disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:bg-accent-blue-200"
+        className="px-6 h-12 flex-center font-semibold flex-center text-white duration-300 rounded-md disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:bg-accent-blue-200"
       >
         {loading ? <LoadingIndicator /> : "Login"}
       </button>

@@ -6,11 +6,11 @@ export default function SignoutModal({
 }: {
   closeModal: () => void;
 }) {
-  const { updateUser } = useUserContext();
+  const { setUser } = useUserContext();
   const navigate = useNavigate();
 
   async function handleSignout() {
-    updateUser(null);
+    setUser(null);
     localStorage.removeItem("token");
     navigate("/login");
   }

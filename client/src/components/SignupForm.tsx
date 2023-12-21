@@ -17,11 +17,12 @@ export default function SignupForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
   const canSubmit = Boolean(
     email && firstName && lastName && password && confirmPassword === password
   );
 
-  const { user, updateUser } = useUserContext();
+  const { user, setUser } = useUserContext();
 
   const [searchParams] = useSearchParams();
   const redirectUrl = searchParams.get("redirect");
@@ -40,7 +41,7 @@ export default function SignupForm() {
       googleClientId
     );
     if (data.error) return;
-    updateUser(data);
+    setUser(data);
   }
 
   function handleConfirmPassword(e: React.ChangeEvent<HTMLInputElement>) {
@@ -51,6 +52,7 @@ export default function SignupForm() {
 
   async function handleSignup(e: React.FormEvent) {
     e.preventDefault();
+    setError("");
     setLoading(true);
     const data = await signupUser(firstName, lastName, email, password);
     if (data.error) {
@@ -59,7 +61,7 @@ export default function SignupForm() {
       return;
     }
     localStorage.setItem("token", data.token);
-    updateUser(data.user);
+    setUser(data.user);
     setLoading(false);
   }
 
@@ -283,7 +285,7 @@ export default function SignupForm() {
       <button
         type="submit"
         disabled={!canSubmit}
-        className="px-6 py-3 font-semibold text-white duration-300 rounded-md disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:bg-accent-blue-200"
+        className="px-6 py-3 font-semibold flex-center text-white duration-300 rounded-md disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:bg-accent-blue-200"
       >
         {loading ? <LoadingIndicator /> : "Sign Up"}
       </button>

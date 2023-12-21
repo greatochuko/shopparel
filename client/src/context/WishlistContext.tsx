@@ -2,12 +2,10 @@ import { createContext, useEffect, useState } from "react";
 import {
   fetchAddProductToWishlist,
   fetchRemoveProductFromWishlist,
-  fetchWishlist,
 } from "../services/wishlistServices";
 import useUserContext from "../hooks/useUserContext";
 import FullScreenLoader from "../components/FullScreenLoader";
 import { fetchUser } from "../services/userServices";
-import { fetchCart } from "../services/cartServices";
 import useCartContext from "../hooks/useCartContext";
 import { CartItemType } from "./CartContext";
 
@@ -40,48 +38,28 @@ export default function WishlistProvider({
 }) {
   const [wishlist, setWishlist] = useState<WishlistItemType[]>([]);
   const [refreshed, setRefreshed] = useState(false);
-  const { user, updateUser } = useUserContext();
+  const { setUser } = useUserContext();
   const { setCartItems } = useCartContext();
 
   useEffect(() => {
     async function refreshUser() {
-      // Fetch and set Initial User context
       const userData = await fetchUser();
-      console.clear();
-      console.log("something");
-
       if (!userData.error) {
-        updateUser(null);
+        setUser(userData);
+        setCartItems(userData?.cart as CartItemType[]);
+        setWishlist(userData?.wishlist as WishlistItemType[]);
+      } else {
+        setUser(null);
         localStorage.removeItem("token");
-      }
-
-      // Fetch and set Initial Cart context
-      if (!user?._id) {
         const localCart: CartItemType[] = JSON.parse(
           localStorage.getItem("cart") as string
         );
         setCartItems(localCart || []);
-        setRefreshed(true);
-        return;
       }
-
-      const cartData = await fetchCart();
-      if (cartData.error) return setRefreshed(true);
-
-      setCartItems(cartData);
-
-      // Fetch and set Initial Wishlist context
-      if (!user?._id) return setRefreshed(true);
-      const wishlistData = await fetchWishlist();
-
-      if (wishlistData.error) {
-        return setRefreshed(true);
-      }
-      setWishlist(wishlistData);
       setRefreshed(true);
     }
     refreshUser();
-  }, [setCartItems, updateUser, user?._id]);
+  }, [setCartItems, setUser]);
 
   async function addProductToWishlist(product: WishlistItemType) {
     const resData = { ok: false };
