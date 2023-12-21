@@ -14,7 +14,9 @@ export async function getCartItems(req, res) {
       return res.status(401).json({ error: error.message });
     }
 
-    const cartItems = await Cart.find({ userId, ordered: false });
+    const cartItems = await Cart.find({ userId, ordered: false }).populate(
+      "product"
+    );
     res.json(cartItems);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -143,14 +145,12 @@ export async function syncCart(req, res) {
       userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
     } catch (error) {}
 
-    console.log(userId);
-
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
 
     const cartItems = req.body;
 
-    const cart = await Cart.find({ userId });
+    const cart = await Cart.find({ userId, ordered: false });
     cartItems.forEach(async (cartItem) => {
       const productInCart = cart.find(
         (item) => item.product.toString() === cartItem.productId
@@ -169,7 +169,7 @@ export async function syncCart(req, res) {
           shipping,
           quantity,
         } = cartItem;
-        await Cart.create({
+        const newCartItem = await Cart.create({
           userId,
           product: productId,
           name,
@@ -180,9 +180,16 @@ export async function syncCart(req, res) {
           shipping,
           quantity,
         });
+        await User.findByIdAndUpdate(userId, {
+          $push: { cart: newCartItem._id },
+        });
       }
     });
-    res.json(cart);
+    const updatedCart = await Cart.find({ userId, ordered: false }).populate(
+      "product"
+    );
+
+    res.json(updatedCart);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

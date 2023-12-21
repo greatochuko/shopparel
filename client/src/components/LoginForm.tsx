@@ -5,6 +5,8 @@ import useUserContext from "../hooks/useUserContext";
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import LoadingIndicator from "./LoadingIndicator";
+import { fetchSyncCart } from "../services/cartServices";
+import useCartContext from "../hooks/useCartContext";
 
 export type GoogleUserCredentials = { email: string; name: string };
 
@@ -21,6 +23,7 @@ export default function LoginForm() {
   const { user } = useUserContext();
 
   const { setUser } = useUserContext();
+  const { setCartItems } = useCartContext();
 
   async function handleGoogleLogin(response: CredentialResponse) {
     const userData: JwtPayload & GoogleUserCredentials = jwtDecode(
@@ -35,7 +38,24 @@ export default function LoginForm() {
       googleClientId
     );
     if (data.error) return;
-    setUser(data);
+
+    localStorage.setItem("token", data.token);
+
+    const cartInLocalStorage = localStorage.getItem("cart");
+    if (cartInLocalStorage) {
+      const localCart = JSON.parse(cartInLocalStorage);
+      const syncCartData = await fetchSyncCart(localCart);
+      if (syncCartData.error) {
+        localStorage.removeItem("token");
+        return;
+      }
+      setCartItems(syncCartData);
+      localStorage.removeItem("cart");
+    } else {
+      setCartItems(data.user.cart);
+    }
+
+    setUser(data.user);
   }
 
   async function handleLogin(e: React.FormEvent) {
@@ -48,7 +68,26 @@ export default function LoginForm() {
       setLoading(false);
       return;
     }
+
     localStorage.setItem("token", data.token);
+
+    const cartInLocalStorage = localStorage.getItem("cart");
+    if (cartInLocalStorage) {
+      const localCart = JSON.parse(cartInLocalStorage);
+      const syncCartData = await fetchSyncCart(localCart);
+
+      if (syncCartData.error) {
+        localStorage.removeItem("token");
+        return;
+      }
+
+      setCartItems(syncCartData);
+
+      localStorage.removeItem("cart");
+    } else {
+      setCartItems(data.user.cart);
+    }
+
     setUser(data.user);
     setLoading(false);
   }

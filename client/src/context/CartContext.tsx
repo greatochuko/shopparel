@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import {
   fetchAddToCart,
   fetchClearCart,
@@ -8,11 +8,15 @@ import {
 } from "../services/cartServices";
 import useUserContext from "../hooks/useUserContext";
 import { ProductType } from "../components/Product";
+import { fetchUser } from "../services/userServices";
+import useWishlistContext from "../hooks/useWishlistContext";
+import { WishlistItemType } from "./WishlistContext";
+import FullScreenLoader from "../components/FullScreenLoader";
 
 export type CartItemType = {
   _id: string;
   userId: string;
-  product?: ProductType | string;
+  product?: ProductType;
   name: string;
   imgUrl: string;
   color: string;
@@ -40,8 +44,30 @@ export default function CartProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const { user } = useUserContext();
+  const { user, setUser } = useUserContext();
+  const { setWishlist } = useWishlistContext();
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
+  const [refreshed, setRefreshed] = useState(false);
+
+  useEffect(() => {
+    async function refreshUser() {
+      const userData = await fetchUser();
+      if (!userData.error) {
+        setUser(userData);
+        setCartItems(userData?.cart as CartItemType[]);
+        setWishlist(userData?.wishlist as WishlistItemType[]);
+      } else {
+        setUser(null);
+        localStorage.removeItem("token");
+        const localCart: CartItemType[] = JSON.parse(
+          localStorage.getItem("cart") as string
+        );
+        setCartItems(localCart || []);
+      }
+      setRefreshed(true);
+    }
+    refreshUser();
+  }, [setCartItems, setUser, setWishlist]);
 
   async function addItemToCart(item: CartItemType) {
     let data: CartItemType & { error: string };
@@ -166,6 +192,8 @@ export default function CartProvider({
     localStorage.setItem("cart", JSON.stringify([]));
     setCartItems([]);
   }
+
+  if (!refreshed) return <FullScreenLoader />;
 
   return (
     <CartContext.Provider

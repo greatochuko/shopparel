@@ -9,13 +9,13 @@ import WishlistProvider from "./context/WishlistContext.tsx";
 ReactDOM.createRoot(document.getElementById("root")!).render(
   // <React.StrictMode>
   <GoogleOAuthProvider clientId="706224660980-e7fmqf7f5g7kldmnik6e9tf11domb193.apps.googleusercontent.com">
-    <UserProvider>
-      <CartProvider>
-        <WishlistProvider>
+    <WishlistProvider>
+      <UserProvider>
+        <CartProvider>
           <App />
-        </WishlistProvider>
-      </CartProvider>
-    </UserProvider>
+        </CartProvider>
+      </UserProvider>
+    </WishlistProvider>
   </GoogleOAuthProvider>
   // </React.StrictMode>
 );

@@ -23,12 +23,10 @@ export default function ProductConfiguration({
 
   const productInCart = cartItems.find(
     (cartItem) =>
-      (cartItem.product as string) === product._id &&
+      cartItem.product?._id === product._id &&
       cartItem.size === currentSize &&
       cartItem.color === currentColor
   );
-
-  console.log(cartItems);
 
   const productInWishlist = wishlist.find(
     (cartItem) => cartItem.productId === product._id
@@ -38,8 +36,7 @@ export default function ProductConfiguration({
     const newItem = {
       _id: crypto.randomUUID(),
       userId: user?._id || "123",
-      productId: product._id,
-      product: product._id,
+      product: product,
       name: product.name,
       imgUrl: product.imgUrl,
       color: currentColor,
@@ -145,7 +142,7 @@ export default function ProductConfiguration({
               role="button"
               onClick={() => setCurrentColor(color)}
               style={{ backgroundColor: color }}
-              className={`w-6 rounded-full aspect-square flex-center hover:scale-110 active:scale-95 duration-300 ${
+              className={`w-6 rounded-full outline outline-[1px] outline-zinc-200 aspect-square flex-center hover:scale-110 active:scale-95 duration-300 ${
                 currentColor === color
                   ? "ring-zinc-500 ring-offset-white ring-offset-2 ring-[2px]"
                   : ""

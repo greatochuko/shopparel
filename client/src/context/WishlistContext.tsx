@@ -1,13 +1,8 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import {
   fetchAddProductToWishlist,
   fetchRemoveProductFromWishlist,
 } from "../services/wishlistServices";
-import useUserContext from "../hooks/useUserContext";
-import FullScreenLoader from "../components/FullScreenLoader";
-import { fetchUser } from "../services/userServices";
-import useCartContext from "../hooks/useCartContext";
-import { CartItemType } from "./CartContext";
 
 export type WishlistItemType = {
   _id: string;
@@ -23,6 +18,7 @@ export type WishlistItemType = {
 
 export type WishlistProviderValue = {
   wishlist: WishlistItemType[] | [];
+  setWishlist: React.Dispatch<React.SetStateAction<WishlistItemType[]>>;
   addProductToWishlist: (item: WishlistItemType) => void;
   removeProductFromWishlist: (wishlistId: string) => void;
 };
@@ -37,29 +33,6 @@ export default function WishlistProvider({
   children: React.ReactNode;
 }) {
   const [wishlist, setWishlist] = useState<WishlistItemType[]>([]);
-  const [refreshed, setRefreshed] = useState(false);
-  const { setUser } = useUserContext();
-  const { setCartItems } = useCartContext();
-
-  useEffect(() => {
-    async function refreshUser() {
-      const userData = await fetchUser();
-      if (!userData.error) {
-        setUser(userData);
-        setCartItems(userData?.cart as CartItemType[]);
-        setWishlist(userData?.wishlist as WishlistItemType[]);
-      } else {
-        setUser(null);
-        localStorage.removeItem("token");
-        const localCart: CartItemType[] = JSON.parse(
-          localStorage.getItem("cart") as string
-        );
-        setCartItems(localCart || []);
-      }
-      setRefreshed(true);
-    }
-    refreshUser();
-  }, [setCartItems, setUser]);
 
   async function addProductToWishlist(product: WishlistItemType) {
     const resData = { ok: false };
@@ -83,12 +56,11 @@ export default function WishlistProvider({
     setWishlist((curr) => curr.filter((product) => product._id !== wishlistId));
   }
 
-  if (!refreshed) return <FullScreenLoader />;
-
   return (
     <WishlistContext.Provider
       value={{
         wishlist,
+        setWishlist,
         addProductToWishlist,
         removeProductFromWishlist,
       }}

@@ -29,6 +29,8 @@ export async function signup(req, res) {
       password: hashedPassword,
     });
 
+    newUser.populate("cart wishlist");
+
     const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: "60s",
     });
@@ -47,7 +49,11 @@ export async function login(req, res) {
     if (!password) throw new Error("Password Field is required");
 
     // Check if user already exists
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate({
+      path: "cart wishlist",
+      populate: { path: "product" },
+    });
+
     if (!user) throw new Error("Invalid username and password combination");
 
     // Check if user password is available
@@ -77,7 +83,7 @@ export async function loginWithGoogle(req, res) {
     if (!firstName || !lastName) throw new Error("Name Field is required");
 
     // Find or create user
-    let user = await User.findOne({ email });
+    let user = await User.findOne({ email }).populate("cart wishlist");
     if (!user)
       user = await User.create({
         email,

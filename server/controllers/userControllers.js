@@ -15,7 +15,9 @@ export async function getUser(req, res) {
       return;
     }
 
-    const user = await User.findById(userId).select("-password");
+    const user = await User.findById(userId)
+      .select("-password")
+      .populate("cart wishlist");
     res.json(user);
   } catch (error) {
     res.status(401).json({ error: error.message });

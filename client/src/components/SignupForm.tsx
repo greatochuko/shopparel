@@ -6,6 +6,8 @@ import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 import { GoogleUserCredentials } from "./LoginForm";
 import LoadingIndicator from "./LoadingIndicator";
+import { fetchSyncCart } from "../services/cartServices";
+import useCartContext from "../hooks/useCartContext";
 
 export default function SignupForm() {
   const [email, setEmail] = useState("");
@@ -23,6 +25,7 @@ export default function SignupForm() {
   );
 
   const { user, setUser } = useUserContext();
+  const { setCartItems } = useCartContext();
 
   const [searchParams] = useSearchParams();
   const redirectUrl = searchParams.get("redirect");
@@ -41,7 +44,24 @@ export default function SignupForm() {
       googleClientId
     );
     if (data.error) return;
-    setUser(data);
+
+    localStorage.setItem("token", data.token);
+
+    const cartInLocalStorage = localStorage.getItem("cart");
+    if (cartInLocalStorage) {
+      const localCart = JSON.parse(cartInLocalStorage);
+      const syncCartData = await fetchSyncCart(localCart);
+      if (syncCartData.error) {
+        localStorage.removeItem("token");
+        return;
+      }
+      setCartItems(syncCartData);
+      localStorage.removeItem("cart");
+    } else {
+      setCartItems(data.user.cart);
+    }
+
+    setUser(data.user);
   }
 
   function handleConfirmPassword(e: React.ChangeEvent<HTMLInputElement>) {
@@ -60,7 +80,26 @@ export default function SignupForm() {
       setLoading(false);
       return;
     }
+
     localStorage.setItem("token", data.token);
+
+    const cartInLocalStorage = localStorage.getItem("cart");
+    if (cartInLocalStorage) {
+      const localCart = JSON.parse(cartInLocalStorage);
+      const syncCartData = await fetchSyncCart(localCart);
+
+      if (syncCartData.error) {
+        localStorage.removeItem("token");
+        return;
+      }
+
+      setCartItems(syncCartData);
+
+      localStorage.removeItem("cart");
+    } else {
+      setCartItems(data.user.cart);
+    }
+
     setUser(data.user);
     setLoading(false);
   }
