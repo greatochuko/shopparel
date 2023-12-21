@@ -83,6 +83,7 @@ export default function CartProvider({
     } else {
       data = await fetchAddToCart(item);
       if (data.error) {
+        console.log("Something went wrong please refresh the page");
         return;
       }
     }
@@ -92,7 +93,10 @@ export default function CartProvider({
   async function removeItemFromCart(itemId: string) {
     if (user) {
       const data = await fetchRemoveFromCart(itemId);
-      if (data?.error) return;
+      if (data?.error) {
+        console.log("Something went wrong please refresh the page");
+        return;
+      }
     } else {
       const localCart: CartItemType[] = JSON.parse(
         localStorage.getItem("cart") as string
@@ -128,7 +132,11 @@ export default function CartProvider({
       );
     } else {
       const data = await fetchIncreaseQuantity(itemId);
-      if (data?.error) return;
+      if (data?.error) {
+        console.log("Something went wrong please refresh the page");
+
+        return;
+      }
     }
 
     setCartItems((curr) =>
@@ -164,7 +172,10 @@ export default function CartProvider({
       );
     } else {
       const data = await fetchDecreaseQuantity(itemId);
-      if (data?.error) return;
+      if (data?.error) {
+        console.log("Something went wrong please refresh the page");
+        return;
+      }
     }
 
     setCartItems((curr) =>
@@ -181,7 +192,10 @@ export default function CartProvider({
   async function clearCart() {
     if (user) {
       const data = await fetchClearCart();
-      if (data?.error) return;
+      if (data?.error) {
+        console.log("Something went wrong please refresh the page");
+        return;
+      }
     } else {
       localStorage.setItem("cart", JSON.stringify([]));
     }

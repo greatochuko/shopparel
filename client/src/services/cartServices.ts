@@ -5,7 +5,6 @@ export async function fetchCart() {
   try {
     const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/cart`, {
-      credentials: "include",
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -24,7 +23,6 @@ export async function fetchAddToCart(cartItem: CartItemType) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      credentials: "include",
       body: JSON.stringify(cartItem),
     });
     const data = await res.json();

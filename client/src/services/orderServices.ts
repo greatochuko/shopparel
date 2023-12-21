@@ -2,7 +2,10 @@ import { BASE_URL } from "./authServices";
 
 export async function fetchOrders() {
   try {
-    const res = await fetch(`${BASE_URL}/orders`, { credentials: "include" });
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${BASE_URL}/orders`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     const data = await res.json();
     return data;
   } catch (error) {
@@ -12,11 +15,14 @@ export async function fetchOrders() {
 
 export async function createOrder(paymentMethod: string, products: string[]) {
   try {
+    const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/orders`, {
       method: "POST",
       body: JSON.stringify({ paymentMethod, products }),
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     });
     const data = await res.json();
     return data;
@@ -27,8 +33,9 @@ export async function createOrder(paymentMethod: string, products: string[]) {
 
 export async function fetchOrder(orderId: string) {
   try {
+    const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/order/${orderId}`, {
-      credentials: "include",
+      headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
     return data;
@@ -39,9 +46,10 @@ export async function fetchOrder(orderId: string) {
 
 export async function cancelOrder(orderId: string) {
   try {
+    const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/order/${orderId}`, {
       method: "PATCH",
-      credentials: "include",
+      headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
     return data;

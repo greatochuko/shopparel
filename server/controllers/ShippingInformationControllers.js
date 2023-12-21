@@ -2,7 +2,15 @@ import { ShippingInformation } from "../models/ShippingInformation.js";
 
 export async function getShippingInformations(req, res) {
   try {
-    const { userId } = req.session;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) throw new Error("User is not Authenticated");
+
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {
+      throw new Error(error.message);
+    }
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
     const userShippingInformations = await ShippingInformation.find({ userId });
@@ -14,7 +22,15 @@ export async function getShippingInformations(req, res) {
 
 export async function addShippingInformation(req, res) {
   try {
-    const { userId } = req.session;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) throw new Error("User is not Authenticated");
+
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {
+      throw new Error(error.message);
+    }
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
     const {
@@ -52,7 +68,15 @@ export async function addShippingInformation(req, res) {
 
 export async function editShippingInformation(req, res) {
   try {
-    const { userId } = req.session;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) throw new Error("User is not Authenticated");
+
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {
+      throw new Error(error.message);
+    }
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
     const { shippingInfoId } = req.params;
@@ -94,7 +118,15 @@ export async function editShippingInformation(req, res) {
 
 export async function deleteShippingInformation(req, res) {
   try {
-    const { userId } = req.session;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) throw new Error("User is not Authenticated");
+
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {
+      throw new Error(error.message);
+    }
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
     const { shippingInfoId } = req.params;

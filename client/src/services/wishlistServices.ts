@@ -2,7 +2,10 @@ import { BASE_URL } from "./authServices";
 
 export async function fetchWishlist() {
   try {
-    const res = await fetch(`${BASE_URL}/wishlist`, { credentials: "include" });
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${BASE_URL}/wishlist`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     const data = await res.json();
     return data;
   } catch (error) {
@@ -12,9 +15,10 @@ export async function fetchWishlist() {
 
 export async function fetchRemoveProductFromWishlist(wishlistId: string) {
   try {
+    const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/wishlist/${wishlistId}`, {
       method: "DELETE",
-      credentials: "include",
+      headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
     return data;
@@ -33,10 +37,14 @@ export async function fetchAddProductToWishlist(
   shipping: number
 ) {
   try {
+    const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/wishlist`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+
       body: JSON.stringify({
         productId,
         name,

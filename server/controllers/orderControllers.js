@@ -1,9 +1,18 @@
 import { Cart } from "../models/Cart.js";
 import { Order } from "../models/Order.js";
+import jwt from "jsonwebtoken";
 
 export async function getOrders(req, res) {
   try {
-    const { userId } = req.session;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) throw new Error("User is not Authenticated");
+
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {
+      throw new Error(error.message);
+    }
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
     const orders = await Order.find();
@@ -15,7 +24,15 @@ export async function getOrders(req, res) {
 
 export async function createOrder(req, res) {
   try {
-    const { userId } = req.session;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) throw new Error("User is not Authenticated");
+
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {
+      throw new Error(error.message);
+    }
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
     const { paymentMethod, products } = req.body;

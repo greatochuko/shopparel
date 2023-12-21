@@ -15,7 +15,15 @@ export async function getReviews(req, res) {
 
 export async function createReview(req, res) {
   try {
-    const { userId } = req.session;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) throw new Error("User is not Authenticated");
+
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {
+      throw new Error(error.message);
+    }
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
     const { productId, rating, review } = req.body;
@@ -36,7 +44,15 @@ export async function createReview(req, res) {
 
 export async function editReview(req, res) {
   try {
-    const { userId } = req.session;
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) throw new Error("User is not Authenticated");
+
+    let userId;
+    try {
+      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
+    } catch (error) {
+      throw new Error(error.message);
+    }
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
     const { reviewId } = req.params;

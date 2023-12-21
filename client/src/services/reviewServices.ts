@@ -6,11 +6,14 @@ export async function createReview(
   review: string
 ) {
   try {
+    const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/reviews`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({ productId, rating, review }),
-      credentials: "include",
     });
     const data = await res.json();
     return data;
@@ -26,11 +29,14 @@ export async function editReview(
   reviewUserId: string
 ) {
   try {
+    const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/review/${reviewId}`, {
       method: "PATCH",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify({ reviewUserId, rating, review }),
-      credentials: "include",
     });
     const data = await res.json();
     return data;
