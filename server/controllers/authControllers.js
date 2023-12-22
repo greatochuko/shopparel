@@ -29,7 +29,12 @@ export async function signup(req, res) {
       password: hashedPassword,
     });
 
-    newUser.populate("cart wishlist");
+    newUser
+      .populate({
+        path: "cart",
+        populate: { path: "product" },
+      })
+      .populate("wishlist");
 
     const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
@@ -49,10 +54,12 @@ export async function login(req, res) {
     if (!password) throw new Error("Password Field is required");
 
     // Check if user already exists
-    const user = await User.findOne({ email }).populate({
-      path: "cart wishlist",
-      populate: { path: "product" },
-    });
+    const user = await User.findOne({ email })
+      .populate({
+        path: "cart",
+        populate: { path: "product" },
+      })
+      .populate("wishlist");
 
     if (!user) throw new Error("Invalid username and password combination");
 
@@ -83,7 +90,12 @@ export async function loginWithGoogle(req, res) {
     if (!firstName || !lastName) throw new Error("Name Field is required");
 
     // Find or create user
-    let user = await User.findOne({ email }).populate("cart wishlist");
+    let user = await User.findOne({ email })
+      .populate({
+        path: "cart",
+        populate: { path: "product" },
+      })
+      .populate("wishlist");
     if (!user)
       user = await User.create({
         email,
