@@ -29,21 +29,25 @@ Welcome to Shopparel, your ultimate destination for fashion-forward online shopp
 To run Shopparel locally, follow these steps:
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/your-username/shopparel.git
    ```
 
 2. Install dependencies in both frontend and backend:
+
    ```bash
    cd shopparel/client
    npm install
    ```
+
    ```bash
    cd shopparel/server
    npm install
    ```
 
 3. **Set up the MongoDB Database:**
+
    - Shopparel uses MongoDB as its database. Follow these steps to set up the database:
 
      - Ensure MongoDB is installed on your system. You can download it [here](https://www.mongodb.com/try/download/community).
@@ -51,6 +55,7 @@ To run Shopparel locally, follow these steps:
      - Create a new MongoDB database for Shopparel.
 
      - Configure the database connection in the `.env` file by adding the MongoDB connection URI. For example:
+
        ```
        MONGODB_URI=mongodb://localhost:27017/shopparel
        ```
@@ -62,7 +67,8 @@ To run Shopparel locally, follow these steps:
 Now, your MongoDB database is ready for Shopparel. Adjust the connection details and other configurations as per your environment.
 
 4. Configure environment variables:
-   - Create a `.env` file and set up variables like `SESSION_SECRET`, etc.
+
+   - Create a `.env` file and set up variables like `JWT_SECRET`, etc.
 
 5. Start the application:
    ```bash
@@ -79,12 +85,15 @@ Visit `http://localhost:5173` in your web browser to access Shopparel.
 ## Usage
 
 1. **Homepage:**
+
    - Explore the latest trends and featured products.
 
 2. **Product Page:**
+
    - Click on a product to view detailed information, pricing, and customer reviews.
 
 3. **Shopping Cart:**
+
    - Add products to your cart and proceed to checkout.
 
 4. **User Account:**
@@ -93,22 +102,22 @@ Visit `http://localhost:5173` in your web browser to access Shopparel.
 ## Screenshots
 
 ![Homepage](/images/home-page.png)
-*Homepage showcasing the latest trends.*
+_Homepage showcasing the latest trends._
 
 ![Product Page](/images/product-page.png)
-*Product page with detailed information and reviews.*
+_Product page with detailed information and reviews._
 
 ![Search Page](/images/search-page.png)
-*Search results tailored for effortless discovery.*
+_Search results tailored for effortless discovery._
 
 ![Shopping Cart](/images/shopping-cart.png)
-*Shopping cart for easy checkout.*
+_Shopping cart for easy checkout._
 
 ## Technologies Used
 
 - Frontend: HTML, CSS, JavaScript, TypeScript, React
 - Backend: Node.js, Express, MongoDB
-- Authentication: express-cookies
+- Authentication: JWT
 - Other: Context-API, CORS
 
 ## Contributing

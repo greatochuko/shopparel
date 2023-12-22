@@ -25,8 +25,6 @@ export default function CartItem({ cartItem }: CartItemProps) {
 
   const subTotal = cartItem.price * quantity + cartItem.shipping;
 
-  console.log(cartItem);
-
   return (
     <div
       className="flex justify-between gap-3 pb-4 border-b last:border-none text-zinc-700"
