@@ -1,5 +1,6 @@
 import { CartItemType } from "../context/CartContext";
 import useUserContext from "../hooks/useUserContext";
+import { ProductType } from "./Product";
 import { ReviewType } from "./Review";
 
 type OrderProductProps = {
@@ -58,15 +59,15 @@ export default function OrderProduct({
           <button
             onClick={() =>
               openReviewModal(
-                cartItem.product?._id as string,
-                cartItem.product?.reviews.find(
+                (cartItem.product as ProductType)?._id as string,
+                (cartItem.product as ProductType)?.reviews.find(
                   (review) => review.user === user?._id
                 ) || null
               )
             }
             className="sm:w-full p-2 text-white duration-300 rounded-md bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring focus-visible:ring-blue-400 flex-center"
           >
-            {cartItem.product?.reviews.find(
+            {(cartItem.product as ProductType)?.reviews.find(
               (review) => review.user === user?._id
             )
               ? "Edit your review"

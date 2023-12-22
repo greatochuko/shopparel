@@ -8,7 +8,7 @@ export default function ChangeNameForm({
 }: {
   closeModal: () => void;
 }) {
-  const { user, updateUser } = useUserContext();
+  const { user, setUser } = useUserContext();
 
   const [firstName, setFirstName] = useState(user?.firstName as string);
   const [lastName, setLastName] = useState(user?.lastName as string);
@@ -20,7 +20,7 @@ export default function ChangeNameForm({
     const data = await updateUserFullName(firstName, lastName);
 
     if (data.error) return setLoading(false);
-    updateUser(data);
+    setUser(data);
     setLoading(false);
     closeModal();
   }

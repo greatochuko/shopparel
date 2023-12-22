@@ -23,7 +23,7 @@ export default function ProductConfiguration({
 
   const productInCart = cartItems.find(
     (cartItem) =>
-      cartItem.product?._id === product._id &&
+      (cartItem.product as string) === product._id &&
       cartItem.size === currentSize &&
       cartItem.color === currentColor
   );

@@ -25,6 +25,8 @@ export default function CartItem({ cartItem }: CartItemProps) {
 
   const subTotal = cartItem.price * quantity + cartItem.shipping;
 
+  console.log(cartItem);
+
   return (
     <div
       className="flex justify-between gap-3 pb-4 border-b last:border-none text-zinc-700"
@@ -40,7 +42,9 @@ export default function CartItem({ cartItem }: CartItemProps) {
           <Link
             tabIndex={0}
             to={`/product/${
-              cartItem.product?._id + "-" + cartItem.name.split(" ").join("-")
+              (cartItem.product as string) +
+              "-" +
+              cartItem.name.split(" ").join("-")
             }`}
             className="font-semibold duration-200 rounded-md hover:text-accent-blue-100 focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-blue-400 focus-visible:text-accent-blue-100"
           >

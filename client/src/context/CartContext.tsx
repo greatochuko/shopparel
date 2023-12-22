@@ -16,7 +16,7 @@ import FullScreenLoader from "../components/FullScreenLoader";
 export type CartItemType = {
   _id: string;
   userId: string;
-  product?: ProductType;
+  product?: ProductType | string;
   name: string;
   imgUrl: string;
   color: string;
