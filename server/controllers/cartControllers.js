@@ -112,6 +112,9 @@ export async function removeProduct(req, res) {
     const { cartItemId } = req.params;
     const deletedCartItem = await Cart.findByIdAndDelete(cartItemId);
     if (!deletedCartItem) throw new Error("Invalid Cart Item ID");
+
+    await User.findByIdAndUpdate(userId, { $pull: { cart: cartItemId } });
+
     res.json(deletedCartItem);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -129,6 +132,9 @@ export async function clearCart(req, res) {
       return res.status(401).json({ error: error.message });
     }
     await Cart.deleteMany({ userId });
+
+    await User.findByIdAndUpdate(userId, { cart: [] });
+
     res.json("Cart cleared successfully");
   } catch (error) {
     res.status(400).json({ error: error.message });
