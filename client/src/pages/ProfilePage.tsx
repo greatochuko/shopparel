@@ -13,8 +13,8 @@ export default function ProfilePage() {
   const [shippingInformation, setShippingInformation] =
     useState<ShippingInformationType | null>(null);
   const [shippingInformations, setShippingInformations] = useState<
-    ShippingInformationType[] | null
-  >(null);
+    ShippingInformationType[]
+  >([]);
 
   function openModal(type: string, shippingInfo?: ShippingInformationType) {
     setShippingInformation(shippingInfo || null);
@@ -122,7 +122,7 @@ export default function ProfilePage() {
         <Modal
           closeModal={closeModal}
           type={modalType}
-          shippingInfo={shippingInformation}
+          shippingInfo={shippingInformation as ShippingInformationType}
           setShippingInformations={setShippingInformations}
         />
       ) : null}

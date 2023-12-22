@@ -1,4 +1,5 @@
 import { ShippingInformation } from "../models/ShippingInformation.js";
+import jwt from "jsonwebtoken";
 
 export async function getShippingInformations(req, res) {
   try {
