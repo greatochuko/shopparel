@@ -21,11 +21,7 @@ const uri = process.env.MONGODB_URI;
 // MIDDLEWARES
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://localhost:3000",
-      "https://shopparel.onrender.com",
-    ],
+    origin: ["http://localhost:5173", "https://shopparel.vercel.app"],
     credentials: true,
   })
 );
