@@ -21,7 +21,11 @@ const uri = "mongodb://127.0.0.1:27017/shopparelDB";
 // MIDDLEWARES
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:4173"],
+    origin: [
+      "http://localhost:5173",
+      "http://localhost:3000",
+      "https://shopparel.onrender.com",
+    ],
     credentials: true,
   })
 );
