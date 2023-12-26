@@ -26,9 +26,10 @@ export default function QuantityController({
     <div className={`flex ${size === "small" ? "" : "gap-2"}`}>
       <button
         onClick={handleDecreaseQuantity}
+        disabled={product.quantity <= 1}
         className={`rounded-md shadow-md bg-accent-blue-100 ${
           size === "small" ? "h-6 w-6" : "h-9 w-9"
-        } flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300`}
+        } flex-center hover:bg-accent-blue-200 disabled:bg-zinc-200 disabled:shadow-none group focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300`}
       >
         <svg
           height={size === "small" ? 12 : 16}
@@ -57,6 +58,7 @@ export default function QuantityController({
                 id="Icon-Set-Filled"
                 transform="translate(-414.000000, -1049.000000)"
                 fill="#fff"
+                className="group-disabled:fill-zinc-700"
               >
                 <path
                   d="M442,1049 L418,1049 C415.791,1049 414,1050.79 414,1053 C414,1055.21 415.791,1057 418,1057 L442,1057 C444.209,1057 446,1055.21 446,1053 C446,1050.79 444.209,1049 442,1049"

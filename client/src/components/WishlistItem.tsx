@@ -98,7 +98,7 @@ export default function WishlistItem({
                 onChange={(e) => setCurrentColor(e.target.value)}
                 value={currentColor}
                 style={{ color: currentColor }}
-                className="uppercase text-xs font-semibold sm:text-sm"
+                className="text-xs font-semibold uppercase sm:text-sm"
               >
                 {product.colors.map((color) => (
                   <option key={color} value={color}>
@@ -113,7 +113,7 @@ export default function WishlistItem({
                 name="size"
                 onChange={(e) => setCurrentSize(e.target.value)}
                 value={currentSize}
-                className="uppercase text-xs font-semibold sm:text-sm"
+                className="text-xs font-semibold uppercase sm:text-sm"
               >
                 {product.sizes.map((size) => (
                   <option key={size} value={size}>

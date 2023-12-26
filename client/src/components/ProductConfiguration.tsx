@@ -37,6 +37,7 @@ export default function ProductConfiguration({
       _id: crypto.randomUUID(),
       userId: user?._id || "123",
       product: product,
+      productId: product._id,
       name: product.name,
       imgUrl: product.imgUrl,
       color: currentColor,
@@ -151,13 +152,13 @@ export default function ProductConfiguration({
           ))}
         </ul>
       </div>
-      <div className="flex md:items-center flex-col md:flex-row w-full gap-4 mt-4">
+      <div className="flex flex-col w-full gap-4 mt-4 md:items-center md:flex-row">
         {productInCart ? (
           <QuantityController product={productInCart} />
         ) : (
           <button
             onClick={handleAddItemToCart}
-            className="self-stretch font-semibold flex-1 w-full gap-2 p-3 text-sm text-white duration-300 rounded-md flex-center focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 bg-accent-blue-100 hover:bg-accent-blue-200 active:scale-95"
+            className="self-stretch flex-1 w-full gap-2 p-3 text-sm font-semibold text-white duration-300 rounded-md flex-center focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 bg-accent-blue-100 hover:bg-accent-blue-200 active:scale-95"
           >
             {loading ? (
               <LoadingIndicator />
@@ -185,7 +186,7 @@ export default function ProductConfiguration({
         {user && (
           <button
             onClick={toggleAddItemToWishlist}
-            className="self-stretch flex-1 w-full whitespace-nowrap gap-2 p-3 font-semibold text-sm text-accent-blue-100 duration-300 rounded-md flex-center focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 border-2 border-accent-blue-100 hover:shadow-md hover:shadow-blue-300 active:scale-95"
+            className="self-stretch flex-1 w-full gap-2 p-3 text-sm font-semibold duration-300 border-2 rounded-md whitespace-nowrap text-accent-blue-100 flex-center focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 border-accent-blue-100 hover:shadow-md hover:shadow-blue-300 active:scale-95"
           >
             {wishlistLoading ? (
               <LoadingIndicator className="fill-accent-blue-100" />
