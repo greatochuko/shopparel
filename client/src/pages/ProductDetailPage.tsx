@@ -20,6 +20,7 @@ export default function ProductDetailPage() {
       if (!productId) return setLoading(false);
       const data = await fetchProduct(productId.split("-")[0]);
       if (data.error) return setLoading(false);
+      document.title = `Shopparel: ${data.name}`;
       setProduct(data);
       setLoading(false);
     }

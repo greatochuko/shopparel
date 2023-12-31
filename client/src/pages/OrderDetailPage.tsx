@@ -21,6 +21,7 @@ export default function OrderDetailPage() {
     async function getOrder() {
       const data = await fetchOrder(orderId as string);
       if (data.error) return;
+      document.title = `Shopparel: Order:#${orderId}`;
       setOrder(data);
     }
     getOrder();

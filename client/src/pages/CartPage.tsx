@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useCartContext from "../hooks/useCartContext";
 import EmptyCart from "../components/EmptyCart";
 import MobileCartITem from "../components/MobileCartITem";
@@ -9,6 +9,10 @@ export default function CartPage() {
   const [couponError, setCouponError] = useState("");
   const [couponCode, setCouponCode] = useState("");
   const { cartItems } = useCartContext();
+
+  useEffect(() => {
+    document.title = "Shopparel: Cart";
+  }, []);
 
   const subTotal = cartItems
     .reduce((acc, curr) => acc + curr.price * curr.quantity, 0)

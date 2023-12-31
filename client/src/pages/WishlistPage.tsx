@@ -1,9 +1,14 @@
+import { useEffect } from "react";
 import EmptyWishlist from "../components/EmptyWishlist";
 import WishlistItem from "../components/WishlistItem";
 import useWishlistContext from "../hooks/useWishlistContext";
 
 export default function WishlistPage() {
   const { wishlist } = useWishlistContext();
+
+  useEffect(() => {
+    document.title = "Shopparel: Wishlist";
+  }, []);
 
   return (
     <section className="flex-1">

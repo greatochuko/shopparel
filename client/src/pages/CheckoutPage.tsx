@@ -37,6 +37,7 @@ export default function CheckoutPage() {
     );
 
     if (data.error) return setLoading(false);
+    document.title = "Shopparel: Checkout";
     clearOrderCart();
     navigate("/orders");
     setLoading(false);

@@ -1,5 +1,5 @@
 import { Link, Navigate, useSearchParams } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { loginUser, loginUserWithGoogle } from "../services/authServices";
 import useUserContext from "../hooks/useUserContext";
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
@@ -24,6 +24,10 @@ export default function LoginForm() {
 
   const { setUser } = useUserContext();
   const { setCartItems } = useCartContext();
+
+  useEffect(() => {
+    document.title = "Shopparel: Login";
+  }, []);
 
   async function handleGoogleLogin(response: CredentialResponse) {
     const userData: JwtPayload & GoogleUserCredentials = jwtDecode(

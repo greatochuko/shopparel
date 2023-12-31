@@ -25,6 +25,8 @@ export default function HomePage() {
         setLoading(false);
         return;
       }
+      document.title = "Shopparel";
+
       setProducts(
         [...data].sort(
           (a, b) =>

@@ -1,5 +1,5 @@
 import { Link, Navigate, useSearchParams } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { loginUserWithGoogle, signupUser } from "../services/authServices";
 import useUserContext from "../hooks/useUserContext";
 import { GoogleLogin, CredentialResponse } from "@react-oauth/google";
@@ -29,6 +29,10 @@ export default function SignupForm() {
 
   const [searchParams] = useSearchParams();
   const redirectUrl = searchParams.get("redirect");
+
+  useEffect(() => {
+    document.title = "Shopparel: Signup";
+  }, []);
 
   async function handleGoogleLogin(response: CredentialResponse) {
     const userData: JwtPayload & GoogleUserCredentials = jwtDecode(

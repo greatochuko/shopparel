@@ -17,6 +17,8 @@ export default function SearchPage() {
     async function searchProducts() {
       setLoading(true);
       window.scrollTo(0, 0);
+      document.title = `Shopparel: Search results for '${query}'`;
+
       const data = await fetchSearchProducts(query as string, page as string);
       if (data.error) return setLoading(false);
       setProducts(data.products);

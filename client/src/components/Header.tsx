@@ -20,13 +20,13 @@ export default function Header() {
             to={"/"}
             className="hidden font-bold focus-visible:ring focus-visible:ring-offset-2 sm:block"
           >
-            Shopparel
+            <img src="/logo.png" alt="Shopparel" width={150} />
           </Link>
           <Link
             to={"/"}
             className="font-bold focus-visible:ring focus-visible:ring-offset-2 sm:hidden"
           >
-            S
+            <img src="/favicon.png" alt="Shopparel" width={40} />
           </Link>
           <ul className="hidden gap-2 lg:flex">
             {navLinks.map((navLink) => (

@@ -33,6 +33,7 @@ export default function ProfilePage() {
       setLoading(true);
       const data = await fetchShippingInformations();
       if (data.error) return setLoading(false);
+      document.title = "Shopparel: My Profile";
       setShippingInformations(
         [...data].sort(
           (a, b) =>

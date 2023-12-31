@@ -33,6 +33,8 @@ export default function BrandPage() {
         setLoading(false);
         return;
       }
+      document.title = `Shopparel: ${brand?.name}`;
+
       setProducts(
         [...data].sort(
           (a, b) =>

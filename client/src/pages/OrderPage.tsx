@@ -14,6 +14,7 @@ export default function OrderPage() {
       setLoading(true);
       const data = await fetchOrders();
       if (data.error) return setLoading(false);
+      document.title = "Shopparel: Orders";
       setOrders(
         [...data].sort(
           (a, b) =>
