@@ -15,6 +15,7 @@ import OrderPage from "./pages/OrderPage";
 import OrderDetailPage from "./pages/OrderDetailPage";
 import Authenticate from "./components/Authenticate";
 import BrandPage from "./pages/BrandPage";
+import SellerLandingPage from "./pages/SellerLandingPage";
 
 const router = createHashRouter([
   {
@@ -30,6 +31,7 @@ const router = createHashRouter([
           { path: "/search", element: <SearchPage /> },
           { path: "/product/:productId", element: <ProductDetailPage /> },
           { path: "/cart", element: <CartPage /> },
+          { path: "/become-a-seller", element: <SellerLandingPage /> },
           {
             element: <Authenticate />,
             children: [
