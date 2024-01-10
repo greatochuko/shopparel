@@ -1,8 +1,15 @@
 import { useState } from "react";
 import CreateStoreModal from "../components/CreateStoreModal";
+import useUserContext from "../hooks/useUserContext";
+import { Navigate } from "react-router-dom";
 
 export default function SellerLandingPage() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const { user } = useUserContext();
+
+  if (user?.store) return <Navigate to={"/admin"} replace />;
+
   return (
     <>
       <div className="pt-[70px] w-[90%] max-w-7xl mx-auto flex">
