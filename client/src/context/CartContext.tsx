@@ -62,6 +62,7 @@ export default function CartProvider({
         const localCart: CartItemType[] = JSON.parse(
           localStorage.getItem("cart") as string
         );
+
         setCartItems(localCart || []);
       }
       setRefreshed(true);
