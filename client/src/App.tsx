@@ -16,7 +16,8 @@ import OrderDetailPage from "./pages/OrderDetailPage";
 import Authenticate from "./components/Authenticate";
 import BrandPage from "./pages/BrandPage";
 import SellerLandingPage from "./pages/SellerLandingPage";
-import AdminPage from "./pages/AdminPage";
+import Dashboard from "./pages/Dashboard";
+import AdminPageLayout from "./components/AdminPageLayout";
 
 const router = createHashRouter([
   {
@@ -24,7 +25,12 @@ const router = createHashRouter([
     children: [
       {
         element: <Authenticate />,
-        children: [{ path: "admin", element: <AdminPage /> }],
+        children: [
+          {
+            element: <AdminPageLayout />,
+            children: [{ path: "admin", element: <Dashboard /> }],
+          },
+        ],
       },
       { path: "/signup", element: <AuthPage type="signup" /> },
       { path: "/login", element: <AuthPage type="login" /> },

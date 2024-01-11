@@ -10,7 +10,7 @@ export async function authenticateUser(req, res, next) {
     req.userId = userId;
     next();
   } catch (error) {
-    res.json({ error: error.message });
+    res.status(401).json({ error: error.message });
     return;
   }
 }

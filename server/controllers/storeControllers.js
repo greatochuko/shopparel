@@ -11,6 +11,17 @@ export async function createStore(req, res) {
 
     res.json({ storeId: newStore._id });
   } catch (error) {
-    res.json({ error: error.message });
+    res.status(400).json({ error: error.message });
+  }
+}
+
+export async function getStore(req, res) {
+  try {
+    const { storeId } = req.params;
+    const store = await Store.findById(storeId);
+    if (!store) return res.status(404).json({ error: error.message });
+    res.json(store);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 }
