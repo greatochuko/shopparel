@@ -40,7 +40,7 @@ export default function AdminPageLayout() {
     <main className="flex h-[100rem]">
       <AdminPageSidebar open={sidebarIsOpen} store={store} loading={loading} />
       <div className="flex-1 bg-zinc-100 flex flex-col">
-        <AdminPageHeader toggleShowSidebar={toggleShowSidebar} />
+        <AdminPageHeader toggleShowSidebar={toggleShowSidebar} store={store} />
         <Outlet />
       </div>
     </main>
