@@ -17,7 +17,6 @@ export default function AdminPageLayout() {
   const { user } = useUserContext();
   const navigate = useNavigate();
 
-  console.clear();
   console.log(store);
 
   useEffect(() => {
@@ -39,9 +38,9 @@ export default function AdminPageLayout() {
   return (
     <main className="flex h-[100rem]">
       <AdminPageSidebar open={sidebarIsOpen} store={store} loading={loading} />
-      <div className="flex-1 bg-zinc-100 flex flex-col">
+      <div className="flex flex-col flex-1 bg-zinc-100">
         <AdminPageHeader toggleShowSidebar={toggleShowSidebar} store={store} />
-        <Outlet />
+        <Outlet context={loading} />
       </div>
     </main>
   );
