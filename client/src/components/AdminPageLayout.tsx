@@ -17,8 +17,6 @@ export default function AdminPageLayout() {
   const { user } = useUserContext();
   const navigate = useNavigate();
 
-  console.log(store);
-
   useEffect(() => {
     async function getStore() {
       setLoading(true);
@@ -36,11 +34,11 @@ export default function AdminPageLayout() {
   }
 
   return (
-    <main className="flex h-[100rem]">
+    <main className="flex">
       <AdminPageSidebar open={sidebarIsOpen} store={store} loading={loading} />
       <div className="flex flex-col flex-1 bg-zinc-100">
         <AdminPageHeader toggleShowSidebar={toggleShowSidebar} store={store} />
-        <Outlet context={loading} />
+        <Outlet context={[loading, store]} />
       </div>
     </main>
   );
