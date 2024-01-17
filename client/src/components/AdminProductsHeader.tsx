@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import { ProductType } from "./Product";
+import CreateProductModal from "./CreateProductModal";
+import { useState } from "react";
+import ModalContainer from "./ModalContainer";
 
 export default function AdminProductsHeader({
   products,
@@ -10,84 +13,97 @@ export default function AdminProductsHeader({
   filter: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;
 }) {
+  const [createProductModalIsOpen, setCreateProductModalIsOpen] =
+    useState(false);
+
   return (
-    <div>
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-semibold">Products</h1>
-        <Link
-          to={"new"}
-          className="block p-2 text-sm text-white duration-300 rounded-md bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
-        >
-          + New Product
-        </Link>
+    <>
+      <div>
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl font-semibold">Products</h1>
+          <button
+            onClick={() => setCreateProductModalIsOpen(true)}
+            className="block p-2 text-sm text-white duration-300 rounded-md bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
+          >
+            + New Product
+          </button>
+        </div>
+        <div className="mt-4 gap-4 text-sm sm:text-base hidden sm:flex">
+          <button
+            onClick={() => setFilter("all")}
+            className={`flex items-center gap-1 ${
+              filter === "all" ? "text-accent-blue-100" : ""
+            }`}
+          >
+            All
+            <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
+              {products.length}
+            </span>
+          </button>
+          <button
+            onClick={() => setFilter("in stock")}
+            className={`flex items-center gap-1 ${
+              filter === "in stock" ? "text-accent-blue-100" : ""
+            }`}
+          >
+            In Stock
+            <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
+              {
+                products.filter((product) => product.status === "in stock")
+                  .length
+              }
+            </span>
+          </button>
+          <button
+            onClick={() => setFilter("low stock")}
+            className={`flex items-center gap-1 ${
+              filter === "low stock" ? "text-accent-blue-100" : ""
+            }`}
+          >
+            Low Stock
+            <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
+              {
+                products.filter((product) => product.status === "low stock")
+                  .length
+              }
+            </span>
+          </button>
+          <button
+            onClick={() => setFilter("out of stock")}
+            className={`flex items-center gap-1 ${
+              filter === "out of stock" ? "text-accent-blue-100" : ""
+            }`}
+          >
+            Out of Stock
+            <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
+              {
+                products.filter((product) => product.status === "out of stock")
+                  .length
+              }
+            </span>
+          </button>
+        </div>
+        <div className="flex gap-1 sm:hidden mt-4">
+          <label htmlFor="filter">Filter</label>
+          <select
+            name="filter"
+            id="filter"
+            value={filter}
+            onChange={(e) => setFilter(e.target.value)}
+            className="border rounded-md"
+          >
+            <option value="all">All</option>
+            <option value="in stock">In Stock</option>
+            <option value="low stock">Low Stock</option>
+            <option value="out of stock">Out Of Stock</option>
+          </select>
+        </div>
       </div>
-      <div className="mt-4 gap-4 text-sm sm:text-base hidden sm:flex">
-        <button
-          onClick={() => setFilter("all")}
-          className={`flex items-center gap-1 ${
-            filter === "all" ? "text-accent-blue-100" : ""
-          }`}
-        >
-          All
-          <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
-            {products.length}
-          </span>
-        </button>
-        <button
-          onClick={() => setFilter("in stock")}
-          className={`flex items-center gap-1 ${
-            filter === "in stock" ? "text-accent-blue-100" : ""
-          }`}
-        >
-          In Stock
-          <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
-            {products.filter((product) => product.status === "in stock").length}
-          </span>
-        </button>
-        <button
-          onClick={() => setFilter("low stock")}
-          className={`flex items-center gap-1 ${
-            filter === "low stock" ? "text-accent-blue-100" : ""
-          }`}
-        >
-          Low Stock
-          <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
-            {
-              products.filter((product) => product.status === "low stock")
-                .length
-            }
-          </span>
-        </button>
-        <button
-          onClick={() => setFilter("out of stock")}
-          className={`flex items-center gap-1 ${
-            filter === "out of stock" ? "text-accent-blue-100" : ""
-          }`}
-        >
-          Out of Stock
-          <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
-            {
-              products.filter((product) => product.status === "out of stock")
-                .length
-            }
-          </span>
-        </button>
-      </div>
-      <div className="flex gap-1 sm:hidden mt-4">
-        <label htmlFor="filter">Filter</label>
-        <select
-          name="filter"
-          id="filter"
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          className="border rounded-md"
-        >
-          <option value="all">All</option>
-          <option value="in stock">In Stock</option>
-          <option value="low stock">Low Stock</option>
-          <option value="out of stock">Out Of Stock</option>
-        </select>
-      </div>
-    </div>
+      {createProductModalIsOpen ? (
+        <ModalContainer closeModal={() => setCreateProductModalIsOpen(false)}>
+          <CreateProductModal />
+        </ModalContainer>
+      ) : null}
+    </>
   );
 }

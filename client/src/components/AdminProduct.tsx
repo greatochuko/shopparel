@@ -1,4 +1,7 @@
+import { useState } from "react";
 import { ProductType } from "./Product";
+import ModalContainer from "./ModalContainer";
+import DeleteProductModal from "./DeleteProductModal";
 
 export default function AdminProduct({
   product,
@@ -9,6 +12,8 @@ export default function AdminProduct({
   isSelected: boolean;
   toggleCheck: (productId: string) => void;
 }) {
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+
   const productStatusBg =
     product.status === "in stock"
       ? "bg-green-100"
@@ -30,6 +35,12 @@ export default function AdminProduct({
       : product.status === "draft"
       ? "text-zinc-600"
       : "";
+
+  function openDeleteProductModal(e: React.MouseEvent) {
+    e.stopPropagation();
+    setDeleteModalIsOpen(true);
+  }
+
   return (
     <>
       <li
@@ -64,7 +75,7 @@ export default function AdminProduct({
           <button
             className="p-3 duration-200 rounded-full group"
             tabIndex={1}
-            onClick={(e) => e.stopPropagation()}
+            onClick={openDeleteProductModal}
           >
             <svg
               height={20}
@@ -171,6 +182,15 @@ export default function AdminProduct({
           </div>
         </div>
       </li>
+
+      {deleteModalIsOpen ? (
+        <ModalContainer closeModal={() => setDeleteModalIsOpen(false)}>
+          <DeleteProductModal
+            closeModal={() => setDeleteModalIsOpen(false)}
+            productId={product._id}
+          />
+        </ModalContainer>
+      ) : null}
     </>
   );
 }
