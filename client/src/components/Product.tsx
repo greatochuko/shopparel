@@ -6,6 +6,7 @@ import useUserContext from "../hooks/useUserContext";
 export type ProductType = {
   _id: string;
   name: string;
+  status: "in stock" | "out of stock" | "low stock" | "draft";
   imgUrl: string;
   brand: string;
   price: number;
@@ -16,6 +17,7 @@ export type ProductType = {
   images: string[];
   reviews: ReviewType[];
   rating: number;
+  createdAt: string;
 };
 
 export default function Product({ product }: { product: ProductType }) {
