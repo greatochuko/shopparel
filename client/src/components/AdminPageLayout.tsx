@@ -40,10 +40,11 @@ export default function AdminPageLayout() {
         store={store}
         loading={loading}
         closeSidebar={() => setSidebarIsOpen(false)}
+        toggleSidebar={toggleShowSidebar}
       />
       <div className="flex flex-col flex-1 bg-zinc-100">
         <AdminPageHeader toggleShowSidebar={toggleShowSidebar} store={store} />
-        <Outlet context={[loading, store]} />
+        <Outlet context={{ loading, store }} />
       </div>
     </main>
   );

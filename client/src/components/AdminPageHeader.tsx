@@ -23,8 +23,8 @@ export default function AdminPageHeader({
 
   return (
     <>
-      <nav className="sticky top-0 flex items-center justify-between w-full gap-4 p-2 mx-auto bg-white shadow-md">
-        <button onClick={toggleShowSidebar} className="p-1 group">
+      <nav className="sticky top-0 flex items-center justify-between w-full gap-4 p-2 px-6 bg-white shadow-md">
+        <button onClick={toggleShowSidebar} className="p-1 group lg:hidden">
           <svg
             height={25}
             width={25}
@@ -55,11 +55,13 @@ export default function AdminPageHeader({
             </g>
           </svg>
         </button>
-        <form className="flex-1">
+        <h1 className="text-lg sm:text-xl font-semibold mr-auto">Dashboard</h1>
+
+        <form className="sm:w-80">
           <input
             type="text"
             placeholder="Search"
-            className="w-full p-2 text-sm rounded-full bg-zinc-100 focus-visible:ring ring-blue-400"
+            className="w-full p-2 px-3 duration-300 text-sm rounded-full bg-zinc-100 focus-visible:ring ring-blue-400"
           />
         </form>
         <button className="relative flex-center group" onClick={toggleDropdown}>

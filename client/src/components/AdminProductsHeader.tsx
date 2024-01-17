@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
+import { ProductType } from "./Product";
 
 export default function AdminProductsHeader({
+  products,
   filter,
   setFilter,
 }: {
+  products: ProductType[];
   filter: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;
 }) {
@@ -20,43 +23,53 @@ export default function AdminProductsHeader({
       </div>
       <div className="mt-4 gap-4 text-sm sm:text-base hidden sm:flex">
         <button
+          onClick={() => setFilter("all")}
           className={`flex items-center gap-1 ${
             filter === "all" ? "text-accent-blue-100" : ""
           }`}
         >
           All
-          <span className="bg-zinc-200 p-1 text-xs border border-zinc-300 rounded-md text-zinc-800">
-            200
+          <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
+            {products.length}
           </span>
         </button>
         <button
+          onClick={() => setFilter("in stock")}
           className={`flex items-center gap-1 ${
             filter === "in stock" ? "text-accent-blue-100" : ""
           }`}
         >
           In Stock
-          <span className="bg-zinc-200 p-1 text-xs border border-zinc-300 rounded-md text-zinc-800">
-            200
+          <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
+            {products.filter((product) => product.status === "in stock").length}
           </span>
         </button>
         <button
+          onClick={() => setFilter("low stock")}
           className={`flex items-center gap-1 ${
             filter === "low stock" ? "text-accent-blue-100" : ""
           }`}
         >
           Low Stock
-          <span className="bg-zinc-200 p-1 text-xs border border-zinc-300 rounded-md text-zinc-800">
-            200
+          <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
+            {
+              products.filter((product) => product.status === "low stock")
+                .length
+            }
           </span>
         </button>
         <button
+          onClick={() => setFilter("out of stock")}
           className={`flex items-center gap-1 ${
             filter === "out of stock" ? "text-accent-blue-100" : ""
           }`}
         >
           Out of Stock
-          <span className="bg-zinc-200 p-1 text-xs border border-zinc-300 rounded-md text-zinc-800">
-            200
+          <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
+            {
+              products.filter((product) => product.status === "out of stock")
+                .length
+            }
           </span>
         </button>
       </div>

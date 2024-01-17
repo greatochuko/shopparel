@@ -1,46 +1,14 @@
 import { useState } from "react";
 import AdminProduct from "./AdminProduct";
+import { ProductType } from "./Product";
 
-const demoAdminProducts = [
-  {
-    _id: "123456",
-    name: "Training Hoodie",
-    imgUrl: "/training-hoodie.png",
-    categories: ["Sweatshirts and Hoodies"],
-    price: 67.99,
-    createdAt: "27 oct 2023",
-    status: "in stock",
-  },
-  {
-    _id: "123457",
-    name: "Training Hoodie",
-    imgUrl: "/training-hoodie.png",
-    categories: ["Sweatshirts and Hoodies"],
-    price: 67.99,
-    createdAt: "27 oct 2023",
-    status: "low stock",
-  },
-  {
-    _id: "123458",
-    name: "Training Hoodie",
-    imgUrl: "/training-hoodie.png",
-    categories: ["Sweatshirts and Hoodies"],
-    price: 67.99,
-    createdAt: "27 oct 2023",
-    status: "out of stock",
-  },
-  {
-    _id: "123459",
-    name: "Training Hoodie",
-    imgUrl: "/training-hoodie.png",
-    categories: ["Sweatshirts and Hoodies"],
-    price: 67.99,
-    createdAt: "27 oct 2023",
-    status: "draft",
-  },
-];
-
-export default function AdminProductList() {
+export default function AdminProductList({
+  filter,
+  products,
+}: {
+  filter: string;
+  products: ProductType[];
+}) {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
 
   function toggleCheck(productId: string) {
@@ -52,12 +20,17 @@ export default function AdminProductList() {
   }
 
   function toggleSelectAll() {
-    if (selectedProducts.length === demoAdminProducts.length) {
+    if (selectedProducts.length === products.length) {
       setSelectedProducts([]);
     } else {
-      setSelectedProducts(demoAdminProducts.map((product) => product._id));
+      setSelectedProducts(products.map((product) => product._id));
     }
   }
+
+  const filteredProducts =
+    filter === "all"
+      ? products
+      : products.filter((product) => product.status === filter);
 
   return (
     <div className="flex flex-col gap-2 p-2 md:p-4 text-sm bg-white rounded-md">
@@ -67,7 +40,7 @@ export default function AdminProductList() {
           name="selectAll"
           id="selectAll"
           className="w-fit mr-2"
-          checked={selectedProducts.length === demoAdminProducts.length}
+          checked={selectedProducts.length === products.length}
           onChange={toggleSelectAll}
         />
         <p className="min-w-[200px] flex-1 mr-auto">Product</p>
@@ -77,7 +50,7 @@ export default function AdminProductList() {
         <p className="w-16 text-center">Delete</p>
       </div>
       <ul className="flex flex-col gap-2 md:gap-0">
-        {demoAdminProducts.map((product) => (
+        {filteredProducts.map((product) => (
           <AdminProduct
             product={product}
             key={product._id}
