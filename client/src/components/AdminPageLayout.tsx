@@ -11,7 +11,7 @@ export type StoreType = {
 };
 
 export default function AdminPageLayout() {
-  const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
+  const [sidebarIsOpen, setSidebarIsOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [store, setStore] = useState<StoreType | null>(null);
   const { user } = useUserContext();

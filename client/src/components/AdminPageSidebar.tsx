@@ -22,33 +22,47 @@ export default function AdminPageSidebar({
       )}
       <div
         className={`top-0 h-screen bg-white  text-zinc-700 shadow-md duration-200 flex gap-2 flex-col z-10 overflow-hidden absolute lg:static ${
-          open ? "w-60 p-4" : "w-0 px-0"
+          open ? "w-60 p-4" : "w-0 lg:w-14 px-0"
         }`}
       >
-        <div className="flex-col gap-2 px-4 flex-center">
+        <div className={`flex-col gap-2 ${open ? "px-4" : "py-4"} flex-center`}>
           {loading ? (
             <>
-              <div className="w-20 h-20 rounded-full animate-pulse bg-zinc-300"></div>
-              <div className="w-32 h-5 rounded-full animate-pulse bg-zinc-300"></div>
+              <div
+                className={`${
+                  open ? "w-20 h-20" : "w-10 h-10"
+                } rounded-full animate-pulse bg-zinc-300`}
+              ></div>
+              <div
+                className={`${
+                  !open && "hidden"
+                } w-32 h-5 rounded-full animate-pulse bg-zinc-300`}
+              ></div>
             </>
           ) : (
             <>
               <img
                 src={store?.banner}
                 alt=""
-                className="object-cover w-20 h-20 rounded-full shadow"
+                className={`object-cover ${
+                  open ? "w-20 h-20" : "w-10 h-10"
+                } rounded-full shadow`}
               />
-              <h2 className="text-xl font-semibold">{store?.name}</h2>
+              <h2 className={`${open ? "" : "hidden"} text-xl font-semibold`}>
+                {store?.name}
+              </h2>
             </>
           )}
         </div>
         <hr />
-        <ul className="flex flex-col gap-1">
+        <ul className="flex flex-col gap-1 p-2">
           <li>
             {" "}
             <Link
               to={"/admin"}
-              className="flex items-center gap-2 p-3 duration-300 rounded-md hover:bg-accent-blue-100/20 hover:text-accent-blue-300 group"
+              className={`flex items-center gap-2 ${
+                !open ? "flex-center aspect-square" : "p-3"
+              } duration-300 rounded-md hover:bg-accent-blue-100/20 hover:text-accent-blue-300 group`}
             >
               <svg
                 height={20}
@@ -72,14 +86,16 @@ export default function AdminPageSidebar({
                   <rect x="13" y="11" width="9" height="11" rx="2"></rect>
                 </g>
               </svg>
-              Dashboard
+              <span className={open ? "" : "hidden"}> Dashboard</span>
             </Link>
           </li>
           <li>
             {" "}
             <Link
               to={"/admin/products"}
-              className="flex items-center gap-2 p-3 duration-300 rounded-md hover:bg-accent-blue-100/20 hover:text-accent-blue-300 group"
+              className={`flex items-center gap-2 ${
+                !open ? "flex-center aspect-square" : "p-3"
+              } duration-300 rounded-md hover:bg-accent-blue-100/20 hover:text-accent-blue-300 group`}
             >
               <svg
                 width={24}
@@ -108,14 +124,16 @@ export default function AdminPageSidebar({
                   ></path>{" "}
                 </g>
               </svg>
-              Products
+              <span className={open ? "" : "hidden"}> Products</span>
             </Link>
           </li>
           <li>
             {" "}
             <Link
               to={"/admin/orders"}
-              className="flex items-center gap-2 p-3 duration-300 rounded-md hover:bg-accent-blue-100/20 hover:text-accent-blue-300 group"
+              className={`flex items-center gap-2 ${
+                !open ? "flex-center aspect-square" : "p-3"
+              } duration-300 rounded-md hover:bg-accent-blue-100/20 hover:text-accent-blue-300 group`}
             >
               <svg
                 height={20}
@@ -194,14 +212,16 @@ export default function AdminPageSidebar({
                   </g>{" "}
                 </g>
               </svg>
-              Orders
+              <span className={open ? "" : "hidden"}> Orders</span>
             </Link>
           </li>
           <li>
             {" "}
             <Link
               to={"/admin/reviews"}
-              className="flex items-center gap-2 p-3 duration-300 rounded-md hover:bg-accent-blue-100/20 hover:text-accent-blue-300 group"
+              className={`flex items-center gap-2 ${
+                !open ? "flex-center aspect-square" : "p-3"
+              } duration-300 rounded-md hover:bg-accent-blue-100/20 hover:text-accent-blue-300 group`}
             >
               <svg
                 height={20}
@@ -228,7 +248,7 @@ export default function AdminPageSidebar({
                   ></path>{" "}
                 </g>
               </svg>
-              Reviews
+              <span className={open ? "" : "hidden"}> Reviews</span>
             </Link>
           </li>
           <hr />
@@ -236,7 +256,9 @@ export default function AdminPageSidebar({
             {" "}
             <Link
               to={"/admin/settings"}
-              className="flex items-center gap-2 p-3 duration-300 rounded-md hover:bg-accent-blue-100/20 hover:text-accent-blue-300 group"
+              className={`flex items-center gap-2 ${
+                !open ? "flex-center aspect-square" : "p-3"
+              } duration-300 rounded-md hover:bg-accent-blue-100/20 hover:text-accent-blue-300 group`}
             >
               <svg
                 height={20}
@@ -269,7 +291,7 @@ export default function AdminPageSidebar({
                   ></path>{" "}
                 </g>
               </svg>
-              Settings
+              <span className={open ? "" : "hidden"}> Settings</span>
             </Link>
           </li>
         </ul>
