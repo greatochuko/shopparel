@@ -142,7 +142,7 @@ export default function AdminProduct({
               {product.status}
             </p>
             <p className="text-center font-semibold">$245.99</p>
-            <p className="text-center font-semibold absolute right-2 top-3">
+            <button className="absolute right-2 top-3">
               <svg
                 height={20}
                 width={20}
@@ -167,7 +167,7 @@ export default function AdminProduct({
                   ></path>{" "}
                 </g>
               </svg>
-            </p>
+            </button>
           </div>
         </div>
       </li>

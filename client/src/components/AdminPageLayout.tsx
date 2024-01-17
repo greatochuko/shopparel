@@ -34,8 +34,13 @@ export default function AdminPageLayout() {
   }
 
   return (
-    <main className="flex">
-      <AdminPageSidebar open={sidebarIsOpen} store={store} loading={loading} />
+    <main className="flex min-h-screen">
+      <AdminPageSidebar
+        open={sidebarIsOpen}
+        store={store}
+        loading={loading}
+        closeSidebar={toggleShowSidebar}
+      />
       <div className="flex flex-col flex-1 bg-zinc-100">
         <AdminPageHeader toggleShowSidebar={toggleShowSidebar} store={store} />
         <Outlet context={[loading, store]} />
