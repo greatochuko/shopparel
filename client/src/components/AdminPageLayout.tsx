@@ -39,7 +39,7 @@ export default function AdminPageLayout() {
         open={sidebarIsOpen}
         store={store}
         loading={loading}
-        closeSidebar={toggleShowSidebar}
+        closeSidebar={() => setSidebarIsOpen(false)}
       />
       <div className="flex flex-col flex-1 bg-zinc-100">
         <AdminPageHeader toggleShowSidebar={toggleShowSidebar} store={store} />

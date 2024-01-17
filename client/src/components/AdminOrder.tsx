@@ -77,7 +77,7 @@ export default function AdminOrder({ order }: { order: AdminOrderType }) {
 
       {/* MOBILE ORDER ITEM */}
 
-      <li className="flex flex-col relative md:hidden justify-between w-full gap-2 pb-2 text-sm border-b border-zinc-100">
+      <li className="flex flex-col relative md:hidden justify-between w-full gap-2 pb-2 text-sm lg:border-b border-zinc-100 bg-zinc-50 p-2 rounded-md">
         <p>
           <span className="font-semibold">Order ID - </span> #{order._id}
         </p>

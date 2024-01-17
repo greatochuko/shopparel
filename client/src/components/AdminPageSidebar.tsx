@@ -56,7 +56,7 @@ export default function AdminPageSidebar({
         </div>
         <hr />
         <ul className="flex flex-col gap-1 p-2">
-          <li>
+          <li onClick={closeSidebar}>
             {" "}
             <Link
               to={"/admin"}
@@ -89,7 +89,7 @@ export default function AdminPageSidebar({
               <span className={open ? "" : "hidden"}> Dashboard</span>
             </Link>
           </li>
-          <li>
+          <li onClick={closeSidebar}>
             {" "}
             <Link
               to={"/admin/products"}
@@ -127,7 +127,7 @@ export default function AdminPageSidebar({
               <span className={open ? "" : "hidden"}> Products</span>
             </Link>
           </li>
-          <li>
+          <li onClick={closeSidebar}>
             {" "}
             <Link
               to={"/admin/orders"}
@@ -215,7 +215,7 @@ export default function AdminPageSidebar({
               <span className={open ? "" : "hidden"}> Orders</span>
             </Link>
           </li>
-          <li>
+          <li onClick={closeSidebar}>
             {" "}
             <Link
               to={"/admin/reviews"}
@@ -252,7 +252,7 @@ export default function AdminPageSidebar({
             </Link>
           </li>
           <hr />
-          <li>
+          <li onClick={closeSidebar}>
             {" "}
             <Link
               to={"/admin/settings"}
