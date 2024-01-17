@@ -30,7 +30,7 @@ const demoAdminProducts = [
     status: "out of stock",
   },
   {
-    _id: "123458",
+    _id: "123459",
     name: "Training Hoodie",
     imgUrl: "/training-hoodie.png",
     categories: ["Sweatshirts and Hoodies"],
@@ -68,15 +68,15 @@ export default function AdminProductList() {
           id="selectAll"
           className="w-fit mr-2"
           checked={selectedProducts.length === demoAdminProducts.length}
-          onClick={toggleSelectAll}
+          onChange={toggleSelectAll}
         />
         <p className="min-w-[200px] flex-1 mr-auto">Product</p>
         <p className="w-24 text-center">Created At</p>
         <p className="w-24 text-center">Status</p>
-        <p className="w-24 text-center">Price</p>
-        <p className="w-24 text-center">Delete</p>
+        <p className="w-[70px] text-center">Price</p>
+        <p className="w-16 text-center">Delete</p>
       </div>
-      <ul className="flex flex-col gap-4 md:gap-0">
+      <ul className="flex flex-col gap-2 md:gap-0">
         {demoAdminProducts.map((product) => (
           <AdminProduct
             product={product}
