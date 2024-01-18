@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { ProductType } from "./Product";
 import CreateProductModal from "./CreateProductModal";
 import { useState } from "react";
@@ -101,7 +100,9 @@ export default function AdminProductsHeader({
       </div>
       {createProductModalIsOpen ? (
         <ModalContainer closeModal={() => setCreateProductModalIsOpen(false)}>
-          <CreateProductModal />
+          <CreateProductModal
+            closeModal={() => setCreateProductModalIsOpen(false)}
+          />
         </ModalContainer>
       ) : null}
     </>

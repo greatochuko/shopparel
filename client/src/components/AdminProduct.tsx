@@ -50,7 +50,7 @@ export default function AdminProduct({
         <input
           type="checkbox"
           name="selectAll"
-          id="selectAll"
+          id={product._id}
           className="w-fit"
           checked={isSelected}
           onChange={() => toggleCheck(product._id)}
@@ -132,7 +132,7 @@ export default function AdminProduct({
         <input
           type="checkbox"
           name="selectAll"
-          id="selectAll"
+          id={product._id + "mobile"}
           className="w-fit relative top-7"
         />
         <div className="flex flex-col gap-4 flex-1">

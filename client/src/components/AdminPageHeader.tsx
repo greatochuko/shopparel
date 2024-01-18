@@ -61,6 +61,8 @@ export default function AdminPageHeader({
           <input
             type="text"
             placeholder="Search"
+            id="search-input"
+            name="search-input"
             className="w-full p-2 px-3 duration-300 text-sm rounded-full bg-zinc-100 focus-visible:ring ring-blue-400"
           />
         </form>
@@ -119,7 +121,7 @@ export default function AdminPageHeader({
                     fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
                     <g
                       id="SVGRepo_tracerCarrier"
                       strokeLinecap="round"
