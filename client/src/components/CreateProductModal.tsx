@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ProductInformationForm from "./ProductInformationForm";
 import ProductImagesForm from "./ProductImagesForm";
+import ProductSpecsForm from "./ProductSpecsForm";
 
 export default function CreateProductModal({
   closeModal,
@@ -10,10 +11,16 @@ export default function CreateProductModal({
   const [activeTab, setActiveTab] = useState("information");
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   function handleSaveProductInformation(e: React.FormEvent) {
     e.preventDefault();
     setActiveTab("image");
+  }
+
+  function handleSaveProductImages(e: React.FormEvent) {
+    e.preventDefault();
+    setActiveTab("specs");
   }
 
   function handlePublish(e: React.FormEvent) {
@@ -45,17 +52,32 @@ export default function CreateProductModal({
         >
           Image
         </li>
+        <li
+          onClick={() => setActiveTab("specs")}
+          tabIndex={0}
+          className={`p-3 flex-1 border-b-4 text-center cursor-pointer hover:bg-zinc-100 duration-300 focus-visible:bg-zinc-100 ${
+            activeTab === "specs" ? "border-blue-400" : ""
+          }`}
+        >
+          Specs
+        </li>
       </ul>
       {activeTab === "information" ? (
         <ProductInformationForm
           handleSaveProductInformation={handleSaveProductInformation}
+        />
+      ) : activeTab === "image" ? (
+        <ProductImagesForm handleSaveProductImages={handleSaveProductImages} />
+      ) : (
+        <ProductSpecsForm
+          handlePublish={handlePublish}
           selectedColors={selectedColors}
           setSelectedColors={setSelectedColors}
           selectedSizes={selectedSizes}
           setSelectedSizes={setSelectedSizes}
+          selectedCategories={selectedCategories}
+          setSelectedCategories={setSelectedCategories}
         />
-      ) : (
-        <ProductImagesForm handlePublish={handlePublish} />
       )}
     </div>
   );

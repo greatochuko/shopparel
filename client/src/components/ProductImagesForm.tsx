@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 export default function ProductImagesForm({
-  handlePublish,
+  handleSaveProductImages,
 }: {
-  handlePublish: (e: React.FormEvent) => void;
+  handleSaveProductImages: (e: React.FormEvent) => void;
 }) {
   const [bannerUrl, setBannerUrl] = useState("");
 
@@ -12,7 +12,10 @@ export default function ProductImagesForm({
   }
 
   return (
-    <form className="p-4 pb-0 flex flex-col flex-1" onSubmit={handlePublish}>
+    <form
+      className="p-4 pb-0 flex flex-col flex-1"
+      onSubmit={handleSaveProductImages}
+    >
       <div className="flex-1 flex flex-col overflow-y-scroll pr-2">
         <label
           htmlFor="main-image"
@@ -176,7 +179,7 @@ export default function ProductImagesForm({
           type="submit"
           className="flex-1 sm:flex-[2] p-2 rounded-md font-semibold bg-accent-blue-100 text-white duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
         >
-          Publish
+          Save and Next
         </button>
         <button
           type="button"
