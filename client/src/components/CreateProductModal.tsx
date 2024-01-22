@@ -2,22 +2,38 @@ import { useState } from "react";
 import ProductInformationForm from "./ProductInformationForm";
 import ProductImagesForm from "./ProductImagesForm";
 import ProductSpecsForm from "./ProductSpecsForm";
+import {
+  ProductInfoType,
+  fetchSaveProductInfo,
+} from "../services/productServices";
 
 export default function CreateProductModal({
   closeModal,
+  id,
 }: {
   closeModal: () => void;
+  id?: string;
 }) {
   const [activeTab, setActiveTab] = useState("information");
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [level, setLevel] = useState(1);
+  const [productId, setProductId] = useState<string | null>(id || null);
+  const [loading, setLoading] = useState(false);
 
-  function handleSaveProductInformation(e: React.FormEvent) {
+  async function handleSaveProductInformation(
+    e: React.FormEvent,
+    productInfo: ProductInfoType
+  ) {
     e.preventDefault();
+    setLoading(true);
+    const data = await fetchSaveProductInfo(productInfo);
+    if (data.error) return setLoading(false);
+    setProductId(data._id);
     setLevel(2);
     setActiveTab("image");
+    setLoading(false);
   }
 
   function handleSaveProductImages(e: React.FormEvent) {
@@ -75,16 +91,19 @@ export default function CreateProductModal({
       </ul>
       <ProductInformationForm
         active={activeTab === "information"}
+        loading={loading}
         saveAsDraft={saveAsDraft}
         handleSaveProductInformation={handleSaveProductInformation}
       />
       <ProductImagesForm
         active={activeTab === "image"}
         saveAsDraft={saveAsDraft}
+        loading={loading}
         handleSaveProductImages={handleSaveProductImages}
       />
       <ProductSpecsForm
         active={activeTab === "specs"}
+        loading={loading}
         saveAsDraft={saveAsDraft}
         handlePublish={handlePublish}
         selectedColors={selectedColors}

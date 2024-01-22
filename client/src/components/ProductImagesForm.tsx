@@ -4,10 +4,12 @@ export default function ProductImagesForm({
   handleSaveProductImages,
   saveAsDraft,
   active,
+  loading,
 }: {
   handleSaveProductImages: (e: React.FormEvent) => void;
   saveAsDraft: () => void;
   active: boolean;
+  loading: boolean;
 }) {
   const [bannerUrl, setBannerUrl] = useState("");
 
@@ -185,7 +187,7 @@ export default function ProductImagesForm({
           type="submit"
           className="flex-1 sm:flex-[2] p-2 rounded-md font-semibold bg-accent-blue-100 text-white duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
         >
-          Save and Next
+          {loading ? "Saving..." : "Save and Next"}
         </button>
         <button
           onClick={saveAsDraft}

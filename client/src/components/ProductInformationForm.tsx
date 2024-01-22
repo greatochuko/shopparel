@@ -1,24 +1,53 @@
+import { useState } from "react";
+import { ProductInfoType } from "../services/productServices";
+import { useOutletContext } from "react-router-dom";
+import { StoreType } from "./AdminPageLayout";
+
 export default function ProductInformationForm({
   handleSaveProductInformation,
   saveAsDraft,
   active,
+  loading,
 }: {
-  handleSaveProductInformation: (e: React.FormEvent) => void;
+  handleSaveProductInformation: (
+    e: React.FormEvent,
+    productInfo: ProductInfoType
+  ) => void;
   saveAsDraft: () => void;
   active: boolean;
+  loading: boolean;
 }) {
+  const [productName, setProductName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState(0);
+  const [shipping, setShipping] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const { store } = useOutletContext<{ store: StoreType }>();
+
   return (
     <form
       className={`p-4 pb-0 flex flex-col flex-1 bg- overflow-y-scroll ${
         active ? "" : "hidden"
       }`}
-      onSubmit={handleSaveProductInformation}
+      onSubmit={(e) =>
+        handleSaveProductInformation(e, {
+          name: productName,
+          description,
+          price,
+          discount,
+          shipping,
+          store: store._id,
+          _id: "123",
+        })
+      }
     >
       <label htmlFor="product-name" className="font-semibold w-fit">
         Product Name
       </label>
       <input
         required
+        value={productName}
+        onChange={(e) => setProductName(e.target.value)}
         type="text"
         id="product-name"
         className="border p-2 rounded-md"
@@ -29,6 +58,8 @@ export default function ProductInformationForm({
         </label>
         <textarea
           required
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           name="description"
           id="description"
           className="border p-2 rounded-md flex-1 aspect-[2] sm:aspect-[2.5] resize-none"
@@ -41,6 +72,8 @@ export default function ProductInformationForm({
           </label>
           <input
             required
+            value={price}
+            onChange={(e) => setPrice(Number(e.target.value))}
             type="number"
             id="price"
             className="border p-2 rounded-md w-full"
@@ -52,6 +85,8 @@ export default function ProductInformationForm({
           </label>
           <input
             required
+            value={shipping}
+            onChange={(e) => setShipping(Number(e.target.value))}
             type="number"
             id="shipping"
             className="border p-2 rounded-md w-full"
@@ -63,8 +98,9 @@ export default function ProductInformationForm({
           </label>
           <input
             required
+            value={discount}
+            onChange={(e) => setDiscount(Number(e.target.value))}
             type="number"
-            defaultValue={0}
             id="discount"
             className="border p-2 rounded-md w-full"
           />
@@ -76,7 +112,7 @@ export default function ProductInformationForm({
           type="submit"
           className="flex-1 sm:flex-[2] p-2 rounded-md font-semibold bg-accent-blue-100 text-white duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
         >
-          Save and Next
+          {loading ? "Saving..." : "Save and Next"}
         </button>
         <button
           onClick={saveAsDraft}

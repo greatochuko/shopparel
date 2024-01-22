@@ -10,6 +10,7 @@ export default function ProductSpecsForm({
   setSelectedCategories,
   saveAsDraft,
   active,
+  loading,
 }: {
   handlePublish: (e: React.FormEvent) => void;
   selectedColors: string[];
@@ -20,6 +21,7 @@ export default function ProductSpecsForm({
   setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>>;
   saveAsDraft: () => void;
   active: boolean;
+  loading: boolean;
 }) {
   function toggleAddColor(color: string) {
     if (selectedColors.includes(color)) {
@@ -183,7 +185,7 @@ export default function ProductSpecsForm({
           type="submit"
           className="flex-1 sm:flex-[2] p-2 rounded-md font-semibold bg-accent-blue-100 text-white duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
         >
-          Publish
+          {loading ? "Publishing..." : "Publish"}
         </button>
         <button
           onClick={saveAsDraft}

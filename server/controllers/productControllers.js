@@ -55,6 +55,25 @@ export async function searchProducts(req, res) {
   }
 }
 
+export async function saveProductInfo(req, res) {
+  try {
+    const { name, description, price, shipping, discount, store } = req.body;
+    console.log(name, description, price, shipping, discount, store);
+    const newProduct = await Product.create({
+      name,
+      description,
+      price,
+      shipping,
+      discount,
+      store,
+    });
+    res.json(newProduct);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ error: error.message });
+  }
+}
+
 export async function createProduct(req, res) {
   try {
     const {
