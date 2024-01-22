@@ -58,7 +58,6 @@ export async function searchProducts(req, res) {
 export async function saveProductInfo(req, res) {
   try {
     const { name, description, price, shipping, discount, store } = req.body;
-    console.log(name, description, price, shipping, discount, store);
     const newProduct = await Product.create({
       name,
       description,
@@ -68,6 +67,19 @@ export async function saveProductInfo(req, res) {
       store,
     });
     res.json(newProduct);
+  } catch (error) {
+    console.log(error.message);
+    res.status(400).json({ error: error.message });
+  }
+}
+
+export async function editProduct(req, res) {
+  try {
+    const { _id: productId } = req.body;
+    const product = await Product.findByIdAndUpdate(productId, req.body, {
+      new: true,
+    });
+    res.json(product);
   } catch (error) {
     console.log(error.message);
     res.status(400).json({ error: error.message });

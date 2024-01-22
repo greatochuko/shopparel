@@ -4,7 +4,7 @@ const productSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     description: { type: String, required: true },
-    imgUrl: { type: String },
+    imgUrl: { type: String, default: "/product-placeholder.png" },
     brand: { type: String },
     store: {
       type: mongoose.SchemaTypes.ObjectId,
@@ -26,6 +26,7 @@ const productSchema = new mongoose.Schema(
     categories: { type: [String], required: true },
     colors: { type: [String], required: true },
     isPublished: { type: Boolean, default: false },
+    quantity: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

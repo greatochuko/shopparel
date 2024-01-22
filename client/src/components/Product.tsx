@@ -6,7 +6,11 @@ import useUserContext from "../hooks/useUserContext";
 export type ProductType = {
   _id: string;
   name: string;
-  status: "in stock" | "out of stock" | "low stock" | "draft";
+  description: string;
+  shipping: number;
+  discount: number;
+  isPublished: boolean;
+  quantity: number;
   imgUrl: string;
   brand: string;
   price: number;

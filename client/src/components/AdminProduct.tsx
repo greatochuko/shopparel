@@ -2,48 +2,55 @@ import { useState } from "react";
 import { ProductType } from "./Product";
 import ModalContainer from "./ModalContainer";
 import DeleteProductModal from "./DeleteProductModal";
+import CreateProductModal from "./CreateProductModal";
 
 export default function AdminProduct({
   product,
   isSelected,
   toggleCheck,
+  refreshStoreProducts,
 }: {
   product: ProductType;
   isSelected: boolean;
   toggleCheck: (productId: string) => void;
+  refreshStoreProducts: () => void;
 }) {
-  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+  const [modalType, setModalType] = useState("");
 
-  const productStatusBg =
-    product.status === "in stock"
-      ? "bg-green-100"
-      : product.status === "low stock"
-      ? "bg-amber-100"
-      : product.status === "out of stock"
-      ? "bg-red-100"
-      : product.status === "draft"
-      ? "bg-zinc-100"
-      : "";
+  const productStatusBg = !product.isPublished
+    ? "bg-zinc-100"
+    : product.quantity > 10
+    ? "bg-green-100"
+    : product.quantity > 5
+    ? "bg-amber-100"
+    : product.quantity === 0
+    ? "bg-red-100"
+    : "";
 
-  const productStatusText =
-    product.status === "in stock"
-      ? "text-green-600"
-      : product.status === "low stock"
-      ? "text-amber-600"
-      : product.status === "out of stock"
-      ? "text-red-500"
-      : product.status === "draft"
-      ? "text-zinc-600"
-      : "";
+  const productStatusText = !product.isPublished
+    ? "text-zinc-600"
+    : product.quantity > 10
+    ? "text-green-600"
+    : product.quantity > 5
+    ? "text-amber-600"
+    : product.quantity === 0
+    ? "text-red-500"
+    : "";
 
   function openDeleteProductModal(e: React.MouseEvent) {
     e.stopPropagation();
-    setDeleteModalIsOpen(true);
+    setModalType("delete");
+  }
+
+  function closeModal() {
+    setModalType("");
+    refreshStoreProducts();
   }
 
   return (
     <>
       <li
+        onClick={() => setModalType("edit")}
         className="hidden md:flex items-center gap-2 p-3 cursor-pointer hover:bg-zinc-100 text-zinc-700 duration-300 focus-visible:bg-zinc-100"
         tabIndex={1}
       >
@@ -67,7 +74,7 @@ export default function AdminProduct({
           <span
             className={`w-fit  ${productStatusBg} ${productStatusText} p-1 px-2 rounded-md`}
           >
-            {product.status}
+            {!product.isPublished ? "draft" : "in stock"}
           </span>
         </p>
         <p className="w-[70px] text-center">$245.99</p>
@@ -150,7 +157,7 @@ export default function AdminProduct({
             <p
               className={`text-center ${productStatusBg} ${productStatusText} p-1 rounded-md`}
             >
-              {product.status}
+              {!product.isPublished ? "draft" : "in stock"}
             </p>
             <p className="text-center font-semibold">$245.99</p>
             <button className="absolute right-2 top-3">
@@ -183,12 +190,16 @@ export default function AdminProduct({
         </div>
       </li>
 
-      {deleteModalIsOpen ? (
-        <ModalContainer closeModal={() => setDeleteModalIsOpen(false)}>
-          <DeleteProductModal
-            closeModal={() => setDeleteModalIsOpen(false)}
-            productId={product._id}
-          />
+      {modalType ? (
+        <ModalContainer closeModal={closeModal}>
+          {modalType === "delete" ? (
+            <DeleteProductModal
+              closeModal={closeModal}
+              productId={product._id}
+            />
+          ) : (
+            <CreateProductModal closeModal={closeModal} productProp={product} />
+          )}
         </ModalContainer>
       ) : null}
     </>

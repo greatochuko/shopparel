@@ -7,13 +7,20 @@ export default function AdminProductsHeader({
   products,
   filter,
   setFilter,
+  refreshStoreProducts,
 }: {
   products: ProductType[];
   filter: string;
   setFilter: React.Dispatch<React.SetStateAction<string>>;
+  refreshStoreProducts: () => void;
 }) {
   const [createProductModalIsOpen, setCreateProductModalIsOpen] =
     useState(false);
+
+  function closeModal() {
+    setCreateProductModalIsOpen(false);
+    refreshStoreProducts();
+  }
 
   return (
     <>
@@ -47,10 +54,7 @@ export default function AdminProductsHeader({
           >
             In Stock
             <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
-              {
-                products.filter((product) => product.status === "in stock")
-                  .length
-              }
+              {products.filter((product) => product.quantity > 10).length}
             </span>
           </button>
           <button
@@ -61,10 +65,7 @@ export default function AdminProductsHeader({
           >
             Low Stock
             <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
-              {
-                products.filter((product) => product.status === "low stock")
-                  .length
-              }
+              {products.filter((product) => product.quantity > 5).length}
             </span>
           </button>
           <button
@@ -75,10 +76,18 @@ export default function AdminProductsHeader({
           >
             Out of Stock
             <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
-              {
-                products.filter((product) => product.status === "out of stock")
-                  .length
-              }
+              {products.filter((product) => product.quantity === 0).length}
+            </span>
+          </button>
+          <button
+            onClick={() => setFilter("draft")}
+            className={`flex items-center gap-1 ${
+              filter === "draft" ? "text-accent-blue-100" : ""
+            }`}
+          >
+            Draft
+            <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
+              {products.filter((product) => !product.isPublished).length}
             </span>
           </button>
         </div>
@@ -95,14 +104,13 @@ export default function AdminProductsHeader({
             <option value="in stock">In Stock</option>
             <option value="low stock">Low Stock</option>
             <option value="out of stock">Out Of Stock</option>
+            <option value="draft">Draft</option>
           </select>
         </div>
       </div>
       {createProductModalIsOpen ? (
-        <ModalContainer closeModal={() => setCreateProductModalIsOpen(false)}>
-          <CreateProductModal
-            closeModal={() => setCreateProductModalIsOpen(false)}
-          />
+        <ModalContainer closeModal={closeModal}>
+          <CreateProductModal closeModal={closeModal} />
         </ModalContainer>
       ) : null}
     </>

@@ -32,3 +32,18 @@ export async function fetchStore(storeId: string) {
     return { error: (error as Error).message };
   }
 }
+
+export async function fetchStoreProducts(storeId: string) {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${BASE_URL}/store/${storeId}/products`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}

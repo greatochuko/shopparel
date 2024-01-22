@@ -7,6 +7,7 @@ import {
   searchProducts,
   saveProductInfo,
   getBrandProducts,
+  editProduct,
 } from "../controllers/productControllers.js";
 
 const productRouter = Router();
@@ -17,6 +18,7 @@ productRouter.get("/product/:productId", getProduct);
 productRouter.get("/products/search", searchProducts);
 productRouter.post("/products", createProduct);
 productRouter.post("/products/save-product-info", saveProductInfo);
+productRouter.patch("/product", editProduct);
 productRouter.get("/products/similar", getSimilarProducts);
 
 export default productRouter;

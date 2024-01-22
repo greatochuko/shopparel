@@ -1,26 +1,40 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProductInformationForm from "./ProductInformationForm";
 import ProductImagesForm from "./ProductImagesForm";
 import ProductSpecsForm from "./ProductSpecsForm";
 import {
   ProductInfoType,
+  fetchProduct,
+  fetchEditProduct,
   fetchSaveProductInfo,
 } from "../services/productServices";
+import { ProductType } from "./Product";
 
 export default function CreateProductModal({
   closeModal,
-  id,
+  productProp,
 }: {
   closeModal: () => void;
-  id?: string;
+  productProp?: ProductType;
 }) {
   const [activeTab, setActiveTab] = useState("information");
   const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [level, setLevel] = useState(1);
-  const [productId, setProductId] = useState<string | null>(id || null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [product, setProduct] = useState<ProductType | null>(
+    productProp || null
+  );
+  const [level, setLevel] = useState(product?._id ? 3 : 1);
+
+  useEffect(() => {
+    async function getProduct() {
+      const data = await fetchProduct(product?._id as string);
+      if (data.error) return;
+    }
+    if (!product?._id) return;
+    getProduct;
+  }, [product?._id]);
 
   async function handleSaveProductInformation(
     e: React.FormEvent,
@@ -28,9 +42,12 @@ export default function CreateProductModal({
   ) {
     e.preventDefault();
     setLoading(true);
-    const data = await fetchSaveProductInfo(productInfo);
+    const data = productInfo._id
+      ? await fetchEditProduct(productInfo)
+      : await fetchSaveProductInfo(productInfo);
+
     if (data.error) return setLoading(false);
-    setProductId(data._id);
+    setProduct(data);
     setLevel(2);
     setActiveTab("image");
     setLoading(false);
@@ -93,6 +110,7 @@ export default function CreateProductModal({
         active={activeTab === "information"}
         loading={loading}
         saveAsDraft={saveAsDraft}
+        product={product}
         handleSaveProductInformation={handleSaveProductInformation}
       />
       <ProductImagesForm

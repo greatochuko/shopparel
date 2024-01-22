@@ -5,9 +5,13 @@ import { ProductType } from "./Product";
 export default function AdminProductList({
   filter,
   products,
+  refreshStoreProducts,
+  loading,
 }: {
   filter: string;
   products: ProductType[];
+  refreshStoreProducts: () => void;
+  loading: boolean;
 }) {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
 
@@ -30,7 +34,9 @@ export default function AdminProductList({
   const filteredProducts =
     filter === "all"
       ? products
-      : products.filter((product) => product.status === filter);
+      : filter === "draft"
+      ? products.filter((product) => !product.isPublished)
+      : products;
 
   return (
     <div className="flex flex-col gap-2 p-2 md:p-4 text-sm bg-white rounded-md">
@@ -52,6 +58,7 @@ export default function AdminProductList({
       <ul className="flex flex-col gap-2 md:gap-0">
         {filteredProducts.map((product) => (
           <AdminProduct
+            refreshStoreProducts={refreshStoreProducts}
             product={product}
             key={product._id}
             isSelected={selectedProducts.includes(product._id)}

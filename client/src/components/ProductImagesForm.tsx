@@ -1,4 +1,5 @@
 import { useState } from "react";
+import LoadingIndicator from "./LoadingIndicator";
 
 export default function ProductImagesForm({
   handleSaveProductImages,
@@ -185,9 +186,9 @@ export default function ProductImagesForm({
       <div className="flex gap-2 sticky bottom-0 text-sm bg-white pb-2 sm:pb-4 mt-4">
         <button
           type="submit"
-          className="flex-1 sm:flex-[2] p-2 rounded-md font-semibold bg-accent-blue-100 text-white duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
+          className="flex-1 flex-center sm:flex-[2] p-2 rounded-md font-semibold bg-accent-blue-100 text-white duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
         >
-          {loading ? "Saving..." : "Save and Next"}
+          {loading ? <LoadingIndicator /> : "Save and Next"}
         </button>
         <button
           onClick={saveAsDraft}

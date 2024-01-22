@@ -2,12 +2,15 @@ import { useState } from "react";
 import { ProductInfoType } from "../services/productServices";
 import { useOutletContext } from "react-router-dom";
 import { StoreType } from "./AdminPageLayout";
+import { ProductType } from "./Product";
+import LoadingIndicator from "./LoadingIndicator";
 
 export default function ProductInformationForm({
   handleSaveProductInformation,
   saveAsDraft,
   active,
   loading,
+  product,
 }: {
   handleSaveProductInformation: (
     e: React.FormEvent,
@@ -16,12 +19,13 @@ export default function ProductInformationForm({
   saveAsDraft: () => void;
   active: boolean;
   loading: boolean;
+  product: ProductType | null;
 }) {
-  const [productName, setProductName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
-  const [shipping, setShipping] = useState(0);
-  const [discount, setDiscount] = useState(0);
+  const [productName, setProductName] = useState(product?.name || "");
+  const [description, setDescription] = useState(product?.description || "");
+  const [price, setPrice] = useState(product?.price || 0);
+  const [shipping, setShipping] = useState(product?.shipping || 0);
+  const [discount, setDiscount] = useState(product?.discount || 0);
   const { store } = useOutletContext<{ store: StoreType }>();
 
   return (
@@ -37,7 +41,7 @@ export default function ProductInformationForm({
           discount,
           shipping,
           store: store._id,
-          _id: "123",
+          _id: product?._id || "",
         })
       }
     >
@@ -110,9 +114,9 @@ export default function ProductInformationForm({
       <div className="flex gap-2 sticky bottom-0 text-sm bg-white pb-4 mt-4">
         <button
           type="submit"
-          className="flex-1 sm:flex-[2] p-2 rounded-md font-semibold bg-accent-blue-100 text-white duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
+          className="flex-1 flex-center sm:flex-[2] p-2 rounded-md font-semibold bg-accent-blue-100 text-white duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
         >
-          {loading ? "Saving..." : "Save and Next"}
+          {loading ? <LoadingIndicator /> : "Save and Next"}
         </button>
         <button
           onClick={saveAsDraft}

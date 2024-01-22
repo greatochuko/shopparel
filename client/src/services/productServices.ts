@@ -86,3 +86,24 @@ export async function fetchSaveProductInfo(productInfo: ProductInfoType) {
     return { error: (error as Error).message };
   }
 }
+
+export async function fetchEditProduct(productInfo: ProductInfoType) {
+  console.log("Asdfasdfs");
+  try {
+    const token = localStorage.getItem("token");
+    console.log(productInfo);
+    const res = await fetch(`${BASE_URL}/product`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+
+      body: JSON.stringify(productInfo),
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}
