@@ -2,8 +2,12 @@ import { useState } from "react";
 
 export default function ProductImagesForm({
   handleSaveProductImages,
+  saveAsDraft,
+  active,
 }: {
   handleSaveProductImages: (e: React.FormEvent) => void;
+  saveAsDraft: () => void;
+  active: boolean;
 }) {
   const [bannerUrl, setBannerUrl] = useState("");
 
@@ -13,10 +17,12 @@ export default function ProductImagesForm({
 
   return (
     <form
-      className="p-4 pb-0 flex flex-col flex-1"
+      className={`p-4 pb-0 flex flex-col flex-1 ${
+        active ? "" : "hidden"
+      } overflow-y-scroll`}
       onSubmit={handleSaveProductImages}
     >
-      <div className="flex-1 flex flex-col overflow-y-scroll pr-2">
+      <div className="flex-1 flex flex-col pr-2">
         <label
           htmlFor="main-image"
           className="w-full overflow-hidden relative md:text-xl font-semibold rounded-md border-dashed border-[3px] border-zinc-300 aspect-[2] sm:aspect-[3] cursor-pointer group hover:border-zinc-400 duration-300"
@@ -182,6 +188,7 @@ export default function ProductImagesForm({
           Save and Next
         </button>
         <button
+          onClick={saveAsDraft}
           type="button"
           className="flex-1 p-2 rounded-md font-semibold border hover:bg-zinc-100 hover:border-zinc-200 duration-300 active:bg-zinc-200 active:border-zinc-300 focus-visible:ring ring-blue-400"
         >

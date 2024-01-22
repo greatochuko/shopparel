@@ -8,6 +8,8 @@ export default function ProductSpecsForm({
   setSelectedSizes,
   selectedCategories,
   setSelectedCategories,
+  saveAsDraft,
+  active,
 }: {
   handlePublish: (e: React.FormEvent) => void;
   selectedColors: string[];
@@ -16,6 +18,8 @@ export default function ProductSpecsForm({
   setSelectedSizes: React.Dispatch<React.SetStateAction<string[]>>;
   selectedCategories: string[];
   setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>>;
+  saveAsDraft: () => void;
+  active: boolean;
 }) {
   function toggleAddColor(color: string) {
     if (selectedColors.includes(color)) {
@@ -96,7 +100,9 @@ export default function ProductSpecsForm({
 
   return (
     <form
-      className="p-4 pb-0 flex flex-col flex-1 bg- overflow-y-scroll"
+      className={`p-4 pb-0 flex flex-col flex-1 bg- overflow-y-scroll ${
+        active ? "" : "hidden"
+      }`}
       onSubmit={handlePublish}
     >
       <div className="flex gap-2 flex-col w-full flex-1">
@@ -180,6 +186,7 @@ export default function ProductSpecsForm({
           Publish
         </button>
         <button
+          onClick={saveAsDraft}
           type="button"
           className="flex-1 p-2 rounded-md font-semibold border hover:bg-zinc-100 hover:border-zinc-200 duration-300 active:bg-zinc-200 active:border-zinc-300 focus-visible:ring ring-blue-400"
         >

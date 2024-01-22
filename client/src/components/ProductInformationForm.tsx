@@ -1,11 +1,17 @@
 export default function ProductInformationForm({
   handleSaveProductInformation,
+  saveAsDraft,
+  active,
 }: {
   handleSaveProductInformation: (e: React.FormEvent) => void;
+  saveAsDraft: () => void;
+  active: boolean;
 }) {
   return (
     <form
-      className="p-4 pb-0 flex flex-col flex-1 bg- overflow-y-scroll"
+      className={`p-4 pb-0 flex flex-col flex-1 bg- overflow-y-scroll ${
+        active ? "" : "hidden"
+      }`}
       onSubmit={handleSaveProductInformation}
     >
       <label htmlFor="product-name" className="font-semibold w-fit">
@@ -73,6 +79,7 @@ export default function ProductInformationForm({
           Save and Next
         </button>
         <button
+          onClick={saveAsDraft}
           type="button"
           className="flex-1 p-2 rounded-md font-semibold border hover:bg-zinc-100 hover:border-zinc-200 duration-300 active:bg-zinc-200 active:border-zinc-300 focus-visible:ring ring-blue-400"
         >
