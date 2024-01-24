@@ -79,6 +79,9 @@ export async function editProduct(req, res) {
     const product = await Product.findByIdAndUpdate(productId, req.body, {
       new: true,
     });
+
+    if (!product) throw new Error(`Product with id ${productId} not found!`);
+
     res.json(product);
   } catch (error) {
     console.log(error.message);

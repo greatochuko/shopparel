@@ -9,6 +9,11 @@ export type ProductInfoType = {
   discount: number;
   store: string;
 };
+export type ProductImagesType = {
+  _id: string;
+  imgUrl: string;
+  images: string[];
+};
 
 export async function fetchProducts() {
   try {
@@ -87,11 +92,11 @@ export async function fetchSaveProductInfo(productInfo: ProductInfoType) {
   }
 }
 
-export async function fetchEditProduct(productInfo: ProductInfoType) {
-  console.log("Asdfasdfs");
+export async function fetchEditProduct(
+  productInfo: ProductInfoType | ProductImagesType
+) {
   try {
     const token = localStorage.getItem("token");
-    console.log(productInfo);
     const res = await fetch(`${BASE_URL}/product`, {
       method: "PATCH",
       headers: {

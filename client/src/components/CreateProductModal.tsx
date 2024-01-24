@@ -9,6 +9,7 @@ import {
   fetchSaveProductInfo,
 } from "../services/productServices";
 import { ProductType } from "./Product";
+import { uploadImage } from "../utils/uploadImage";
 
 export default function CreateProductModal({
   closeModal,
@@ -49,14 +50,30 @@ export default function CreateProductModal({
     if (data.error) return setLoading(false);
     setProduct(data);
     setLevel(2);
-    setActiveTab("image");
     setLoading(false);
+    setActiveTab("image");
   }
 
-  function handleSaveProductImages(e: React.FormEvent) {
+  async function handleSaveProductImages(e: React.FormEvent, files: File[]) {
     e.preventDefault();
+    setLoading(true);
+    const images: string[] = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const { url } = await uploadImage(file);
+      images.push(url);
+    }
+
+    const data = await fetchEditProduct({
+      _id: product?._id as string,
+      images: images.reverse(),
+      imgUrl: images.at(-1) as string,
+    });
+    if (data.error) return;
     setLevel(3);
     setActiveTab("specs");
+    setLoading(false);
   }
 
   function handlePublish(e: React.FormEvent) {
@@ -116,6 +133,7 @@ export default function CreateProductModal({
       <ProductImagesForm
         active={activeTab === "image"}
         saveAsDraft={saveAsDraft}
+        product={product}
         loading={loading}
         handleSaveProductImages={handleSaveProductImages}
       />

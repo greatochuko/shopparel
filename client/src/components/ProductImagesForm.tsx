@@ -1,29 +1,98 @@
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoadingIndicator from "./LoadingIndicator";
+import UploadedProductImage from "./UploadedProductImage";
+import { ProductType } from "./Product";
+
+export type ProductImageType = { id: string; dataUrl: string; file: File };
 
 export default function ProductImagesForm({
   handleSaveProductImages,
   saveAsDraft,
   active,
   loading,
+  product,
 }: {
-  handleSaveProductImages: (e: React.FormEvent) => void;
+  handleSaveProductImages: (e: React.FormEvent, files: File[]) => void;
   saveAsDraft: () => void;
   active: boolean;
   loading: boolean;
+  product: ProductType | null;
 }) {
-  const [bannerUrl, setBannerUrl] = useState("");
+  const [productImages, setProductImages] = useState<ProductImageType[]>([]);
+  const [banner, setBanner] = useState<File | string | null>(
+    product?.imgUrl || null
+  );
 
-  function openDeleteProductImageModal() {
-    return;
+  const [bannerUrl, setBannerUrl] = useState(product?.imgUrl || "");
+
+  useEffect(() => {
+    async function setUploadedProductImages() {
+      const productImageList: ProductImageType[] = [];
+      if (!product?.images) return;
+      for (let i = 0; i < product.images.length - 1; i++) {
+        const url = product.images[i];
+
+        const res = await fetch(url);
+        const imgBlob = await res.blob();
+        const imgFile = new File([imgBlob], `Img(${i}).png`, {
+          type: "image/png",
+        });
+        productImageList.push({
+          dataUrl: url,
+          file: imgFile,
+          id: crypto.randomUUID(),
+        });
+      }
+
+      setProductImages(productImageList);
+    }
+    setUploadedProductImages();
+  }, [product?._id]);
+
+  function handleChangeProductThumbnail(e: React.ChangeEvent) {
+    const eventTarget = e.target as HTMLInputElement;
+    const fileReader = new FileReader();
+    if (!eventTarget.files?.length) return;
+    setBanner(eventTarget.files[0]);
+
+    fileReader.readAsDataURL(eventTarget.files[0]);
+    fileReader.onload = (ev) => {
+      setBannerUrl(ev.target?.result as string);
+    };
   }
+
+  function handleAddProductImage(e: React.ChangeEvent) {
+    const eventTarget = e.target as HTMLInputElement;
+    const fileReader = new FileReader();
+    if (!eventTarget.files?.length) return;
+
+    fileReader.readAsDataURL(eventTarget.files[0]);
+    fileReader.onload = (ev) => {
+      setProductImages((curr) => [
+        ...curr,
+        {
+          id: crypto.randomUUID(),
+          dataUrl: ev.target?.result as string,
+          file: (eventTarget.files as FileList)[0],
+        },
+      ]);
+    };
+  }
+
+  const cannotSubmit = !bannerUrl;
 
   return (
     <form
       className={`p-4 pb-0 flex flex-col flex-1 ${
         active ? "" : "hidden"
       } overflow-y-scroll`}
-      onSubmit={handleSaveProductImages}
+      onSubmit={(e) => {
+        if (loading) return;
+        handleSaveProductImages(e, [
+          ...productImages.map((image) => image.file),
+          banner as File,
+        ]);
+      }}
     >
       <div className="flex-1 flex flex-col pr-2">
         <label
@@ -86,107 +155,57 @@ export default function ProductImagesForm({
           type="file"
           name="main-image"
           id="main-image"
+          onChange={handleChangeProductThumbnail}
           accept=".png, .jpg, .jpeg"
           className="hidden"
         />
         <h2 className="mt-4 mb-2 font-semibold">Uploads</h2>
         <ul className="flex flex-col gap-2 flex-1">
-          <li className="rounded-md border p-2 flex gap-2 items-center">
-            <button
-              type="button"
-              className="group p-2 cursor-grab active:cursor-grabbing"
+          {productImages.map((image) => (
+            <UploadedProductImage key={image.id} image={image} />
+          ))}
+          <input
+            type="file"
+            name="new-image"
+            id="new-image"
+            className="hidden"
+            onChange={handleAddProductImage}
+          />
+          <label
+            htmlFor="new-image"
+            className="w-full p-2 group cursor-pointer flex-center rounded-md border bg-zinc-100 duration-300 hover:bg-zinc-200 hover:border-zinc-300"
+          >
+            <svg
+              width={20}
+              height={20}
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
             >
-              <svg
-                height={20}
-                width={20}
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M16 17C17.1046 17 18 17.8954 18 19C18 20.1046 17.1046 21 16 21C14.8954 21 14 20.1046 14 19C14 17.8954 14.8954 17 16 17ZM8 17C9.10457 17 10 17.8954 10 19C10 20.1046 9.10457 21 8 21C6.89543 21 6 20.1046 6 19C6 17.8954 6.89543 17 8 17ZM16 10C17.1046 10 18 10.8954 18 12C18 13.1046 17.1046 14 16 14C14.8954 14 14 13.1046 14 12C14 10.8954 14.8954 10 16 10ZM8 10C9.10457 10 10 10.8954 10 12C10 13.1046 9.10457 14 8 14C6.89543 14 6 13.1046 6 12C6 10.8954 6.89543 10 8 10ZM16 3C17.1046 3 18 3.89543 18 5C18 6.10457 17.1046 7 16 7C14.8954 7 14 6.10457 14 5C14 3.89543 14.8954 3 16 3ZM8 3C9.10457 3 10 3.89543 10 5C10 6.10457 9.10457 7 8 7C6.89543 7 6 6.10457 6 5C6 3.89543 6.89543 3 8 3Z"
-                    className="fill-zinc-500 group-hover:fill-black duration-300"
-                  ></path>{" "}
-                </g>
-              </svg>
-            </button>
-            <img
-              src="/striped-summer-shorts.png"
-              alt="striped summer shorts"
-              className="w-10 h-10 bg-zinc-100 rounded-md p-1"
-            />
-            <div className="flex flex-1 flex-col">
-              <p className="text-sm sm:text-base">striped-summer-shorts.png</p>
-              <p className="text-sm sm:text-base">2.3MB</p>
-            </div>
-            <button
-              className="p-3 duration-200 rounded-full group"
-              tabIndex={1}
-              onClick={openDeleteProductImageModal}
-            >
-              <svg
-                height={20}
-                width={20}
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  {" "}
-                  <path
-                    d="M20.5001 6H3.5"
-                    className="stroke-zinc-700 group-hover:stroke-red-500 duration-200 group-active:stroke-red-700 group-focus-visible:stroke-red-500"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  ></path>{" "}
-                  <path
-                    d="M9.5 11L10 16"
-                    className="stroke-zinc-700 group-hover:stroke-red-500 duration-200 group-active:stroke-red-700 group-focus-visible:stroke-red-500"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  ></path>{" "}
-                  <path
-                    d="M14.5 11L14 16"
-                    className="stroke-zinc-700 group-hover:stroke-red-500 duration-200 group-active:stroke-red-700 group-focus-visible:stroke-red-500"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  ></path>{" "}
-                  <path
-                    d="M6.5 6C6.55588 6 6.58382 6 6.60915 5.99936C7.43259 5.97849 8.15902 5.45491 8.43922 4.68032C8.44784 4.65649 8.45667 4.62999 8.47434 4.57697L8.57143 4.28571C8.65431 4.03708 8.69575 3.91276 8.75071 3.8072C8.97001 3.38607 9.37574 3.09364 9.84461 3.01877C9.96213 3 10.0932 3 10.3553 3H13.6447C13.9068 3 14.0379 3 14.1554 3.01877C14.6243 3.09364 15.03 3.38607 15.2493 3.8072C15.3043 3.91276 15.3457 4.03708 15.4286 4.28571L15.5257 4.57697C15.5433 4.62992 15.5522 4.65651 15.5608 4.68032C15.841 5.45491 16.5674 5.97849 17.3909 5.99936C17.4162 6 17.4441 6 17.5 6"
-                    className="stroke-zinc-700 group-hover:stroke-red-500 duration-200 group-active:stroke-red-700 group-focus-visible:stroke-red-500"
-                    strokeWidth="1.5"
-                  ></path>{" "}
-                  <path
-                    d="M18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5M18.8334 8.5L18.6334 11.5"
-                    className="stroke-zinc-700 group-hover:stroke-red-500 duration-200 group-active:stroke-red-700 group-focus-visible:stroke-red-500"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  ></path>{" "}
-                </g>
-              </svg>
-            </button>
-          </li>
+              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                {" "}
+                <path
+                  className="fill-zinc-500 group-hover:fill-zinc-700 duration-300"
+                  fillRule="evenodd"
+                  d="M9 17a1 1 0 102 0v-6h6a1 1 0 100-2h-6V3a1 1 0 10-2 0v6H3a1 1 0 000 2h6v6z"
+                ></path>{" "}
+              </g>
+            </svg>
+          </label>
         </ul>
       </div>
 
       <div className="flex gap-2 sticky bottom-0 text-sm bg-white pb-2 sm:pb-4 mt-4">
         <button
           type="submit"
-          className="flex-1 flex-center sm:flex-[2] p-2 rounded-md font-semibold bg-accent-blue-100 text-white duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
+          disabled={cannotSubmit}
+          className="flex-1 disabled:bg-zinc-500 flex-center sm:flex-[2] p-2 rounded-md font-semibold bg-accent-blue-100 text-white duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
         >
           {loading ? <LoadingIndicator /> : "Save and Next"}
         </button>
