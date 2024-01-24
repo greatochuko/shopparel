@@ -76,7 +76,11 @@ export default function AdminProductsHeader({
           >
             Out of Stock
             <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
-              {products.filter((product) => product.quantity === 0).length}
+              {
+                products.filter(
+                  (product) => product.quantity === 0 && product.isPublished
+                ).length
+              }
             </span>
           </button>
           <button

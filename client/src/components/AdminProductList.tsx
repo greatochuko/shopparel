@@ -37,6 +37,14 @@ export default function AdminProductList({
       ? products
       : filter === "draft"
       ? products.filter((product) => !product.isPublished)
+      : filter === "in stock"
+      ? products.filter((product) => product.quantity > 10)
+      : filter === "low stock"
+      ? products.filter((product) => product.quantity > 5)
+      : filter === "out of stock"
+      ? products.filter(
+          (product) => product.quantity == 0 && product.isPublished
+        )
       : products;
 
   return (

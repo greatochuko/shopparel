@@ -59,7 +59,7 @@ export default function AdminProductsPage() {
         if (data.error) return setLoading(false);
         setProducts(data);
       }
-      // setLoading(false);
+      setLoading(false);
     }
     getStoreProducts();
   }, [store?._id]);
@@ -71,7 +71,7 @@ export default function AdminProductsPage() {
       if (data.error) return setLoading(false);
       setProducts(data);
     }
-    // setLoading(false);
+    setLoading(false);
   }
 
   return (
