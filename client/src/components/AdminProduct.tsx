@@ -19,9 +19,9 @@ export default function AdminProduct({
 
   const productStatusBg = !product.isPublished
     ? "bg-zinc-100"
-    : product.quantity > 10
-    ? "bg-green-100"
     : product.quantity > 5
+    ? "bg-green-100"
+    : product.quantity > 0
     ? "bg-amber-100"
     : product.quantity === 0
     ? "bg-red-100"
@@ -31,7 +31,7 @@ export default function AdminProduct({
     ? "text-zinc-600"
     : product.quantity > 10
     ? "text-green-600"
-    : product.quantity > 5
+    : product.quantity > 0
     ? "text-amber-600"
     : product.quantity === 0
     ? "text-red-500"
@@ -46,6 +46,8 @@ export default function AdminProduct({
     setModalType("");
     refreshStoreProducts();
   }
+
+  console.log(product.quantity);
 
   return (
     <>
@@ -79,7 +81,15 @@ export default function AdminProduct({
           <span
             className={`w-fit  ${productStatusBg} ${productStatusText} p-1 px-2 rounded-md`}
           >
-            {!product.isPublished ? "draft" : "in stock"}
+            {!product.isPublished
+              ? "draft"
+              : product.quantity > 10
+              ? "in stock"
+              : product.quantity > 0
+              ? "low stock"
+              : product.quantity === 0
+              ? "out of stock"
+              : ""}
           </span>
         </p>
         <p className="w-[70px] text-center">$245.99</p>
