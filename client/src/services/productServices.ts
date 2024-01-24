@@ -9,10 +9,20 @@ export type ProductInfoType = {
   discount: number;
   store: string;
 };
+
 export type ProductImagesType = {
   _id: string;
   imgUrl: string;
   images: string[];
+};
+
+export type ProductSpecsType = {
+  _id: string;
+  colors: string[];
+  sizes: string[];
+  gender: string;
+  categories: string[];
+  isPublished: boolean;
 };
 
 export async function fetchProducts() {
@@ -93,7 +103,7 @@ export async function fetchSaveProductInfo(productInfo: ProductInfoType) {
 }
 
 export async function fetchEditProduct(
-  productInfo: ProductInfoType | ProductImagesType
+  productInfo: ProductInfoType | ProductImagesType | ProductSpecsType
 ) {
   try {
     const token = localStorage.getItem("token");

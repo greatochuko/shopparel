@@ -1,28 +1,81 @@
-import React from "react";
+import React, { useState } from "react";
+import LoadingIndicator from "./LoadingIndicator";
+
+const colorList = [
+  "purple",
+  "black",
+  "red",
+  "orange",
+  "navy",
+  "white",
+  "teal",
+  "green",
+  "yellow",
+  "gray",
+  "pink",
+  "blue",
+];
+
+const sizeList = ["xxs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"];
+
+const categoryList = [
+  "Coats",
+  "Jackets",
+  "Blazers",
+  "Vests",
+  "Sweater",
+  "Button-Down Shirts",
+  "Short-Sleeve Shirts",
+  "Printed or Patterned Shirts",
+  "Crewneck T-Shirts",
+  "V-Neck T-Shirts",
+  "Long-Sleeve T-Shirts",
+  "Polo Shirts",
+  "Flannel Shirts",
+  "Casual Dresses",
+  "Formal Dresses",
+  "Party Dresses",
+  "Summer Dresses",
+  "Jeans",
+  "Trousers",
+  "Shorts",
+  "Skirts",
+  "Sports Bras",
+  "Athletic Shorts",
+  "Performance Leggings",
+  "Training Hoodies",
+  "Baseball Caps",
+  "Beanies",
+  "Fedora Hats",
+  "Bucket Hats",
+  "Analog Watches",
+  "Digital Watches",
+  "Smartwatches",
+  "Fashion Bracelet Watches",
+];
 
 export default function ProductSpecsForm({
   handlePublish,
-  selectedColors,
-  setSelectedColors,
-  selectedSizes,
-  setSelectedSizes,
-  selectedCategories,
-  setSelectedCategories,
   saveAsDraft,
   active,
   loading,
 }: {
-  handlePublish: (e: React.FormEvent) => void;
-  selectedColors: string[];
-  setSelectedColors: React.Dispatch<React.SetStateAction<string[]>>;
-  selectedSizes: string[];
-  setSelectedSizes: React.Dispatch<React.SetStateAction<string[]>>;
-  selectedCategories: string[];
-  setSelectedCategories: React.Dispatch<React.SetStateAction<string[]>>;
+  handlePublish: (
+    e: React.FormEvent,
+    selectedColors: string[],
+    selectedSizes: string[],
+    gender: string,
+    selectedCategories: string[]
+  ) => void;
   saveAsDraft: () => void;
   active: boolean;
   loading: boolean;
 }) {
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [gender, setGender] = useState("unisex");
+
   function toggleAddColor(color: string) {
     if (selectedColors.includes(color)) {
       setSelectedColors((curr) => curr.filter((c) => c !== color));
@@ -47,65 +100,20 @@ export default function ProductSpecsForm({
     }
   }
 
-  const colorList = [
-    "purple",
-    "black",
-    "red",
-    "orange",
-    "navy",
-    "white",
-    "teal",
-    "green",
-    "yellow",
-    "gray",
-    "pink",
-    "blue",
-  ];
-
-  const sizeList = ["xxs", "xs", "s", "m", "l", "xl", "2xl", "3xl", "4xl"];
-
-  const categoryList = [
-    "Coats",
-    "Jackets",
-    "Blazers",
-    "Vests",
-    "Sweater",
-    "Button-Down Shirts",
-    "Short-Sleeve Shirts",
-    "Printed or Patterned Shirts",
-    "Crewneck T-Shirts",
-    "V-Neck T-Shirts",
-    "Long-Sleeve T-Shirts",
-    "Polo Shirts",
-    "Flannel Shirts",
-    "Casual Dresses",
-    "Formal Dresses",
-    "Party Dresses",
-    "Summer Dresses",
-    "Jeans",
-    "Trousers",
-    "Shorts",
-    "Skirts",
-    "Sports Bras",
-    "Athletic Shorts",
-    "Performance Leggings",
-    "Training Hoodies",
-    "Baseball Caps",
-    "Beanies",
-    "Fedora Hats",
-    "Bucket Hats",
-    "Analog Watches",
-    "Digital Watches",
-    "Smartwatches",
-    "Fashion Bracelet Watches",
-  ];
-
   return (
     <form
       className={`p-4 pb-0 flex flex-col flex-1 bg- overflow-y-scroll ${
         active ? "" : "hidden"
       }`}
-      onSubmit={handlePublish}
+      onSubmit={(e) =>
+        handlePublish(
+          e,
+          selectedColors,
+          selectedSizes,
+          gender,
+          selectedCategories
+        )
+      }
     >
       <div className="flex gap-2 flex-col w-full flex-1">
         <div className="flex flex-col">
@@ -150,11 +158,33 @@ export default function ProductSpecsForm({
         <div className="flex flex-col mt-4">
           <p className="font-semibold w-fit mb-2">Gender</p>
           <div className="flex items-center gap-2">
-            <input type="radio" name="gender" id="male" />
+            <input
+              type="radio"
+              name="gender"
+              id="unisex"
+              checked={gender === "unisex"}
+              onClick={() => setGender("unisex")}
+            />
+            <label htmlFor="unisex">Unisex</label>
+          </div>
+          <div className="flex items-center gap-2">
+            <input
+              type="radio"
+              name="gender"
+              id="male"
+              checked={gender === "male"}
+              onClick={() => setGender("male")}
+            />
             <label htmlFor="male">Male</label>
           </div>
           <div className="flex items-center gap-2">
-            <input type="radio" name="gender" id="female" />
+            <input
+              type="radio"
+              name="gender"
+              id="female"
+              checked={gender === "female"}
+              onClick={() => setGender("female")}
+            />
             <label htmlFor="female">Female</label>
           </div>
         </div>
@@ -183,9 +213,9 @@ export default function ProductSpecsForm({
       <div className="flex gap-2 sticky bottom-0 text-sm bg-white pb-4 mt-4">
         <button
           type="submit"
-          className="flex-1 sm:flex-[2] p-2 rounded-md font-semibold bg-accent-blue-100 text-white duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
+          className="flex-1 sm:flex-[2] flex-center p-2 rounded-md font-semibold bg-accent-blue-100 text-white duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
         >
-          {loading ? "Publishing..." : "Publish"}
+          {loading ? <LoadingIndicator /> : "Publish"}
         </button>
         <button
           onClick={saveAsDraft}

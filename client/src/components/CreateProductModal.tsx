@@ -17,9 +17,6 @@ export default function CreateProductModal({
   productProp?: ProductType;
 }) {
   const [activeTab, setActiveTab] = useState("information");
-  const [selectedColors, setSelectedColors] = useState<string[]>([]);
-  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState<ProductType | null>(
     productProp || null
@@ -58,8 +55,25 @@ export default function CreateProductModal({
     setLoading(false);
   }
 
-  function handlePublish(e: React.FormEvent) {
+  async function handlePublish(
+    e: React.FormEvent,
+    colors: string[],
+    sizes: string[],
+    gender: string,
+    categories: string[]
+  ) {
     e.preventDefault();
+    setLoading(true);
+    const data = await fetchEditProduct({
+      _id: product?._id as string,
+      colors,
+      sizes,
+      gender,
+      categories,
+      isPublished: true,
+    });
+    if (data.error) return setLoading(false);
+    setLoading(false);
     closeModal();
   }
 
@@ -122,12 +136,6 @@ export default function CreateProductModal({
         loading={loading}
         saveAsDraft={saveAsDraft}
         handlePublish={handlePublish}
-        selectedColors={selectedColors}
-        setSelectedColors={setSelectedColors}
-        selectedSizes={selectedSizes}
-        setSelectedSizes={setSelectedSizes}
-        selectedCategories={selectedCategories}
-        setSelectedCategories={setSelectedCategories}
       />
     </div>
   );
