@@ -4,7 +4,7 @@ const productSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     description: { type: String, required: true },
-    imgUrl: { type: String, default: "/product-placeholder.png" },
+    imgUrl: { type: String },
     brand: { type: String },
     store: {
       type: mongoose.SchemaTypes.ObjectId,

@@ -64,7 +64,11 @@ export default function AdminProduct({
           onClick={(e) => e.stopPropagation()}
         />
         <div className="min-w-[200px] flex-1 mr-auto flex gap-2 items-center">
-          <img src={product.imgUrl} alt="" className="w-16 h-16 rounded-md" />
+          <img
+            src={product.imgUrl || "/product-placeholder.png"}
+            alt=""
+            className="w-16 h-16 rounded-md"
+          />
           <div className="flex flex-col gap-1 overflow-hidden">
             <h3 className="font-semibold">{product.name}</h3>
             <p>{product.categories[0]}</p>
@@ -145,7 +149,11 @@ export default function AdminProduct({
         />
         <div className="flex flex-col gap-4 flex-1">
           <div className="min-w-[200px] flex-1 mr-auto flex gap-2 items-center">
-            <img src={product.imgUrl} alt="" className="w-16 h-16 rounded-md" />
+            <img
+              src={product.imgUrl || "/product-placeholder.png"}
+              alt=""
+              className="w-16 h-16 rounded-md"
+            />
             <div className="flex flex-col gap-1 overflow-hidden">
               <h3 className="font-semibold">{product.name}</h3>
               <p>{product.categories[0]}</p>
@@ -161,7 +169,10 @@ export default function AdminProduct({
               {!product.isPublished ? "draft" : "in stock"}
             </p>
             <p className="text-center font-semibold">$245.99</p>
-            <button className="absolute right-2 top-3">
+            <button
+              className="absolute right-2 top-3"
+              onClick={() => setModalType("edit")}
+            >
               <svg
                 height={20}
                 width={20}

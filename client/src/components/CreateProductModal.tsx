@@ -1,15 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProductInformationForm from "./ProductInformationForm";
 import ProductImagesForm from "./ProductImagesForm";
 import ProductSpecsForm from "./ProductSpecsForm";
 import {
   ProductInfoType,
-  fetchProduct,
   fetchEditProduct,
   fetchSaveProductInfo,
 } from "../services/productServices";
 import { ProductType } from "./Product";
-import { uploadImage } from "../utils/uploadImage";
 
 export default function CreateProductModal({
   closeModal,
@@ -26,16 +24,7 @@ export default function CreateProductModal({
   const [product, setProduct] = useState<ProductType | null>(
     productProp || null
   );
-  const [level, setLevel] = useState(product?._id ? 3 : 1);
-
-  useEffect(() => {
-    async function getProduct() {
-      const data = await fetchProduct(product?._id as string);
-      if (data.error) return;
-    }
-    if (!product?._id) return;
-    getProduct;
-  }, [product?._id]);
+  const [level, setLevel] = useState(product ? (product.imgUrl ? 3 : 2) : 1);
 
   async function handleSaveProductInformation(
     e: React.FormEvent,
@@ -54,23 +43,16 @@ export default function CreateProductModal({
     setActiveTab("image");
   }
 
-  async function handleSaveProductImages(e: React.FormEvent, files: File[]) {
+  async function handleSaveProductImages(e: React.FormEvent, images: string[]) {
     e.preventDefault();
     setLoading(true);
-    const images: string[] = [];
-
-    for (let i = 0; i < files.length; i++) {
-      const file = files[i];
-      const { url } = await uploadImage(file);
-      images.push(url);
-    }
 
     const data = await fetchEditProduct({
       _id: product?._id as string,
-      images: images.reverse(),
+      images: [...images].reverse(),
       imgUrl: images.at(-1) as string,
     });
-    if (data.error) return;
+    if (data.error) return setLoading(false);
     setLevel(3);
     setActiveTab("specs");
     setLoading(false);
@@ -116,9 +98,7 @@ export default function CreateProductModal({
           tabIndex={0}
           className={`p-3 flex-1 border-b-4 text-center cursor-pointer hover:bg-zinc-100 duration-300 focus-visible:bg-zinc-100 ${
             activeTab === "specs" ? "border-blue-400" : ""
-          } ${
-            level > 2 ? " cursor-pointer" : " cursor-not-allowed opacity-50"
-          }`}
+          } ${level > 2 ? " cursor-pointer" : " cursor-default opacity-50"}`}
         >
           Specs
         </li>
