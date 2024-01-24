@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AdminProduct from "./AdminProduct";
 import { ProductType } from "./Product";
+import AdminProductWireframe from "./AdminProductWireframe";
 
 export default function AdminProductList({
   filter,
@@ -56,15 +57,23 @@ export default function AdminProductList({
         <p className="w-16 text-center">Delete</p>
       </div>
       <ul className="flex flex-col gap-2 md:gap-0">
-        {filteredProducts.map((product) => (
-          <AdminProduct
-            refreshStoreProducts={refreshStoreProducts}
-            product={product}
-            key={product._id}
-            isSelected={selectedProducts.includes(product._id)}
-            toggleCheck={toggleCheck}
-          />
-        ))}
+        {loading ? (
+          <>
+            <AdminProductWireframe />
+            <AdminProductWireframe />
+            <AdminProductWireframe />
+          </>
+        ) : (
+          filteredProducts.map((product) => (
+            <AdminProduct
+              refreshStoreProducts={refreshStoreProducts}
+              product={product}
+              key={product._id}
+              isSelected={selectedProducts.includes(product._id)}
+              toggleCheck={toggleCheck}
+            />
+          ))
+        )}
       </ul>
     </div>
   );

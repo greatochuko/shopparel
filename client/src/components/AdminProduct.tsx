@@ -61,6 +61,7 @@ export default function AdminProduct({
           className="w-fit"
           checked={isSelected}
           onChange={() => toggleCheck(product._id)}
+          onClick={(e) => e.stopPropagation()}
         />
         <div className="min-w-[200px] flex-1 mr-auto flex gap-2 items-center">
           <img src={product.imgUrl} alt="" className="w-16 h-16 rounded-md" />
