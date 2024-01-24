@@ -47,8 +47,6 @@ export default function AdminProduct({
     refreshStoreProducts();
   }
 
-  console.log(product.quantity);
-
   return (
     <>
       <li
@@ -81,15 +79,7 @@ export default function AdminProduct({
           <span
             className={`w-fit  ${productStatusBg} ${productStatusText} p-1 px-2 rounded-md`}
           >
-            {!product.isPublished
-              ? "draft"
-              : product.quantity > 10
-              ? "in stock"
-              : product.quantity > 0
-              ? "low stock"
-              : product.quantity === 0
-              ? "out of stock"
-              : ""}
+            {!product.isPublished ? "draft" : product.quantity}
           </span>
         </p>
         <p className="w-[70px] text-center">$245.99</p>

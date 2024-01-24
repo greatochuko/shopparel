@@ -21,6 +21,7 @@ export type ProductSpecsType = {
   colors: string[];
   sizes: string[];
   gender: string;
+  quantity: number;
   categories: string[];
   isPublished: boolean;
 };

@@ -60,6 +60,7 @@ export default function CreateProductModal({
     colors: string[],
     sizes: string[],
     gender: string,
+    quantity: number,
     categories: string[]
   ) {
     e.preventDefault();
@@ -69,6 +70,7 @@ export default function CreateProductModal({
       colors,
       sizes,
       gender,
+      quantity,
       categories,
       isPublished: true,
     });
@@ -133,6 +135,7 @@ export default function CreateProductModal({
       />
       <ProductSpecsForm
         active={activeTab === "specs"}
+        product={product}
         loading={loading}
         saveAsDraft={saveAsDraft}
         handlePublish={handlePublish}

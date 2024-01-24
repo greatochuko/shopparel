@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import LoadingIndicator from "./LoadingIndicator";
+import { ProductType } from "./Product";
 
 const colorList = [
   "purple",
@@ -59,22 +60,33 @@ export default function ProductSpecsForm({
   saveAsDraft,
   active,
   loading,
+  product,
 }: {
   handlePublish: (
     e: React.FormEvent,
     selectedColors: string[],
     selectedSizes: string[],
     gender: string,
+    quantity: number,
     selectedCategories: string[]
   ) => void;
   saveAsDraft: () => void;
   active: boolean;
   loading: boolean;
+  product: ProductType | null;
 }) {
-  const [selectedColors, setSelectedColors] = useState<string[]>([]);
-  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [gender, setGender] = useState("unisex");
+  const [selectedColors, setSelectedColors] = useState<string[]>(
+    product?.colors || []
+  );
+  const [selectedSizes, setSelectedSizes] = useState<string[]>(
+    product?.sizes || []
+  );
+  const [selectedCategories, setSelectedCategories] = useState<string[]>(
+    product?.categories || []
+  );
+
+  const [gender, setGender] = useState(product?.gender || "unisex");
+  const [quantity, setQuantity] = useState(product?.quantity || 0);
 
   function toggleAddColor(color: string) {
     if (selectedColors.includes(color)) {
@@ -111,6 +123,7 @@ export default function ProductSpecsForm({
           selectedColors,
           selectedSizes,
           gender,
+          quantity,
           selectedCategories
         )
       }
@@ -163,7 +176,7 @@ export default function ProductSpecsForm({
               name="gender"
               id="unisex"
               checked={gender === "unisex"}
-              onClick={() => setGender("unisex")}
+              onChange={() => setGender("unisex")}
             />
             <label htmlFor="unisex">Unisex</label>
           </div>
@@ -173,7 +186,7 @@ export default function ProductSpecsForm({
               name="gender"
               id="male"
               checked={gender === "male"}
-              onClick={() => setGender("male")}
+              onChange={() => setGender("male")}
             />
             <label htmlFor="male">Male</label>
           </div>
@@ -183,11 +196,20 @@ export default function ProductSpecsForm({
               name="gender"
               id="female"
               checked={gender === "female"}
-              onClick={() => setGender("female")}
+              onChange={() => setGender("female")}
             />
             <label htmlFor="female">Female</label>
           </div>
         </div>
+      </div>
+      <div className="flex flex-col mt-4">
+        <p className="font-semibold w-fit mb-2">Quantity</p>
+        <input
+          type="number"
+          className="p-2 border w-20"
+          value={quantity}
+          onChange={(e) => setQuantity(Number(e.target.value))}
+        />
       </div>
       <div className="flex flex-col mt-4">
         <label htmlFor="shipping" className="font-semibold w-fit mb-2">
