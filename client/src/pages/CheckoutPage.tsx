@@ -33,7 +33,15 @@ export default function CheckoutPage() {
     setLoading(true);
     const data = await createOrder(
       paymentType,
-      cartItems.map((item) => item._id)
+      cartItems.map((item) => ({
+        productId: item._id,
+        color: item.color,
+        imgUrl: item.imgUrl,
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        size: item.size,
+      }))
     );
 
     if (data.error) return setLoading(false);

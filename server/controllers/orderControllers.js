@@ -24,20 +24,9 @@ export async function getOrders(req, res) {
 
 export async function createOrder(req, res) {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) throw new Error("User is not Authenticated");
-
-    let userId;
-    try {
-      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
-    } catch (error) {
-      throw new Error(error.message);
-    }
-    if (!userId)
-      return res.status(401).json({ error: "User is unauthenticated" });
     const { paymentMethod, products } = req.body;
     const orders = await Order.create({
-      userId,
+      userId: req.userId,
       deliveryDate: new Date(new Date().getDate() + 14),
       status: "active",
       paymentMethod,
@@ -45,14 +34,15 @@ export async function createOrder(req, res) {
     });
 
     // Set all cart items to ordered
-    products.forEach(async (productId) => {
-      const product = await Cart.findById(productId);
+    products.forEach(async (prod) => {
+      const product = await Cart.findById(prod.productId);
       product.ordered = true;
-      product.save();
+      await product.save();
     });
 
     res.json(orders);
   } catch (error) {
+    console.log(error.message);
     res.status(400).json({ error: error.message });
   }
 }

@@ -3,7 +3,10 @@ import SectionHeader from "./SectionHeader";
 import { ShippingInformationType } from "../pages/CheckoutPage";
 import { Link } from "react-router-dom";
 import useUserContext from "../hooks/useUserContext";
-import { fetchShippingInformations } from "../services/shippingInfoServices";
+import {
+  fetchAddNewShippingInfo,
+  fetchShippingInformations,
+} from "../services/shippingInfoServices";
 
 export default function ShippingInformationSection({
   setShippingInformation,
@@ -46,7 +49,7 @@ export default function ShippingInformationSection({
     getShippingInformations();
   }, []);
 
-  function handleSetShippingInformation(e: React.FormEvent) {
+  async function handleSetShippingInformation(e: React.FormEvent) {
     e.preventDefault();
     const newShippingInfo = {
       _id: crypto.randomUUID(),
@@ -62,6 +65,11 @@ export default function ShippingInformationSection({
       postalCode,
       phone,
     };
+
+    if (saveInfo) {
+      const data = await fetchAddNewShippingInfo(newShippingInfo);
+      if (data.error) return;
+    }
 
     setShippingInformations((curr) => [
       ...(curr as ShippingInformationType[]),

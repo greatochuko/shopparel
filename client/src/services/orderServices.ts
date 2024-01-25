@@ -1,5 +1,15 @@
 import { BASE_URL } from "./authServices";
 
+export type OrderProductType = {
+  productId: string;
+  imgUrl: string;
+  name: string;
+  color: string;
+  size: string;
+  quantity: number;
+  price: number;
+};
+
 export async function fetchOrders() {
   try {
     const token = localStorage.getItem("token");
@@ -13,7 +23,10 @@ export async function fetchOrders() {
   }
 }
 
-export async function createOrder(paymentMethod: string, products: string[]) {
+export async function createOrder(
+  paymentMethod: string,
+  products: OrderProductType[]
+) {
   try {
     const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/orders`, {

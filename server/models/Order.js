@@ -15,6 +15,20 @@ const orderSchema = new mongoose.Schema(
       required: true,
       ref: "cart",
     },
+    products: {
+      type: [
+        {
+          productId: String,
+          imgUrl: String,
+          name: String,
+          color: String,
+          size: String,
+          quantity: Number,
+          price: Number,
+        },
+      ],
+      required: true,
+    },
   },
   { timestamps: true }
 );

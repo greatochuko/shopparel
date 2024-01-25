@@ -46,3 +46,13 @@ export async function getStoreProducts(req, res) {
     res.status(400).json({ error: error.message });
   }
 }
+
+export async function getStoreOrders(req, res) {
+  try {
+    const { storeId } = req.params;
+    const products = await Orders.find({ store: storeId });
+    res.json(products);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
