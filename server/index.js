@@ -40,11 +40,11 @@ app.use("/api", authRouter);
 app.use("/api", productRouter);
 app.use("/api", orderRouter);
 app.use("/api", reviewRouter);
+app.use("/api", storeRouter);
 app.use("/api/user", userRouter);
 app.use("/api/wishlist", wishlistRouter);
 app.use("/api/cart", cartRouter);
 app.use("/api/shipping", shippingInfoRouter);
-app.use("/api/store", storeRouter);
 
 async function startServer() {
   try {

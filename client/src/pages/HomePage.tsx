@@ -6,7 +6,7 @@ import Hero from "../components/Hero";
 import NewArrival from "../components/NewArrival";
 import NewsLetterSection from "../components/NewsLetterSection";
 import SectionHeader from "../components/SectionHeader";
-import TopBrands from "../components/TopBrands";
+import TopSellers from "../components/TopSellers";
 import { fetchProducts } from "../services/productServices";
 import { ProductType } from "../components/Product";
 
@@ -73,7 +73,7 @@ export default function HomePage() {
       <CategoryProducts gender="female">
         <SectionHeader title="Women's Wears" />
       </CategoryProducts>
-      <TopBrands />
+      <TopSellers />
       <FeedbackSection />
     </main>
   );

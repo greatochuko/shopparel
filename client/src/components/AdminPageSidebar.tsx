@@ -44,7 +44,7 @@ export default function AdminPageSidebar({
           ) : (
             <>
               <img
-                src={store?.banner}
+                src={store?.logo}
                 alt=""
                 className={`object-cover ${
                   open ? "w-20 h-20" : "w-10 h-10"

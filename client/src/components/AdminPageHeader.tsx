@@ -68,7 +68,7 @@ export default function AdminPageHeader({
         </form>
         <button className="relative flex-center group" onClick={toggleDropdown}>
           <img
-            src={store?.banner}
+            src={store?.logo}
             alt={store?.name + " logo"}
             className="object-cover w-8 h-8 rounded-full bg-zinc-300"
           />

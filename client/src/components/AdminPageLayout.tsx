@@ -8,7 +8,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 export type StoreType = {
   _id: string;
   name: string;
-  banner: string;
+  logo: string;
 };
 
 export default function AdminPageLayout() {

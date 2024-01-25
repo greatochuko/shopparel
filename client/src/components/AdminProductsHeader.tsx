@@ -54,7 +54,7 @@ export default function AdminProductsHeader({
           >
             In Stock
             <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
-              {products.filter((product) => product.quantity > 10).length}
+              {products.filter((product) => product.quantity >= 10).length}
             </span>
           </button>
           <button
@@ -65,7 +65,11 @@ export default function AdminProductsHeader({
           >
             Low Stock
             <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
-              {products.filter((product) => product.quantity > 5).length}
+              {
+                products.filter(
+                  (product) => product.quantity > 0 && product.quantity < 10
+                ).length
+              }
             </span>
           </button>
           <button

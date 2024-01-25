@@ -38,9 +38,11 @@ export default function AdminProductList({
       : filter === "draft"
       ? products.filter((product) => !product.isPublished)
       : filter === "in stock"
-      ? products.filter((product) => product.quantity > 10)
+      ? products.filter((product) => product.quantity >= 10)
       : filter === "low stock"
-      ? products.filter((product) => product.quantity > 5)
+      ? products.filter(
+          (product) => product.quantity > 5 && product.quantity < 10
+        )
       : filter === "out of stock"
       ? products.filter(
           (product) => product.quantity == 0 && product.isPublished
@@ -60,7 +62,7 @@ export default function AdminProductList({
         />
         <p className="min-w-[200px] flex-1 mr-auto">Product</p>
         <p className="w-24 text-center">Created At</p>
-        <p className="w-24 text-center">Quantity</p>
+        <p className="w-24 text-center">Status</p>
         <p className="w-[70px] text-center">Price</p>
         <p className="w-16 text-center">Delete</p>
       </div>

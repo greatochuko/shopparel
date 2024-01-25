@@ -1,11 +1,26 @@
 import { BASE_URL } from "./authServices";
 
-export async function fetchCreateStore(name: string, bannerUrl: string) {
+export async function fetchStores() {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${BASE_URL}/stores`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}
+
+export async function fetchCreateStore(name: string, logoUrl: string) {
   try {
     const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/store`, {
       method: "POST",
-      body: JSON.stringify({ name, banner: bannerUrl }),
+      body: JSON.stringify({ name, logo: logoUrl }),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
