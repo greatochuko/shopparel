@@ -14,7 +14,7 @@ import WishlistPage from "./pages/WishlistPage";
 import OrderPage from "./pages/OrderPage";
 import OrderDetailPage from "./pages/OrderDetailPage";
 import Authenticate from "./components/Authenticate";
-import BrandPage from "./pages/BrandPage";
+import SellersPage from "./pages/SellersPage";
 import SellerLandingPage from "./pages/SellerLandingPage";
 import Dashboard from "./pages/Dashboard";
 import AdminPageLayout from "./components/AdminPageLayout";
@@ -42,7 +42,7 @@ const router = createHashRouter([
         element: <AppLayout />,
         children: [
           { path: "/", element: <HomePage /> },
-          { path: "/brands/:brandId", element: <BrandPage /> },
+          { path: "/store/:storeName/:storeId", element: <SellersPage /> },
           { path: "/search", element: <SearchPage /> },
           { path: "/product/:productId", element: <ProductDetailPage /> },
           { path: "/cart", element: <CartPage /> },

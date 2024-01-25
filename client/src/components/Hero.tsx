@@ -8,7 +8,7 @@ export default function Hero({
   heroProducts: ProductType[];
 }) {
   const [currentIndex, setcurrentIndex] = useState(0);
-  const colors = ["#7F7CB6", "#FB9489"];
+  const colors = ["#7F7CB6", "#5B6971"];
   const backgroundColor = colors[currentIndex];
 
   function showNextHeroProduct() {

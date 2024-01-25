@@ -26,7 +26,9 @@ export default function TopSellers() {
       <div className="flex flex-wrap justify-center gap-4">
         {stores.map((store) => (
           <Link
-            to={`/stores/${store.name}`}
+            to={`/store/${store.name.split(" ").join("-").toLowerCase()}/${
+              store._id
+            }`}
             key={store._id}
             className="w-[45%] sm:w-[150px] hover:scale-105 duration-300 lg:w-[160px] max-w-[180px] xl:flex-1 rounded-md aspect-[2.2] bg-white p-3 "
           >

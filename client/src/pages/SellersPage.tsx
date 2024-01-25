@@ -1,23 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import Product, { ProductType } from "../components/Product";
-import { fetchBrandProducts } from "../services/productServices";
+import { fetchStore, fetchStoreProducts } from "../services/storeServices";
 import ProductWireframe from "../components/ProductWireframe";
+import { StoreType } from "../components/AdminPageLayout";
+import { useParams } from "react-router-dom";
 
-const brands = [
-  { name: "Gucci", url: "gucci", imgUrl: "/gucci.png" },
-  { name: "Luis Vuitton", url: "luis-vuitton", imgUrl: "/luis-vuitton.png" },
-  { name: "Chanel", url: "chanel", imgUrl: "/chanel.png" },
-  { name: "Nike", url: "nike", imgUrl: "/nike.png" },
-  { name: "Adidas", url: "adidas", imgUrl: "/adidas.png" },
-  { name: "Prada", url: "versace", imgUrl: "/versace.png" },
-];
-
-// ["Gucci", "Luis Vuitton", "Chanel", "Nike", "Adidas", "Prada"];
-
-export default function BrandPage() {
-  const { brandId } = useParams();
-  const brand = brands.find((b) => b.url === brandId);
+export default function SellersPage() {
+  const [store, setStore] = useState<StoreType | null>(null);
+  const { storeId, storeName } = useParams();
 
   const [products, setProducts] = useState<ProductType[]>([]);
   const [error, setError] = useState("");
@@ -27,13 +17,16 @@ export default function BrandPage() {
     async function getProducts() {
       setError("");
       setLoading(true);
-      const data = await fetchBrandProducts(brand?.name as string);
+      const storeData = await fetchStore(storeId as string);
+      if (storeData.error) return;
+      setStore(storeData);
+      const data = await fetchStoreProducts(storeId as string);
       if (data.error) {
         setError("There was an error fetching products");
         setLoading(false);
         return;
       }
-      document.title = `Shopparel: ${brand?.name}`;
+      document.title = `Shopparel: ${storeName}`;
 
       setProducts(
         [...data].sort(
@@ -44,12 +37,12 @@ export default function BrandPage() {
       setLoading(false);
     }
     getProducts();
-  }, [brand?.name]);
+  }, [store?.name, storeId]);
 
-  async function refreshBrandProducts() {
+  async function refreshStoreProducts() {
     setError("");
     setLoading(true);
-    const data = await fetchBrandProducts(brand?.name as string);
+    const data = await fetchStoreProducts(store?.name as string);
     if (data.error) {
       setError("There was an error fetching products");
       setLoading(true);
@@ -66,11 +59,11 @@ export default function BrandPage() {
 
   return (
     <main className="pt-[82px] h-fit max-w-7xl w-[90%] mx-auto flex flex-col gap-8 mb-8 text-zinc-700">
-      <div className="w-full aspect-[3] overflow-hidden rounded-lg bg-zinc-200 p-5 lg:p-10">
+      <div className="w-full aspect-[2] overflow-hidden rounded-lg bg-zinc-200">
         <img
-          src={brand?.imgUrl}
-          alt={brand?.name}
-          className="w-full h-full object-contain"
+          src={store?.logo}
+          alt={store?.name}
+          className="w-full h-full object-cover"
         />
       </div>
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -85,7 +78,7 @@ export default function BrandPage() {
           <p className="flex-col w-full col-span-4 flex-center h-60 text-sm sm:text-base">
             ❌{` ${error} `}❌
             <button
-              onClick={refreshBrandProducts}
+              onClick={refreshStoreProducts}
               className="gap-2 px-3 py-1 mt-4 text-white duration-300 rounded-full bg-accent-blue-100 flex-center hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
             >
               <svg
