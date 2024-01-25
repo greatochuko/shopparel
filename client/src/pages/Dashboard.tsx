@@ -8,7 +8,7 @@ import { useOutletContext } from "react-router-dom";
 import { StoreType } from "../components/AdminPageLayout";
 
 export default function Dashboard() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const { store } = useOutletContext<{ store: StoreType }>();
   const [stats, setStats] = useState({
     totalProducts: 0,
@@ -19,13 +19,14 @@ export default function Dashboard() {
 
   useEffect(() => {
     async function getStoreStats() {
-      const data = await fetchStoreProducts(store._id);
+      setLoading(true);
+      const data = await fetchStoreProducts(store?._id);
       if (data.error) return setLoading(false);
       setStats((curr) => ({ ...curr, totalProducts: data.length }));
       setLoading(false);
     }
     getStoreStats();
-  }, [store._id]);
+  }, [store?._id]);
 
   return (
     <div className="flex flex-col flex-1 gap-4 w-[90%] max-w-7xl mx-auto py-6 text-zinc-800">
