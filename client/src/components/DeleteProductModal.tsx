@@ -1,3 +1,7 @@
+import { useState } from "react";
+import { fetchDeleteProduct } from "../services/productServices";
+import LoadingIndicator from "./LoadingIndicator";
+
 export default function DeleteProductModal({
   closeModal,
   productId,
@@ -5,8 +9,14 @@ export default function DeleteProductModal({
   closeModal: () => void;
   productId: string;
 }) {
-  function handleDeleteProduct() {
-    return;
+  const [loading, setLoading] = useState(false);
+
+  async function handleDeleteProduct() {
+    setLoading(true);
+    const data = await fetchDeleteProduct(productId);
+    if (data.error) return setLoading(false);
+    setLoading(false);
+    closeModal();
   }
 
   return (
@@ -29,10 +39,11 @@ export default function DeleteProductModal({
           Cancel
         </button>
         <button
+          disabled={loading}
           onClick={handleDeleteProduct}
-          className="p-2 px-4 text-white duration-300 bg-red-600 rounded-md focus-visible:ring ring-red-800 hover:bg-red-700 active:bg-red-800"
+          className="p-2 w-20 flex-center text-white duration-300 bg-red-600 rounded-md focus-visible:ring ring-red-800 hover:bg-red-700 active:bg-red-800"
         >
-          Delete
+          {loading ? <LoadingIndicator /> : "Delete"}
         </button>
       </div>
     </div>

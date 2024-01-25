@@ -55,6 +55,23 @@ export async function searchProducts(req, res) {
   }
 }
 
+export async function getSimilarProducts(req, res) {
+  try {
+    const { categories, productId } = req.query;
+    const categoryList = categories.split(",");
+    const products = await Product.find();
+    const similarProducts = products.filter(
+      (product) =>
+        product.categories.some((category) =>
+          categoryList.includes(category)
+        ) && product._id.toString() !== productId
+    );
+    res.json(similarProducts);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 export async function saveProductInfo(req, res) {
   try {
     const { name, description, price, shipping, discount, store } = req.body;
@@ -89,19 +106,17 @@ export async function editProduct(req, res) {
   }
 }
 
-export async function getSimilarProducts(req, res) {
+export async function deleteProduct(req, res) {
   try {
-    const { categories, productId } = req.query;
-    const categoryList = categories.split(",");
-    const products = await Product.find();
-    const similarProducts = products.filter(
-      (product) =>
-        product.categories.some((category) =>
-          categoryList.includes(category)
-        ) && product._id.toString() !== productId
-    );
-    res.json(similarProducts);
+    const { productId } = req.params;
+    const product = await Product.findById(productId);
+
+    if (!product) throw new Error(`Product with id ${productId} not found!`);
+    await product.deleteOne();
+
+    res.json(product);
   } catch (error) {
+    console.log(error.message);
     res.status(400).json({ error: error.message });
   }
 }

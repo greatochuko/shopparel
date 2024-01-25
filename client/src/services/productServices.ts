@@ -123,3 +123,19 @@ export async function fetchEditProduct(
     return { error: (error as Error).message };
   }
 }
+
+export async function fetchDeleteProduct(productId: string) {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch(`${BASE_URL}/product/${productId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}

@@ -7,7 +7,9 @@ import {
   saveProductInfo,
   getBrandProducts,
   editProduct,
+  deleteProduct,
 } from "../controllers/productControllers.js";
+import { authenticateUser } from "../middlewares/authMiddleware.js";
 
 const productRouter = Router();
 
@@ -15,8 +17,9 @@ productRouter.get("/products", getAllProducts);
 productRouter.get("/products/brand/:brand", getBrandProducts);
 productRouter.get("/product/:productId", getProduct);
 productRouter.get("/products/search", searchProducts);
+productRouter.get("/products/similar", getSimilarProducts);
 productRouter.post("/products/save-product-info", saveProductInfo);
 productRouter.patch("/product", editProduct);
-productRouter.get("/products/similar", getSimilarProducts);
+productRouter.delete("/product/:productId", authenticateUser, deleteProduct);
 
 export default productRouter;
