@@ -1,4 +1,15 @@
-export default function DashboardStats() {
+type DashboardStatsType = {
+  totalProducts: number;
+  totalOrders: number;
+  totalSales: number;
+  totalIncome: number;
+};
+
+export default function DashboardStats({
+  stats,
+}: {
+  stats: DashboardStatsType;
+}) {
   return (
     <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
       <div className="flex flex-col md:flex-row items-center gap-4 p-4 bg-white rounded-md aspect-[4] xl:aspect-video">
@@ -31,7 +42,9 @@ export default function DashboardStats() {
         </div>
         <div className="flex flex-col items-center md:items-start">
           <h2 className="font-semibold text-zinc-400">Total Products</h2>
-          <p className="text-lg font-semibold text-zinc-700">235</p>
+          <p className="text-lg font-semibold text-zinc-700">
+            {stats.totalProducts}
+          </p>
         </div>
       </div>
       <div className="flex flex-col md:flex-row items-center gap-4 p-4 bg-white rounded-md aspect-[4] xl:aspect-video">
@@ -115,7 +128,9 @@ export default function DashboardStats() {
         </div>
         <div className="flex flex-col items-center md:items-start">
           <h2 className="font-semibold text-zinc-400">Total Orders</h2>
-          <p className="text-lg font-semibold text-zinc-700">235</p>
+          <p className="text-lg font-semibold text-zinc-700">
+            {stats.totalOrders}
+          </p>
         </div>
       </div>
       <div className="flex flex-col md:flex-row items-center gap-4 p-4 bg-white rounded-md aspect-[4] xl:aspect-video">
@@ -142,7 +157,9 @@ export default function DashboardStats() {
         </div>
         <div className="flex flex-col items-center md:items-start">
           <h2 className="font-semibold text-zinc-400">Total Sales</h2>
-          <p className="text-lg font-semibold text-zinc-700">235</p>
+          <p className="text-lg font-semibold text-zinc-700">
+            {stats.totalSales}
+          </p>
         </div>
       </div>
       <div className="flex flex-col md:flex-row items-center gap-4 p-4 bg-white rounded-md aspect-[4] xl:aspect-video">
@@ -238,7 +255,9 @@ export default function DashboardStats() {
         </div>
         <div className="flex flex-col items-center md:items-start">
           <h2 className="font-semibold text-zinc-400">Total Income</h2>
-          <p className="text-lg font-semibold text-zinc-700">235</p>
+          <p className="text-lg font-semibold text-zinc-700">
+            {stats.totalIncome}
+          </p>
         </div>
       </div>
     </div>

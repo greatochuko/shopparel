@@ -9,7 +9,7 @@ import { authenticateUser } from "../middlewares/authMiddleware.js";
 
 const storeRouter = Router();
 
-storeRouter.get("/stores", authenticateUser, getStores);
+storeRouter.get("/stores", getStores);
 storeRouter.post("/store", authenticateUser, createStore);
 storeRouter.get("/store/:storeId", authenticateUser, getStore);
 storeRouter.get("/store/:storeId/products", authenticateUser, getStoreProducts);
