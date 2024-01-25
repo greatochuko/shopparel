@@ -59,7 +59,7 @@ export async function getSimilarProducts(req, res) {
   try {
     const { categories, productId } = req.query;
     const categoryList = categories.split(",");
-    const products = await Product.find();
+    const products = await Product.find({ isPublished: true });
     const similarProducts = products.filter(
       (product) =>
         product.categories.some((category) =>

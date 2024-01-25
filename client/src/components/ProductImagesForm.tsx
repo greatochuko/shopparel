@@ -29,7 +29,7 @@ export default function ProductImagesForm({
     async function setUploadedProductImages() {
       if (!product?.images) return;
       const productImageList: ProductImageType[] = [];
-      for (let i = 0; i < product.images.length - 1; i++) {
+      for (let i = 0; i < product.images.length; i++) {
         const url = product.images[i];
 
         const res = await fetch(url);
@@ -44,17 +44,10 @@ export default function ProductImagesForm({
         });
       }
 
-      setProductImages(productImageList);
-
-      // UPDATE PRODUCT THUMBNAIL
-      if (!product.imgUrl) return;
-      const res = await fetch(product.imgUrl);
-      const imgBlob = await res.blob();
-      const imgFile = new File([imgBlob], `Thumbnail.png`, {
-        type: "image/png",
-      });
-      setThumbnail(imgFile);
+      setProductImages(productImageList.slice(1));
+      setThumbnail(productImageList[0].file);
     }
+
     setUploadedProductImages();
   }, [product?._id, product?.images, product?.imgUrl]);
 

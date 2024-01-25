@@ -205,6 +205,7 @@ export default function ProductSpecsForm({
       <div className="flex flex-col mt-4">
         <p className="font-semibold w-fit mb-2">Quantity</p>
         <input
+          required
           type="number"
           className="p-2 border w-20"
           value={quantity}

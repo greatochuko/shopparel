@@ -41,7 +41,7 @@ export default function AdminProductList({
       ? products.filter((product) => product.quantity >= 10)
       : filter === "low stock"
       ? products.filter(
-          (product) => product.quantity > 5 && product.quantity < 10
+          (product) => product.quantity > 0 && product.quantity < 10
         )
       : filter === "out of stock"
       ? products.filter(

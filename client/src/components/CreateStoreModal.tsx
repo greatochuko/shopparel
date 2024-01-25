@@ -38,7 +38,6 @@ export default function CreateStoreModal({
     if (!logo) return;
     const { url } = await uploadImage(logo);
     const data = await fetchCreateStore(name, url);
-    console.log(data);
     if (data.error) return setLoading(false);
     closeModal();
     udpateUser({ ...user, store: data.storeId } as UserType);

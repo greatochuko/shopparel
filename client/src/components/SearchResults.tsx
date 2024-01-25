@@ -53,7 +53,6 @@ export default function SearchResults({
       (product) => product.price < price.maxPrice
     );
 
-  console.log(price);
 
   function setSortBy(sortBy: string) {
     searchParams.set("sortBy", sortBy);

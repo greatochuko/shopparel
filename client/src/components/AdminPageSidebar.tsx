@@ -23,7 +23,7 @@ export default function AdminPageSidebar({
         ></div>
       )}
       <div
-        className={`top-0 h-screen bg-white lg:relative text-zinc-700 shadow-md duration-200 flex gap-2 flex-col z-10 overflow-hidden absolute ${
+        className={`top-0 h-screen bg-white lg:relative text-zinc-700 shadow-md duration-200 flex gap-2 flex-col z-10 overflow-hidden fixed ${
           open ? "w-60 p-4" : "w-0 lg:w-14 px-0 py-4"
         }`}
       >

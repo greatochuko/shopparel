@@ -39,13 +39,7 @@ export default function ProductDetailPage() {
           </div>
           <section>
             <SectionHeader title="Product Description" />
-            <p className="mt-3 text-zinc-700">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Architecto reprehenderit perspiciatis tempore aut quis officiis
-              officia eum. Id debitis iure maiores soluta perspiciatis
-              voluptate, reprehenderit ad accusamus, aliquam accusantium
-              exercitationem.
-            </p>
+            <p className="mt-3 text-zinc-700">{product?.description}</p>
           </section>
 
           <section className="max-w-3xl">

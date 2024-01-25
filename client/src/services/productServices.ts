@@ -86,7 +86,6 @@ export async function fetchSimilarProducts(
 export async function fetchSaveProductInfo(productInfo: ProductInfoType) {
   try {
     const token = localStorage.getItem("token");
-    console.log(productInfo);
     const res = await fetch(`${BASE_URL}/products/save-product-info`, {
       method: "POST",
       headers: {
