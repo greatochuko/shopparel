@@ -56,9 +56,21 @@ export async function getStoreOrders(req, res) {
       select: "firstName lastName email",
     });
 
-    const products = [];
-    orders.forEach((order) => products.push(...order.products));
-    res.json(orders);
+    const storeOrders = [];
+    orders.forEach((order) => {
+      if (order.products.some((product) => product.storeId === storeId)) {
+        storeOrders.push(
+          ...order.products.map((orderProduct) => ({
+            product: orderProduct,
+            userName: order.userId.firstName + " " + order.userId.lastName,
+            userEmail: order.userId.email,
+            date: order.createdAt,
+            _id: order._id,
+          }))
+        );
+      }
+    });
+    res.json(storeOrders);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

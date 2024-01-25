@@ -26,6 +26,7 @@ const orderSchema = new mongoose.Schema(
           quantity: Number,
           price: Number,
           storeId: String,
+          status: { type: String, default: "active" },
         },
       ],
       required: true,

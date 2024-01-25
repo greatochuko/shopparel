@@ -9,6 +9,7 @@ export type OrderProductType = {
   quantity: number;
   price: number;
   storeId: string;
+  status: "active" | "delivered" | "cancelled";
 };
 
 export async function fetchOrders() {

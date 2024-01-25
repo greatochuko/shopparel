@@ -1,44 +1,53 @@
-type AdminOrderType = {
+import { OrderProductType } from "../services/orderServices";
+export type AdminOrderType = {
   _id: string;
-  name: string;
-  email: string;
-  totalPrice: number;
-  status: string;
-  createdAt: string;
+  product: OrderProductType;
+  userName: string;
+  userEmail: string;
+  date: Date;
 };
 
 export default function AdminOrder({ order }: { order: AdminOrderType }) {
   const orderStatusBg =
-    order.status === "delivered"
+    order.product.status === "delivered"
       ? "bg-green-100"
-      : order.status === "pending"
-      ? "bg-amber-100"
-      : order.status === "cancelled"
+      : order.product.status === "active"
+      ? "bg-blue-100"
+      : order.product.status === "cancelled"
       ? "bg-red-100"
       : "";
 
   const orderStatusText =
-    order.status === "delivered"
+    order.product.status === "delivered"
       ? "text-green-600"
-      : order.status === "pending"
-      ? "text-amber-600"
-      : order.status === "cancelled"
+      : order.product.status === "active"
+      ? "text-blue-600"
+      : order.product.status === "cancelled"
       ? "text-red-500"
       : "";
 
   return (
     <>
       <li className="md:flex items-center hidden justify-between w-full gap-2 pb-2 text-sm border-b border-zinc-100">
-        <p>#{order._id}</p>
-        <p>{order.name}</p>
-        <p>{order.email}</p>
-        <p>${order.totalPrice}</p>
         <p
-          className={`py-1 text-center capitalize rounded-full w-24 ${orderStatusBg} ${orderStatusText}`}
+          className="w-[15%] overflow-hidden overflow-ellipsis whitespace-nowrap"
+          title={order._id}
         >
-          {order.status}
+          #{order._id}
         </p>
-        <p>{new Date(order.createdAt).toLocaleDateString()}</p>
+        <p className="w-[25%] overflow-hidden overflow-ellipsis whitespace-nowrap">
+          {order.userName}
+        </p>
+        <p className="w-[20%] overflow-hidden overflow-ellipsis whitespace-nowrap">
+          {order.userEmail.slice(0, 3) + "***" + "@gmail.com"}
+        </p>
+        <p>${order.product.price * order.product.quantity}</p>
+        <p
+          className={`py-1 text-center capitalize rounded-full max-w-[5rem] flex-1 ${orderStatusBg} ${orderStatusText}`}
+        >
+          {order.product.status}
+        </p>
+        <p>{new Date(order.date).toLocaleDateString()}</p>
         <button className="p-1 duration-200 rounded-full hover:bg-zinc-100 active:bg-zinc-200">
           <svg
             height={24}
@@ -82,20 +91,21 @@ export default function AdminOrder({ order }: { order: AdminOrderType }) {
           <span className="font-semibold">Order ID - </span> #{order._id}
         </p>
         <p>
-          <span className="font-semibold">Customer Name - </span> {order.name}
+          <span className="font-semibold">Customer Name - </span>{" "}
+          {order.userName}
         </p>
         <p>
           <span className="font-semibold">Customer Email - </span>
-          {order.email}
+          {order.userEmail}
         </p>
         <div className="flex justify-between items-center mt-4">
-          <p>${order.totalPrice}</p>
+          <p>${order.product.price * order.product.quantity}</p>
           <p
             className={`py-1 text-center capitalize rounded-full w-24 ${orderStatusBg} ${orderStatusText}`}
           >
-            {order.status}
+            {order.product.status}
           </p>
-          <p>{new Date(order.createdAt).toLocaleDateString()}</p>
+          <p>{new Date(order.date).toLocaleDateString()}</p>
         </div>
         <button className="p-1 duration-200 top-0 right-0 rotate-90 absolute rounded-full hover:bg-zinc-100 active:bg-zinc-200">
           <svg

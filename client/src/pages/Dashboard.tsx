@@ -9,6 +9,7 @@ import {
 } from "../services/storeServices";
 import { useOutletContext } from "react-router-dom";
 import { StoreType } from "../components/AdminPageLayout";
+import { AdminOrderType } from "../components/AdminOrder";
 
 export default function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -20,6 +21,10 @@ export default function Dashboard() {
     totalIncome: 0,
   });
 
+  const [storeOrders, setStoreOrders] = useState<AdminOrderType[]>([]);
+  console.clear();
+  console.log(storeOrders);
+
   useEffect(() => {
     async function getStoreStats() {
       setLoading(true);
@@ -29,17 +34,21 @@ export default function Dashboard() {
       setLoading(false);
 
       const orderData = await fetchStoreOrders(store?._id);
-      console.clear();
-      console.log(orderData);
+      setStoreOrders(orderData);
       if (orderData.error) return setLoading(false);
     }
+    if (!store?._id) return;
     getStoreStats();
   }, [store?._id]);
 
   return (
     <div className="flex flex-col flex-1 gap-4 w-[90%] max-w-7xl mx-auto py-6 text-zinc-800">
       {loading ? <DashboardStatsWireframe /> : <DashboardStats stats={stats} />}
-      {loading ? <RecentOrdersWireframe /> : <RecentOrders />}
+      {loading ? (
+        <RecentOrdersWireframe />
+      ) : (
+        <RecentOrders orders={storeOrders} />
+      )}
     </div>
   );
 }
