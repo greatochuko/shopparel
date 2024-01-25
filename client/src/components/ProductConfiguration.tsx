@@ -153,7 +153,11 @@ export default function ProductConfiguration({
         </ul>
       </div>
       <div className="flex flex-col w-full gap-4 mt-4 md:items-center md:flex-row">
-        {productInCart ? (
+        {product.quantity === 0 ? (
+          <div className="self-stretch flex-1 w-full gap-2 p-3 text-sm font-semibold text-red-400 duration-300 rounded-md flex-center focus-visible:ring-offset-1 bg-zinc-200 ">
+            Out of Stock
+          </div>
+        ) : productInCart ? (
           <QuantityController product={productInCart} />
         ) : (
           <button
