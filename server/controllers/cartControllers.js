@@ -25,21 +25,20 @@ export async function getCartItems(req, res) {
 
 export async function addProduct(req, res) {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) return res.status(401).json({ error: "Invalid Token" });
-
-    let userId;
-    try {
-      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
-    } catch (error) {
-      return res.status(401).json({ error: error.message });
-    }
-
-    const { productId, name, imgUrl, color, size, price, shipping, quantity } =
-      req.body;
+    const {
+      productId,
+      name,
+      imgUrl,
+      color,
+      size,
+      price,
+      shipping,
+      quantity,
+      storeId,
+    } = req.body;
 
     const newCartItem = await Cart.create({
-      userId,
+      userId: req.userId,
       product: productId,
       name,
       imgUrl,
@@ -48,9 +47,12 @@ export async function addProduct(req, res) {
       price,
       shipping,
       quantity,
+      storeId,
     });
 
-    await User.findByIdAndUpdate(userId, { $push: { cart: newCartItem._id } });
+    await User.findByIdAndUpdate(req.userId, {
+      $push: { cart: newCartItem._id },
+    });
     res.json(newCartItem);
   } catch (error) {
     res.status(400).json({ error: error.message });

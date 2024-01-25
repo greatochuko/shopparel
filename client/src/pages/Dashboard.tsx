@@ -3,7 +3,10 @@ import DashboardStatsWireframe from "../components/DashboardStatsWireframe";
 import RecentOrders from "../components/RecentOrders";
 import RecentOrdersWireframe from "../components/RecentOrdersWireframe";
 import { useEffect, useState } from "react";
-import { fetchStoreProducts } from "../services/storeServices";
+import {
+  fetchStoreOrders,
+  fetchStoreProducts,
+} from "../services/storeServices";
 import { useOutletContext } from "react-router-dom";
 import { StoreType } from "../components/AdminPageLayout";
 
@@ -20,10 +23,15 @@ export default function Dashboard() {
   useEffect(() => {
     async function getStoreStats() {
       setLoading(true);
-      const data = await fetchStoreProducts(store?._id);
-      if (data.error) return setLoading(false);
-      setStats((curr) => ({ ...curr, totalProducts: data.length }));
+      const statsData = await fetchStoreProducts(store?._id);
+      if (statsData.error) return setLoading(false);
+      setStats((curr) => ({ ...curr, totalProducts: statsData.length }));
       setLoading(false);
+
+      const orderData = await fetchStoreOrders(store?._id);
+      console.clear();
+      console.log(orderData);
+      if (orderData.error) return setLoading(false);
     }
     getStoreStats();
   }, [store?._id]);

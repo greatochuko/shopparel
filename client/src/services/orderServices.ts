@@ -8,6 +8,7 @@ export type OrderProductType = {
   size: string;
   quantity: number;
   price: number;
+  storeId: string;
 };
 
 export async function fetchOrders() {

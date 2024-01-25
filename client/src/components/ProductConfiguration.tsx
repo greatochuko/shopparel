@@ -45,6 +45,7 @@ export default function ProductConfiguration({
       price: product.price,
       shipping: 19.99,
       quantity: 1,
+      storeId: product.store as string,
     };
     setLoading(true);
     addItemToCart({

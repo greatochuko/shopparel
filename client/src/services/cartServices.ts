@@ -16,6 +16,7 @@ export async function fetchCart() {
 
 export async function fetchAddToCart(cartItem: CartItemType) {
   try {
+    console.log(cartItem);
     const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/cart`, {
       method: "POST",

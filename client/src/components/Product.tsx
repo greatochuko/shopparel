@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ReviewType } from "./Review";
 import useWishlistContext from "../hooks/useWishlistContext";
 import useUserContext from "../hooks/useUserContext";
+import { StoreType } from "./AdminPageLayout";
 
 export type ProductType = {
   _id: string;
@@ -22,6 +23,7 @@ export type ProductType = {
   reviews: ReviewType[];
   rating: number;
   createdAt: string;
+  store: StoreType | string;
 };
 
 export default function Product({ product }: { product: ProductType }) {

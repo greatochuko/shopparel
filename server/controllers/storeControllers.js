@@ -1,3 +1,4 @@
+import { Order } from "../models/Order.js";
 import { Product } from "../models/Product.js";
 import { Store } from "../models/Store.js";
 import { User } from "../models/User.js";
@@ -50,8 +51,14 @@ export async function getStoreProducts(req, res) {
 export async function getStoreOrders(req, res) {
   try {
     const { storeId } = req.params;
-    const products = await Orders.find({ store: storeId });
-    res.json(products);
+    const orders = await Order.find().populate({
+      path: "userId",
+      select: "firstName lastName email",
+    });
+
+    const products = [];
+    orders.forEach((order) => products.push(...order.products));
+    res.json(orders);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

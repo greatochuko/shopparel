@@ -41,6 +41,7 @@ export default function CheckoutPage() {
         price: item.price,
         quantity: item.quantity,
         size: item.size,
+        storeId: item.storeId,
       }))
     );
 

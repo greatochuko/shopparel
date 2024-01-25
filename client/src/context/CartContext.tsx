@@ -24,6 +24,7 @@ export type CartItemType = {
   price: number;
   shipping: number;
   quantity: number;
+  storeId: string;
 };
 
 export type CartProviderValue = {

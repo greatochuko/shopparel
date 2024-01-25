@@ -25,6 +25,7 @@ const orderSchema = new mongoose.Schema(
           size: String,
           quantity: Number,
           price: Number,
+          storeId: String,
         },
       ],
       required: true,
