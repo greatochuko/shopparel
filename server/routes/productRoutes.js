@@ -1,7 +1,6 @@
 import { Router } from "express";
 import {
-  createProduct,
-  getAllProduct,
+  getAllProducts,
   getProduct,
   getSimilarProducts,
   searchProducts,
@@ -12,11 +11,10 @@ import {
 
 const productRouter = Router();
 
-productRouter.get("/products", getAllProduct);
+productRouter.get("/products", getAllProducts);
 productRouter.get("/products/brand/:brand", getBrandProducts);
 productRouter.get("/product/:productId", getProduct);
 productRouter.get("/products/search", searchProducts);
-productRouter.post("/products", createProduct);
 productRouter.post("/products/save-product-info", saveProductInfo);
 productRouter.patch("/product", editProduct);
 productRouter.get("/products/similar", getSimilarProducts);

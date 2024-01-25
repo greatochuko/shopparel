@@ -1,3 +1,4 @@
+// export const BASE_URL = "http://192.168.43.73:5000/api";
 export const BASE_URL = "http://localhost:5000/api";
 // export const BASE_URL = "https://shopparel-api.vercel.app/api";
 

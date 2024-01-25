@@ -108,7 +108,7 @@ export default function ProductImagesForm({
       <div className="flex-1 flex flex-col pr-2">
         <label
           htmlFor="main-image"
-          className="w-full overflow-hidden relative md:text-xl font-semibold rounded-md border-dashed border-[3px] border-zinc-300 aspect-[2] sm:aspect-square cursor-pointer group hover:border-zinc-400 duration-300"
+          className="w-full overflow-hidden relative md:text-xl font-semibold rounded-md border-dashed border-[3px] border-zinc-300 aspect-[2] sm:aspect-[3] cursor-pointer group hover:border-zinc-400 duration-300"
         >
           {thumbnailUrl && (
             <img

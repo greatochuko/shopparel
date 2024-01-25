@@ -237,7 +237,13 @@ export default function ProductSpecsForm({
           type="submit"
           className="flex-1 sm:flex-[2] flex-center p-2 rounded-md font-semibold bg-accent-blue-100 text-white duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
         >
-          {loading ? <LoadingIndicator /> : "Publish"}
+          {loading ? (
+            <LoadingIndicator />
+          ) : product?.isPublished ? (
+            "Save"
+          ) : (
+            "Publish"
+          )}
         </button>
         <button
           onClick={saveAsDraft}

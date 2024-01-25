@@ -29,7 +29,7 @@ export default function AdminProduct({
 
   const productStatusText = !product.isPublished
     ? "text-zinc-600"
-    : product.quantity > 10
+    : product.quantity > 5
     ? "text-green-600"
     : product.quantity > 0
     ? "text-amber-600"
