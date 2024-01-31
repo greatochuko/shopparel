@@ -10,6 +10,7 @@ const orderSchema = new mongoose.Schema(
     deliveryDate: { type: Date, required: true },
     status: { type: String, default: "active" },
     paymentMethod: { type: String, required: true },
+    address: { type: String, required: true },
     products: {
       type: [mongoose.SchemaTypes.ObjectId],
       required: true,

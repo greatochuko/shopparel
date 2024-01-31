@@ -31,10 +31,13 @@ export default function CheckoutPage() {
 
   async function handlePayment() {
     setLoading(true);
+    const address = `${shippingInformation?.apartment} ${shippingInformation?.streetAddress} ${shippingInformation?.country}`;
+    // return;
     const data = await createOrder(
       paymentType,
       cartItems.map((item) => ({
-        productId: item._id,
+        _id: item._id,
+        productId: item.product as string,
         color: item.color,
         imgUrl: item.imgUrl,
         name: item.name,
@@ -42,7 +45,9 @@ export default function CheckoutPage() {
         quantity: item.quantity,
         size: item.size,
         storeId: item.storeId,
-      }))
+        status: "active",
+      })),
+      address
     );
 
     if (data.error) return setLoading(false);

@@ -24,20 +24,19 @@ export async function getOrders(req, res) {
 
 export async function createOrder(req, res) {
   try {
-    const { paymentMethod, products } = req.body;
+    const { paymentMethod, address, products } = req.body;
     const orders = await Order.create({
       userId: req.userId,
       deliveryDate: new Date(new Date().getDate() + 14),
       status: "active",
       paymentMethod,
+      address,
       products,
     });
 
     // Set all cart items to ordered
-    products.forEach(async (prod) => {
-      const product = await Cart.findById(prod.productId);
-      product.ordered = true;
-      await product.save();
+    products.forEach(async (cartItem) => {
+      const product = await Cart.findByIdAndDelete(cartItem._id);
     });
 
     res.json(orders);

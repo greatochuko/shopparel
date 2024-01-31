@@ -3,8 +3,7 @@ import { OrderProductType } from "../services/orderServices";
 export type AdminOrderType = {
   _id: string;
   product: OrderProductType;
-  userName: string;
-  userEmail: string;
+  address: string;
   date: Date;
 };
 
@@ -41,15 +40,22 @@ export default function AdminOrder({
     setOptionsIsOpen((curr) => !curr);
   }
 
+  function handleFulfil() {
+    if (order.product.status !== "active") return;
+    console.clear();
+    console.log("Fulfilling...");
+    setOptionsIsOpen(false);
+  }
+
   return (
     <>
       <li className="items-center justify-between hidden gap-2 md:flex">
         <input
           type="checkbox"
-          name={`select ${order._id}`}
-          id={order._id}
+          name={`select ${order._id + order.product.productId}`}
+          id={order._id + order.product.productId}
           checked={isSelected}
-          onChange={() => toggleCheck(order._id)}
+          onChange={() => toggleCheck(order._id + order.product.productId)}
         />
 
         <p className="w-28 overflow-hidden overflow-ellipsis" title={order._id}>
@@ -59,15 +65,14 @@ export default function AdminOrder({
           <img
             src={order.product.imgUrl}
             alt={order.product.name}
-            className="w-12 h-12"
+            className="w-12 h-12 object-cover"
           />
           <p className="flex-1 max-w-[333px] w-0 overflow-hidden overflow-ellipsis whitespace-nowrap">
             {order.product.name}
           </p>
         </div>
         <p className="max-w-[389px] w-0 flex-1 overflow-hidden whitespace-nowrap overflow-ellipsis">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Exercitationem, hic?
+          {order.address}
         </p>
         <p className="w-24">{new Date(order.date).toLocaleDateString()}</p>
         <p className="w-24 flex-center">
@@ -117,11 +122,12 @@ export default function AdminOrder({
             </svg>
           </button>
           {optionsIsOpen && (
-            <ul
-              className="absolute left-0 top-[100%] w-fit bg-white rounded-md overflow-hidden shadow-lg animate-zoom-in"
-              onClick={() => setOptionsIsOpen(false)}
-            >
-              <li className="px-2 cursor-pointer gap-1 group py-1 flex items-center hover:bg-green-100 hover:text-green-600 duration-300">
+            <ul className="absolute left-0 top-[100%] w-fit bg-white rounded-md overflow-hidden shadow-lg animate-zoom-in z-20">
+              <li
+                aria-disabled={order.product.status !== "active"}
+                onClick={handleFulfil}
+                className="px-2 aria-disabled:grayscale aria-disabled:cursor-default cursor-pointer gap-1 group py-1 flex items-center hover:bg-green-100 hover:text-green-600 duration-300"
+              >
                 <svg
                   height={20}
                   width={20}

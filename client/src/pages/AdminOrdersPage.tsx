@@ -77,9 +77,11 @@ export default function AdminOrdersPage() {
           ) : (
             orders.map((order) => (
               <AdminOrder
-                key={order._id}
+                key={order._id + order.product.productId}
                 order={order}
-                isSelected={selectedOrders.includes(order._id)}
+                isSelected={selectedOrders.includes(
+                  order._id + order.product.productId
+                )}
                 toggleCheck={toggleCheck}
               />
             ))

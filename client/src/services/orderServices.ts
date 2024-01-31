@@ -27,13 +27,14 @@ export async function fetchOrders() {
 
 export async function createOrder(
   paymentMethod: string,
-  products: OrderProductType[]
+  products: OrderProductType[],
+  address: string
 ) {
   try {
     const token = localStorage.getItem("token");
     const res = await fetch(`${BASE_URL}/orders`, {
       method: "POST",
-      body: JSON.stringify({ paymentMethod, products }),
+      body: JSON.stringify({ paymentMethod, products, address }),
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

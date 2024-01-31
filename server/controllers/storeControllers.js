@@ -62,8 +62,7 @@ export async function getStoreOrders(req, res) {
         storeOrders.push(
           ...order.products.map((orderProduct) => ({
             product: orderProduct,
-            userName: order.userId.firstName + " " + order.userId.lastName,
-            userEmail: order.userId.email,
+            address: order.address,
             date: order.createdAt,
             _id: order._id,
           }))
