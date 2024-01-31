@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { OrderProductType } from "../services/orderServices";
 export type AdminOrderType = {
   _id: string;
@@ -16,6 +17,8 @@ export default function AdminOrder({
   isSelected: boolean;
   toggleCheck: (orderId: string) => void;
 }) {
+  const [optionsIsOpen, setOptionsIsOpen] = useState(false);
+
   const orderStatusBg =
     order.product.status === "delivered"
       ? "bg-green-100"
@@ -33,6 +36,10 @@ export default function AdminOrder({
       : order.product.status === "cancelled"
       ? "text-red-500"
       : "";
+
+  function toggleOpenOptions() {
+    setOptionsIsOpen((curr) => !curr);
+  }
 
   return (
     <>
@@ -71,40 +78,100 @@ export default function AdminOrder({
         >
           {order.product.status}
         </p>
-        <button className="p-1 duration-200 rounded-full hover:bg-zinc-100 active:bg-zinc-200">
-          <svg
-            height={24}
-            width={24}
-            viewBox="0 0 24 24"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="#000000"
+        <div className="relative">
+          <button
+            className="p-1 duration-200 rounded-full hover:bg-zinc-100 active:bg-zinc-200"
+            onClick={toggleOpenOptions}
           >
-            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-            <g
-              id="SVGRepo_tracerCarrier"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            ></g>
-            <g id="SVGRepo_iconCarrier">
-              <title>elipsis-h</title> <desc>Created with sketchtool.</desc>
+            <svg
+              height={24}
+              width={24}
+              viewBox="0 0 24 24"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="#000000"
+            >
+              <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
               <g
-                id="web-app"
-                stroke="none"
-                strokeWidth="1"
-                fill="none"
-                fillRule="evenodd"
-              >
-                <g id="elipsis-h" fill="#000000">
-                  <path
-                    d="M18,14 C16.8954305,14 16,13.1045695 16,12 C16,10.8954305 16.8954305,10 18,10 C19.1045695,10 20,10.8954305 20,12 C20,13.1045695 19.1045695,14 18,14 Z M6,14 C4.8954305,14 4,13.1045695 4,12 C4,10.8954305 4.8954305,10 6,10 C7.1045695,10 8,10.8954305 8,12 C8,13.1045695 7.1045695,14 6,14 Z M12,14 C10.8954305,14 10,13.1045695 10,12 C10,10.8954305 10.8954305,10 12,10 C13.1045695,10 14,10.8954305 14,12 C14,13.1045695 13.1045695,14 12,14 Z"
-                    id="Shape"
-                  ></path>
+                id="SVGRepo_tracerCarrier"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <title>elipsis-h</title> <desc>Created with sketchtool.</desc>
+                <g
+                  id="web-app"
+                  stroke="none"
+                  strokeWidth="1"
+                  fill="none"
+                  fillRule="evenodd"
+                >
+                  <g id="elipsis-h" fill="#000000">
+                    <path
+                      d="M18,14 C16.8954305,14 16,13.1045695 16,12 C16,10.8954305 16.8954305,10 18,10 C19.1045695,10 20,10.8954305 20,12 C20,13.1045695 19.1045695,14 18,14 Z M6,14 C4.8954305,14 4,13.1045695 4,12 C4,10.8954305 4.8954305,10 6,10 C7.1045695,10 8,10.8954305 8,12 C8,13.1045695 7.1045695,14 6,14 Z M12,14 C10.8954305,14 10,13.1045695 10,12 C10,10.8954305 10.8954305,10 12,10 C13.1045695,10 14,10.8954305 14,12 C14,13.1045695 13.1045695,14 12,14 Z"
+                      id="Shape"
+                    ></path>
+                  </g>
                 </g>
               </g>
-            </g>
-          </svg>
-        </button>
+            </svg>
+          </button>
+          {optionsIsOpen && (
+            <ul
+              className="absolute left-0 top-[100%] w-fit bg-white rounded-md overflow-hidden shadow-lg animate-zoom-in"
+              onClick={() => setOptionsIsOpen(false)}
+            >
+              <li className="px-2 cursor-pointer gap-1 group py-1 flex items-center hover:bg-green-100 hover:text-green-600 duration-300">
+                <svg
+                  height={20}
+                  width={20}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    {" "}
+                    <path
+                      fillRule="evenodd"
+                      clipRule="evenodd"
+                      d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM16.0303 8.96967C16.3232 9.26256 16.3232 9.73744 16.0303 10.0303L11.0303 15.0303C10.7374 15.3232 10.2626 15.3232 9.96967 15.0303L7.96967 13.0303C7.67678 12.7374 7.67678 12.2626 7.96967 11.9697C8.26256 11.6768 8.73744 11.6768 9.03033 11.9697L10.5 13.4393L12.7348 11.2045L14.9697 8.96967C15.2626 8.67678 15.7374 8.67678 16.0303 8.96967Z"
+                      fill="#1C274C"
+                      className="group-hover:fill-green-600 fill-zinc-700 duration-300"
+                    ></path>{" "}
+                  </g>
+                </svg>
+                Fulfil
+              </li>
+              <li className="px-2 cursor-pointer py-1 text-left group flex items-center gap-1 hover:bg-red-100 hover:text-red-500 duration-300">
+                <svg
+                  height={20}
+                  width={20}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="#000000"
+                  className="group-hover:fill-red-500 fill-zinc-700 duration-300"
+                  viewBox="0 0 24 24"
+                >
+                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"></path>
+                  </g>
+                </svg>
+                Cancel
+              </li>
+            </ul>
+          )}
+        </div>
       </li>
 
       {/* MOBILE ORDER ITEM */}
