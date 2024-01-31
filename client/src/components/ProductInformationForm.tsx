@@ -23,9 +23,9 @@ export default function ProductInformationForm({
 }) {
   const [productName, setProductName] = useState(product?.name || "");
   const [description, setDescription] = useState(product?.description || "");
-  const [price, setPrice] = useState(product?.price || 0);
-  const [shipping, setShipping] = useState(product?.shipping || 0);
-  const [discount, setDiscount] = useState(product?.discount || 0);
+  const [price, setPrice] = useState(product?.price || "0");
+  const [shipping, setShipping] = useState(product?.shipping || "0");
+  const [discount, setDiscount] = useState(product?.discount || "0");
   const { store } = useOutletContext<{ store: StoreType }>();
 
   return (
@@ -37,9 +37,9 @@ export default function ProductInformationForm({
         handleSaveProductInformation(e, {
           name: productName,
           description,
-          price,
-          discount,
-          shipping,
+          price: Number(price || 0),
+          discount: Number(discount || 0),
+          shipping: Number(shipping || 0),
           store: store._id,
           _id: product?._id || "",
         })
@@ -77,7 +77,7 @@ export default function ProductInformationForm({
           <input
             required
             value={price}
-            onChange={(e) => setPrice(Number(e.target.value))}
+            onChange={(e) => setPrice(e.target.value)}
             type="number"
             id="price"
             className="border p-2 rounded-md w-full"
@@ -90,7 +90,7 @@ export default function ProductInformationForm({
           <input
             required
             value={shipping}
-            onChange={(e) => setShipping(Number(e.target.value))}
+            onChange={(e) => setShipping(e.target.value)}
             type="number"
             id="shipping"
             className="border p-2 rounded-md w-full"
@@ -103,7 +103,7 @@ export default function ProductInformationForm({
           <input
             required
             value={discount}
-            onChange={(e) => setDiscount(Number(e.target.value))}
+            onChange={(e) => setDiscount(e.target.value)}
             type="number"
             id="discount"
             className="border p-2 rounded-md w-full"

@@ -19,6 +19,7 @@ import SellerLandingPage from "./pages/SellerLandingPage";
 import Dashboard from "./pages/Dashboard";
 import AdminPageLayout from "./components/AdminPageLayout";
 import AdminProductsPage from "./pages/AdminProductsPage";
+import AdminOrdersPage from "./pages/AdminOrdersPage";
 
 const router = createHashRouter([
   {
@@ -32,6 +33,7 @@ const router = createHashRouter([
             children: [
               { path: "/admin", element: <Dashboard /> },
               { path: "/admin/products", element: <AdminProductsPage /> },
+              { path: "/admin/orders", element: <AdminOrdersPage /> },
             ],
           },
         ],

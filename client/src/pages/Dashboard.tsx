@@ -1,7 +1,6 @@
 import DashboardStats from "../components/DashboardStats";
 import DashboardStatsWireframe from "../components/DashboardStatsWireframe";
 import RecentOrders from "../components/RecentOrders";
-import RecentOrdersWireframe from "../components/RecentOrdersWireframe";
 import { useEffect, useState } from "react";
 import {
   fetchStoreOrders,
@@ -22,8 +21,6 @@ export default function Dashboard() {
   });
 
   const [storeOrders, setStoreOrders] = useState<AdminOrderType[]>([]);
-  console.clear();
-  console.log(storeOrders);
 
   useEffect(() => {
     async function getStoreStats() {
@@ -35,6 +32,7 @@ export default function Dashboard() {
 
       const orderData = await fetchStoreOrders(store?._id);
       setStoreOrders(orderData);
+      setStats((curr) => ({ ...curr, totalOrders: orderData.length }));
       if (orderData.error) return setLoading(false);
     }
     if (!store?._id) return;
@@ -44,11 +42,7 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col flex-1 gap-4 w-[90%] max-w-7xl mx-auto py-6 text-zinc-800">
       {loading ? <DashboardStatsWireframe /> : <DashboardStats stats={stats} />}
-      {loading ? (
-        <RecentOrdersWireframe />
-      ) : (
-        <RecentOrders orders={storeOrders} />
-      )}
+      <RecentOrders loading={loading} orders={storeOrders} />
     </div>
   );
 }

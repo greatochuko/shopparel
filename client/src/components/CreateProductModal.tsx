@@ -79,7 +79,10 @@ export default function CreateProductModal({
     closeModal();
   }
 
-  function saveAsDraft() {
+  async function saveAsDraft() {
+    const data = await fetchEditProduct({ isPublished: false });
+    if (data.error) return setLoading(false);
+    setLoading(false);
     closeModal();
   }
 

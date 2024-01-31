@@ -102,7 +102,7 @@ export default function ProductSpecsForm({
   );
 
   const [gender, setGender] = useState(product?.gender || "unisex");
-  const [quantity, setQuantity] = useState(product?.quantity || 0);
+  const [quantity, setQuantity] = useState(product?.quantity || "0");
 
   function toggleAddColor(color: string) {
     if (selectedColors.includes(color)) {
@@ -139,7 +139,7 @@ export default function ProductSpecsForm({
           selectedColors,
           selectedSizes,
           gender,
-          quantity,
+          Number(quantity || 0),
           selectedCategories
         )
       }
@@ -225,7 +225,7 @@ export default function ProductSpecsForm({
           type="number"
           className="p-2 border w-20"
           value={quantity}
-          onChange={(e) => setQuantity(Number(e.target.value))}
+          onChange={(e) => setQuantity(e.target.value)}
         />
       </div>
       <div className="flex flex-col mt-4">

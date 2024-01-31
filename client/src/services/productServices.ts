@@ -103,7 +103,11 @@ export async function fetchSaveProductInfo(productInfo: ProductInfoType) {
 }
 
 export async function fetchEditProduct(
-  productInfo: ProductInfoType | ProductImagesType | ProductSpecsType
+  productInfo:
+    | ProductInfoType
+    | ProductImagesType
+    | ProductSpecsType
+    | { isPublished: boolean }
 ) {
   try {
     const token = localStorage.getItem("token");

@@ -28,26 +28,35 @@ export default function AdminOrder({ order }: { order: AdminOrderType }) {
 
   return (
     <>
-      <li className="md:flex items-center hidden justify-between w-full gap-2 pb-2 text-sm border-b border-zinc-100">
+      <li className="items-center justify-between hidden gap-2 md:flex">
+        <input type="checkbox" name="selectAll" id="selectAll" />
+
+        <p className="w-24 overflow-hidden overflow-ellipsis" title={order._id}>
+          {order._id}
+        </p>
+        <div className="flex items-center flex-1 gap-2">
+          <img
+            src={order.product.imgUrl}
+            alt={order.product.name}
+            className="w-12 h-12"
+          />
+          <p className="flex-1 max-w-[333px] w-0 overflow-hidden overflow-ellipsis whitespace-nowrap">
+            {order.product.name}
+          </p>
+        </div>
+        <p className="max-w-[389px] w-0 flex-1 overflow-hidden whitespace-nowrap overflow-ellipsis">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit.
+          Exercitationem, hic?
+        </p>
+        <p className="w-24">{new Date(order.date).toLocaleDateString()}</p>
+        <p className="w-24 flex-center">
+          ${(order.product.price * order.product.quantity).toFixed(2)}
+        </p>
         <p
-          className="w-[15%] overflow-hidden overflow-ellipsis whitespace-nowrap"
-          title={order._id}
-        >
-          #{order._id}
-        </p>
-        <p className="w-[25%] overflow-hidden overflow-ellipsis whitespace-nowrap">
-          {order.userName}
-        </p>
-        <p className="w-[20%] overflow-hidden overflow-ellipsis whitespace-nowrap">
-          {order.userEmail.slice(0, 3) + "***" + "@gmail.com"}
-        </p>
-        <p>${order.product.price * order.product.quantity}</p>
-        <p
-          className={`py-1 text-center capitalize rounded-full max-w-[5rem] flex-1 ${orderStatusBg} ${orderStatusText}`}
+          className={`w-20 flex-center ${orderStatusBg} ${orderStatusText} rounded-full p-1`}
         >
           {order.product.status}
         </p>
-        <p>{new Date(order.date).toLocaleDateString()}</p>
         <button className="p-1 duration-200 rounded-full hover:bg-zinc-100 active:bg-zinc-200">
           <svg
             height={24}
@@ -86,7 +95,7 @@ export default function AdminOrder({ order }: { order: AdminOrderType }) {
 
       {/* MOBILE ORDER ITEM */}
 
-      <li className="flex flex-col relative md:hidden justify-between w-full gap-2 pb-2 text-sm lg:border-b border-zinc-100 bg-zinc-50 p-2 rounded-md">
+      <li className="relative flex flex-col justify-between w-full gap-2 p-2 pb-2 text-sm rounded-md md:hidden lg:border-b border-zinc-100 bg-zinc-50">
         <p>
           <span className="font-semibold">Order ID - </span> #{order._id}
         </p>
@@ -98,7 +107,7 @@ export default function AdminOrder({ order }: { order: AdminOrderType }) {
           <span className="font-semibold">Customer Email - </span>
           {order.userEmail}
         </p>
-        <div className="flex justify-between items-center mt-4">
+        <div className="flex items-center justify-between mt-4">
           <p>${order.product.price * order.product.quantity}</p>
           <p
             className={`py-1 text-center capitalize rounded-full w-24 ${orderStatusBg} ${orderStatusText}`}
@@ -107,7 +116,7 @@ export default function AdminOrder({ order }: { order: AdminOrderType }) {
           </p>
           <p>{new Date(order.date).toLocaleDateString()}</p>
         </div>
-        <button className="p-1 duration-200 top-0 right-0 rotate-90 absolute rounded-full hover:bg-zinc-100 active:bg-zinc-200">
+        <button className="absolute top-0 right-0 p-1 duration-200 rotate-90 rounded-full hover:bg-zinc-100 active:bg-zinc-200">
           <svg
             height={24}
             width={24}
