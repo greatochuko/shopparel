@@ -249,7 +249,7 @@ export default function AdminPageSidebar({
               className={`flex items-center gap-2 ${
                 !open ? "flex-center aspect-square" : "p-3"
               } ${
-                pathname === "/admin"
+                pathname === "/admin/reviews"
                   ? "bg-accent-blue-100/20 text-accent-blue-300"
                   : ""
               } duration-300 rounded-md hover:bg-accent-blue-100/20 hover:text-accent-blue-300 group`}

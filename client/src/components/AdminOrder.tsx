@@ -7,7 +7,15 @@ export type AdminOrderType = {
   date: Date;
 };
 
-export default function AdminOrder({ order }: { order: AdminOrderType }) {
+export default function AdminOrder({
+  order,
+  isSelected,
+  toggleCheck,
+}: {
+  order: AdminOrderType;
+  isSelected: boolean;
+  toggleCheck: (orderId: string) => void;
+}) {
   const orderStatusBg =
     order.product.status === "delivered"
       ? "bg-green-100"
@@ -29,9 +37,15 @@ export default function AdminOrder({ order }: { order: AdminOrderType }) {
   return (
     <>
       <li className="items-center justify-between hidden gap-2 md:flex">
-        <input type="checkbox" name="selectAll" id="selectAll" />
+        <input
+          type="checkbox"
+          name={`select ${order._id}`}
+          id={order._id}
+          checked={isSelected}
+          onChange={() => toggleCheck(order._id)}
+        />
 
-        <p className="w-24 overflow-hidden overflow-ellipsis" title={order._id}>
+        <p className="w-28 overflow-hidden overflow-ellipsis" title={order._id}>
           {order._id}
         </p>
         <div className="flex items-center flex-1 gap-2">

@@ -55,7 +55,7 @@ export default function AdminPageHeader({
             </g>
           </svg>
         </button>
-        <h1 className="text-lg sm:text-xl font-semibold mr-auto">Dashboard</h1>
+        <h1 className="mr-auto text-lg font-semibold sm:text-xl">Admin</h1>
 
         <form className="sm:w-80">
           <input
@@ -63,7 +63,7 @@ export default function AdminPageHeader({
             placeholder="Search"
             id="search-input"
             name="search-input"
-            className="w-full p-2 px-3 duration-300 text-sm rounded-full bg-zinc-100 focus-visible:ring ring-blue-400"
+            className="w-full p-2 px-3 text-sm duration-300 rounded-full bg-zinc-100 focus-visible:ring ring-blue-400"
           />
         </form>
         <button className="relative flex-center group" onClick={toggleDropdown}>

@@ -2,7 +2,7 @@ export default function AdminOrderWireframe() {
   return (
     <>
       <li className="items-center justify-between hidden gap-2 md:flex">
-        <input type="checkbox" name="selectAll" id="selectAll" />
+        <input type="checkbox" name="selectAll" />
 
         <div className="w-24 h-6 rounded-full bg-zinc-200 animate-pulse"></div>
         <div className="flex items-center flex-1 gap-2">

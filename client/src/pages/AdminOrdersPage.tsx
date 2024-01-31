@@ -9,6 +9,7 @@ export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<AdminOrderType[]>([]);
   const [loading, setLoading] = useState(true);
   const { store } = useOutletContext<{ store: StoreType }>();
+  const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
 
   useEffect(() => {
     async function getStoreStats() {
@@ -24,6 +25,22 @@ export default function AdminOrdersPage() {
     getStoreStats();
   }, [store?._id]);
 
+  function toggleCheck(orderId: string) {
+    if (selectedOrders.includes(orderId)) {
+      setSelectedOrders((curr) => curr.filter((id) => id !== orderId));
+    } else {
+      setSelectedOrders((curr) => [...curr, orderId]);
+    }
+  }
+
+  function toggleSelectAll() {
+    if (selectedOrders.length === orders.length) {
+      setSelectedOrders([]);
+    } else {
+      setSelectedOrders(orders.map((order) => order._id));
+    }
+  }
+
   return (
     <div className="flex flex-col flex-1 gap-4 w-[90%] max-w-7xl mx-auto py-6 text-zinc-800 overflow-hidden">
       <div className="flex items-center gap-2 mb-4">
@@ -35,8 +52,14 @@ export default function AdminOrdersPage() {
       <section className="p-4 bg-white rounded-md ">
         <ul className="flex flex-col gap-4">
           <div className="items-center justify-between hidden gap-2 md:flex">
-            <input type="checkbox" name="selectAll" id="selectAll" />
-            <h3 className="w-24">Order ID</h3>
+            <input
+              type="checkbox"
+              name="selectAll"
+              id="selectAll"
+              checked={selectedOrders.length === orders.length}
+              onChange={toggleSelectAll}
+            />
+            <h3 className="w-28">Order ID</h3>
             <h3 className="flex-1 whitespace-nowrap">Product Info</h3>
             <h3 className="flex-1">Address</h3>
             <h3 className="w-24">Date</h3>
@@ -52,7 +75,14 @@ export default function AdminOrdersPage() {
               <AdminOrderWireframe />
             </>
           ) : (
-            orders.map((order) => <AdminOrder key={order._id} order={order} />)
+            orders.map((order) => (
+              <AdminOrder
+                key={order._id}
+                order={order}
+                isSelected={selectedOrders.includes(order._id)}
+                toggleCheck={toggleCheck}
+              />
+            ))
           )}
         </ul>
       </section>
