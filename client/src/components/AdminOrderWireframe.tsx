@@ -48,6 +48,10 @@ export default function AdminOrderWireframe() {
           </svg>
         </button>
       </li>
+
+      {/* MOBILE ORDER WIREFRAME */}
+
+      <li className="aspect-[4] rounded-md w-full md:hidden bg-zinc-200"></li>
     </>
   );
 }

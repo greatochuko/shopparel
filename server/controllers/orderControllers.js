@@ -1,5 +1,6 @@
 import { Cart } from "../models/Cart.js";
 import { Order } from "../models/Order.js";
+import { User } from "../models/User.js";
 import jwt from "jsonwebtoken";
 
 export async function getOrders(req, res) {
@@ -72,17 +73,47 @@ export async function cancelOrder(req, res) {
     res.status(400).json({ error: error.message });
   }
 }
+
 export async function fulfilOrder(req, res) {
   try {
     const { orderId, productId } = req.params;
-    const order = await Order.findByIdAndUpdate(orderId);
+    const order = await Order.findById(orderId);
+    const user = await User.findById(req.userId);
+
     const productToFulfil = order.products.find(
       (product) => product.productId === productId
     );
 
+    if (user.store !== productToFulfil.storeId)
+      return res.status(400).json({ error: "User is Unauthorized" });
+
+    if (!productToFulfil) throw new Error("Order Product not Found");
+
     productToFulfil.status = "shipped";
     await order.save();
     res.json(productToFulfil);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
+export async function cancelOrderProduct(req, res) {
+  try {
+    const { orderId, productId } = req.params;
+    const order = await Order.findById(orderId);
+    const user = await User.findById(req.userId);
+
+    const productToCancel = order.products.find(
+      (product) => product.productId === productId
+    );
+    if (user.store.toString() !== productToCancel.storeId)
+      return res.status(400).json({ error: "User is Unauthorized" });
+
+    if (!productToCancel) throw new Error("Order Product not Found");
+
+    productToCancel.status = "cancelled";
+    await order.save();
+    res.json(productToCancel);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

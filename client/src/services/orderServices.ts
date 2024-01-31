@@ -1,16 +1,5 @@
+import { OrderProductType } from "../components/AdminOrder";
 import { BASE_URL } from "./authServices";
-
-export type OrderProductType = {
-  productId: string;
-  imgUrl: string;
-  name: string;
-  color: string;
-  size: string;
-  quantity: number;
-  price: number;
-  storeId: string;
-  status: "active" | "delivered" | "cancelled" | "shipped";
-};
 
 export async function fetchOrders() {
   try {
@@ -74,14 +63,28 @@ export async function cancelOrder(orderId: string) {
   }
 }
 
-export async function fetchmarkOrderAsFulfilled(
-  orderId: string,
-  productId: string
-) {
+export async function fetchFulfilOrder(orderId: string, productId: string) {
   try {
     const token = localStorage.getItem("token");
     const res = await fetch(
       `${BASE_URL}/order/${orderId}/fulfil/${productId}`,
+      {
+        method: "PATCH",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    return { error: (error as Error).message };
+  }
+}
+
+export async function fetchCancelOrder(orderId: string, productId: string) {
+  try {
+    const token = localStorage.getItem("token");
+    const res = await fetch(
+      `${BASE_URL}/order/${orderId}/cancel/${productId}`,
       {
         method: "PATCH",
         headers: { Authorization: `Bearer ${token}` },
