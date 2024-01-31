@@ -10,9 +10,6 @@ export default function AdminOrdersPage() {
   const [loading, setLoading] = useState(true);
   const { store } = useOutletContext<{ store: StoreType }>();
 
-  console.clear();
-  console.log(loading);
-
   useEffect(() => {
     async function getStoreStats() {
       setLoading(true);
