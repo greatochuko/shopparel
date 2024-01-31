@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { OrderProductType } from "../services/orderServices";
+import {
+  OrderProductType,
+  fetchmarkOrderAsFulfilled,
+} from "../services/orderServices";
 export type AdminOrderType = {
   _id: string;
   product: OrderProductType;
@@ -17,34 +20,43 @@ export default function AdminOrder({
   toggleCheck: (orderId: string) => void;
 }) {
   const [optionsIsOpen, setOptionsIsOpen] = useState(false);
+  const [orderStatus, setOrderStatus] = useState(order.product.status);
 
   const orderStatusBg =
-    order.product.status === "delivered"
-      ? "bg-green-100"
-      : order.product.status === "active"
+    orderStatus === "active"
       ? "bg-blue-100"
-      : order.product.status === "cancelled"
+      : orderStatus === "delivered"
+      ? "bg-green-100"
+      : orderStatus === "cancelled"
       ? "bg-red-100"
-      : "";
+      : "bg-amber-100";
 
   const orderStatusText =
-    order.product.status === "delivered"
-      ? "text-green-600"
-      : order.product.status === "active"
+    orderStatus === "active"
       ? "text-blue-600"
-      : order.product.status === "cancelled"
+      : orderStatus === "delivered"
+      ? "text-green-600"
+      : orderStatus === "cancelled"
       ? "text-red-500"
-      : "";
+      : "text-amber-600";
 
   function toggleOpenOptions() {
     setOptionsIsOpen((curr) => !curr);
   }
 
-  function handleFulfil() {
-    if (order.product.status !== "active") return;
-    console.clear();
-    console.log("Fulfilling...");
+  async function handleFulfilOrder() {
+    if (orderStatus !== "active") return;
+    const data = await fetchmarkOrderAsFulfilled(
+      order._id,
+      order.product.productId
+    );
+    if (data.error) return;
+    setOrderStatus("shipped");
     setOptionsIsOpen(false);
+  }
+
+  function handleCancelOrder() {
+    return;
   }
 
   return (
@@ -81,7 +93,7 @@ export default function AdminOrder({
         <p
           className={`w-20 flex-center ${orderStatusBg} ${orderStatusText} rounded-full p-1`}
         >
-          {order.product.status}
+          {orderStatus}
         </p>
         <div className="relative">
           <button
@@ -124,8 +136,8 @@ export default function AdminOrder({
           {optionsIsOpen && (
             <ul className="absolute left-0 top-[100%] w-fit bg-white rounded-md overflow-hidden shadow-lg animate-zoom-in z-20">
               <li
-                aria-disabled={order.product.status !== "active"}
-                onClick={handleFulfil}
+                aria-disabled={orderStatus !== "active"}
+                onClick={handleFulfilOrder}
                 className="px-2 aria-disabled:grayscale aria-disabled:cursor-default cursor-pointer gap-1 group py-1 flex items-center hover:bg-green-100 hover:text-green-600 duration-300"
               >
                 <svg
@@ -154,7 +166,11 @@ export default function AdminOrder({
                 </svg>
                 Fulfil
               </li>
-              <li className="px-2 cursor-pointer py-1 text-left group flex items-center gap-1 hover:bg-red-100 hover:text-red-500 duration-300">
+              <li
+                aria-disabled={orderStatus !== "active"}
+                onClick={handleCancelOrder}
+                className="px-2 aria-disabled:grayscale aria-disabled:cursor-default cursor-pointer py-1 text-left group flex items-center gap-1 hover:bg-red-100 hover:text-red-500 duration-300"
+              >
                 <svg
                   height={20}
                   width={20}
@@ -199,7 +215,7 @@ export default function AdminOrder({
           <p
             className={`py-1 text-center capitalize rounded-full w-24 ${orderStatusBg} ${orderStatusText}`}
           >
-            {order.product.status}
+            {orderStatus}
           </p>
           <p>{new Date(order.date).toLocaleDateString()}</p>
         </div>

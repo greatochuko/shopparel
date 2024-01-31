@@ -72,3 +72,18 @@ export async function cancelOrder(req, res) {
     res.status(400).json({ error: error.message });
   }
 }
+export async function fulfilOrder(req, res) {
+  try {
+    const { orderId, productId } = req.params;
+    const order = await Order.findByIdAndUpdate(orderId);
+    const productToFulfil = order.products.find(
+      (product) => product.productId === productId
+    );
+
+    productToFulfil.status = "shipped";
+    await order.save();
+    res.json(productToFulfil);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
