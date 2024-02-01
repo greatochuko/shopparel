@@ -46,7 +46,7 @@ export default function AdminOrdersPage() {
   }
 
   return (
-    <div className="flex flex-col flex-1 gap-4 w-[90%] max-w-7xl mx-auto py-6 text-zinc-800 ">
+    <div className="flex flex-col flex-1 gap-4 w-[90%] max-w-7xl mx-auto py-6 text-zinc-800">
       <div className="flex items-center gap-2 mb-4">
         <h2 className="text-xl font-semibold">Orders</h2>
         <p>
@@ -78,7 +78,7 @@ export default function AdminOrdersPage() {
               <AdminOrderWireframe />
               <AdminOrderWireframe />
             </>
-          ) : (
+          ) : orders.length ? (
             orders.map((order) => (
               <AdminOrder
                 key={order._id + order.product.productId}
@@ -89,6 +89,11 @@ export default function AdminOrdersPage() {
                 toggleCheck={toggleCheck}
               />
             ))
+          ) : (
+            <p className="flex-center py-10">
+              There are currently no orders in the system. Start processing
+              orders by directing customers to your online store
+            </p>
           )}
         </ul>
       </section>

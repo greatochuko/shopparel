@@ -20,6 +20,7 @@ import Dashboard from "./pages/Dashboard";
 import AdminPageLayout from "./components/AdminPageLayout";
 import AdminProductsPage from "./pages/AdminProductsPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
+import AdminReviewsPage from "./pages/AdminReviewsPage";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,7 @@ const router = createBrowserRouter([
               { path: "/admin", element: <Dashboard /> },
               { path: "/admin/products", element: <AdminProductsPage /> },
               { path: "/admin/orders", element: <AdminOrdersPage /> },
+              { path: "/admin/reviews", element: <AdminReviewsPage /> },
             ],
           },
         ],

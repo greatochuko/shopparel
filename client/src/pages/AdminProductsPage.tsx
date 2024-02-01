@@ -6,45 +6,6 @@ import { useOutletContext } from "react-router-dom";
 import { StoreType } from "../components/AdminPageLayout";
 import { fetchStoreProducts } from "../services/storeServices";
 
-// const demoAdminProducts = [
-//   {
-//     _id: "123456",
-//     name: "Training Hoodie",
-//     imgUrl: "/training-hoodie.png",
-//     categories: ["Sweatshirts and Hoodies"],
-//     price: 67.99,
-//     createdAt: "27 oct 2023",
-//     status: "in stock",
-//   },
-//   {
-//     _id: "123457",
-//     name: "Training Hoodie",
-//     imgUrl: "/training-hoodie.png",
-//     categories: ["Sweatshirts and Hoodies"],
-//     price: 67.99,
-//     createdAt: "27 oct 2023",
-//     status: "low stock",
-//   },
-//   {
-//     _id: "123458",
-//     name: "Training Hoodie",
-//     imgUrl: "/training-hoodie.png",
-//     categories: ["Sweatshirts and Hoodies"],
-//     price: 67.99,
-//     createdAt: "27 oct 2023",
-//     status: "out of stock",
-//   },
-//   {
-//     _id: "123459",
-//     name: "Training Hoodie",
-//     imgUrl: "/training-hoodie.png",
-//     categories: ["Sweatshirts and Hoodies"],
-//     price: 67.99,
-//     createdAt: "27 oct 2023",
-//     status: "draft",
-//   },
-// ];
-
 export default function AdminProductsPage() {
   const [filter, setFilter] = useState("all");
   const [products, setProducts] = useState<ProductType[]>([]);

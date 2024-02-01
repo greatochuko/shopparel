@@ -73,7 +73,7 @@ export default function AdminProductList({
             <AdminProductWireframe />
             <AdminProductWireframe />
           </>
-        ) : (
+        ) : products.length ? (
           filteredProducts.map((product) => (
             <AdminProduct
               refreshStoreProducts={refreshStoreProducts}
@@ -83,6 +83,12 @@ export default function AdminProductList({
               toggleCheck={toggleCheck}
             />
           ))
+        ) : (
+          <p className="flex-center py-10">
+            It seems there are no products listed in the system at the moment.
+            Add new products to your inventory to showcase them on your online
+            store
+          </p>
         )}
       </ul>
     </div>

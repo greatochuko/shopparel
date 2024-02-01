@@ -28,13 +28,18 @@ export default function RecentOrders({
             <AdminOrderWireframe />
             <AdminOrderWireframe />
           </>
-        ) : (
+        ) : orders.length ? (
           orders.map((order) => (
             <AdminOrder
               key={order._id + order.product.productId}
               order={order}
             />
           ))
+        ) : (
+          <p className="flex-center py-10">
+            There are currently no orders in the system. Start processing orders
+            by directing customers to your online store
+          </p>
         )}
       </ul>
     </section>
