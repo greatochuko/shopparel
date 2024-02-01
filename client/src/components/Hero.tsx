@@ -90,10 +90,13 @@ export default function Hero({
           <div className={`flex w-fit max-w-[40%] justify-center text-white `}>
             <div className="flex flex-col w-full gap-4 sm:gap-6 lg:gap-8 ">
               <Link
-                to={`/category/${product.brand}`}
+                to={`/store/${product.store.name
+                  .split(" ")
+                  .join("-")
+                  .toLowerCase()}/${product.store._id}`}
                 className="text-[min(4vw,16px)] hover:underline w-fit sm:text-xl lg:text-2xl xl:text-[2vw] capitalize"
               >
-                {product.brand}
+                {product.store.name}
               </Link>
               <h2 className="text-[4vw] font-bold sm:text-3xl md:text-4xl lg:text-5xl xl:text-[5vw]">
                 {product.name}

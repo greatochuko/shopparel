@@ -2,17 +2,9 @@ import { Product } from "../models/Product.js";
 
 export async function getAllProducts(req, res) {
   try {
-    const products = await Product.find({ isPublished: true });
-    res.json(products);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-}
-
-export async function getBrandProducts(req, res) {
-  try {
-    const { brand } = req.params;
-    const products = await Product.find({ brand, isPublished: true });
+    const products = await Product.find({ isPublished: true }).populate(
+      "store"
+    );
     res.json(products);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -35,9 +27,9 @@ export async function getProduct(req, res) {
 export async function searchProducts(req, res) {
   try {
     const { query, page } = req.query;
-    const products = await Product.find({ isPublished: true }).select(
-      "name imgUrl brand price gender colors sizes categories"
-    );
+    const products = await Product.find({ isPublished: true })
+      .select("name imgUrl store price gender colors sizes categories")
+      .populate("store");
     const searchedProducts = products.filter((product) =>
       product.name
         .toLowerCase()
@@ -59,7 +51,9 @@ export async function getSimilarProducts(req, res) {
   try {
     const { categories, productId } = req.query;
     const categoryList = categories.split(",");
-    const products = await Product.find({ isPublished: true });
+    const products = await Product.find({ isPublished: true }).populate(
+      "store"
+    );
     const similarProducts = products.filter(
       (product) =>
         product.categories.some((category) =>

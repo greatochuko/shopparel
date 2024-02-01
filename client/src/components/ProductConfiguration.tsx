@@ -45,7 +45,7 @@ export default function ProductConfiguration({
       price: product.price,
       shipping: 19.99,
       quantity: 1,
-      storeId: product.store as string,
+      storeId: product.store._id,
     };
     setLoading(true);
     addItemToCart({
@@ -70,15 +70,19 @@ export default function ProductConfiguration({
         price: product.price,
         shipping: 19.99,
         quantity: 1,
-        storeId: product.store as string,
+        storeId: product.store._id,
       });
     }
     setWishlistLoading(false);
   }
 
+  const productRating =
+    (product?.reviews.reduce((acc, curr) => acc + curr.rating, 0) as number) /
+    (product?.reviews.length as number);
+
   return (
     <div className="flex flex-col flex-1 gap-6 text-zinc-700">
-      <h2 className="mt-4 text-zinc-500">Shop &gt; {product.brand}</h2>
+      <h2 className="mt-4 text-zinc-500">Shop &gt; {product.store.name}</h2>
       <h1 className="text-xl font-semibold">{product.name}</h1>
       <p className="px-4 py-1.5 w-fit border rounded-md border-zinc-300 text-lg font-semibold">
         ${product.price.toFixed(2)}
@@ -86,8 +90,8 @@ export default function ProductConfiguration({
       {product.reviews.length ? (
         <div className="flex items-center gap-6 text-sm">
           <div className="flex items-center gap-2">
-            <Rating rating={product.rating} />
-            <span>{product.rating.toFixed(1)}</span>
+            <Rating rating={productRating} />
+            <span>{productRating.toFixed(1)}</span>
           </div>
           <div className="flex items-center gap-2 ">
             <svg
@@ -113,7 +117,10 @@ export default function ProductConfiguration({
                 ></path>
               </g>
             </svg>
-            <a href="#reviews">{product.reviews.length} Reviews</a>
+            <a href="#reviews">
+              {product.reviews.length} Review
+              {product.reviews.length > 1 ? "s" : null}
+            </a>
           </div>
         </div>
       ) : null}
