@@ -30,7 +30,6 @@ app.use(
       "http://192.168.43.73:5173",
       "https://shopparel.vercel.app",
     ],
-    credentials: true,
   })
 );
 app.use(express.json());

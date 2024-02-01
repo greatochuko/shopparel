@@ -16,7 +16,8 @@ export async function getUser(req, res) {
 
     const user = await User.findById(userId)
       .select("-password")
-      .populate({ path: "cart wishlist", populate: "product" });
+      .populate("wishlist")
+      .populate({ path: "cart", populate: "product" });
 
     if (!user) throw new Error("User not found");
 

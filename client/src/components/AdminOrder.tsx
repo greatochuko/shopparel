@@ -74,7 +74,7 @@ export default function AdminOrder({
   return (
     <>
       <li className="items-center justify-between hidden gap-2 md:flex">
-        {isSelected && (
+        {toggleCheck && (
           <input
             type="checkbox"
             name={`select ${order._id + order.product.productId}`}

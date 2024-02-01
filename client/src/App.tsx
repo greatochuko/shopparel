@@ -1,4 +1,4 @@
-import { RouterProvider, createHashRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import HomePage from "./pages/HomePage";
 import AppLayout from "./components/AppLayout";
@@ -21,7 +21,7 @@ import AdminPageLayout from "./components/AdminPageLayout";
 import AdminProductsPage from "./pages/AdminProductsPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     element: <ScrollToTop />,
     children: [

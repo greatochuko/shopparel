@@ -27,7 +27,9 @@ export default function CartPage() {
   function handleCoupon(e: React.FormEvent) {
     setCouponError("");
     e.preventDefault();
-    setCouponError("Error: the Coupon you entered is no longer valid");
+    setCouponError(
+      "Error: The coupon code you entered is not valid or has expired"
+    );
   }
 
   return (

@@ -14,8 +14,6 @@ export default function QuantityController({
     useCartContext();
 
   function handleIncreaseQuantity() {
-    console.clear();
-    console.log(productInCart.quantity, maxQuantity);
     if (productInCart.quantity >= maxQuantity) return;
     increaseItemQuantity(productInCart._id);
   }

@@ -95,7 +95,7 @@ export default function Hero({
               >
                 {product.brand}
               </Link>
-              <h2 className="text-[5vw] font-bold sm:text-3xl md:text-5xl lg:text-6xl xl:text-[5vw]">
+              <h2 className="text-[4vw] font-bold sm:text-3xl md:text-4xl lg:text-5xl xl:text-[5vw]">
                 {product.name}
               </h2>
               <Link

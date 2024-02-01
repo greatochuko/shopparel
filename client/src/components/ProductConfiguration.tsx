@@ -23,7 +23,7 @@ export default function ProductConfiguration({
 
   const productInCart = cartItems.find(
     (cartItem) =>
-      cartItem.product?._id === product._id &&
+      (cartItem.product?._id || cartItem.product) === product._id &&
       cartItem.size === currentSize &&
       cartItem.color === currentColor
   );
@@ -155,11 +155,15 @@ export default function ProductConfiguration({
         </ul>
       </div>
       <div className="mt-4">
-        <p className="mb-4">
-          Only{" "}
-          <span className="font-semibold text-red-500">{product.quantity}</span>{" "}
-          left in stock, Order soon
-        </p>
+        {product.quantity <= 5 && (
+          <p className="mb-4">
+            Only{" "}
+            <span className="font-semibold text-red-500">
+              {product.quantity}
+            </span>{" "}
+            left in stock, Order soon
+          </p>
+        )}
         <div className="flex flex-col w-full gap-4 md:items-center md:flex-row">
           {product.quantity === 0 ? (
             <div className="self-stretch flex-1 w-full gap-2 p-3 text-sm font-semibold text-red-400 duration-300 rounded-md flex-center focus-visible:ring-offset-1 bg-zinc-200 ">
