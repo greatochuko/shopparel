@@ -1,6 +1,7 @@
 import { Cart } from "../models/Cart.js";
 import { Order } from "../models/Order.js";
 import { User } from "../models/User.js";
+import { Product } from "../models/Product.js";
 import jwt from "jsonwebtoken";
 
 export async function getOrders(req, res) {
@@ -37,7 +38,14 @@ export async function createOrder(req, res) {
 
     // Set all cart items to ordered
     products.forEach(async (cartItem) => {
-      const product = await Cart.findByIdAndDelete(cartItem._id);
+      await Cart.findByIdAndDelete(cartItem._id);
+    });
+
+    // Reduce product quantities
+    products.forEach(async (product) => {
+      await Product.findByIdAndUpdate(product.productId, {
+        $inc: { quantity: -product.quantity },
+      });
     });
 
     res.json(orders);

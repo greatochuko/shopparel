@@ -34,6 +34,7 @@ export default function WishlistItem({
       price: product.price,
       shipping: product.shipping,
       quantity: 1,
+      storeId: product.storeId,
     };
     addItemToCart(item);
   }
@@ -128,7 +129,10 @@ export default function WishlistItem({
       <div className="flex gap-4 ml-[44px] md:ml-0 items-center">
         <p className="w-24 font-semibold">${product.price.toFixed(2)}</p>
         {productInCart ? (
-          <QuantityController product={productInCart} />
+          <QuantityController
+            productInCart={productInCart}
+            maxQuantity={product.quantity}
+          />
         ) : (
           <button
             onClick={handleAddItemToCart}

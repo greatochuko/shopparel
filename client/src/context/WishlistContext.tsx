@@ -7,6 +7,7 @@ import {
 export type WishlistItemType = {
   _id: string;
   productId: string;
+  storeId: string;
   name: string;
   imgUrl: string;
   colors: string[];

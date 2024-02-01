@@ -14,9 +14,7 @@ export async function getCartItems(req, res) {
       return res.status(401).json({ error: error.message });
     }
 
-    const cartItems = await Cart.find({ userId, ordered: false }).populate(
-      "product"
-    );
+    const cartItems = await Cart.findById(userId).populate("userId");
     res.json(cartItems);
   } catch (error) {
     res.status(400).json({ error: error.message });

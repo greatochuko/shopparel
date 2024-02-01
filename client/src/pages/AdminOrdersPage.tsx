@@ -17,7 +17,11 @@ export default function AdminOrdersPage() {
 
       const orderData = await fetchStoreOrders(store?._id);
       if (orderData.error) return setLoading(false);
-      setOrders(orderData);
+      setOrders(
+        [...orderData].sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        )
+      );
 
       setLoading(false);
     }

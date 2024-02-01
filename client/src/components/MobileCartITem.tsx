@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { CartItemType } from "../context/CartContext";
 import QuantityController from "./QuantityController";
 import useCartContext from "../hooks/useCartContext";
+import { ProductType } from "./Product";
 
 export default function MobileCartITem({
   cartItem,
@@ -21,7 +22,9 @@ export default function MobileCartITem({
           <Link
             tabIndex={0}
             to={`/product/${
-              cartItem.product + "-" + cartItem.name.split(" ").join("-")
+              (cartItem.product as ProductType)._id +
+              "-" +
+              cartItem.name.split(" ").join("-")
             }`}
             className="text-sm font-semibold duration-200 rounded-md sm:text-base hover:text-accent-blue-100 focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-blue-400 focus-visible:text-accent-blue-100"
           >
@@ -43,7 +46,11 @@ export default function MobileCartITem({
         </div>
       </div>
       <div className="flex items-center justify-between sm:flex-col sm:items-end">
-        <QuantityController product={cartItem} size="small" />
+        <QuantityController
+          productInCart={cartItem}
+          size="small"
+          maxQuantity={(cartItem.product as ProductType).quantity}
+        />
         <button
           onClick={() => removeItemFromCart(cartItem._id)}
           className="p-2 duration-300 rounded-md group active:scale-90 focus-visible:ring focus-visible:ring-red-300"
