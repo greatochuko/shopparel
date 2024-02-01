@@ -35,7 +35,7 @@ export async function addProductToWishlist(req, res) {
     }
     if (!userId)
       return res.status(401).json({ error: "User is unauthenticated" });
-    const { productId, name, imgUrl, colors, sizes, price, shipping } =
+    const { productId, name, imgUrl, colors, sizes, price, shipping, storeId } =
       req.body;
     const newWishlist = await Wishlist.create({
       userId,
@@ -46,6 +46,7 @@ export async function addProductToWishlist(req, res) {
       sizes,
       price,
       shipping,
+      storeId,
     });
     await User.findByIdAndUpdate(userId, {
       $push: { wishlist: newWishlist._id },

@@ -34,7 +34,8 @@ export async function fetchAddProductToWishlist(
   colors: string[],
   sizes: string[],
   price: number,
-  shipping: number
+  shipping: number,
+  storeId: string
 ) {
   try {
     const token = localStorage.getItem("token");
@@ -53,6 +54,7 @@ export async function fetchAddProductToWishlist(
         sizes,
         price,
         shipping,
+        storeId,
       }),
     });
     const data = await res.json();

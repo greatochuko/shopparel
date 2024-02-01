@@ -44,7 +44,8 @@ export default function WishlistProvider({
       product.colors,
       product.sizes,
       product.price,
-      product.shipping
+      product.shipping,
+      product.storeId
     );
     if (data.error) return;
     setWishlist((curr) => [...curr, data]);
