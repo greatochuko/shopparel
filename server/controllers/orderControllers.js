@@ -63,11 +63,15 @@ export async function getOrder(req, res) {
 export async function cancelOrder(req, res) {
   try {
     const { orderId } = req.params;
-    const order = await Order.findByIdAndUpdate(
-      orderId,
-      { status: "cancelled" },
-      { new: true }
-    );
+    const order = await Order.findById(orderId);
+
+    order.products.forEach((product) => {
+      product.status = "cancelled";
+    });
+    order.status = "cancelled";
+
+    await order.save();
+
     res.json(order);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -84,12 +88,12 @@ export async function fulfilOrder(req, res) {
       (product) => product.productId === productId
     );
 
-    if (user.store !== productToFulfil.storeId)
+    if (user.store.toString() !== productToFulfil.storeId)
       return res.status(400).json({ error: "User is Unauthorized" });
 
     if (!productToFulfil) throw new Error("Order Product not Found");
 
-    productToFulfil.status = "shipped";
+    productToFulfil.status = "packaged";
     await order.save();
     res.json(productToFulfil);
   } catch (error) {

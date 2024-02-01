@@ -11,7 +11,7 @@ export type OrderProductType = {
   quantity: number;
   price: number;
   storeId: string;
-  status: "active" | "delivered" | "cancelled" | "shipped";
+  status: "active" | "delivered" | "cancelled" | "packaged";
 };
 
 export type AdminOrderType = {
@@ -27,8 +27,8 @@ export default function AdminOrder({
   toggleCheck,
 }: {
   order: AdminOrderType;
-  isSelected: boolean;
-  toggleCheck: (orderId: string) => void;
+  isSelected?: boolean;
+  toggleCheck?: (orderId: string) => void;
 }) {
   const [optionsIsOpen, setOptionsIsOpen] = useState(false);
   const [orderStatus, setOrderStatus] = useState(order.product.status);
@@ -59,14 +59,13 @@ export default function AdminOrder({
     if (orderStatus !== "active") return;
     const data = await fetchFulfilOrder(order._id, order.product.productId);
     if (data.error) return;
-    setOrderStatus("shipped");
+    setOrderStatus("packaged");
     setOptionsIsOpen(false);
   }
 
   async function handleCancelOrder() {
     if (orderStatus !== "active") return;
     const data = await fetchCancelOrder(order._id, order.product.productId);
-    console.log(data);
     if (data.error) return;
     setOrderStatus("cancelled");
     setOptionsIsOpen(false);
@@ -75,22 +74,26 @@ export default function AdminOrder({
   return (
     <>
       <li className="items-center justify-between hidden gap-2 md:flex">
-        <input
-          type="checkbox"
-          name={`select ${order._id + order.product.productId}`}
-          id={order._id + order.product.productId}
-          checked={isSelected}
-          onChange={() => toggleCheck(order._id + order.product.productId)}
-        />
+        {isSelected && (
+          <input
+            type="checkbox"
+            name={`select ${order._id + order.product.productId}`}
+            id={order._id + order.product.productId}
+            checked={isSelected}
+            onChange={() =>
+              toggleCheck && toggleCheck(order._id + order.product.productId)
+            }
+          />
+        )}
 
-        <p className="w-28 overflow-hidden overflow-ellipsis" title={order._id}>
+        <p className="overflow-hidden w-28 overflow-ellipsis" title={order._id}>
           {order._id}
         </p>
         <div className="flex items-center flex-1 gap-2">
           <img
             src={order.product.imgUrl}
             alt={order.product.name}
-            className="w-12 h-12 object-cover"
+            className="object-cover w-12 h-12"
           />
           <p className="flex-1 max-w-[333px] w-0 overflow-hidden overflow-ellipsis whitespace-nowrap">
             {order.product.name}
@@ -167,7 +170,7 @@ export default function AdminOrder({
           <img
             src={order.product.imgUrl}
             alt={order.product.name}
-            className="w-12 h-12 object-cover"
+            className="object-cover w-12 h-12"
           />
           <p className="flex-1 max-w-[333px] w-0 ">{order.product.name}</p>
         </div>

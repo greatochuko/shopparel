@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { CartItemType } from "../context/CartContext";
+import { OrderProductType } from "./AdminOrder";
 
 export type OrderType = {
   _id: string;
@@ -7,7 +7,7 @@ export type OrderType = {
   deliveryDate: string;
   status: string;
   paymentMethod: string;
-  products: CartItemType[];
+  products: OrderProductType[];
   ordered: boolean;
   createdAt: string;
 };
