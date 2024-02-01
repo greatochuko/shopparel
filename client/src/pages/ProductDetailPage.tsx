@@ -8,11 +8,14 @@ import { ProductType } from "../components/Product";
 import { useEffect, useState } from "react";
 import { fetchProduct } from "../services/productServices";
 import ProductDetailWireframe from "../components/ProductDetailWireframe";
+import ReviewForm from "../components/ReviewForm";
+import ModalContainer from "../components/ModalContainer";
 
 export default function ProductDetailPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState<ProductType | null>(null);
   const [loading, setLoading] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(true);
 
   useEffect(() => {
     async function getProduct() {
@@ -29,7 +32,7 @@ export default function ProductDetailPage() {
 
   return (
     <main className="mt-[72px] w-[90%] max-w-7xl mx-auto mb-4 flex flex-col gap-16">
-      {loading ? (
+      {loading || !product ? (
         <ProductDetailWireframe />
       ) : (
         <>
@@ -39,7 +42,7 @@ export default function ProductDetailPage() {
           </div>
           <section>
             <SectionHeader title="Product Description" />
-            <p className="mt-3 text-zinc-700">{product?.description}</p>
+            <p className="mt-3 text-zinc-700">{product.description}</p>
           </section>
 
           <section className="max-w-3xl">
@@ -48,19 +51,35 @@ export default function ProductDetailPage() {
               id="reviews"
               className="flex flex-col gap-10 mt-4 text-zinc-700 scroll-mt-36"
             >
-              {product?.reviews.length ? (
-                product?.reviews.map((review) => (
+              {product.reviews.length ? (
+                product.reviews.map((review) => (
                   <Review key={review._id} review={review} />
                 ))
               ) : (
-                <p className="h-20 flex-center">No reviews for this product</p>
+                <p className="h-20 flex-center">
+                  No reviews for this product. Be the first to write a review
+                </p>
               )}
             </div>
+            <button
+              onClick={() => setModalIsOpen(true)}
+              className="p-2 px-6 w-full focus-visible:ring ring-blue-400 hover:bg-accent-blue-200 active:bg-accent-blue-300 duration-300 sm:w-fit rounded-md bg-accent-blue-100 text-white"
+            >
+              Write a Review
+            </button>
           </section>
           <SimilarProducts
-            productCategories={product?.categories as string[]}
-            productId={product?._id as string}
+            productCategories={product.categories as string[]}
+            productId={product._id as string}
           />
+          {modalIsOpen && (
+            <ModalContainer closeModal={() => setModalIsOpen(false)}>
+              <ReviewForm
+                productId={product._id as string}
+                closeModal={() => setModalIsOpen(false)}
+              />
+            </ModalContainer>
+          )}
         </>
       )}
     </main>
