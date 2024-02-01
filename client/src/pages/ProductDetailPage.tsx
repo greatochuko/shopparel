@@ -10,8 +10,11 @@ import { fetchProduct } from "../services/productServices";
 import ProductDetailWireframe from "../components/ProductDetailWireframe";
 import ReviewForm from "../components/ReviewForm";
 import ModalContainer from "../components/ModalContainer";
+import { UserType } from "../context/UserContext";
+import useUserContext from "../hooks/useUserContext";
 
 export default function ProductDetailPage() {
+  const { user } = useUserContext();
   const { productId } = useParams();
   const [product, setProduct] = useState<ProductType | null>(null);
   const [loading, setLoading] = useState(true);
@@ -31,7 +34,7 @@ export default function ProductDetailPage() {
   }, [productId]);
 
   return (
-    <main className="mt-[72px] w-[90%] max-w-7xl mx-auto mb-4 flex flex-col gap-16">
+    <main className="mt-[72px] w-[90%] max-w-7xl mx-auto mb-8 flex flex-col gap-16">
       {loading || !product ? (
         <ProductDetailWireframe />
       ) : (
@@ -61,12 +64,16 @@ export default function ProductDetailPage() {
                 </p>
               )}
             </div>
-            <button
-              onClick={() => setModalIsOpen(true)}
-              className="p-2 px-6 w-full mt-6 focus-visible:ring ring-blue-400 hover:bg-accent-blue-200 active:bg-accent-blue-300 duration-300 sm:w-fit rounded-md bg-accent-blue-100 text-white"
-            >
-              Write a Review
-            </button>
+            {!product.reviews.find(
+              (review) => (review.user as UserType)._id === user?._id
+            ) && (
+              <button
+                onClick={() => setModalIsOpen(true)}
+                className="p-2 px-6 w-full mt-6 focus-visible:ring ring-blue-400 hover:bg-accent-blue-200 active:bg-accent-blue-300 duration-300 sm:w-fit rounded-md bg-accent-blue-100 text-white"
+              >
+                Write a Review
+              </button>
+            )}
           </section>
           <SimilarProducts
             productCategories={product.categories as string[]}

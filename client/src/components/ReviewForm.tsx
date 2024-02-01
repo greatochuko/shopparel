@@ -34,7 +34,7 @@ export default function ReviewForm({
       review?._id as string,
       rating,
       reviewText,
-      review?.user as string
+      review?.user._id as string
     );
 
     if (data.error) return setLoading(false);
