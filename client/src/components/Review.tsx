@@ -14,21 +14,19 @@ export default function Review({ review }: { review: ReviewType }) {
   const [isHelpful, setIsHelpful] = useState(false);
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 items-start">
       <img
         src={(review.user as UserType).imgUrl}
-        alt=""
-        className="object-cover w-10 h-10 rounded-full"
-      />
-      <div className="flex flex-col gap-2">
-        <div className="flex gap-4">
-          <div className="flex flex-col text-sm">
-            <h3 className="font-semibold uppercase">
-              {(review.user as UserType).firstName}{" "}
-              {(review.user as UserType).lastName}
-            </h3>
-            <p>{review.date}</p>
-          </div>
+        alt={(review.user as UserType).imgUrl}
+        className="w-10 h-10 rounded-full bg-gray-100 object-cover"
+      ></img>
+      <div className="flex-1 flex flex-col gap-1">
+        <div className="flex flex-col text-sm">
+          <h3 className="font-semibold uppercase">
+            {(review.user as UserType).firstName}{" "}
+            {(review.user as UserType).lastName}
+          </h3>
+          <p>{review.date}</p>
         </div>
         <Rating rating={review.rating} />
         <p className="text-sm">{review.review}</p>

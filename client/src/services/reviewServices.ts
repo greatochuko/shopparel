@@ -16,6 +16,7 @@ export async function createReview(
       body: JSON.stringify({ productId, rating, review }),
     });
     const data = await res.json();
+
     return data;
   } catch (error) {
     return { error: (error as Error).message };

@@ -15,7 +15,7 @@ export default function ProductDetailPage() {
   const { productId } = useParams();
   const [product, setProduct] = useState<ProductType | null>(null);
   const [loading, setLoading] = useState(true);
-  const [modalIsOpen, setModalIsOpen] = useState(true);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   useEffect(() => {
     async function getProduct() {
@@ -63,7 +63,7 @@ export default function ProductDetailPage() {
             </div>
             <button
               onClick={() => setModalIsOpen(true)}
-              className="p-2 px-6 w-full focus-visible:ring ring-blue-400 hover:bg-accent-blue-200 active:bg-accent-blue-300 duration-300 sm:w-fit rounded-md bg-accent-blue-100 text-white"
+              className="p-2 px-6 w-full mt-6 focus-visible:ring ring-blue-400 hover:bg-accent-blue-200 active:bg-accent-blue-300 duration-300 sm:w-fit rounded-md bg-accent-blue-100 text-white"
             >
               Write a Review
             </button>

@@ -4,7 +4,7 @@ const userSchema = new mongoose.Schema(
   {
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
-    imgUrl: { type: String },
+    imgUrl: { type: String, default: "/placeholder-user-image.png" },
     email: { type: String, required: true, unique: true },
     password: { type: String },
     googleClientId: { type: String },

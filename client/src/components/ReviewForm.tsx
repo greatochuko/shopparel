@@ -62,7 +62,9 @@ export default function ReviewForm({
             />
           ))}
         </div>
-        <p className="font-semibold ml-4">{rating}</p>
+        <p className="font-semibold text-lg ml-4 text-accent-blue-100">
+          {rating}
+        </p>
       </div>
       <label htmlFor="review">Review</label>
       <textarea
