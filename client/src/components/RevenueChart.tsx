@@ -4,51 +4,63 @@ import { AdminOrderType } from "./AdminOrder";
 const data = [
   {
     month: "Jan",
-    amount: 300,
+    amount: 0,
+    sales: 0,
   },
   {
     month: "Feb",
-    amount: 400,
+    amount: 0,
+    sales: 0,
   },
   {
     month: "Mar",
-    amount: 200,
+    amount: 0,
+    sales: 0,
   },
   {
     month: "Apr",
-    amount: 400,
+    amount: 0,
+    sales: 0,
   },
   {
     month: "May",
-    amount: 600,
+    amount: 0,
+    sales: 0,
   },
   {
     month: "Jun",
-    amount: 400,
+    amount: 0,
+    sales: 0,
   },
   {
     month: "Jul",
-    amount: 500,
+    amount: 0,
+    sales: 0,
   },
   {
     month: "Aug",
-    amount: 700,
+    amount: 0,
+    sales: 0,
   },
   {
     month: "Sep",
-    amount: 100,
+    amount: 0,
+    sales: 0,
   },
   {
     month: "Oct",
-    amount: 600,
+    amount: 0,
+    sales: 0,
   },
   {
     month: "Nov",
-    amount: 500,
+    amount: 0,
+    sales: 0,
   },
   {
     month: "Dec",
-    amount: 700,
+    amount: 0,
+    sales: 0,
   },
 ];
 
@@ -59,16 +71,18 @@ export default function RevenueChart({
 }) {
   const [filter, setFilter] = useState("Y");
 
-  data.forEach(
-    (d, i) =>
-      (d.amount = orderData
-        .filter((order) => new Date(order.date).getMonth() === i + 1)
-        .reduce(
-          (acc: number, curr: AdminOrderType) =>
-            acc + curr.product.price * curr.product.quantity,
-          0
-        ))
-  );
+  data.forEach((d, i) => {
+    const productsSold = orderData.filter(
+      (order) => new Date(order.date).getMonth() === i + 1
+    );
+    d.amount = productsSold.reduce(
+      (acc: number, curr: AdminOrderType) =>
+        acc + curr.product.price * curr.product.quantity,
+      0
+    );
+
+    d.sales = productsSold.length;
+  });
 
   return (
     <div className="aspect-video flex flex-col gap-4 bg-white p-4 shadow rounded-md">
@@ -134,9 +148,11 @@ export default function RevenueChart({
             className="flex flex-col justify-end items-center w-[5%] z-[2]"
           >
             <div
-              title={month.amount.toString()}
+              title={`${
+                month.sales
+              } Products Sold \n Made $${month.amount.toString()}`}
               style={{ height: ((month.amount / 700) * 100).toFixed() + "%" }}
-              className="w-full rounded-t-full hover:bg-accent-blue-200 duration-300 cursor-pointer bg-accent-blue-100"
+              className="w-full rounded-t-full hover:bg-accent-blue-200 duration-500 cursor-pointer bg-accent-blue-100"
             ></div>
             <p className="sm:block hidden h-[8.5%] sm:flex-center">
               {month.month}
