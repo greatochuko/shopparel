@@ -9,6 +9,7 @@ import {
 import { useOutletContext } from "react-router-dom";
 import { StoreType } from "../components/AdminPageLayout";
 import { AdminOrderType } from "../components/AdminOrder";
+import RevenueChart from "../components/RevenueChart";
 
 export default function Dashboard() {
   const [loading, setLoading] = useState(true);
@@ -32,7 +33,15 @@ export default function Dashboard() {
 
       const orderData = await fetchStoreOrders(store?._id);
       setStoreOrders(orderData);
-      setStats((curr) => ({ ...curr, totalOrders: orderData.length }));
+      setStats((curr) => ({
+        ...curr,
+        totalOrders: orderData.length,
+        totalIncome: orderData.reduce(
+          (acc: number, curr: AdminOrderType) =>
+            acc + curr.product.price * curr.product.quantity,
+          0
+        ),
+      }));
       if (orderData.error) return setLoading(false);
     }
     if (!store?._id) return;
@@ -42,6 +51,7 @@ export default function Dashboard() {
   return (
     <div className="flex flex-col flex-1 gap-4 w-[90%] max-w-7xl mx-auto py-6 text-zinc-800">
       {loading ? <DashboardStatsWireframe /> : <DashboardStats stats={stats} />}
+      <RevenueChart orderData={storeOrders} />
       <RecentOrders loading={loading} orders={storeOrders} />
     </div>
   );

@@ -23,7 +23,7 @@ export default function AdminPageHeader({
 
   return (
     <>
-      <nav className="sticky top-0 flex items-center justify-between w-full gap-4 p-2 px-6 bg-white shadow-md">
+      <nav className="sticky top-0 flex items-center justify-between w-full gap-4 p-2 px-6 bg-white shadow-md z-[8]">
         <button onClick={toggleShowSidebar} className="p-1 group lg:hidden">
           <svg
             height={25}

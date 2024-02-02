@@ -256,7 +256,7 @@ export default function DashboardStats({
         <div className="flex flex-col items-center md:items-start">
           <h2 className="font-semibold text-zinc-400">Total Income</h2>
           <p className="text-lg font-semibold text-zinc-700">
-            {stats.totalIncome}
+            ${stats.totalIncome}
           </p>
         </div>
       </div>
