@@ -166,12 +166,16 @@ export default function RevenueChart({
             className="flex flex-col justify-end items-center w-[5%] z-[2]"
           >
             <div
-              title={`${
-                month.sales
-              } Products Sold \n Made $${month.amount.toString()}`}
               style={{ height: ((month.amount / 700) * 100).toFixed() + "%" }}
-              className="w-full rounded-t-full hover:bg-accent-blue-200 duration-500 cursor-pointer bg-accent-blue-100"
-            ></div>
+              className="w-full relative rounded-t-full group hover:bg-accent-blue-200 duration-500 cursor-pointer bg-accent-blue-100"
+            >
+              <div className="flex-center flex-col opacity-0 duration-300 group-hover:opacity-100 absolute left-[50%] -translate-y-[100%] -translate-x-[50%]">
+                <div className="bg-zinc-700 font-sm top-0 px-3 py-1 rounded-md text-white w-fit">
+                  ${month.amount}
+                </div>
+                <div className="bg-transparent border-[12px] border-transparent border-t-zinc-700 -mt-1 w-0 h-0"></div>
+              </div>
+            </div>
             <p className="sm:block hidden h-[8.5%] xl:h-[9.9%] sm:flex-center">
               {month.month}
             </p>

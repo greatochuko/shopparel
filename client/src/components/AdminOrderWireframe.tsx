@@ -51,7 +51,7 @@ export default function AdminOrderWireframe() {
 
       {/* MOBILE ORDER WIREFRAME */}
 
-      <li className="aspect-[4] rounded-md w-full md:hidden bg-zinc-200"></li>
+      <li className="aspect-[2] animate-pulse rounded-md w-full md:hidden bg-zinc-200"></li>
     </>
   );
 }
