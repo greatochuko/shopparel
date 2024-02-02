@@ -167,7 +167,8 @@ export default function RevenueChart({
           >
             <div
               style={{ height: ((month.amount / 700) * 100).toFixed() + "%" }}
-              className="w-full relative rounded-t-full group hover:bg-accent-blue-200 duration-500 cursor-pointer bg-accent-blue-100"
+              tabIndex={month.amount ? 0 : undefined}
+              className="w-full relative rounded-t-full group active:bg-accent-blue-300 focus-visible:bg-accent-blue-300 hover:bg-accent-blue-200 duration-500 cursor-pointer bg-accent-blue-100"
             >
               <div className="flex-center flex-col opacity-0 duration-300 group-hover:opacity-100 absolute left-[50%] -translate-y-[100%] -translate-x-[50%]">
                 <div className="bg-zinc-700 font-sm top-0 px-3 py-1 rounded-md text-white w-fit">

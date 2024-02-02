@@ -107,7 +107,7 @@ export default function ProductImagesForm({
             <img
               src={thumbnailUrl}
               alt=""
-              className="object-cover w-full h-full duration-300 group-hover:scale-105"
+              className="object-contain w-full h-full duration-300 group-hover:scale-105"
             />
           )}
           <div

@@ -12,7 +12,7 @@ export default function UploadedProductImage({
       <img
         src={image.url}
         alt="striped summer shorts"
-        className="w-10 h-10 bg-zinc-100 rounded-md p-[1px]"
+        className="w-10 h-10 bg-zinc-100 rounded-md p-[1px] object-contain"
       />
       <div className="flex flex-1 flex-col">
         <p className="text-sm sm:text-base">{image.file.name}</p>

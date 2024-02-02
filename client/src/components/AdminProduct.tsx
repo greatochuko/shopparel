@@ -67,7 +67,7 @@ export default function AdminProduct({
           <img
             src={product.imgUrl || "/product-placeholder.png"}
             alt=""
-            className="w-16 h-16 rounded-md"
+            className="w-16 h-16 rounded-md object-contain bg-zinc-100"
           />
           <div className="flex flex-col gap-1 overflow-hidden">
             <h3 className="font-semibold">{product.name}</h3>
