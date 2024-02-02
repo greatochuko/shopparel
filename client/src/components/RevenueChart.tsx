@@ -135,14 +135,30 @@ export default function RevenueChart({
           <div className="border-t border-zinc-200 border-dashed flex-1"></div>
         </div>
         <div className="flex flex-col gap-4 items-center z-[2]">
-          <p className="flex-1 -translate-y-[50%] flex-center">$700</p>
-          <p className="flex-1 -translate-y-[50%] flex-center">$600</p>
-          <p className="flex-1 -translate-y-[50%] flex-center">$500</p>
-          <p className="flex-1 -translate-y-[50%] flex-center">$400</p>
-          <p className="flex-1 -translate-y-[50%] flex-center">$300</p>
-          <p className="flex-1 -translate-y-[50%] flex-center">$200</p>
-          <p className="flex-1 -translate-y-[50%] flex-center">$100</p>
-          <p className="flex-1 -translate-y-[50%] flex-center">$0</p>
+          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
+            $700
+          </p>
+          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
+            $600
+          </p>
+          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
+            $500
+          </p>
+          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
+            $400
+          </p>
+          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
+            $300
+          </p>
+          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
+            $200
+          </p>
+          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
+            $100
+          </p>
+          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
+            $0
+          </p>
         </div>
         {data.map((month) => (
           <div
@@ -159,7 +175,7 @@ export default function RevenueChart({
             <p className="sm:block hidden h-[8.5%] xl:h-[9.9%] sm:flex-center">
               {month.month}
             </p>
-            <p className="sm:hidden">{month.month.slice(0, 1)}</p>
+            <p className="sm:hidden text-sm">{month.month.slice(0, 1)}</p>
           </div>
         ))}
       </div>
