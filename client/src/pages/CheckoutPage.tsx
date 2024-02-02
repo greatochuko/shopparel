@@ -37,11 +37,12 @@ export default function CheckoutPage() {
       paymentType,
       cartItems.map((item) => ({
         _id: item._id,
-        productId: item.product as string,
+        productId: item.product?._id as string,
         color: item.color,
         imgUrl: item.imgUrl,
         name: item.name,
         price: item.price,
+        shipping: item.shipping,
         quantity: item.quantity,
         size: item.size,
         storeId: item.storeId,

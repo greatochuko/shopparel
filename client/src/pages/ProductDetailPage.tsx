@@ -51,7 +51,10 @@ export default function ProductDetailPage() {
             <p className="mt-3 text-zinc-700">{product.description}</p>
           </section>
 
-          <SimilarStoreProducts storeId={product.store._id} />
+          <SimilarStoreProducts
+            productId={product._id}
+            storeId={product.store._id}
+          />
 
           <section className="max-w-3xl">
             <SectionHeader title="User Reviews" />

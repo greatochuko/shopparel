@@ -69,11 +69,16 @@ export default function RevenueChart({
 }: {
   orderData: AdminOrderType[];
 }) {
-  const [filter, setFilter] = useState("Y");
+  const [year, setYear] = useState(2024);
+
+  console.clear();
+  console.log(year);
 
   data.forEach((d, i) => {
     const productsSold = orderData.filter(
-      (order) => new Date(order.date).getMonth() === i + 1
+      (order) =>
+        new Date(order.date).getMonth() === i + 1 &&
+        new Date(order.date).getFullYear() === year
     );
     d.amount = productsSold.reduce(
       (acc: number, curr: AdminOrderType) =>
@@ -90,34 +95,34 @@ export default function RevenueChart({
         <h2 className="text-lg font-semibold">Sales Revenue</h2>
         <div className="flex gap-2 p-2 rounded-full bg-gray-100 text-sm">
           <button
-            onClick={() => setFilter("W")}
-            className={`rounded-full duration-300 font-semibold flex-center h-6 w-10 ${
-              filter === "W"
+            onClick={() => setYear(2022)}
+            className={`rounded-full duration-300 font-semibold flex-center h-6 w-12 ${
+              year === 2022
                 ? "bg-accent-blue-100 text-white hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
                 : "hover:bg-zinc-200 active:bg-zinc-300 focus-visible:bg-zinc-200"
             }`}
           >
-            1W
+            2022
           </button>
           <button
-            onClick={() => setFilter("M")}
-            className={`rounded-full duration-300 font-semibold flex-center h-6 w-10 ${
-              filter === "M"
+            onClick={() => setYear(2023)}
+            className={`rounded-full duration-300 font-semibold flex-center h-6 w-12 ${
+              year === 2023
                 ? "bg-accent-blue-100 text-white hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
                 : "hover:bg-zinc-200 active:bg-zinc-300 focus-visible:bg-zinc-200"
             }`}
           >
-            1M
+            2023
           </button>
           <button
-            onClick={() => setFilter("Y")}
-            className={`rounded-full duration-300 font-semibold flex-center h-6 w-10 ${
-              filter === "Y"
+            onClick={() => setYear(2024)}
+            className={`rounded-full duration-300 font-semibold flex-center h-6 w-12 ${
+              year === 2024
                 ? "bg-accent-blue-100 text-white hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
                 : "hover:bg-zinc-200 active:bg-zinc-300 focus-visible:bg-zinc-200"
             }`}
           >
-            1Y
+            2024
           </button>
         </div>
       </header>

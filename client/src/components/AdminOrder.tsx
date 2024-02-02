@@ -10,6 +10,7 @@ export type OrderProductType = {
   size: string;
   quantity: number;
   price: number;
+  shipping: number;
   storeId: string;
   status: "active" | "delivered" | "cancelled" | "packaged";
 };

@@ -4,7 +4,13 @@ import Product, { ProductType } from "./Product";
 import ProductWireframe from "./ProductWireframe";
 import { fetchStoreProducts } from "../services/storeServices";
 
-export default function SimilarStoreProducts({ storeId }: { storeId: string }) {
+export default function SimilarStoreProducts({
+  storeId,
+  productId,
+}: {
+  storeId: string;
+  productId: string;
+}) {
   const [products, setProducts] = useState<ProductType[]>([]);
   const [carouselPos, setCarouselPos] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -15,11 +21,13 @@ export default function SimilarStoreProducts({ storeId }: { storeId: string }) {
       const data = await fetchStoreProducts(storeId);
 
       if (data.error) return setLoading(false);
-      setProducts(data);
+      setProducts(
+        data.filter((product: ProductType) => product._id !== productId)
+      );
       setLoading(false);
     }
     getProduct();
-  }, [storeId]);
+  }, [productId, storeId]);
 
   function scrollLeft() {
     const carouselWidth =
@@ -38,7 +46,7 @@ export default function SimilarStoreProducts({ storeId }: { storeId: string }) {
   if (products.length)
     return (
       <section className="w-full relative">
-        <SectionHeader title={`More Products from ${products[0].store.name}`} />
+        <SectionHeader title="More products from this seller" />
         <button
           onClick={scrollRight}
           className="absolute -left-[18px] top-[50%] -translate-y-[50%] z-10 flex-center rounded-full h-10 w-10 bg-white border shadow hover:shadow-zinc-500 duration-300"
