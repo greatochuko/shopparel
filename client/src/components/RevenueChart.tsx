@@ -71,13 +71,10 @@ export default function RevenueChart({
 }) {
   const [year, setYear] = useState(2024);
 
-  console.clear();
-  console.log(year);
-
   data.forEach((d, i) => {
     const productsSold = orderData.filter(
       (order) =>
-        new Date(order.date).getMonth() === i + 1 &&
+        new Date(order.date).getMonth() === i &&
         new Date(order.date).getFullYear() === year
     );
     d.amount = productsSold.reduce(
@@ -159,7 +156,7 @@ export default function RevenueChart({
               style={{ height: ((month.amount / 700) * 100).toFixed() + "%" }}
               className="w-full rounded-t-full hover:bg-accent-blue-200 duration-500 cursor-pointer bg-accent-blue-100"
             ></div>
-            <p className="sm:block hidden h-[8.5%] sm:flex-center">
+            <p className="sm:block hidden h-[8.5%] xl:h-[9.9%] sm:flex-center">
               {month.month}
             </p>
             <p className="sm:hidden">{month.month.slice(0, 1)}</p>

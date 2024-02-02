@@ -3,6 +3,7 @@ import { fetchFulfilOrder, fetchCancelOrder } from "../services/orderServices";
 import AdminOrderOptions from "./AdminOrderOptions";
 
 export type OrderProductType = {
+  _id: string;
   productId: string;
   imgUrl: string;
   name: string;

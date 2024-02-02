@@ -47,8 +47,6 @@ export default function ProductConfiguration({
       quantity: 1,
       storeId: product.store._id,
     };
-    console.clear();
-    console.log(newItem);
     setLoading(true);
     addItemToCart({
       ...newItem,

@@ -24,8 +24,10 @@ export default function Dashboard() {
   const [storeOrders, setStoreOrders] = useState<AdminOrderType[]>([]);
 
   useEffect(() => {
+    document.title = `Shopparel-Admin: Dashboard`;
     async function getStoreStats() {
       setLoading(true);
+
       const statsData = await fetchStoreProducts(store?._id);
       if (statsData.error) return setLoading(false);
       setStats((curr) => ({ ...curr, totalProducts: statsData.length }));

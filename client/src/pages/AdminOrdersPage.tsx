@@ -12,6 +12,8 @@ export default function AdminOrdersPage() {
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
 
   useEffect(() => {
+    document.title = `Shopparel-Admin: Orders`;
+
     async function getStoreStats() {
       setLoading(true);
 

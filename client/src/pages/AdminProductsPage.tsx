@@ -13,6 +13,8 @@ export default function AdminProductsPage() {
   const { store } = useOutletContext<{ store: StoreType }>();
 
   useEffect(() => {
+    document.title = `Shopparel-Admin: Products`;
+
     async function getStoreProducts() {
       setLoading(true);
       if (store?._id) {

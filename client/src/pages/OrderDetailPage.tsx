@@ -15,7 +15,7 @@ export default function OrderDetailPage() {
     async function getOrder() {
       const data = await fetchOrder(orderId as string);
       if (data.error) return;
-      document.title = `Shopparel: Order:#${orderId}`;
+      document.title = `Shopparel: Order: #${orderId}`;
       setOrder(data);
     }
     getOrder();
@@ -128,7 +128,7 @@ export default function OrderDetailPage() {
         </div>
         <div className="flex flex-col gap-4 p-4 mt-6 text-sm rounded-md bg-zinc-100">
           {order?.products.map((product) => (
-            <OrderProduct product={product} key={product.productId} />
+            <OrderProduct product={product} key={product._id} />
           ))}
         </div>
         {order?.status === "active" ? (
