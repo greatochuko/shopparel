@@ -8,10 +8,12 @@ export default function ReviewForm({
   closeModal,
   productId,
   review,
+  setProductReviews,
 }: {
   closeModal: () => void;
   productId: string;
   review?: ReviewType;
+  setProductReviews: React.Dispatch<React.SetStateAction<ReviewType[]>>;
 }) {
   const [rating, setRating] = useState(review?.rating || 4);
   const [tempRating, setTempRating] = useState(0);
@@ -23,6 +25,7 @@ export default function ReviewForm({
     setLoading(true);
     const data = await createReview(productId, rating, reviewText);
     if (data.error) return setLoading(false);
+    setProductReviews((curr) => [data, ...curr]);
     closeModal();
     setLoading(false);
   }

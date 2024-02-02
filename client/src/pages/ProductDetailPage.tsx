@@ -1,7 +1,7 @@
 import ProductDetailImages from "../components/ProductDetailImages";
 import ProductConfiguration from "../components/ProductConfiguration";
 import SectionHeader from "../components/SectionHeader";
-import Review from "../components/Review";
+import Review, { ReviewType } from "../components/Review";
 import SimilarProducts from "../components/SimilarProducts";
 import { useParams } from "react-router-dom";
 import { ProductType } from "../components/Product";
@@ -12,6 +12,7 @@ import ReviewForm from "../components/ReviewForm";
 import ModalContainer from "../components/ModalContainer";
 import { UserType } from "../context/UserContext";
 import useUserContext from "../hooks/useUserContext";
+import SimilarStoreProducts from "../components/SimilarStoreProducts";
 
 export default function ProductDetailPage() {
   const { user } = useUserContext();
@@ -19,6 +20,7 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState<ProductType | null>(null);
   const [loading, setLoading] = useState(true);
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [productReviews, setProductReviews] = useState<ReviewType[]>([]);
 
   useEffect(() => {
     async function getProduct() {
@@ -28,6 +30,7 @@ export default function ProductDetailPage() {
       if (data.error) return setLoading(false);
       document.title = `Shopparel: ${data.name}`;
       setProduct(data);
+      setProductReviews(data.reviews);
       setLoading(false);
     }
     getProduct();
@@ -48,14 +51,16 @@ export default function ProductDetailPage() {
             <p className="mt-3 text-zinc-700">{product.description}</p>
           </section>
 
+          <SimilarStoreProducts storeId={product.store._id} />
+
           <section className="max-w-3xl">
             <SectionHeader title="User Reviews" />
             <div
               id="reviews"
               className="flex flex-col gap-10 mt-4 text-zinc-700 scroll-mt-36"
             >
-              {product.reviews.length ? (
-                product.reviews.map((review) => (
+              {productReviews.length ? (
+                productReviews.map((review) => (
                   <Review key={review._id} review={review} />
                 ))
               ) : (
@@ -64,7 +69,7 @@ export default function ProductDetailPage() {
                 </p>
               )}
             </div>
-            {!product.reviews.find(
+            {!productReviews.find(
               (review) => (review.user as UserType)._id === user?._id
             ) && (
               <button
@@ -75,6 +80,7 @@ export default function ProductDetailPage() {
               </button>
             )}
           </section>
+
           <SimilarProducts
             productCategories={product.categories as string[]}
             productId={product._id as string}
@@ -84,6 +90,7 @@ export default function ProductDetailPage() {
               <ReviewForm
                 productId={product._id as string}
                 closeModal={() => setModalIsOpen(false)}
+                setProductReviews={setProductReviews}
               />
             </ModalContainer>
           )}

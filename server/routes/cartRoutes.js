@@ -11,12 +11,12 @@ import {
 import { authenticateUser } from "../middlewares/authMiddleware.js";
 
 const cartRouter = Router();
-cartRouter.get("/", getCartItems);
+cartRouter.get("/", authenticateUser, getCartItems);
 cartRouter.post("/", authenticateUser, addProduct);
-cartRouter.post("/sync", syncCart);
-cartRouter.post("/inc/:cartItemId", increaseProductQuantity);
-cartRouter.post("/dec/:cartItemId", decreaseProductQuantity);
-cartRouter.delete("/:cartItemId", removeProduct);
-cartRouter.delete("/", clearCart);
+cartRouter.post("/sync", authenticateUser, syncCart);
+cartRouter.post("/inc/:cartItemId", authenticateUser, increaseProductQuantity);
+cartRouter.post("/dec/:cartItemId", authenticateUser, decreaseProductQuantity);
+cartRouter.delete("/:cartItemId", authenticateUser, removeProduct);
+cartRouter.delete("/", authenticateUser, clearCart);
 
 export default cartRouter;

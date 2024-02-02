@@ -41,7 +41,7 @@ export async function getStore(req, res) {
 export async function getStoreProducts(req, res) {
   try {
     const { storeId } = req.params;
-    const products = await Product.find({ store: storeId });
+    const products = await Product.find({ store: storeId }).populate("store");
     res.json(products);
   } catch (error) {
     res.status(400).json({ error: error.message });

@@ -14,10 +14,12 @@ export async function getAllProducts(req, res) {
 export async function getProduct(req, res) {
   try {
     const { productId } = req.params;
-    const product = await Product.findById(productId).populate({
-      path: "reviews",
-      populate: { path: "user", select: "imgUrl firstName lastName" },
-    });
+    const product = await Product.findById(productId)
+      .populate({
+        path: "reviews",
+        populate: { path: "user", select: "imgUrl firstName lastName" },
+      })
+      .populate("store");
     res.json(product);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -79,7 +81,6 @@ export async function saveProductInfo(req, res) {
     });
     res.json(newProduct);
   } catch (error) {
-    console.log(error.message);
     res.status(400).json({ error: error.message });
   }
 }
@@ -95,7 +96,6 @@ export async function editProduct(req, res) {
 
     res.json(product);
   } catch (error) {
-    console.log(error.message);
     res.status(400).json({ error: error.message });
   }
 }
@@ -110,7 +110,6 @@ export async function deleteProduct(req, res) {
 
     res.json(product);
   } catch (error) {
-    console.log(error.message);
     res.status(400).json({ error: error.message });
   }
 }
