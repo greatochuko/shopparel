@@ -65,6 +65,7 @@ export async function getStoreOrders(req, res) {
             address: order.address,
             date: order.createdAt,
             _id: order._id,
+            user: order.userId,
           }))
         );
       }

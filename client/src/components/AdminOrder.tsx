@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { fetchFulfilOrder, fetchCancelOrder } from "../services/orderServices";
 import AdminOrderOptions from "./AdminOrderOptions";
+import { UserType } from "../context/UserContext";
 
 export type OrderProductType = {
   _id: string;
@@ -21,6 +22,7 @@ export type AdminOrderType = {
   product: OrderProductType;
   address: string;
   date: Date;
+  user: UserType;
 };
 
 export default function AdminOrder({
@@ -75,7 +77,7 @@ export default function AdminOrder({
 
   return (
     <>
-      <li className="items-center justify-between hidden gap-2 md:flex">
+      <li className="items-center justify-between hidden gap-2 lg:flex">
         {toggleCheck && (
           <input
             type="checkbox"
@@ -88,7 +90,7 @@ export default function AdminOrder({
           />
         )}
 
-        <p className="overflow-hidden w-28 overflow-ellipsis" title={order._id}>
+        <p className="w-20 overflow-hidden overflow-ellipsis" title={order._id}>
           {order._id}
         </p>
         <div className="flex items-center flex-1 gap-2">
@@ -97,13 +99,30 @@ export default function AdminOrder({
             alt={order.product.name}
             className="object-cover w-12 h-12"
           />
-          <p className="flex-1 max-w-[333px] w-0 overflow-hidden overflow-ellipsis whitespace-nowrap">
+          <p
+            className="flex-1 max-w-[333px] w-0 overflow-hidden overflow-ellipsis whitespace-nowrap"
+            title={order.product.name}
+          >
             {order.product.name}
           </p>
         </div>
-        <p className="max-w-[389px] w-0 flex-1 overflow-hidden whitespace-nowrap overflow-ellipsis">
+        <p
+          className="flex-1 w-0 overflow-hidden whitespace-nowrap overflow-ellipsis"
+          title={order.address}
+        >
           {order.address}
         </p>
+        <div
+          className="max-w-[389px] w-0 flex-1 flex flex-col gap-1"
+          title={`${order.user.firstName} ${order.user.lastName} \n ${order.user.email}`}
+        >
+          <p className="overflow-hidden whitespace-nowrap overflow-ellipsis">
+            {order.user.firstName} {order.user.lastName}
+          </p>
+          <p className="overflow-hidden whitespace-nowrap overflow-ellipsis">
+            {order.user.email}
+          </p>
+        </div>
         <p className="w-24">{new Date(order.date).toLocaleDateString()}</p>
         <p className="w-24 flex-center">
           ${(order.product.price * order.product.quantity).toFixed(2)}
@@ -163,7 +182,7 @@ export default function AdminOrder({
 
       {/* MOBILE ORDER ITEM */}
 
-      <li className="relative flex flex-col justify-between w-full gap-2 p-2 pb-2 text-sm rounded-md md:hidden lg:border-b border-zinc-100 bg-zinc-50">
+      <li className="relative flex flex-col justify-between w-full gap-2 p-2 pb-2 text-sm rounded-md lg:hidden lg:border-b border-zinc-100 bg-zinc-50">
         <p className="w-[90%] overflow-hidden overflow-ellipsis whitespace-nowrap">
           <span className="font-semibold">Order ID - </span> #{order._id}
         </p>
@@ -176,6 +195,14 @@ export default function AdminOrder({
           />
           <p className="flex-1 max-w-[333px] w-0 ">{order.product.name}</p>
         </div>
+        <p>
+          <span className="font-semibold">Customer Name - </span>
+          {order.user.firstName} {order.user.lastName}
+        </p>
+        <p>
+          <span className="font-semibold">Customer Email - </span>
+          {order.user.email}
+        </p>
         <p>
           <span className="font-semibold">Customer Address - </span>
           {order.address}

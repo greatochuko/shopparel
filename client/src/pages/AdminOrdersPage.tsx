@@ -57,7 +57,7 @@ export default function AdminOrdersPage() {
       </div>
       <section className="p-4 bg-white rounded-md ">
         <ul className="flex flex-col gap-4">
-          <div className="items-center justify-between hidden gap-2 md:flex">
+          <div className="items-center justify-between hidden gap-2 lg:flex">
             <input
               type="checkbox"
               name="selectAll"
@@ -65,9 +65,10 @@ export default function AdminOrdersPage() {
               checked={selectedOrders.length === orders.length}
               onChange={toggleSelectAll}
             />
-            <h3 className="w-28">Order ID</h3>
+            <h3 className="w-20">Order ID</h3>
             <h3 className="flex-1 whitespace-nowrap">Product Info</h3>
             <h3 className="flex-1">Address</h3>
+            <h3 className="flex-1">Customer Info</h3>
             <h3 className="w-24">Date</h3>
             <h3 className="w-24 flex-center">Price</h3>
             <h3 className="w-20 flex-center">Status</h3>
@@ -92,7 +93,7 @@ export default function AdminOrdersPage() {
               />
             ))
           ) : (
-            <p className="flex-center py-10">
+            <p className="py-10 flex-center">
               There are currently no orders in the system. Start processing
               orders by directing customers to your online store
             </p>

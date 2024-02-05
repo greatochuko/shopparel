@@ -12,11 +12,6 @@ const orderSchema = new mongoose.Schema(
     paymentMethod: { type: String, required: true },
     address: { type: String, required: true },
     products: {
-      type: [mongoose.SchemaTypes.ObjectId],
-      required: true,
-      ref: "cart",
-    },
-    products: {
       type: [
         {
           productId: String,
