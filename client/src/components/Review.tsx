@@ -6,7 +6,7 @@ export type ReviewType = {
   _id: string;
   user: UserType;
   rating: number;
-  date: string;
+  createdAt: string;
   review: string;
 };
 
@@ -14,18 +14,18 @@ export default function Review({ review }: { review: ReviewType }) {
   const [isHelpful, setIsHelpful] = useState(false);
 
   return (
-    <div className="flex gap-2 items-start">
+    <div className="flex items-start gap-2">
       <img
         src={review.user.imgUrl}
         alt={review.user.imgUrl}
-        className="w-10 h-10 rounded-full bg-gray-100 object-cover"
+        className="object-cover w-10 h-10 bg-gray-100 rounded-full"
       ></img>
-      <div className="flex-1 flex flex-col gap-1">
+      <div className="flex flex-col flex-1 gap-1">
         <div className="flex flex-col text-sm">
           <h3 className="font-semibold uppercase">
             {review.user.firstName} {review.user.lastName}
           </h3>
-          <p>{review.date}</p>
+          <p>{new Date(review.createdAt).toDateString()}</p>
         </div>
         <Rating rating={review.rating} />
         <p className="text-sm">{review.review}</p>

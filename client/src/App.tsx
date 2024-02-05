@@ -36,6 +36,10 @@ const router = createBrowserRouter([
               { path: "/admin/products", element: <AdminProductsPage /> },
               { path: "/admin/orders", element: <AdminOrdersPage /> },
               { path: "/admin/reviews", element: <AdminReviewsPage /> },
+              {
+                path: "/admin/reviews/:productId",
+                element: <AdminReviewsPage />,
+              },
             ],
           },
         ],
