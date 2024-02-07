@@ -8,6 +8,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 export type StoreType = {
   _id: string;
   name: string;
+  description: string;
   logo: string;
 };
 
@@ -45,7 +46,7 @@ export default function AdminPageLayout() {
       />
       <div className="flex flex-col flex-1 bg-zinc-100">
         <AdminPageHeader toggleShowSidebar={toggleShowSidebar} store={store} />
-        <Outlet context={{ store }} />
+        <Outlet context={{ store, setStore }} />
       </div>
     </main>
   );

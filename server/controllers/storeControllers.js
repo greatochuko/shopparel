@@ -38,6 +38,22 @@ export async function getStore(req, res) {
   }
 }
 
+export async function updateStore(req, res) {
+  try {
+    const { storeId } = req.params;
+    const { name, logo, description } = req.body;
+    console.log(name, logo, description);
+    const store = await Store.findByIdAndUpdate(
+      storeId,
+      { name, logo, description },
+      { new: true }
+    );
+    res.json(store);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 export async function getStoreProducts(req, res) {
   try {
     const { storeId } = req.params;

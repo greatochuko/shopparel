@@ -368,7 +368,7 @@ export default function AdminPageSidebar({
               ></path>
             </g>
           </svg>
-          <span className={open ? "block" : "hidden"}>Collsapse</span>
+          <span className={open ? "block" : "hidden"}>Collapse</span>
         </button>
       </div>
     </>

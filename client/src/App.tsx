@@ -21,6 +21,7 @@ import AdminPageLayout from "./components/AdminPageLayout";
 import AdminProductsPage from "./pages/AdminProductsPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 import AdminReviewsPage from "./pages/AdminReviewsPage";
+import AdminSettingsPage from "./pages/AdminSettingsPage";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,7 @@ const router = createBrowserRouter([
               { path: "/admin/products", element: <AdminProductsPage /> },
               { path: "/admin/orders", element: <AdminOrdersPage /> },
               { path: "/admin/reviews", element: <AdminReviewsPage /> },
+              { path: "/admin/settings", element: <AdminSettingsPage /> },
               {
                 path: "/admin/reviews/:productId",
                 element: <AdminReviewsPage />,
