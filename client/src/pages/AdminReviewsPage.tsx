@@ -76,11 +76,11 @@ export default function AdminReviewsPage() {
                   <img
                     src={product.imgUrl}
                     alt=""
-                    className="object-contain w-24 h-24 duration-300 rounded-md bg-zinc-100 group-hover:bg-zinc-200"
+                    className="object-contain w-20 h-20 duration-300 rounded-md sm:w-24 sm:h-24 bg-zinc-100 group-hover:bg-zinc-200"
                   />
                   <div className="flex flex-col justify-between flex-1">
                     <h3>{product.name}</h3>
-                    <p className="text-sm text-zinc-500">
+                    <p className="text-sm text-zinc-500 line-clamp-2">
                       {product.description}
                     </p>
                     <div className="flex items-center gap-2">

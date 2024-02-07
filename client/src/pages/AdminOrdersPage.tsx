@@ -43,7 +43,10 @@ export default function AdminOrdersPage() {
     if (selectedOrders.length === orders.length) {
       setSelectedOrders([]);
     } else {
-      setSelectedOrders(orders.map((order) => order._id));
+      // setSelectedOrders(orders.map((order) => order._id));
+      setSelectedOrders(
+        orders.map((order) => order._id + "-" + order.product.productId)
+      );
     }
   }
 
@@ -87,7 +90,7 @@ export default function AdminOrdersPage() {
                 key={order._id + order.product.productId}
                 order={order}
                 isSelected={selectedOrders.includes(
-                  order._id + order.product.productId
+                  order._id + "-" + order.product.productId
                 )}
                 toggleCheck={toggleCheck}
               />

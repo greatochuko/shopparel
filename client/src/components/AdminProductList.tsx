@@ -38,10 +38,10 @@ export default function AdminProductList({
       : filter === "draft"
       ? products.filter((product) => !product.isPublished)
       : filter === "in stock"
-      ? products.filter((product) => product.quantity >= 10)
+      ? products.filter((product) => product.quantity > 5)
       : filter === "low stock"
       ? products.filter(
-          (product) => product.quantity > 0 && product.quantity < 10
+          (product) => product.quantity > 0 && product.quantity <= 5
         )
       : filter === "out of stock"
       ? products.filter(
@@ -50,13 +50,13 @@ export default function AdminProductList({
       : products;
 
   return (
-    <div className="flex flex-col gap-2 p-2 md:p-4 text-sm bg-white rounded-md">
-      <div className="hidden items-center gap-2 p-3 rounded-md bg-zinc-100 md:flex">
+    <div className="flex flex-col gap-2 p-2 text-sm bg-white rounded-md md:p-4">
+      <div className="items-center hidden gap-2 p-3 rounded-md bg-zinc-100 md:flex">
         <input
           type="checkbox"
           name="selectAll"
           id="selectAll"
-          className="w-fit mr-2"
+          className="mr-2 w-fit"
           checked={selectedProducts.length === products.length}
           onChange={toggleSelectAll}
         />
@@ -84,7 +84,7 @@ export default function AdminProductList({
             />
           ))
         ) : (
-          <p className="flex-center py-10">
+          <p className="py-10 flex-center">
             It seems there are no products listed in the system at the moment.
             Add new products to your inventory to showcase them on your online
             store

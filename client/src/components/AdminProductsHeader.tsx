@@ -34,7 +34,7 @@ export default function AdminProductsHeader({
             + New Product
           </button>
         </div>
-        <div className="mt-4 gap-4 text-sm sm:text-base hidden sm:flex">
+        <div className="hidden gap-4 mt-4 text-sm sm:text-base sm:flex">
           <button
             onClick={() => setFilter("all")}
             className={`flex items-center gap-1 ${
@@ -54,7 +54,7 @@ export default function AdminProductsHeader({
           >
             In Stock
             <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
-              {products.filter((product) => product.quantity >= 10).length}
+              {products.filter((product) => product.quantity > 5).length}
             </span>
           </button>
           <button
@@ -67,7 +67,7 @@ export default function AdminProductsHeader({
             <span className="bg-zinc-200 p-[2px] min-w-[25px] text-xs border border-zinc-300 rounded-md text-zinc-800">
               {
                 products.filter(
-                  (product) => product.quantity > 0 && product.quantity < 10
+                  (product) => product.quantity > 0 && product.quantity <= 5
                 ).length
               }
             </span>
@@ -99,7 +99,7 @@ export default function AdminProductsHeader({
             </span>
           </button>
         </div>
-        <div className="flex gap-1 sm:hidden mt-4">
+        <div className="flex gap-1 mt-4 sm:hidden">
           <label htmlFor="filter">Filter</label>
           <select
             name="filter"

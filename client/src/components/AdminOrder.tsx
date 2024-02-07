@@ -85,7 +85,8 @@ export default function AdminOrder({
             id={order._id + order.product.productId}
             checked={isSelected}
             onChange={() =>
-              toggleCheck && toggleCheck(order._id + order.product.productId)
+              toggleCheck &&
+              toggleCheck(order._id + "-" + order.product.productId)
             }
           />
         )}

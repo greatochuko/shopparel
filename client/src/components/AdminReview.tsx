@@ -21,7 +21,7 @@ export default function AdminReview({ review }: { review: ReviewType }) {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-2 ml-12">
+      <div className="flex flex-col gap-2 text-sm sm:ml-12 sm:text-base">
         <p className="text-zinc-600">{review.review}</p>
         <div className="flex gap-4">
           <Rating rating={review.rating} />
