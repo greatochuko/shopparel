@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StoreType } from "./AdminPageLayout";
 import { Link } from "react-router-dom";
 import Modal from "./Modal";
@@ -13,7 +13,20 @@ export default function AdminPageHeader({
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const [logoutModalIsOpen, setLogoutModalIsOpen] = useState(false);
 
-  function toggleDropdown() {
+  useEffect(() => {
+    function clickEvent() {
+      setDropdownIsOpen((curr) => curr && false);
+    }
+
+    document.addEventListener("click", clickEvent);
+
+    return () => {
+      document.removeEventListener("click", clickEvent);
+    };
+  }, []);
+
+  function toggleDropdown(e: React.MouseEvent) {
+    e.stopPropagation();
     setDropdownIsOpen((curr) => !curr);
   }
 

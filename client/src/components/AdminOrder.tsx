@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchFulfilOrder, fetchCancelOrder } from "../services/orderServices";
 import AdminOrderOptions from "./AdminOrderOptions";
 import { UserType } from "../context/UserContext";
@@ -37,6 +37,18 @@ export default function AdminOrder({
   const [optionsIsOpen, setOptionsIsOpen] = useState(false);
   const [orderStatus, setOrderStatus] = useState(order.product.status);
 
+  useEffect(() => {
+    function clickEvent() {
+      setOptionsIsOpen((curr) => curr && false);
+    }
+
+    document.addEventListener("click", clickEvent);
+
+    return () => {
+      document.removeEventListener("click", clickEvent);
+    };
+  }, []);
+
   const orderStatusBg =
     orderStatus === "active"
       ? "bg-blue-100"
@@ -55,7 +67,8 @@ export default function AdminOrder({
       ? "text-red-500"
       : "text-amber-600";
 
-  function toggleOpenOptions() {
+  function toggleOpenOptions(e: React.MouseEvent) {
+    e.stopPropagation();
     setOptionsIsOpen((curr) => !curr);
   }
 
