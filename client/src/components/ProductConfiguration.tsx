@@ -43,7 +43,7 @@ export default function ProductConfiguration({
       color: currentColor,
       size: currentSize,
       price: product.price,
-      shipping: 19.99,
+      shipping: product.shipping,
       quantity: 1,
       storeId: product.store._id,
     };

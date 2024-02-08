@@ -52,7 +52,11 @@ export default function AdminPageSidebar({
                   open ? "w-20 h-20" : "w-10 h-10"
                 } rounded-full shadow`}
               />
-              <h2 className={`${open ? "" : "hidden"} text-xl font-semibold`}>
+              <h2
+                className={`${
+                  open ? "" : "hidden"
+                } text-xl font-semibold text-center`}
+              >
                 {store?.name}
               </h2>
             </>

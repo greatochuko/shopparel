@@ -34,10 +34,23 @@ export default function Dashboard() {
       setLoading(false);
 
       const orderData = await fetchStoreOrders(store?._id);
-      setStoreOrders(orderData);
+
+      setStoreOrders(
+        [...orderData].sort(
+          (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+        )
+      );
+
       setStats((curr) => ({
         ...curr,
         totalOrders: orderData.length,
+        totalSales: orderData.reduce(
+          (acc: number, curr: AdminOrderType) =>
+            acc +
+            (curr.product.price + (curr.product.shipping || 0)) *
+              curr.product.quantity,
+          0
+        ),
         totalIncome: orderData.reduce(
           (acc: number, curr: AdminOrderType) =>
             acc + curr.product.price * curr.product.quantity,

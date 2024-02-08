@@ -42,7 +42,6 @@ export async function updateStore(req, res) {
   try {
     const { storeId } = req.params;
     const { name, logo, description } = req.body;
-    console.log(name, logo, description);
     const store = await Store.findByIdAndUpdate(
       storeId,
       { name, logo, description },
