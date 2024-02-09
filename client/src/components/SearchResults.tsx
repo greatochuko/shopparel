@@ -18,6 +18,10 @@ export default function SearchResults({
   const categories = searchParams.get("categories")?.toLowerCase().split(",");
   const sizes = searchParams.get("sizes")?.toLowerCase().split(",");
   const currentPage = searchParams.get("page");
+  const price = {
+    minPrice: Number(searchParams.get("minPrice")),
+    maxPrice: Number(searchParams.get("maxPrice")),
+  };
 
   let filteredProducts = [...products];
 
@@ -38,6 +42,17 @@ export default function SearchResults({
     filteredProducts = filteredProducts.filter((product) =>
       product.sizes.some((c) => sizes?.includes(c.toLowerCase()))
     );
+
+  // Filter products by Price
+  if (price.minPrice)
+    filteredProducts = filteredProducts.filter(
+      (product) => product.price > price.minPrice
+    );
+  if (price.maxPrice)
+    filteredProducts = filteredProducts.filter(
+      (product) => product.price < price.maxPrice
+    );
+
 
   function setSortBy(sortBy: string) {
     searchParams.set("sortBy", sortBy);

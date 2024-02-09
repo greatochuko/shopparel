@@ -15,6 +15,11 @@ const cartSchema = new mongoose.Schema({
   shipping: { type: Number, required: true },
   quantity: { type: Number, required: true },
   ordered: { type: Boolean, default: false },
+  storeId: {
+    type: mongoose.SchemaTypes.ObjectId,
+    required: true,
+    ref: "store",
+  },
 });
 
 export const Cart = mongoose.model("cart", cartSchema);

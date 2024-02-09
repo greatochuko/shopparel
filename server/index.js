@@ -10,6 +10,7 @@ import orderRouter from "./routes/orderRoutes.js";
 import wishlistRouter from "./routes/wishlistRoutes.js";
 import shippingInfoRouter from "./routes/ShippingInformationRoutes.js";
 import reviewRouter from "./routes/reviewRoutes.js";
+import storeRouter from "./routes/storeRoutes.js";
 
 dotenv.config();
 
@@ -17,15 +18,18 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 const uri =
-  process.env.ENVIRONMENT === "dev"
+  process.env.NODE_ENV === "production"
     ? "mongodb://127.0.0.1:27017/shopparelDB"
     : process.env.MONGODB_URI;
 
 // MIDDLEWARES
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://shopparel.vercel.app"],
-    credentials: true,
+    origin: [
+      "http://localhost:5173",
+      "http://192.168.43.73:5173",
+      "https://shopparel.vercel.app",
+    ],
   })
 );
 app.use(express.json());
@@ -35,6 +39,7 @@ app.use("/api", authRouter);
 app.use("/api", productRouter);
 app.use("/api", orderRouter);
 app.use("/api", reviewRouter);
+app.use("/api", storeRouter);
 app.use("/api/user", userRouter);
 app.use("/api/wishlist", wishlistRouter);
 app.use("/api/cart", cartRouter);

@@ -24,16 +24,31 @@ export type ShippingInformationType = {
 export default function CheckoutPage() {
   const [shippingInformation, setShippingInformation] =
     useState<ShippingInformationType | null>(null);
-  const [paymentType, setPaymentType] = useState("stripe");
+  const [paymentType, setPaymentType] = useState("paystack");
   const { cartItems, clearOrderCart } = useCartContext();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   async function handlePayment() {
     setLoading(true);
+    const address = `${shippingInformation?.apartment} ${shippingInformation?.streetAddress} ${shippingInformation?.country}`;
+    // return;
     const data = await createOrder(
       paymentType,
-      cartItems.map((item) => item._id)
+      cartItems.map((item) => ({
+        _id: item._id,
+        productId: item.product?._id as string,
+        color: item.color,
+        imgUrl: item.imgUrl,
+        name: item.name,
+        price: item.price,
+        shipping: item.shipping,
+        quantity: item.quantity,
+        size: item.size,
+        storeId: item.storeId,
+        status: "active",
+      })),
+      address
     );
 
     if (data.error) return setLoading(false);

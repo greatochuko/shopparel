@@ -10,6 +10,7 @@ export type UserType = {
   imgUrl: string;
   cart: CartItemType[];
   wishlist: WishlistItemType[];
+  store: string;
 };
 
 export type UserProviderValue = {

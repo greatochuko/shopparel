@@ -27,20 +27,33 @@ const filterCategories = [
   {
     title: "Dresses",
     subCategories: [
-      "Casual Dresses",
-      "Formal Dresses",
-      "Party Dresses",
+      "Maxi Dresses",
+      "Bodycon Dresses",
+      "Wrap Dresses",
       "Summer Dresses",
+      "Shirt Dresses",
+      "A-Line Dresses",
     ],
   },
   {
     title: "Bottoms",
-    subCategories: ["Jeans", "Trousers", "Shorts", "Skirts"],
+    subCategories: [
+      "Jeans",
+      "Trousers",
+      "Shorts",
+      "Culottes",
+      "Palazzo Pants",
+      "Chinos",
+      "Skirts",
+    ],
   },
   {
     title: "Active Wear",
     subCategories: [
       "Sports Bras",
+      "Leggings",
+      "Running Shorts",
+
       "Athletic Shorts",
       "Performance Leggings",
       "Training Hoodies",
@@ -48,7 +61,14 @@ const filterCategories = [
   },
   {
     title: "Hats",
-    subCategories: ["Baseball Caps", "Beanies", "Fedora Hats", "Bucket Hats"],
+    subCategories: [
+      "Baseball Caps",
+      "Beanie Hats",
+      "Snapback Caps",
+      "Sun Hats",
+      "Fedora Hats",
+      "Bucket Hats",
+    ],
   },
   {
     title: "Watches",
@@ -56,7 +76,19 @@ const filterCategories = [
       "Analog Watches",
       "Digital Watches",
       "Smartwatches",
+      "Sports Watches",
       "Fashion Bracelet Watches",
+      "Diver Watches",
+    ],
+  },
+  {
+    title: "Bags",
+    subCategories: [
+      "Tote Bags",
+      "Crossbody Bags",
+      "Backpacks",
+      "Clutch Bags",
+      "Messenger Bags",
     ],
   },
 ];

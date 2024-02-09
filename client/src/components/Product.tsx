@@ -2,12 +2,17 @@ import { Link } from "react-router-dom";
 import { ReviewType } from "./Review";
 import useWishlistContext from "../hooks/useWishlistContext";
 import useUserContext from "../hooks/useUserContext";
+import { StoreType } from "./AdminPageLayout";
 
 export type ProductType = {
   _id: string;
   name: string;
+  description: string;
+  shipping: number;
+  discount: number;
+  isPublished: boolean;
+  quantity: number;
   imgUrl: string;
-  brand: string;
   price: number;
   gender: string;
   colors: string[];
@@ -16,6 +21,8 @@ export type ProductType = {
   images: string[];
   reviews: ReviewType[];
   rating: number;
+  createdAt: string;
+  store: StoreType;
 };
 
 export default function Product({ product }: { product: ProductType }) {
@@ -39,6 +46,7 @@ export default function Product({ product }: { product: ProductType }) {
       colors: product.colors,
       sizes: product.sizes,
       price: product.price,
+      storeId: product.store._id,
       shipping: 12.99,
       quantity: 1,
     };
@@ -99,22 +107,25 @@ export default function Product({ product }: { product: ProductType }) {
         </button>
       )}
 
-      <div className="flex flex-col items-start justify-between gap-1 sm:flex-row text-zinc-700">
-        <div className="flex flex-col flex-1 gap-1 sm:max-w-[65%] w-full">
+      <div className="flex flex-col sm:flex-row items-start justify-between gap-1 text-zinc-700">
+        <div className="flex flex-col flex-1 gap-1 w-full">
           <Link
             to={`/product/${(product._id + " " + product.name)
               .toLowerCase()
               .split(" ")
               .join("-")}`}
-            className="overflow-hidden text-sm font-semibold duration-300 overflow-ellipsis whitespace-nowrap hover:text-accent-blue-100 focus-visible:text-accent-blue-100"
+            className=" text-sm sm:text-base line-clamp-2 font-semibold duration-300 hover:text-accent-blue-100 focus-visible:text-accent-blue-100"
           >
             {product.name}
           </Link>
           <Link
-            to={`/brands/${product.brand}`}
-            className="text-xs sm:text-sm hover:underline focus-visible:underline"
+            to={`/store/${product.store.name
+              .split(" ")
+              .join("-")
+              .toLowerCase()}/${product.store._id}`}
+            className="text-xs sm:text-sm hover:underline focus-visible:underline w-fit"
           >
-            {product.brand}
+            {product.store.name}
           </Link>
         </div>
         <p className="grid px-1 py-2 text-sm font-semibold rounded-md w-fit bg-zinc-100 place-content-center sm:px-2">

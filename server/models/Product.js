@@ -4,11 +4,17 @@ const productSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
     description: { type: String, required: true },
-    imgUrl: { type: String, required: true },
-    brand: { type: String, required: true },
+    imgUrl: { type: String },
+    store: {
+      type: mongoose.SchemaTypes.ObjectId,
+      required: true,
+      ref: "store",
+    },
     price: { type: Number, required: true },
-    images: { type: [String], required: true },
-    gender: { type: String, required: true },
+    shipping: { type: Number, required: true },
+    discount: { type: Number, required: true },
+    images: { type: [String], default: [] },
+    gender: { type: String },
     rating: { type: Number, default: 5 },
     reviews: {
       type: [mongoose.SchemaTypes.ObjectId],
@@ -18,6 +24,8 @@ const productSchema = new mongoose.Schema(
     sizes: { type: [String], required: true },
     categories: { type: [String], required: true },
     colors: { type: [String], required: true },
+    isPublished: { type: Boolean, default: false },
+    quantity: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

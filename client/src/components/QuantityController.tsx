@@ -2,31 +2,34 @@ import { CartItemType } from "../context/CartContext";
 import useCartContext from "../hooks/useCartContext";
 
 export default function QuantityController({
-  product,
+  productInCart,
   size,
+  maxQuantity,
 }: {
-  product: CartItemType;
+  productInCart: CartItemType;
   size?: "small";
+  maxQuantity: number;
 }) {
   const { removeItemFromCart, increaseItemQuantity, decreaseItemQuantity } =
     useCartContext();
 
   function handleIncreaseQuantity() {
-    increaseItemQuantity(product._id);
+    if (productInCart.quantity >= maxQuantity) return;
+    increaseItemQuantity(productInCart._id);
   }
 
   function handleDecreaseQuantity() {
-    if (product.quantity <= 1) {
-      removeItemFromCart(product._id);
+    if (productInCart.quantity <= 1) {
+      removeItemFromCart(productInCart._id);
       return;
     }
-    decreaseItemQuantity(product._id);
+    decreaseItemQuantity(productInCart._id);
   }
   return (
     <div className={`flex ${size === "small" ? "" : "gap-2"}`}>
       <button
         onClick={handleDecreaseQuantity}
-        disabled={product.quantity <= 1}
+        disabled={productInCart.quantity <= 1}
         className={`rounded-md shadow-md bg-accent-blue-100 ${
           size === "small" ? "h-6 w-6" : "h-9 w-9"
         } flex-center hover:bg-accent-blue-200 disabled:bg-zinc-200 disabled:shadow-none group focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300`}
@@ -74,13 +77,14 @@ export default function QuantityController({
           size === "small" ? "text-base" : "text-xl"
         } font-semibold flex-center text-zinc-600`}
       >
-        {product.quantity}
+        {productInCart.quantity}
       </p>
       <button
         onClick={handleIncreaseQuantity}
+        disabled={productInCart.quantity >= maxQuantity}
         className={`rounded-md shadow-md bg-accent-blue-100 ${
           size === "small" ? "h-6 w-6" : "h-9 w-9"
-        } flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300`}
+        } flex-center hover:bg-accent-blue-200 disabled:bg-zinc-200 disabled:shadow-none focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300`}
       >
         <svg
           height={size === "small" ? 12 : 16}

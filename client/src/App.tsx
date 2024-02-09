@@ -1,4 +1,4 @@
-import { RouterProvider, createHashRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import HomePage from "./pages/HomePage";
 import AppLayout from "./components/AppLayout";
@@ -14,25 +14,52 @@ import WishlistPage from "./pages/WishlistPage";
 import OrderPage from "./pages/OrderPage";
 import OrderDetailPage from "./pages/OrderDetailPage";
 import Authenticate from "./components/Authenticate";
-import BrandPage from "./pages/BrandPage";
+import SellersPage from "./pages/SellersPage";
+import SellerLandingPage from "./pages/SellerLandingPage";
+import Dashboard from "./pages/Dashboard";
+import AdminPageLayout from "./components/AdminPageLayout";
+import AdminProductsPage from "./pages/AdminProductsPage";
+import AdminOrdersPage from "./pages/AdminOrdersPage";
+import AdminReviewsPage from "./pages/AdminReviewsPage";
+import AdminSettingsPage from "./pages/AdminSettingsPage";
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     element: <ScrollToTop />,
     children: [
+      {
+        element: <Authenticate />,
+        children: [
+          {
+            element: <AdminPageLayout />,
+            children: [
+              { path: "/admin", element: <Dashboard /> },
+              { path: "/admin/products", element: <AdminProductsPage /> },
+              { path: "/admin/orders", element: <AdminOrdersPage /> },
+              { path: "/admin/reviews", element: <AdminReviewsPage /> },
+              { path: "/admin/settings", element: <AdminSettingsPage /> },
+              {
+                path: "/admin/reviews/:productId",
+                element: <AdminReviewsPage />,
+              },
+            ],
+          },
+        ],
+      },
       { path: "/signup", element: <AuthPage type="signup" /> },
       { path: "/login", element: <AuthPage type="login" /> },
       {
         element: <AppLayout />,
         children: [
           { path: "/", element: <HomePage /> },
-          { path: "/brands/:brandId", element: <BrandPage /> },
+          { path: "/store/:storeName/:storeId", element: <SellersPage /> },
           { path: "/search", element: <SearchPage /> },
           { path: "/product/:productId", element: <ProductDetailPage /> },
           { path: "/cart", element: <CartPage /> },
           {
             element: <Authenticate />,
             children: [
+              { path: "/become-a-seller", element: <SellerLandingPage /> },
               { path: "/checkout", element: <CheckoutPage /> },
               {
                 element: <ProfilePageLayout />,

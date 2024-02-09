@@ -14,9 +14,7 @@ export async function getCartItems(req, res) {
       return res.status(401).json({ error: error.message });
     }
 
-    const cartItems = await Cart.find({ userId, ordered: false }).populate(
-      "product"
-    );
+    const cartItems = await Cart.findById(userId).populate("userId");
     res.json(cartItems);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -25,21 +23,20 @@ export async function getCartItems(req, res) {
 
 export async function addProduct(req, res) {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) return res.status(401).json({ error: "Invalid Token" });
-
-    let userId;
-    try {
-      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
-    } catch (error) {
-      return res.status(401).json({ error: error.message });
-    }
-
-    const { productId, name, imgUrl, color, size, price, shipping, quantity } =
-      req.body;
+    const {
+      productId,
+      name,
+      imgUrl,
+      color,
+      size,
+      price,
+      shipping,
+      quantity,
+      storeId,
+    } = req.body;
 
     const newCartItem = await Cart.create({
-      userId,
+      userId: req.userId,
       product: productId,
       name,
       imgUrl,
@@ -48,9 +45,12 @@ export async function addProduct(req, res) {
       price,
       shipping,
       quantity,
+      storeId,
     });
 
-    await User.findByIdAndUpdate(userId, { $push: { cart: newCartItem._id } });
+    await User.findByIdAndUpdate(req.userId, {
+      $push: { cart: newCartItem._id },
+    });
     res.json(newCartItem);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -143,20 +143,10 @@ export async function clearCart(req, res) {
 
 export async function syncCart(req, res) {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) return res.status(401).json({ error: "Invalid Token" });
-
-    let userId;
-    try {
-      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
-    } catch (error) {}
-
-    if (!userId)
-      return res.status(401).json({ error: "User is unauthenticated" });
-
     const cartItems = req.body;
 
-    const cart = await Cart.find({ userId, ordered: false });
+    const cart = await Cart.find({ userId: req.userId, ordered: false });
+
     cartItems.forEach(async (cartItem) => {
       const productInCart = cart.find(
         (item) => item.product.toString() === cartItem.productId
@@ -174,9 +164,10 @@ export async function syncCart(req, res) {
           price,
           shipping,
           quantity,
+          storeId,
         } = cartItem;
         const newCartItem = await Cart.create({
-          userId,
+          userId: req.userId,
           product: productId,
           name,
           imgUrl,
@@ -185,15 +176,17 @@ export async function syncCart(req, res) {
           price,
           shipping,
           quantity,
+          storeId,
         });
-        await User.findByIdAndUpdate(userId, {
+        await User.findByIdAndUpdate(req.userId, {
           $push: { cart: newCartItem._id },
         });
       }
     });
-    const updatedCart = await Cart.find({ userId, ordered: false }).populate(
-      "product"
-    );
+    const updatedCart = await Cart.find({
+      userId: req.userId,
+      ordered: false,
+    }).populate("product");
 
     res.json(updatedCart);
   } catch (error) {

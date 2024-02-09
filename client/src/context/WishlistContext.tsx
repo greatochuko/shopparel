@@ -7,6 +7,7 @@ import {
 export type WishlistItemType = {
   _id: string;
   productId: string;
+  storeId: string;
   name: string;
   imgUrl: string;
   colors: string[];
@@ -43,7 +44,8 @@ export default function WishlistProvider({
       product.colors,
       product.sizes,
       product.price,
-      product.shipping
+      product.shipping,
+      product.storeId
     );
     if (data.error) return;
     setWishlist((curr) => [...curr, data]);

@@ -2,17 +2,21 @@ import { useState } from "react";
 import { createReview, editReview } from "../services/reviewServices";
 import LoadingIndicator from "./LoadingIndicator";
 import { ReviewType } from "./Review";
+import Star from "./Star";
 
 export default function ReviewForm({
   closeModal,
   productId,
   review,
+  setProductReviews,
 }: {
   closeModal: () => void;
   productId: string;
   review?: ReviewType;
+  setProductReviews: React.Dispatch<React.SetStateAction<ReviewType[]>>;
 }) {
   const [rating, setRating] = useState(review?.rating || 4);
+  const [tempRating, setTempRating] = useState(0);
   const [reviewText, setReview] = useState(review?.review || "");
   const [loading, setLoading] = useState(false);
 
@@ -21,6 +25,7 @@ export default function ReviewForm({
     setLoading(true);
     const data = await createReview(productId, rating, reviewText);
     if (data.error) return setLoading(false);
+    setProductReviews((curr) => [data, ...curr]);
     closeModal();
     setLoading(false);
   }
@@ -32,7 +37,7 @@ export default function ReviewForm({
       review?._id as string,
       rating,
       reviewText,
-      review?.user as string
+      review?.user._id as string
     );
 
     if (data.error) return setLoading(false);
@@ -42,22 +47,27 @@ export default function ReviewForm({
 
   return (
     <form
-      className="p-4 w-[90vw] max-w-[100%] flex flex-col gap-4 text-zinc-700"
+      className="p-4 w-[90%] max-w-2xl bg-white rounded-md shadow animate-zoom-in flex flex-col gap-4 text-zinc-700"
       onSubmit={review ? handleEditReview : handlePostReview}
+      onClick={(e) => e.stopPropagation()}
     >
       <label htmlFor="rating">Rating</label>
-      <div className="flex gap-4 ">
-        <input
-          type="range"
-          name="rating"
-          id="rating"
-          min={1}
-          max={5}
-          value={rating}
-          onChange={(e) => setRating(Number(e.target.value))}
-          className="sm:max-w-[200px] flex-1"
-        />
-        <p className="font-semibold">{rating}</p>
+      <div className="flex">
+        <div className="flex">
+          {Array.from(Array(5).keys()).map((_, i) => (
+            <Star
+              key={i}
+              index={i + 1}
+              rating={rating}
+              setRating={setRating}
+              tempRating={tempRating}
+              setTempRating={setTempRating}
+            />
+          ))}
+        </div>
+        <p className="font-semibold text-lg ml-4 text-accent-blue-100">
+          {rating}
+        </p>
       </div>
       <label htmlFor="review">Review</label>
       <textarea
@@ -69,7 +79,7 @@ export default function ReviewForm({
         className="w-full p-2 border aspect-[2]"
         required
       ></textarea>
-      <div className="flex flex-col w-full gap-4 ml-auto sm:flex-row sm:w-fit">
+      <div className="flex w-full gap-4 ml-auto sm:flex-row sm:w-fit">
         <button
           type="button"
           onClick={closeModal}

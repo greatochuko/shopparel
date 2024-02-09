@@ -16,7 +16,7 @@ import FullScreenLoader from "../components/FullScreenLoader";
 export type CartItemType = {
   _id: string;
   userId: string;
-  product?: ProductType | string;
+  product?: ProductType;
   name: string;
   imgUrl: string;
   color: string;
@@ -24,6 +24,7 @@ export type CartItemType = {
   price: number;
   shipping: number;
   quantity: number;
+  storeId: string;
 };
 
 export type CartProviderValue = {
@@ -62,6 +63,7 @@ export default function CartProvider({
         const localCart: CartItemType[] = JSON.parse(
           localStorage.getItem("cart") as string
         );
+
         setCartItems(localCart || []);
       }
       setRefreshed(true);
@@ -83,7 +85,6 @@ export default function CartProvider({
     } else {
       data = await fetchAddToCart(item);
       if (data.error) {
-        console.log("Something went wrong please refresh the page");
         return;
       }
     }
@@ -94,7 +95,6 @@ export default function CartProvider({
     if (user) {
       const data = await fetchRemoveFromCart(itemId);
       if (data?.error) {
-        console.log("Something went wrong please refresh the page");
         return;
       }
     } else {
@@ -133,8 +133,6 @@ export default function CartProvider({
     } else {
       const data = await fetchIncreaseQuantity(itemId);
       if (data?.error) {
-        console.log("Something went wrong please refresh the page");
-
         return;
       }
     }
@@ -173,7 +171,6 @@ export default function CartProvider({
     } else {
       const data = await fetchDecreaseQuantity(itemId);
       if (data?.error) {
-        console.log("Something went wrong please refresh the page");
         return;
       }
     }
@@ -193,7 +190,6 @@ export default function CartProvider({
     if (user) {
       const data = await fetchClearCart();
       if (data?.error) {
-        console.log("Something went wrong please refresh the page");
         return;
       }
     } else {

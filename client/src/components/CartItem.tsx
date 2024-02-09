@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { CartItemType } from "../context/CartContext";
 import useCartContext from "../hooks/useCartContext";
+import { ProductType } from "./Product";
 
 type CartItemProps = {
   cartItem: CartItemType;
@@ -40,7 +41,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
           <Link
             tabIndex={0}
             to={`/product/${
-              (cartItem.product as string) +
+              (cartItem.product as ProductType)._id +
               "-" +
               cartItem.name.split(" ").join("-")
             }`}
@@ -111,7 +112,8 @@ export default function CartItem({ cartItem }: CartItemProps) {
             </p>
             <button
               onClick={handleIncreaseQuantity}
-              className="text-3xl text-white rounded-md shadow-md bg-accent-blue-100 h-7 w-7 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300"
+              disabled={quantity >= (cartItem.product?.quantity as number)}
+              className="text-3xl text-white rounded-md shadow-md disabled:bg-zinc-200 disabled:shadow-none bg-accent-blue-100 h-7 w-7 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300"
             >
               <svg
                 height={14}

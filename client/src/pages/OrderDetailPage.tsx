@@ -3,8 +3,6 @@ import { useEffect, useState } from "react";
 import { OrderType } from "../components/Order";
 import { cancelOrder, fetchOrder } from "../services/orderServices";
 import LoadingIndicator from "../components/LoadingIndicator";
-import Modal from "../components/Modal";
-import { ReviewType } from "../components/Review";
 import OrderProduct from "../components/OrderProduct";
 
 export default function OrderDetailPage() {
@@ -12,16 +10,12 @@ export default function OrderDetailPage() {
   const { orderId } = useParams();
   const [order, setOrder] = useState<OrderType | null>(null);
   const [loading, setLoading] = useState(false);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalType, setModalType] = useState("");
-  const [currProductId, setCurrProductId] = useState("");
-  const [currReview, setCurrReview] = useState<ReviewType | null>(null);
 
   useEffect(() => {
     async function getOrder() {
       const data = await fetchOrder(orderId as string);
       if (data.error) return;
-      document.title = `Shopparel: Order:#${orderId}`;
+      document.title = `Shopparel: Order: #${orderId}`;
       setOrder(data);
     }
     getOrder();
@@ -33,20 +27,6 @@ export default function OrderDetailPage() {
     if (data.error) return setLoading(false);
     setOrder(data);
     setLoading(false);
-  }
-
-  function openReviewModal(productId: string, review: ReviewType | null) {
-    setCurrReview(review);
-    setCurrProductId(productId);
-    setModalIsOpen(true);
-    setModalType("review");
-  }
-
-  function closeModal() {
-    setCurrReview(null);
-    setCurrProductId("");
-    setModalIsOpen(false);
-    setModalType("");
   }
 
   return (
@@ -83,7 +63,9 @@ export default function OrderDetailPage() {
             <p className="font-semibold sm:text-lg">Order ID: {order?._id}</p>
             <p>
               Order Placed on{" "}
-              <span className="font-semibold">{order?.orderDate}</span>
+              <span className="font-semibold">
+                {new Date(order?.createdAt as string).toDateString()}
+              </span>
             </p>
             <p>
               Delivery Date:{" "}
@@ -145,13 +127,8 @@ export default function OrderDetailPage() {
           </div>
         </div>
         <div className="flex flex-col gap-4 p-4 mt-6 text-sm rounded-md bg-zinc-100">
-          {order?.products.map((cartItem) => (
-            <OrderProduct
-              cartItem={cartItem}
-              key={cartItem._id}
-              openReviewModal={openReviewModal}
-              orderStatus={order.status}
-            />
+          {order?.products.map((product) => (
+            <OrderProduct product={product} key={product._id} />
           ))}
         </div>
         {order?.status === "active" ? (
@@ -163,14 +140,6 @@ export default function OrderDetailPage() {
           </button>
         ) : null}
       </section>
-      {modalIsOpen && (
-        <Modal
-          type={modalType}
-          closeModal={closeModal}
-          productId={currProductId}
-          review={currReview as ReviewType}
-        />
-      )}
     </>
   );
 }
