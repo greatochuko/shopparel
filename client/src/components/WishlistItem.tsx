@@ -17,7 +17,7 @@ export default function WishlistItem({
 
   const productInCart = cartItems.find(
     (cartItem) =>
-      (cartItem.product as string) === product.productId &&
+      cartItem.product?._id === product.productId &&
       cartItem.size === currentSize &&
       cartItem.color === currentColor
   );

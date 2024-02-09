@@ -17,10 +17,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const uri =
-  process.env.NODE_ENV === "production"
-    ? "mongodb://127.0.0.1:27017/shopparelDB"
-    : process.env.MONGODB_URI;
+const uri = process.env.MONGODB_URI;
 
 // MIDDLEWARES
 app.use(
