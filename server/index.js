@@ -22,11 +22,7 @@ const uri = process.env.MONGODB_URI;
 // MIDDLEWARES
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://192.168.43.73:5173",
-      "https://shopparel.vercel.app",
-    ],
+    origin: ["https://shopparel.vercel.app", "http://localhost:5173"],
   })
 );
 app.use(express.json());
