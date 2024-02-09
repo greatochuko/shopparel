@@ -1,5 +1,8 @@
 import React from "react";
 import LoadingIndicator from "./LoadingIndicator";
+import { PaystackButton } from "react-paystack";
+import useUserContext from "../hooks/useUserContext";
+import useCartContext from "../hooks/useCartContext";
 
 type PaymentMethodProps = {
   handlePayment: () => void;
@@ -19,32 +22,39 @@ export default function PaymentMethod({
     handlePayment();
   }
 
+  const { cartItems } = useCartContext();
+  const totalAmount =
+    cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0) +
+    cartItems.reduce((acc, curr) => acc + curr.shipping, 0);
+
+  const { user } = useUserContext();
+
   return (
-    <form onSubmit={handlePaymentForm}>
-      <div className="flex flex-col gap-4 bg-zinc-100 rounded-md p-4">
-        <div className="flex flex-col gap-4 border-b border-zinc-300 pb-4">
-          <div className="flex gap-4 p-2 items-center">
+    <div>
+      <div className="flex flex-col gap-4 p-4 rounded-md bg-zinc-100">
+        <div className="flex flex-col gap-4 pb-4 border-b border-zinc-300">
+          <div className="flex items-center gap-4 p-2">
             <input
               type="radio"
-              name="stripe"
-              value={"stripe"}
-              id={"stripe"}
-              checked={paymentType === "stripe"}
+              name="paystack"
+              value={"paystack"}
+              id={"paystack"}
+              checked={paymentType === "paystack"}
               onChange={(e) => setPaymentType(e.target.value)}
               onKeyDown={(e) => {
                 if (e.code !== "Tab") e.preventDefault();
-                if (e.code === "Enter") setPaymentType("stripe");
+                if (e.code === "Enter") setPaymentType("paystack");
               }}
               className="focus-visible:ring focus-visible:ring-blue-400"
             />
-            <label htmlFor="stripe" className="flex flex-col">
-              <h3 className="font-semibold">Pay via Stripe</h3>
+            <label htmlFor="paystack" className="flex flex-col">
+              <h3 className="font-semibold">Pay via Paystack</h3>
               <p className="text-sm">We accept all major credit cards</p>
             </label>
           </div>
         </div>
         <div className="flex gap-2 p-2 pt-0">
-          <div className="flex gap-4 items-center">
+          <div className="flex items-center gap-4">
             <input
               type="radio"
               name="cash"
@@ -67,18 +77,25 @@ export default function PaymentMethod({
           </div>
         </div>
       </div>
-      <button
-        type="submit"
-        className="p-2 w-full flex-center sm:w-40 text-lg mt-6 rounded-md bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 duration-300 text-white font-semibold active:bg-blue-800"
-      >
-        {loading ? (
-          <LoadingIndicator />
-        ) : paymentType === "stripe" ? (
-          "Pay now"
-        ) : (
-          "Proceed"
-        )}
-      </button>
-    </form>
+
+      {paymentType === "paystack" ? (
+        <PaystackButton
+          amount={totalAmount}
+          email={user?.email as string}
+          publicKey="12345"
+          text="Pay Now"
+          onSuccess={handlePaymentForm}
+          className="w-full p-2 mt-6 text-lg font-semibold text-white duration-300 rounded-md flex-center sm:w-40 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:bg-blue-800"
+        />
+      ) : (
+        <button
+          onClick={handlePaymentForm}
+          type="submit"
+          className="w-full p-2 mt-6 text-lg font-semibold text-white duration-300 rounded-md flex-center sm:w-40 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:bg-blue-800"
+        >
+          {loading ? <LoadingIndicator /> : "Proceed"}
+        </button>
+      )}
+    </div>
   );
 }

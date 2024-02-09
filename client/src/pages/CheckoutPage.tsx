@@ -24,7 +24,7 @@ export type ShippingInformationType = {
 export default function CheckoutPage() {
   const [shippingInformation, setShippingInformation] =
     useState<ShippingInformationType | null>(null);
-  const [paymentType, setPaymentType] = useState("stripe");
+  const [paymentType, setPaymentType] = useState("paystack");
   const { cartItems, clearOrderCart } = useCartContext();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
