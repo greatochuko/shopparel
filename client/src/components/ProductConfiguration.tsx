@@ -162,7 +162,7 @@ export default function ProductConfiguration({
         </ul>
       </div>
       <div className="mt-4">
-        {product.quantity <= 5 && (
+        {product.quantity <= 5 && product.quantity !== 0 && (
           <p className="mb-4">
             Only{" "}
             <span className="font-semibold text-red-500">
