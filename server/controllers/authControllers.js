@@ -109,7 +109,6 @@ export async function loginWithGoogle(req, res) {
     });
     res.status(200).json({ user, token });
   } catch (error) {
-    console.log(error.message);
     res.status(401).json({ error: error.message });
   }
 }

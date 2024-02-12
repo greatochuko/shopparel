@@ -50,7 +50,6 @@ export async function createOrder(req, res) {
 
     res.json(orders);
   } catch (error) {
-    console.log(error.message);
     res.status(400).json({ error: error.message });
   }
 }
