@@ -17,19 +17,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const uri =
-  process.env.NODE_ENV === "production"
-    ? "mongodb://127.0.0.1:27017/shopparelDB"
-    : process.env.MONGODB_URI;
+const uri = process.env.MONGODB_URI || process.env.MONGODB_ATLAS_URI;
 
 // MIDDLEWARES
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",
-      "http://192.168.43.73:5173",
-      "https://shopparel.vercel.app",
-    ],
+    origin: ["https://shopparel.vercel.app", "http://localhost:5173"],
   })
 );
 app.use(express.json());

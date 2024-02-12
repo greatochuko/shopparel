@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { StoreType } from "./AdminPageLayout";
 import { Link } from "react-router-dom";
-import Modal from "./Modal";
+import ModalContainer from "./ModalContainer";
+import SignoutModal from "./SignoutModal";
 
 export default function AdminPageHeader({
   toggleShowSidebar,
@@ -190,7 +191,9 @@ export default function AdminPageHeader({
         </button>
       </nav>
       {logoutModalIsOpen ? (
-        <Modal type="signout" closeModal={toggleLogoutModal} />
+        <ModalContainer closeModal={() => setLogoutModalIsOpen(false)}>
+          <SignoutModal closeModal={() => setLogoutModalIsOpen(false)} />
+        </ModalContainer>
       ) : null}
     </>
   );

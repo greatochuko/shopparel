@@ -2,7 +2,8 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 import SectionHeader from "./SectionHeader";
 import useUserContext from "../hooks/useUserContext";
 import { useState } from "react";
-import Modal from "./Modal";
+import ModalContainer from "./ModalContainer";
+import SignoutModal from "./SignoutModal";
 
 export default function ProfilePageLayout() {
   const { user } = useUserContext();
@@ -11,10 +12,6 @@ export default function ProfilePageLayout() {
 
   function openSignoutModal() {
     setModalIsOpen(true);
-  }
-
-  function closeSignoutModal() {
-    setModalIsOpen(false);
   }
 
   return (
@@ -250,7 +247,9 @@ export default function ProfilePageLayout() {
         ) : null} */}
       </main>
       {modalIsOpen ? (
-        <Modal type="signout" closeModal={closeSignoutModal} />
+        <ModalContainer closeModal={() => setModalIsOpen(false)}>
+          <SignoutModal closeModal={() => setModalIsOpen(false)} />
+        </ModalContainer>
       ) : null}
     </>
   );

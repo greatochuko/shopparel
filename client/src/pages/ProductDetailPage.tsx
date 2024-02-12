@@ -77,7 +77,7 @@ export default function ProductDetailPage() {
             ) && (
               <button
                 onClick={() => setModalIsOpen(true)}
-                className="p-2 px-6 w-full mt-6 focus-visible:ring ring-blue-400 hover:bg-accent-blue-200 active:bg-accent-blue-300 duration-300 sm:w-fit rounded-md bg-accent-blue-100 text-white"
+                className="w-full p-2 px-6 mt-6 text-white duration-300 rounded-md focus-visible:ring ring-blue-400 hover:bg-accent-blue-200 active:bg-accent-blue-300 sm:w-fit bg-accent-blue-100"
               >
                 Write a Review
               </button>

@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 import useUserContext from "../hooks/useUserContext";
 import { ShippingInformationType } from "./CheckoutPage";
-import Modal from "../components/Modal";
 import { fetchShippingInformations } from "../services/shippingInfoServices";
 import ShippingInformation from "../components/ShippingInformation";
+import ModalContainer from "../components/ModalContainer";
+import ChangeNameForm from "../components/ChangeNameForm";
+import ChangeEmailForm from "../components/ChangeEmailForm";
+import ChangePasswordForm from "../components/ChangePasswordForm";
+import ShippingInformationForm from "../components/ShippingInformationForm";
+import DeleteShippingInfoModal from "../components/DeleteShippingInfoModal";
 
 export default function ProfilePage() {
   const { user } = useUserContext();
@@ -100,8 +105,8 @@ export default function ProfilePage() {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {loading ? (
               <>
-                <div className="bg-zinc-300 animate-pulse rounded-md h-44"></div>
-                <div className="bg-zinc-300 animate-pulse rounded-md h-44"></div>
+                <div className="rounded-md bg-zinc-300 animate-pulse h-44"></div>
+                <div className="rounded-md bg-zinc-300 animate-pulse h-44"></div>
               </>
             ) : shippingInformations?.length ? (
               shippingInformations?.map((shippingInformation) => (
@@ -112,7 +117,7 @@ export default function ProfilePage() {
                 />
               ))
             ) : (
-              <p className="h-32 flex-center col-span-2 text-zinc-500">
+              <p className="h-32 col-span-2 flex-center text-zinc-500">
                 You have no Addresses saved yet
               </p>
             )}
@@ -120,12 +125,37 @@ export default function ProfilePage() {
         </div>
       </section>
       {modalIsOpen ? (
-        <Modal
-          closeModal={closeModal}
-          type={modalType}
-          shippingInfo={shippingInformation as ShippingInformationType}
-          setShippingInformations={setShippingInformations}
-        />
+        <ModalContainer closeModal={closeModal}>
+          {modalType === "name" ? (
+            <ChangeNameForm closeModal={closeModal} />
+          ) : modalType === "email" ? (
+            <ChangeEmailForm closeModal={closeModal} />
+          ) : modalType === "password" ? (
+            <ChangePasswordForm closeModal={closeModal} />
+          ) : modalType === "add-new-shipping-info" ? (
+            <ShippingInformationForm
+              closeModal={closeModal}
+              setShippingInformations={setShippingInformations}
+            />
+          ) : modalType === "edit-shipping-info" ? (
+            <ShippingInformationForm
+              type="edit"
+              closeModal={closeModal}
+              shippingInformation={
+                shippingInformation as ShippingInformationType
+              }
+              setShippingInformations={setShippingInformations}
+            />
+          ) : modalType === "delete-shipping-info" ? (
+            <DeleteShippingInfoModal
+              closeModal={closeModal}
+              shippingInfo={shippingInformation as ShippingInformationType}
+              setShippingInformations={setShippingInformations}
+            />
+          ) : (
+            ""
+          )}
+        </ModalContainer>
       ) : null}
     </>
   );
