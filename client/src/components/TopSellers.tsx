@@ -30,12 +30,12 @@ export default function TopSellers() {
               store._id
             }`}
             key={store._id}
-            className="w-[45%] sm:w-[150px] hover:scale-105 duration-300 lg:w-[160px] max-w-[180px] xl:flex-1 rounded-md aspect-[2.2] bg-white p-3 "
+            className="w-[45%] sm:w-[150px] hover:scale-105 duration-300 lg:w-[160px] max-w-[180px] xl:flex-1 rounded-md aspect-[2.2] bg-white p-2 "
           >
             <img
               src={store.logo}
               alt=""
-              className="object-contain w-full h-full"
+              className="object-cover w-full h-full rounded-md"
             />
           </Link>
         ))}

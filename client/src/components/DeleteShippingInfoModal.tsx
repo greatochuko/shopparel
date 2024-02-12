@@ -25,7 +25,7 @@ export default function DeleteShippingInfoModal({
     closeModal();
   }
   return (
-    <div className="w-full sm:min-w-[500px] flex flex-col gap-4 pt-6">
+    <div className="sm:min-w-[500px] flex flex-col gap-4 pt-6 bg-white overflow-hidden shadow mx-auto w-[90%] max-w-md rounded-md">
       <div className="flex flex-col gap-2 px-6">
         <h3 className="text-lg font-semibold">Delete Shipping Information</h3>
         <p>Are you sure you want to delete your shipping info?</p>

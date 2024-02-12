@@ -15,7 +15,7 @@ export default function ChangeEmailForm({
   return (
     <form
       onSubmit={handleChangeEmail}
-      className="w-full sm:min-w-[500px] flex flex-col gap-4 pt-6"
+      className="sm:min-w-[500px] flex flex-col gap-4 pt-6 bg-white overflow-hidden shadow mx-auto w-[90%] max-w-lg rounded-md"
     >
       <div className="flex flex-col gap-2 px-6">
         <label htmlFor="email" className="w-fit">
@@ -28,10 +28,10 @@ export default function ChangeEmailForm({
           autoFocus
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="p-3 bg-zinc-100 rounded-md focus-visible:ring ring-blue-400"
+          className="p-3 rounded-md bg-zinc-100 focus-visible:ring ring-blue-400"
         />
       </div>
-      <div className="bg-zinc-100 p-4 flex justify-end gap-4">
+      <div className="flex justify-end gap-4 p-4 bg-zinc-100">
         <button
           type="button"
           onClick={closeModal}
@@ -41,7 +41,7 @@ export default function ChangeEmailForm({
         </button>
         <button
           type="submit"
-          className="p-2 focus-visible:ring ring-green-800 px-4 rounded-md bg-green-600 hover:bg-green-700 active:bg-green-800 text-white duration-300"
+          className="p-2 px-4 text-white duration-300 bg-green-600 rounded-md focus-visible:ring ring-green-800 hover:bg-green-700 active:bg-green-800"
         >
           Submit
         </button>

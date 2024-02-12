@@ -54,7 +54,7 @@ export default function ProductInformationForm({
         onChange={(e) => setProductName(e.target.value)}
         type="text"
         id="product-name"
-        className="border p-2 rounded-md"
+        className="p-2 border rounded-md"
       />
       <div className="flex flex-col flex-1 mt-4">
         <label htmlFor="description" className="font-semibold w-fit">
@@ -69,8 +69,8 @@ export default function ProductInformationForm({
           className="border p-2 rounded-md flex-1 aspect-[2] sm:aspect-[2.5] resize-none"
         ></textarea>
       </div>
-      <div className="flex gap-2 mt-4 sm:flex-row flex-col w-full">
-        <div className="flex-1 flex flex-col">
+      <div className="flex flex-col w-full gap-2 mt-4 sm:flex-row">
+        <div className="flex flex-col flex-1">
           <label htmlFor="price" className="font-semibold w-fit">
             Price ($)
           </label>
@@ -80,10 +80,10 @@ export default function ProductInformationForm({
             onChange={(e) => setPrice(e.target.value)}
             type="number"
             id="price"
-            className="border p-2 rounded-md w-full"
+            className="w-full p-2 border rounded-md"
           />
         </div>
-        <div className="flex-1 flex flex-col">
+        <div className="flex flex-col flex-1">
           <label htmlFor="shipping" className="font-semibold w-fit">
             Shipping ($)
           </label>
@@ -93,10 +93,10 @@ export default function ProductInformationForm({
             onChange={(e) => setShipping(e.target.value)}
             type="number"
             id="shipping"
-            className="border p-2 rounded-md w-full"
+            className="w-full p-2 border rounded-md"
           />
         </div>
-        <div className="flex-1 flex flex-col">
+        <div className="flex flex-col flex-1">
           <label htmlFor="discount" className="font-semibold w-fit">
             Discount (%)
           </label>
@@ -106,12 +106,12 @@ export default function ProductInformationForm({
             onChange={(e) => setDiscount(e.target.value)}
             type="number"
             id="discount"
-            className="border p-2 rounded-md w-full"
+            className="w-full p-2 border rounded-md"
           />
         </div>
       </div>
 
-      <div className="flex gap-2 sticky bottom-0 text-sm bg-white pb-4 mt-4">
+      <div className="sticky bottom-0 flex gap-2 pb-4 mt-4 text-sm bg-white">
         <button
           type="submit"
           className="flex-1 flex-center sm:flex-[2] p-2 rounded-md font-semibold bg-accent-blue-100 text-white duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
@@ -121,7 +121,7 @@ export default function ProductInformationForm({
         <button
           onClick={saveAsDraft}
           type="button"
-          className="flex-1 p-2 rounded-md font-semibold border hover:bg-zinc-100 hover:border-zinc-200 duration-300 active:bg-zinc-200 active:border-zinc-300 focus-visible:ring ring-blue-400"
+          className="flex-1 p-2 font-semibold duration-300 border rounded-md hover:bg-zinc-100 hover:border-zinc-200 active:bg-zinc-200 active:border-zinc-300 focus-visible:ring ring-blue-400"
         >
           Save as Draft
         </button>

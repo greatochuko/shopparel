@@ -26,7 +26,7 @@ export default function ChangePasswordForm({
   return (
     <form
       onSubmit={handleChangePassword}
-      className="w-full sm:min-w-[500px] flex flex-col gap-4 pt-6"
+      className="sm:min-w-[500px] flex flex-col gap-4 pt-6 mx-auto w-[90%] max-w-lg rounded-md bg-white overflow-hidden shadow"
     >
       <div className="flex flex-col gap-2 px-6">
         <label htmlFor="password" className="w-fit">

@@ -94,7 +94,7 @@ export default function ShippingInformationForm({
   }
   return (
     <form
-      className=""
+      className="bg-white overflow-hidden shadow mx-auto w-[90%] max-w-3xl rounded-md"
       onSubmit={
         type === "edit" ? handleEditShippingInfo : handleAddNewShippingInfo
       }

@@ -16,7 +16,7 @@ export default function SignoutModal({
   }
 
   return (
-    <div className="w-full sm:mi`n-w-[500px] flex flex-col gap-4 pt-6">
+    <div className="flex flex-col gap-4 pt-6 mx-auto w-[90%] max-w-md rounded-md overflow-hidden shadow bg-white">
       <div className="flex flex-col gap-2 px-6">
         <h3 className="text-lg font-semibold">Sign Out?</h3>
         <p>Are you sure you want to sign out?</p>
