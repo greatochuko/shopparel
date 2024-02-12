@@ -69,6 +69,11 @@ const categoryList = [
   "Backpacks",
   "Clutch Bags",
   "Messenger Bags",
+  "Sneakers",
+  "Boots",
+  "Sandals",
+  "Formal Shoes",
+  "Athletic Shoes",
 ];
 
 export default function ProductSpecsForm({
@@ -144,9 +149,9 @@ export default function ProductSpecsForm({
         )
       }
     >
-      <div className="flex gap-2 flex-col w-full flex-1">
+      <div className="flex flex-col flex-1 w-full gap-2">
         <div className="flex flex-col">
-          <label htmlFor="price" className="font-semibold w-fit mb-2">
+          <label htmlFor="price" className="mb-2 font-semibold w-fit">
             Colors
           </label>
           <ul className="flex flex-wrap gap-4 ml-1 w-fit">
@@ -164,10 +169,10 @@ export default function ProductSpecsForm({
           </ul>
         </div>
         <div className="flex flex-col mt-4">
-          <label htmlFor="shipping" className="font-semibold w-fit mb-2">
+          <label htmlFor="shipping" className="mb-2 font-semibold w-fit">
             Sizes
           </label>
-          <ul className="gap-2 flex flex-wrap">
+          <ul className="flex flex-wrap gap-2">
             {sizeList.map((size) => (
               <li
                 key={size}
@@ -185,7 +190,7 @@ export default function ProductSpecsForm({
           </ul>
         </div>
         <div className="flex flex-col mt-4">
-          <p className="font-semibold w-fit mb-2">Gender</p>
+          <p className="mb-2 font-semibold w-fit">Gender</p>
           <div className="flex items-center gap-2">
             <input
               type="radio"
@@ -219,20 +224,20 @@ export default function ProductSpecsForm({
         </div>
       </div>
       <div className="flex flex-col mt-4">
-        <p className="font-semibold w-fit mb-2">Quantity</p>
+        <p className="mb-2 font-semibold w-fit">Quantity</p>
         <input
           required
           type="number"
-          className="p-2 border w-20"
+          className="w-20 p-2 border"
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
         />
       </div>
       <div className="flex flex-col mt-4">
-        <label htmlFor="shipping" className="font-semibold w-fit mb-2">
+        <label htmlFor="shipping" className="mb-2 font-semibold w-fit">
           Categories
         </label>
-        <ul className="gap-2 flex flex-wrap">
+        <ul className="flex flex-wrap gap-2">
           {categoryList.map((category) => (
             <li
               key={category}
@@ -249,7 +254,7 @@ export default function ProductSpecsForm({
           ))}
         </ul>
       </div>
-      <div className="flex gap-2 sticky bottom-0 text-sm bg-white pb-4 mt-4">
+      <div className="sticky bottom-0 flex gap-2 pb-4 mt-4 text-sm bg-white">
         <button
           type="submit"
           className="flex-1 sm:flex-[2] flex-center p-2 rounded-md font-semibold bg-accent-blue-100 text-white duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
@@ -265,7 +270,7 @@ export default function ProductSpecsForm({
         <button
           onClick={saveAsDraft}
           type="button"
-          className="flex-1 p-2 rounded-md font-semibold border hover:bg-zinc-100 hover:border-zinc-200 duration-300 active:bg-zinc-200 active:border-zinc-300 focus-visible:ring ring-blue-400"
+          className="flex-1 p-2 font-semibold duration-300 border rounded-md hover:bg-zinc-100 hover:border-zinc-200 active:bg-zinc-200 active:border-zinc-300 focus-visible:ring ring-blue-400"
         >
           Save as Draft
         </button>

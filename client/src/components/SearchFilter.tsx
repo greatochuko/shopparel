@@ -91,6 +91,16 @@ const filterCategories = [
       "Messenger Bags",
     ],
   },
+  {
+    title: "Footwear",
+    subCategories: [
+      "Sneakers",
+      "Boots",
+      "Sandals",
+      "Formal Shoes",
+      "Athletic Shoes",
+    ],
+  },
 ];
 
 export default function SearchFilter({
