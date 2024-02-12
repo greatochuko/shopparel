@@ -20,7 +20,12 @@ export default function AdminProductsPage() {
       if (store?._id) {
         const data = await fetchStoreProducts(store?._id);
         if (data.error) return setLoading(false);
-        setProducts(data);
+        setProducts(
+          [...data].sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          )
+        );
       }
       setLoading(false);
     }
