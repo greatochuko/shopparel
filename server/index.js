@@ -19,8 +19,6 @@ const PORT = process.env.PORT || 5000;
 
 const uri = process.env.MONGODB_URI || process.env.MONGODB_ATLAS_URI;
 
-console.log(uri);
-
 // MIDDLEWARES
 app.use(
   cors({
