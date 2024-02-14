@@ -39,6 +39,10 @@
     animation: fade-in-2 forwards 0.3s;
   }
 
+  .animate-fade-in-duration-1000 {
+    animation: fade-in forwards 1s;
+  }
+
   @keyframes zoom-in {
     0% {
       scale: 0.9;
