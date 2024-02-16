@@ -19,8 +19,6 @@ export default function SignupForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  console.clear();
-  console.log(error);
 
   const canSubmit = Boolean(
     email && firstName && lastName && password && confirmPassword === password

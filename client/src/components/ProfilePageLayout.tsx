@@ -31,9 +31,7 @@ export default function ProfilePageLayout() {
           <section className="w-full md:w-40 lg:w-64">
             <SectionHeader title={`Hello, ${user?.firstName} `} />
             <p className="mt-2">Welcome to your account</p>
-            <a href="http://" target="_blank" rel="noopener noreferrer"></a>
             <Link
-              target={user?.store ? "_blank" : "_self"}
               to={user?.store ? "/admin" : "/become-a-seller"}
               className="gap-2 p-2 px-4 mt-2 text-white duration-300 rounded-md hover:bg-accent-blue-200 focus-visible:ring ring-blue-400 active:bg-accent-blue-300 bg-accent-blue-100 w-fit flex-center"
             >
