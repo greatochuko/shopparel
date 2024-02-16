@@ -19,6 +19,8 @@ export default function SignupForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  console.clear();
+  console.log(error);
 
   const canSubmit = Boolean(
     email && firstName && lastName && password && confirmPassword === password
@@ -328,7 +330,7 @@ export default function SignupForm() {
       <button
         type="submit"
         disabled={!canSubmit}
-        className="px-6 py-3 font-semibold flex-center text-white duration-300 rounded-md disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:bg-accent-blue-200"
+        className="px-6 py-3 font-semibold text-white duration-300 rounded-md flex-center disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:bg-accent-blue-200"
       >
         {loading ? <LoadingIndicator /> : "Sign Up"}
       </button>

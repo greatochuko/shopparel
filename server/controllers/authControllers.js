@@ -29,7 +29,7 @@ export async function signup(req, res) {
       password: hashedPassword,
     });
 
-    newUser
+    const user = await User.findById(newUser._id)
       .populate({
         path: "cart",
         populate: { path: "product" },
@@ -39,7 +39,7 @@ export async function signup(req, res) {
     const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
       expiresIn: "1d",
     });
-    res.status(200).json({ user: newUser, token });
+    res.status(200).json({ user, token });
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
@@ -64,7 +64,8 @@ export async function login(req, res) {
     if (!user) throw new Error("Invalid username and password combination");
 
     // Check if user password is available
-    if (!user.password) throw new Error("Login with google instead");
+    if (!user.password)
+      throw new Error("Please use your Google account to log in");
 
     // Compare password
     const passwordIsCorrect = await bcrypt.compare(password, user.password);
