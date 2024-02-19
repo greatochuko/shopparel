@@ -78,16 +78,14 @@ export default function AdminReviewsPage() {
                     alt=""
                     className="object-contain w-20 h-20 duration-300 rounded-md sm:w-24 sm:h-24 bg-zinc-100 group-hover:bg-zinc-200"
                   />
-                  <div className="flex flex-col justify-between flex-1">
-                    <h3>{product.name}</h3>
-                    <p className="text-sm text-zinc-500 line-clamp-2">
+                  <div className="flex flex-col justify-between flex-1 gap-2">
+                    <h3 className="text-sm sm:text-base">{product.name}</h3>
+                    <p className="text-xs sm:text-sm text-zinc-500 line-clamp-2">
                       {product.description}
                     </p>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-start gap-2 text-xs whitespace-nowrap sm:text-s">
                       <Rating rating={product.rating} />{" "}
-                      <span className="text-sm">
-                        {product.reviews.length} Reviews
-                      </span>
+                      <span>{product.reviews.length} Reviews</span>
                     </div>
                   </div>
                   <span className="flex-center">
