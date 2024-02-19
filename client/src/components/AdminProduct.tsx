@@ -51,7 +51,7 @@ export default function AdminProduct({
     <>
       <li
         onClick={() => setModalType("edit")}
-        className="hidden md:flex items-center gap-2 p-3 cursor-pointer hover:bg-zinc-100 text-zinc-700 duration-300 focus-visible:bg-zinc-100"
+        className="items-center hidden gap-2 p-3 duration-300 cursor-pointer md:flex hover:bg-zinc-100 text-zinc-700 focus-visible:bg-zinc-100"
         tabIndex={1}
       >
         <input
@@ -67,7 +67,7 @@ export default function AdminProduct({
           <img
             src={product.imgUrl || "/product-placeholder.png"}
             alt=""
-            className="w-16 h-16 rounded-md object-contain bg-zinc-100"
+            className="object-contain w-16 h-16 rounded-md bg-zinc-100"
           />
           <div className="flex flex-col gap-1 overflow-hidden">
             <h3 className="font-semibold">{product.name}</h3>
@@ -106,30 +106,30 @@ export default function AdminProduct({
                 {" "}
                 <path
                   d="M20.5001 6H3.5"
-                  className="stroke-zinc-700 group-hover:stroke-red-500 duration-200 group-active:stroke-red-700 group-focus-visible:stroke-red-500"
+                  className="duration-200 stroke-zinc-700 group-hover:stroke-red-500 group-active:stroke-red-700 group-focus-visible:stroke-red-500"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                 ></path>{" "}
                 <path
                   d="M9.5 11L10 16"
-                  className="stroke-zinc-700 group-hover:stroke-red-500 duration-200 group-active:stroke-red-700 group-focus-visible:stroke-red-500"
+                  className="duration-200 stroke-zinc-700 group-hover:stroke-red-500 group-active:stroke-red-700 group-focus-visible:stroke-red-500"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                 ></path>{" "}
                 <path
                   d="M14.5 11L14 16"
-                  className="stroke-zinc-700 group-hover:stroke-red-500 duration-200 group-active:stroke-red-700 group-focus-visible:stroke-red-500"
+                  className="duration-200 stroke-zinc-700 group-hover:stroke-red-500 group-active:stroke-red-700 group-focus-visible:stroke-red-500"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                 ></path>{" "}
                 <path
                   d="M6.5 6C6.55588 6 6.58382 6 6.60915 5.99936C7.43259 5.97849 8.15902 5.45491 8.43922 4.68032C8.44784 4.65649 8.45667 4.62999 8.47434 4.57697L8.57143 4.28571C8.65431 4.03708 8.69575 3.91276 8.75071 3.8072C8.97001 3.38607 9.37574 3.09364 9.84461 3.01877C9.96213 3 10.0932 3 10.3553 3H13.6447C13.9068 3 14.0379 3 14.1554 3.01877C14.6243 3.09364 15.03 3.38607 15.2493 3.8072C15.3043 3.91276 15.3457 4.03708 15.4286 4.28571L15.5257 4.57697C15.5433 4.62992 15.5522 4.65651 15.5608 4.68032C15.841 5.45491 16.5674 5.97849 17.3909 5.99936C17.4162 6 17.4441 6 17.5 6"
-                  className="stroke-zinc-700 group-hover:stroke-red-500 duration-200 group-active:stroke-red-700 group-focus-visible:stroke-red-500"
+                  className="duration-200 stroke-zinc-700 group-hover:stroke-red-500 group-active:stroke-red-700 group-focus-visible:stroke-red-500"
                   strokeWidth="1.5"
                 ></path>{" "}
                 <path
                   d="M18.3735 15.3991C18.1965 18.054 18.108 19.3815 17.243 20.1907C16.378 21 15.0476 21 12.3868 21H11.6134C8.9526 21 7.6222 21 6.75719 20.1907C5.89218 19.3815 5.80368 18.054 5.62669 15.3991L5.16675 8.5M18.8334 8.5L18.6334 11.5"
-                  className="stroke-zinc-700 group-hover:stroke-red-500 duration-200 group-active:stroke-red-700 group-focus-visible:stroke-red-500"
+                  className="duration-200 stroke-zinc-700 group-hover:stroke-red-500 group-active:stroke-red-700 group-focus-visible:stroke-red-500"
                   strokeWidth="1.5"
                   strokeLinecap="round"
                 ></path>{" "}
@@ -140,26 +140,26 @@ export default function AdminProduct({
       </li>
 
       {/* MOBILE PRODUCT ITEM */}
-      <li className="flex relative md:hidden bg-zinc-50 rounded-md items-start p-3 gap-2">
+      <li className="relative flex items-start gap-2 p-3 rounded-md md:hidden bg-zinc-50">
         <input
           type="checkbox"
           name="selectAll"
           id={product._id + "mobile"}
-          className="w-fit relative top-7"
+          className="relative w-fit top-7"
         />
-        <div className="flex flex-col gap-4 flex-1">
+        <div className="flex flex-col flex-1 gap-4">
           <div className="min-w-[200px] flex-1 mr-auto flex gap-2 items-center">
             <img
               src={product.imgUrl || "/product-placeholder.png"}
               alt=""
               className="w-16 h-16 rounded-md"
             />
-            <div className="flex flex-col gap-1 overflow-hidden">
+            <div className="flex flex-col gap-1 pr-[20%] w-full overflow-hidden">
               <h3 className="font-semibold">{product.name}</h3>
               <p>{product.categories[0]}</p>
             </div>
           </div>
-          <div className="flex justify-between items-center w-full">
+          <div className="flex items-center justify-between w-full">
             <p className="text-center">
               {new Date(product.createdAt).toLocaleDateString()}
             </p>
@@ -168,7 +168,7 @@ export default function AdminProduct({
             >
               {!product.isPublished ? "draft" : "in stock"}
             </p>
-            <p className="text-center font-semibold">$245.99</p>
+            <p className="font-semibold text-center">$245.99</p>
             <div className="absolute right-2 top-3">
               <button className="px-2" onClick={() => setModalType("edit")}>
                 <svg

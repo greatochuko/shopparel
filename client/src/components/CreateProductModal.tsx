@@ -88,7 +88,7 @@ export default function CreateProductModal({
 
   return (
     <div
-      className="mx-auto w-[90%] max-w-3xl aspect-[.8] sm:aspect-[1.2] flex flex-col shadow rounded-lg overflow-hidden bg-white animate-zoom-in"
+      className="mx-auto w-[90%] max-w-3xl aspect-[.8] max-h-[90%] sm:aspect-[1.2] flex flex-col shadow rounded-lg overflow-hidden bg-white animate-zoom-in"
       onClick={(e) => e.stopPropagation()}
     >
       <ul className="flex">
