@@ -15,7 +15,7 @@ export default function RevenueChartBar({
 }) {
   let percentageIncrease;
 
-  if (data[index - 1])
+  if (data[index - 1] && data[index - 1].amount != 0)
     percentageIncrease = (
       ((month.amount - data[index - 1].amount) / data[index - 1].amount) *
       100
