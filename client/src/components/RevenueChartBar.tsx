@@ -27,7 +27,7 @@ export default function RevenueChartBar({
       className="flex flex-col justify-end items-center w-[5%] z-[2]"
     >
       <div
-        style={{ height: ((month.amount / 700) * 100).toFixed() + "%" }}
+        style={{ height: ((month.amount / 5000) * 100).toFixed() + "%" }}
         tabIndex={month.amount ? 0 : undefined}
         className="relative w-full duration-500 rounded-t-full cursor-pointer group active:bg-accent-blue-300 focus-visible:bg-accent-blue-300 hover:bg-accent-blue-200 bg-accent-blue-100"
       >
@@ -53,10 +53,12 @@ export default function RevenueChartBar({
           </div>
         ) : null}
       </div>
-      <p className="sm:block hidden h-[8.5%] xl:h-[9.9%] sm:flex-center">
+      <p className="hidden pt-2 text-sm text-center md:text-base sm:block">
         {month.month}
       </p>
-      <p className="text-sm sm:hidden">{month.month.slice(0, 1)}</p>
+      <p className="pt-2 text-sm text-center sm:hidden">
+        {month.month.slice(0, 1)}
+      </p>
     </div>
   );
 }

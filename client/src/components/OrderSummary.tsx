@@ -59,7 +59,8 @@ export default function OrderSummary() {
         <div className="flex justify-between">
           <p className="font-semibold">Shipping</p>
           <p className="font-semibold">
-            ${cartItems.reduce((acc, curr) => acc + curr.shipping, 0)}
+            $
+            {cartItems.reduce((acc, curr) => acc + curr.shipping, 0).toFixed(2)}
           </p>
         </div>
       </div>

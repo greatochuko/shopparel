@@ -3,8 +3,6 @@ import { useState } from "react";
 export default function FullScreenLoader() {
   const [showBlur, setShowBlur] = useState(true);
 
-  console.log(showBlur);
-
   return (
     <div className="">
       <img

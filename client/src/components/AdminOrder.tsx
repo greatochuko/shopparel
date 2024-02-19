@@ -200,24 +200,26 @@ export default function AdminOrder({
         <p className="w-[90%] overflow-hidden overflow-ellipsis whitespace-nowrap">
           <span className="font-semibold">Order ID - </span> #{order._id}
         </p>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 ">
           <span className="font-semibold">Product Info - </span>{" "}
           <img
             src={order.product.imgUrl}
             alt={order.product.name}
             className="object-cover w-12 h-12"
           />
-          <p className="flex-1 max-w-[333px] w-0 ">{order.product.name}</p>
+          <p className="flex-1 max-w-[333px] w-0 overflow-hidden overflow-ellipsis whitespace-nowrap">
+            {order.product.name}
+          </p>
         </div>
         <p>
           <span className="font-semibold">Customer Name - </span>
           {order.user.firstName} {order.user.lastName}
         </p>
-        <p>
+        <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">
           <span className="font-semibold">Customer Email - </span>
           {order.user.email}
         </p>
-        <p>
+        <p className="overflow-hidden overflow-ellipsis whitespace-nowrap">
           <span className="font-semibold">Customer Address - </span>
           {order.address}
         </p>

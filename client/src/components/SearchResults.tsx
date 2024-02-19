@@ -53,14 +53,13 @@ export default function SearchResults({
       (product) => product.price < price.maxPrice
     );
 
-
   function setSortBy(sortBy: string) {
     searchParams.set("sortBy", sortBy);
     setSearchParams(searchParams);
   }
 
   return (
-    <div className="flex-1">
+    <div className="flex flex-col flex-1">
       <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
         <h2>
           Search Results for "
@@ -103,7 +102,7 @@ export default function SearchResults({
           ))
         )}
       </div>
-      <ul className="flex gap-2 mt-10 flex-center">
+      <ul className="flex gap-2 mt-auto flex-center">
         <p>Page:</p>
         {new Array(totalPages).fill("a").map((_, i) => (
           <li role="button" key={i}>

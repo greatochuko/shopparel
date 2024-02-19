@@ -88,10 +88,10 @@ export default function RevenueChart({
   });
 
   return (
-    <div className="flex flex-col gap-4 p-4 bg-white rounded-md shadow aspect-video">
+    <div className="flex flex-col p-4 bg-white rounded-md shadow aspect-video">
       <header className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">Sales Revenue</h2>
-        <div className="flex gap-2 p-2 text-sm bg-gray-100 rounded-full">
+        <h2 className="text-base font-semibold md:text-lg">Sales Revenue</h2>
+        <div className="flex gap-2 p-1 text-sm bg-gray-100 rounded-full sm:p-2">
           <button
             onClick={() => setYear(2022)}
             className={`rounded-full duration-300 font-semibold flex-center h-6 w-12 ${
@@ -125,41 +125,36 @@ export default function RevenueChart({
         </div>
       </header>
       <div className="flex h-[85%] justify-between relative">
-        <div className="flex absolute pl-[7%] top-0 w-full h-full gap-4 flex-col">
-          <div className="flex-1 border-t border-dashed border-zinc-200"></div>
-          <div className="flex-1 border-t border-dashed border-zinc-200"></div>
-          <div className="flex-1 border-t border-dashed border-zinc-200"></div>
-          <div className="flex-1 border-t border-dashed border-zinc-200"></div>
-          <div className="flex-1 border-t border-dashed border-zinc-200"></div>
-          <div className="flex-1 border-t border-dashed border-zinc-200"></div>
-          <div className="flex-1 border-t border-dashed border-zinc-200"></div>
-          <div className="flex-1 border-t border-dashed border-zinc-200"></div>
+        <div className="absolute top-0 flex flex-col w-full h-full gap-2 pl-8 pb-7 sm:pl-14">
+          <div className="flex-1 border-b border-dashed border-zinc-200"></div>
+          <div className="flex-1 border-b border-dashed border-zinc-200"></div>
+          <div className="flex-1 border-b border-dashed border-zinc-200"></div>
+          <div className="flex-1 border-b border-dashed border-zinc-200"></div>
+          <div className="flex-1 border-b border-dashed border-zinc-200"></div>
+          <div className="flex-1 border-b border-dashed border-zinc-200"></div>
         </div>
-        <div className="flex flex-col gap-4 items-center z-[2]">
-          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
-            $700
+        <div className="flex flex-col items-center z-[2] pb-5 text-sm md:text-base">
+          <p className="flex items-end flex-1 pt-4">
+            $<span className="hidden sm:block">5000</span>
+            <span className="sm:hidden">5k</span>
           </p>
-          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
-            $600
+          <p className="flex items-end flex-1 pt-4">
+            $<span className="hidden sm:block">4000</span>
+            <span className="sm:hidden">4k</span>
           </p>
-          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
-            $500
+          <p className="flex items-end flex-1 pt-4">
+            $<span className="hidden sm:block">3000</span>
+            <span className="sm:hidden">3k</span>
           </p>
-          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
-            $400
+          <p className="flex items-end flex-1 pt-4">
+            $<span className="hidden sm:block">2000</span>
+            <span className="sm:hidden">2k</span>
           </p>
-          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
-            $300
+          <p className="flex items-end flex-1 pt-4">
+            $<span className="hidden sm:block">1000</span>
+            <span className="sm:hidden">1k</span>
           </p>
-          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
-            $200
-          </p>
-          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
-            $100
-          </p>
-          <p className="flex-1 -translate-y-[50%] flex-center text-sm sm:text-base">
-            $0
-          </p>
+          <p className="flex items-end flex-1 pt-4">$0</p>
         </div>
         {data.map((month, i) => (
           <RevenueChartBar
