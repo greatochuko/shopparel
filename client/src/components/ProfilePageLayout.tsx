@@ -63,6 +63,7 @@ export default function ProfilePageLayout() {
                 >
                   <input
                     type="file"
+                    accept=".png, .jpg, .jpeg"
                     name="profile-picture"
                     id="profile-picture"
                     className="hidden"
