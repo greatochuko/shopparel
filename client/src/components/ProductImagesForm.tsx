@@ -3,6 +3,7 @@ import LoadingIndicator from "./LoadingIndicator";
 import UploadedProductImage from "./UploadedProductImage";
 import { ProductType } from "./Product";
 import { uploadImage } from "../utils/uploadImage";
+import { ProductInfoType, ProductSpecsType } from "../services/productServices";
 
 export type ProductImageType = { id: string; url: string; file: File };
 
@@ -14,7 +15,12 @@ export default function ProductImagesForm({
   product,
 }: {
   handleSaveProductImages: (e: React.FormEvent, images: string[]) => void;
-  saveAsDraft: () => void;
+  saveAsDraft(
+    e: React.FormEvent,
+    productInfo?: ProductInfoType,
+    images?: string[],
+    productSpecs?: ProductSpecsType
+  ): Promise<void>;
   active: boolean;
   loading: boolean;
   product: ProductType | null;
@@ -45,7 +51,7 @@ export default function ProductImagesForm({
       }
 
       setProductImages(productImageList.slice(1));
-      setThumbnail(productImageList[0].file);
+      if (productImageList[0]) setThumbnail(productImageList[0].file);
     }
 
     setUploadedProductImages();
@@ -98,7 +104,7 @@ export default function ProductImagesForm({
         ]);
       }}
     >
-      <div className="flex-1 flex flex-col pr-2">
+      <div className="flex flex-col flex-1 pr-2">
         <label
           htmlFor="main-image"
           className="w-full overflow-hidden relative md:text-xl font-semibold rounded-md border-dashed border-[3px] border-zinc-300 aspect-[2] sm:aspect-[3] cursor-pointer group hover:border-zinc-400 duration-300"
@@ -166,7 +172,7 @@ export default function ProductImagesForm({
           className="hidden"
         />
         <h2 className="mt-4 mb-2 font-semibold">Uploads</h2>
-        <ul className="flex flex-col gap-2 flex-1">
+        <ul className="flex flex-col flex-1 gap-2">
           {thumbnail && (
             <UploadedProductImage
               key={"thumbnail"}
@@ -190,7 +196,7 @@ export default function ProductImagesForm({
           />
           <label
             htmlFor={uploading ? "" : "new-image"}
-            className="w-full p-2 group cursor-pointer flex-center rounded-md border bg-zinc-100 duration-300 hover:bg-zinc-200 hover:border-zinc-300"
+            className="w-full p-2 duration-300 border rounded-md cursor-pointer group flex-center bg-zinc-100 hover:bg-zinc-200 hover:border-zinc-300"
           >
             {uploading ? (
               <LoadingIndicator className="fill-accent-blue-100" />
@@ -211,7 +217,7 @@ export default function ProductImagesForm({
                 <g id="SVGRepo_iconCarrier">
                   {" "}
                   <path
-                    className="fill-zinc-500 group-hover:fill-zinc-700 duration-300"
+                    className="duration-300 fill-zinc-500 group-hover:fill-zinc-700"
                     fillRule="evenodd"
                     d="M9 17a1 1 0 102 0v-6h6a1 1 0 100-2h-6V3a1 1 0 10-2 0v6H3a1 1 0 000 2h6v6z"
                   ></path>{" "}
@@ -222,7 +228,7 @@ export default function ProductImagesForm({
         </ul>
       </div>
 
-      <div className="flex gap-2 sticky bottom-0 text-sm bg-white pb-2 sm:pb-4 mt-4">
+      <div className="sticky bottom-0 flex gap-2 pb-2 mt-4 text-sm bg-white sm:pb-4">
         <button
           type="submit"
           disabled={cannotSubmit}
@@ -231,9 +237,14 @@ export default function ProductImagesForm({
           {loading ? <LoadingIndicator /> : "Save and Next"}
         </button>
         <button
-          onClick={saveAsDraft}
+          onClick={(e) =>
+            saveAsDraft(e, undefined, [
+              ...productImages.map((image) => image.url),
+              thumbnailUrl,
+            ])
+          }
           type="button"
-          className="flex-1 p-2 rounded-md font-semibold border hover:bg-zinc-100 hover:border-zinc-200 duration-300 active:bg-zinc-200 active:border-zinc-300 focus-visible:ring ring-blue-400"
+          className="flex-1 p-2 font-semibold duration-300 border rounded-md hover:bg-zinc-100 hover:border-zinc-200 active:bg-zinc-200 active:border-zinc-300 focus-visible:ring ring-blue-400"
         >
           Save as Draft
         </button>

@@ -16,7 +16,7 @@ export default function ProductInformationForm({
     e: React.FormEvent,
     productInfo: ProductInfoType
   ) => void;
-  saveAsDraft: () => void;
+  saveAsDraft: (e: React.FormEvent, productInfo: ProductInfoType) => void;
   active: boolean;
   loading: boolean;
   product: ProductType | null;
@@ -119,7 +119,17 @@ export default function ProductInformationForm({
           {loading ? <LoadingIndicator /> : "Save and Next"}
         </button>
         <button
-          onClick={saveAsDraft}
+          onClick={(e) =>
+            saveAsDraft(e, {
+              name: productName,
+              description,
+              price: Number(price || 0),
+              discount: Number(discount || 0),
+              shipping: Number(shipping || 0),
+              store: store._id,
+              _id: product?._id || "",
+            })
+          }
           type="button"
           className="flex-1 p-2 font-semibold duration-300 border rounded-md hover:bg-zinc-100 hover:border-zinc-200 active:bg-zinc-200 active:border-zinc-300 focus-visible:ring ring-blue-400"
         >

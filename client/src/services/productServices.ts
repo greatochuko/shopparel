@@ -8,6 +8,7 @@ export type ProductInfoType = {
   shipping: number;
   discount: number;
   store: string;
+  ispublished?: boolean;
 };
 
 export type ProductImagesType = {
@@ -23,7 +24,6 @@ export type ProductSpecsType = {
   gender: string;
   quantity: number;
   categories: string[];
-  isPublished: boolean;
 };
 
 export async function fetchProducts() {
@@ -93,11 +93,8 @@ export async function fetchSaveProductInfo(productInfo: ProductInfoType) {
 }
 
 export async function fetchEditProduct(
-  productInfo:
-    | ProductInfoType
-    | ProductImagesType
-    | ProductSpecsType
-    | { isPublished: boolean }
+  productInfo: ProductInfoType | ProductImagesType | ProductSpecsType,
+  isPublished = false
 ) {
   try {
     const token = localStorage.getItem("token");
@@ -108,7 +105,7 @@ export async function fetchEditProduct(
         Authorization: `Bearer ${token}`,
       },
 
-      body: JSON.stringify(productInfo),
+      body: JSON.stringify({ ...productInfo, isPublished }),
     });
     const data = await res.json();
     return data;

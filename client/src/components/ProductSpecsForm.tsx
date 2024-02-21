@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import LoadingIndicator from "./LoadingIndicator";
 import { ProductType } from "./Product";
+import { ProductInfoType, ProductSpecsType } from "../services/productServices";
 
 const colorList = [
   "purple",
@@ -91,7 +92,12 @@ export default function ProductSpecsForm({
     quantity: number,
     selectedCategories: string[]
   ) => void;
-  saveAsDraft: () => void;
+  saveAsDraft(
+    e: React.FormEvent,
+    productInfo?: ProductInfoType,
+    images?: string[],
+    productSpecs?: ProductSpecsType
+  ): Promise<void>;
   active: boolean;
   loading: boolean;
   product: ProductType | null;
@@ -268,7 +274,16 @@ export default function ProductSpecsForm({
           )}
         </button>
         <button
-          onClick={saveAsDraft}
+          onClick={(e) =>
+            saveAsDraft(e, undefined, undefined, {
+              _id: product?._id as string,
+              colors: selectedColors,
+              sizes: selectedSizes,
+              gender,
+              quantity: Number(quantity) || 0,
+              categories: selectedCategories,
+            })
+          }
           type="button"
           className="flex-1 p-2 font-semibold duration-300 border rounded-md hover:bg-zinc-100 hover:border-zinc-200 active:bg-zinc-200 active:border-zinc-300 focus-visible:ring ring-blue-400"
         >

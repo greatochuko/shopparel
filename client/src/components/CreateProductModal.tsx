@@ -4,6 +4,7 @@ import ProductImagesForm from "./ProductImagesForm";
 import ProductSpecsForm from "./ProductSpecsForm";
 import {
   ProductInfoType,
+  ProductSpecsType,
   fetchEditProduct,
   fetchSaveProductInfo,
 } from "../services/productServices";
@@ -65,23 +66,59 @@ export default function CreateProductModal({
   ) {
     e.preventDefault();
     setLoading(true);
-    const data = await fetchEditProduct({
-      _id: product?._id as string,
-      colors,
-      sizes,
-      gender,
-      quantity,
-      categories,
-      isPublished: true,
-    });
+    const data = await fetchEditProduct(
+      {
+        _id: product?._id as string,
+        colors,
+        sizes,
+        gender,
+        quantity,
+        categories,
+      },
+      true
+    );
     if (data.error) return setLoading(false);
     setLoading(false);
     closeModal();
   }
 
-  async function saveAsDraft() {
-    const data = await fetchEditProduct({ isPublished: false });
-    if (data.error) return setLoading(false);
+  async function saveAsDraft(
+    e: React.FormEvent,
+    productInfo?: ProductInfoType,
+    images?: string[],
+    productSpecs?: ProductSpecsType
+  ) {
+    e.preventDefault();
+    setLoading(true);
+
+    let data;
+
+    if (productInfo) {
+      data = productInfo._id
+        ? await fetchEditProduct(productInfo)
+        : await fetchSaveProductInfo(productInfo);
+    }
+
+    if (images) {
+      data = await fetchEditProduct({
+        _id: product?._id as string,
+        images: [...images].reverse(),
+        imgUrl: images.at(-1) as string,
+      });
+    }
+
+    if (productSpecs) {
+      data = await fetchEditProduct({
+        ...productSpecs,
+        _id: product?._id as string,
+      });
+    }
+
+    console.log(data);
+
+    if (data.error || !data) return setLoading(false);
+    setProduct(data);
+
     setLoading(false);
     closeModal();
   }
