@@ -12,7 +12,6 @@ export type ProductType = {
   discount: number;
   isPublished: boolean;
   quantity: number;
-  imgUrl: string;
   price: number;
   gender: string;
   colors: string[];
@@ -42,7 +41,7 @@ export default function Product({ product }: { product: ProductType }) {
       _id: "1",
       productId: product._id,
       name: product.name,
-      imgUrl: product.imgUrl,
+      imgUrl: product.images[0],
       colors: product.colors,
       sizes: product.sizes,
       price: product.price,
@@ -64,7 +63,7 @@ export default function Product({ product }: { product: ProductType }) {
         className="hover:shadow-md duration-300 bg-zinc-300 group rounded-md overflow-hidden aspect-[0.8] focus-visible:ring focus-visible:ring-blue-400"
       >
         <img
-          src={product.imgUrl}
+          src={product.images[0]}
           alt=""
           className="object-contain w-full h-full duration-300 hover:scale-110 group-focus-visible:scale-110"
         />
@@ -107,14 +106,14 @@ export default function Product({ product }: { product: ProductType }) {
         </button>
       )}
 
-      <div className="flex flex-col sm:flex-row items-start justify-between gap-1 text-zinc-700">
-        <div className="flex flex-col flex-1 gap-1 w-full">
+      <div className="flex flex-col items-start justify-between gap-1 sm:flex-row text-zinc-700">
+        <div className="flex flex-col flex-1 w-full gap-1">
           <Link
             to={`/product/${(product._id + " " + product.name)
               .toLowerCase()
               .split(" ")
               .join("-")}`}
-            className=" text-sm sm:text-base line-clamp-2 font-semibold duration-300 hover:text-accent-blue-100 focus-visible:text-accent-blue-100"
+            className="text-sm font-semibold duration-300  sm:text-base line-clamp-2 hover:text-accent-blue-100 focus-visible:text-accent-blue-100"
           >
             {product.name}
           </Link>

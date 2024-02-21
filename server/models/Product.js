@@ -4,7 +4,6 @@ const productSchema = new mongoose.Schema(
   {
     name: { type: String },
     description: { type: String },
-    imgUrl: { type: String },
     store: {
       type: mongoose.SchemaTypes.ObjectId,
       required: true,

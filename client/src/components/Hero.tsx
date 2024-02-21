@@ -116,8 +116,8 @@ export default function Hero({
             className={`flex w-fit max-w-[40%] items-center justify-center overflow-hidden h-full`}
           >
             <img
-              src={product.imgUrl}
-              alt={product.imgUrl}
+              src={product.images[0]}
+              alt={product.name}
               className="object-contain w-full h-full"
             />
           </div>

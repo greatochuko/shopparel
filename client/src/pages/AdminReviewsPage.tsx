@@ -74,7 +74,7 @@ export default function AdminReviewsPage() {
                   className="flex gap-4 p-2 duration-300 bg-white rounded-md cursor-pointer hover:bg-zinc-100 group"
                 >
                   <img
-                    src={product.imgUrl}
+                    src={product.images[0]}
                     alt=""
                     className="object-contain w-20 h-20 duration-300 rounded-md sm:w-24 sm:h-24 bg-zinc-100 group-hover:bg-zinc-200"
                   />

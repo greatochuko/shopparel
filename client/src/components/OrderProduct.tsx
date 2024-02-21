@@ -1,10 +1,10 @@
 import { OrderProductType } from "./AdminOrder";
 
-type OrderProductProps = {
+export default function OrderProduct({
+  product,
+}: {
   product: OrderProductType;
-};
-
-export default function OrderProduct({ product }: OrderProductProps) {
+}) {
   const orderStatusBg = {
     active: "bg-blue-100",
     packaged: "bg-amber-100",

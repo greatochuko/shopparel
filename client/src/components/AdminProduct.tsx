@@ -65,7 +65,7 @@ export default function AdminProduct({
         />
         <div className="min-w-[200px] flex-1 mr-auto flex gap-2 items-center">
           <img
-            src={product.imgUrl || "/product-placeholder.png"}
+            src={product.images[0] || "/product-placeholder.png"}
             alt=""
             className="object-contain w-16 h-16 rounded-md bg-zinc-100"
           />
@@ -150,7 +150,7 @@ export default function AdminProduct({
         <div className="flex flex-col flex-1 gap-4">
           <div className="min-w-[200px] flex-1 mr-auto flex gap-2 items-center">
             <img
-              src={product.imgUrl || "/product-placeholder.png"}
+              src={product.images[0] || "/product-placeholder.png"}
               alt=""
               className="w-16 h-16 rounded-md"
             />

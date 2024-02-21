@@ -22,7 +22,11 @@ export default function CreateProductModal({
   const [product, setProduct] = useState<ProductType | null>(
     productProp || null
   );
-  const [level, setLevel] = useState(product ? (product.imgUrl ? 3 : 2) : 1);
+  const level2 =
+    product?.name && product.description && product.price && product.shipping;
+  const [level, setLevel] = useState(
+    level2 ? (product.images.length ? 3 : 2) : 1
+  );
 
   async function handleSaveProductInformation(
     e: React.FormEvent,

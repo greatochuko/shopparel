@@ -13,7 +13,6 @@ export type ProductInfoType = {
 
 export type ProductImagesType = {
   _id: string;
-  imgUrl: string;
   images: string[];
 };
 

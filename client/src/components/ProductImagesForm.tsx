@@ -28,7 +28,7 @@ export default function ProductImagesForm({
   const [productImages, setProductImages] = useState<ProductImageType[]>([]);
 
   const [thumbnail, setThumbnail] = useState<File | null>(null);
-  const [thumbnailUrl, setThumbnailUrl] = useState(product?.imgUrl || "");
+  const [thumbnailUrl, setThumbnailUrl] = useState(product?.images[0] || "");
   const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ export default function ProductImagesForm({
     }
 
     setUploadedProductImages();
-  }, [product?._id, product?.images, product?.imgUrl]);
+  }, [product?._id, product?.images]);
 
   async function handleChangeProductThumbnail(e: React.ChangeEvent) {
     const eventTarget = e.target as HTMLInputElement;
