@@ -32,7 +32,9 @@ export default function AdminReviewsPage() {
       const data = await fetchStoreProducts(store?._id);
 
       if (data.error) return;
-      setProducts(data);
+      setProducts(
+        data.filter((product: ProductType) => product.isPublished === true)
+      );
       setLoading(false);
     }
 
