@@ -34,6 +34,7 @@ export default function Dashboard() {
       setLoading(false);
 
       const orderData = await fetchStoreOrders(store?._id);
+      if (orderData.error) return setLoading(false);
 
       setStoreOrders(
         [...orderData].sort(
@@ -57,7 +58,6 @@ export default function Dashboard() {
           0
         ),
       }));
-      if (orderData.error) return setLoading(false);
     }
     if (!store?._id) return;
     getStoreStats();
