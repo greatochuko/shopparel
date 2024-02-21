@@ -87,40 +87,42 @@ export default function RevenueChart({
     d.sales = productsSold.length;
   });
 
+  const currentYear = new Date(Date.now()).getFullYear();
+
   return (
     <div className="flex flex-col p-4 bg-white rounded-md shadow aspect-video">
       <header className="flex items-center justify-between">
         <h2 className="text-base font-semibold md:text-lg">Sales Revenue</h2>
         <div className="flex gap-2 p-1 text-sm bg-gray-100 rounded-full sm:p-2">
           <button
-            onClick={() => setYear(2022)}
+            onClick={() => setYear(currentYear - 2)}
             className={`rounded-full duration-300 font-semibold flex-center h-6 w-12 ${
-              year === 2022
+              year === currentYear - 2
                 ? "bg-accent-blue-100 text-white hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
                 : "hover:bg-zinc-200 active:bg-zinc-300 focus-visible:bg-zinc-200"
             }`}
           >
-            2022
+            {currentYear - 2}
           </button>
           <button
-            onClick={() => setYear(2023)}
+            onClick={() => setYear(currentYear - 1)}
             className={`rounded-full duration-300 font-semibold flex-center h-6 w-12 ${
-              year === 2023
+              year === currentYear - 1
                 ? "bg-accent-blue-100 text-white hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
                 : "hover:bg-zinc-200 active:bg-zinc-300 focus-visible:bg-zinc-200"
             }`}
           >
-            2023
+            {currentYear - 1}
           </button>
           <button
-            onClick={() => setYear(2024)}
+            onClick={() => setYear(currentYear)}
             className={`rounded-full duration-300 font-semibold flex-center h-6 w-12 ${
-              year === 2024
+              year === currentYear
                 ? "bg-accent-blue-100 text-white hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
                 : "hover:bg-zinc-200 active:bg-zinc-300 focus-visible:bg-zinc-200"
             }`}
           >
-            2024
+            {currentYear}
           </button>
         </div>
       </header>
