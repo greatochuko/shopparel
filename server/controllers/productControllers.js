@@ -30,7 +30,6 @@ export async function searchProducts(req, res) {
   try {
     const { query, page } = req.query;
     const products = await Product.find({ isPublished: true })
-      .select("name imgUrl store price gender colors sizes categories")
       .populate("store");
     const searchedProducts = products.filter((product) =>
       product.name

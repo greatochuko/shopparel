@@ -23,8 +23,8 @@ export default function ProductInformationForm({
 }) {
   const [productName, setProductName] = useState(product?.name || "");
   const [description, setDescription] = useState(product?.description || "");
-  const [price, setPrice] = useState(product?.price || "0");
-  const [shipping, setShipping] = useState(product?.shipping || "0");
+  const [price, setPrice] = useState(product?.price || "");
+  const [shipping, setShipping] = useState(product?.shipping || "");
   const [discount, setDiscount] = useState(product?.discount || "0");
   const { store } = useOutletContext<{ store: StoreType }>();
 

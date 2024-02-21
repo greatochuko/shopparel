@@ -52,7 +52,6 @@ export default function CreateProductModal({
     const data = await fetchEditProduct({
       _id: product?._id as string,
       images: [...images].reverse(),
-      imgUrl: images.at(-1) as string,
     });
     if (data.error) return setLoading(false);
     setLevel(3);
@@ -107,7 +106,6 @@ export default function CreateProductModal({
       data = await fetchEditProduct({
         _id: product?._id as string,
         images: [...images].reverse(),
-        imgUrl: images.at(-1) as string,
       });
     }
 
@@ -117,8 +115,6 @@ export default function CreateProductModal({
         _id: product?._id as string,
       });
     }
-
-    console.log(data);
 
     if (data.error || !data) return setLoading(false);
     setProduct(data);
@@ -158,7 +154,7 @@ export default function CreateProductModal({
           tabIndex={0}
           className={`p-3 flex-1 border-b-4 text-center cursor-pointer hover:bg-zinc-100 duration-300 focus-visible:bg-zinc-100 ${
             activeTab === "specs" ? "border-blue-400" : ""
-          } ${level > 2 ? " cursor-pointer" : " cursor-default opacity-50"}`}
+          } ${level > 2 ? " cursor-pointer" : " cursor-auto opacity-50"}`}
         >
           Specs
         </li>
