@@ -1,4 +1,10 @@
-export async function uploadImage(file: Blob | File) {
+export async function uploadImage(file: Blob | File): Promise<{
+  url: string;
+  filename: string;
+  size: number;
+  type: string;
+  error: string;
+}> {
   try {
     const response = await fetch(
       "https://www.filestackapi.com/api/store/S3?key=ATmxns9QQ2OhhpR6rmotZz",
@@ -13,6 +19,12 @@ export async function uploadImage(file: Blob | File) {
     const data = await response.json();
     return data;
   } catch (err) {
-    return { error: (err as Error).message };
+    return {
+      error: (err as Error).message,
+      url: "",
+      filename: "",
+      size: 0,
+      type: "",
+    };
   }
 }

@@ -4,17 +4,7 @@ import bcrypt from "bcrypt";
 
 export async function getUser(req, res) {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) throw new Error("User is not Authenticated");
-
-    let userId;
-    try {
-      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
-    } catch (error) {
-      throw new Error(error.message);
-    }
-
-    const user = await User.findById(userId)
+    const user = await User.findById(req.userId)
       .select("-password")
       .populate("wishlist")
       .populate({ path: "cart", populate: "product" });
@@ -29,19 +19,9 @@ export async function getUser(req, res) {
 
 export async function updateName(req, res) {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) throw new Error("User is not Authenticated");
-
-    let userId;
-    try {
-      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
-    } catch (error) {
-      throw new Error(error.message);
-    }
-
     const { firstName, lastName } = req.body;
     const user = await User.findByIdAndUpdate(
-      userId,
+      req.userId,
       {
         firstName,
         lastName,
@@ -55,19 +35,28 @@ export async function updateName(req, res) {
   }
 }
 
+export async function updateProfilePicture(req, res) {
+  try {
+    const { imgUrl } = req.body;
+
+    const user = await User.findByIdAndUpdate(
+      req.userId,
+      {
+        imgUrl,
+      },
+      { new: true }
+    ).select("-password");
+
+    res.json(user);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+}
+
 export async function changePassword(req, res) {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) throw new Error("User is not Authenticated");
-
-    let userId;
-    try {
-      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
-    } catch (error) {
-      throw new Error(error.message);
-    }
     const { oldPassword, newPassword } = req.body;
-    const user = await User.findById(userId);
+    const user = await User.findById(req.userId);
     let oldPasswordIsCorrect = false;
     if (user.googleClientId && !user.password) {
       oldPasswordIsCorrect = true;
