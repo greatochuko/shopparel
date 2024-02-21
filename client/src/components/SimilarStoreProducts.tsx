@@ -11,7 +11,9 @@ export default function SimilarStoreProducts({
   storeId: string;
   productId: string;
 }) {
-  const [products, setProducts] = useState<ProductType[]>([]);
+  const [similarSellerProducts, setSimilarSellerProducts] = useState<
+    ProductType[]
+  >([]);
   const [carouselPos, setCarouselPos] = useState(0);
   const [loading, setLoading] = useState(true);
 
@@ -21,8 +23,11 @@ export default function SimilarStoreProducts({
       const data = await fetchStoreProducts(storeId);
 
       if (data.error) return setLoading(false);
-      setProducts(
-        data.filter((product: ProductType) => product._id !== productId)
+      setSimilarSellerProducts(
+        data.filter(
+          (product: ProductType) =>
+            product._id !== productId && product.isPublished
+        )
       );
       setLoading(false);
     }
@@ -34,7 +39,7 @@ export default function SimilarStoreProducts({
       window.innerWidth < 1422 ? window.innerWidth * 0.9 : 1280;
     const productsPerView = Math.ceil(carouselWidth / 216 - 1);
 
-    if (carouselPos >= products.length - productsPerView) return;
+    if (carouselPos >= similarSellerProducts.length - productsPerView) return;
 
     setCarouselPos((curr) => curr + 1);
   }
@@ -43,9 +48,9 @@ export default function SimilarStoreProducts({
     if (carouselPos <= 0) return;
     setCarouselPos((curr) => curr - 1);
   }
-  if (products.length)
+  if (similarSellerProducts.length)
     return (
-      <section className="w-full relative">
+      <section className="relative w-full">
         <SectionHeader title="More products from this seller" />
         <button
           onClick={scrollRight}
@@ -123,7 +128,7 @@ export default function SimilarStoreProducts({
                 <ProductWireframe />
               </>
             ) : (
-              products.map((product) => (
+              similarSellerProducts.map((product) => (
                 <Product key={product.name} product={product} />
               ))
             )}

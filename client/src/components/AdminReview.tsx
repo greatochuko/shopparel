@@ -6,7 +6,11 @@ export default function AdminReview({ review }: { review: ReviewType }) {
     <div className="flex flex-col gap-2 p-4 bg-white border-b">
       <div className="flex items-start justify-between">
         <div className="flex gap-2">
-          <img src="" alt="" className="w-12 h-12 rounded-full bg-zinc-200" />
+          <img
+            src={review.user.imgUrl}
+            alt={`${review.user.firstName} ${review.user.lastName} profile picture`}
+            className="object-cover w-12 h-12 rounded-full bg-zinc-200"
+          />
           <div className="flex flex-col justify-between">
             <h3 className="font-semibold text-zinc-700">
               {review.user.firstName} {review.user.lastName}
