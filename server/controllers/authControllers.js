@@ -37,7 +37,7 @@ export async function signup(req, res) {
       .populate("wishlist");
 
     const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
+      expiresIn: "7d",
     });
     res.status(200).json({ user, token });
   } catch (error) {
@@ -74,7 +74,7 @@ export async function login(req, res) {
       throw new Error("Invalid username and password combination");
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
+      expiresIn: "7d",
     });
     res.status(200).json({ user, token });
   } catch (error) {
@@ -106,7 +106,7 @@ export async function loginWithGoogle(req, res) {
       });
 
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1d",
+      expiresIn: "7d",
     });
     res.status(200).json({ user, token });
   } catch (error) {
