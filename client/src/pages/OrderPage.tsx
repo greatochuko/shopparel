@@ -9,6 +9,9 @@ export default function OrderPage() {
   const [orders, setOrders] = useState<OrderType[]>([]);
   const [loading, setLoading] = useState(true);
 
+  console.clear();
+  console.log(orders);
+
   useEffect(() => {
     async function getOrders() {
       setLoading(true);

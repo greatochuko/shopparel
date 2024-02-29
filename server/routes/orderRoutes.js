@@ -11,7 +11,7 @@ import { authenticateUser } from "../middlewares/authMiddleware.js";
 
 const orderRouter = Router();
 
-orderRouter.get("/orders", getOrders);
+orderRouter.get("/orders", authenticateUser, getOrders);
 orderRouter.post("/orders", authenticateUser, createOrder);
 orderRouter.get("/order/:orderId", getOrder);
 orderRouter.patch("/order/:orderId", authenticateUser, cancelOrder);

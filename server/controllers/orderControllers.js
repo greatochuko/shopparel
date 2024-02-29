@@ -6,18 +6,7 @@ import jwt from "jsonwebtoken";
 
 export async function getOrders(req, res) {
   try {
-    const token = req.headers.authorization?.split(" ")[1];
-    if (!token) throw new Error("User is not Authenticated");
-
-    let userId;
-    try {
-      userId = jwt.verify(token, process.env.JWT_SECRET)?.userId;
-    } catch (error) {
-      throw new Error(error.message);
-    }
-    if (!userId)
-      return res.status(401).json({ error: "User is unauthenticated" });
-    const orders = await Order.find();
+    const orders = await Order.find({ userId: req.userId });
     res.json(orders);
   } catch (error) {
     res.status(400).json({ error: error.message });
