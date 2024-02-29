@@ -2,9 +2,10 @@ import { useState } from "react";
 import ShippingInformationSection from "../components/ShippingInformationSection";
 import PaymentMethod from "../components/PaymentMethod";
 import OrderSummary from "../components/OrderSummary";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { createOrder } from "../services/orderServices";
 import useCartContext from "../hooks/useCartContext";
+import useToastContext from "../hooks/useToastContext";
 
 export type ShippingInformationType = {
   _id: string;
@@ -29,6 +30,8 @@ export default function CheckoutPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
+  const { createToast } = useToastContext();
+
   async function handlePayment() {
     setLoading(true);
     const address = `${shippingInformation?.apartment} ${shippingInformation?.streetAddress} ${shippingInformation?.country}`;
@@ -52,7 +55,8 @@ export default function CheckoutPage() {
     );
 
     if (data.error) return setLoading(false);
-    document.title = "Shopparel: Checkout";
+    createToast("Order Placed Successfully", "success");
+
     clearOrderCart();
     navigate("/orders");
     setLoading(false);

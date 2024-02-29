@@ -14,10 +14,18 @@ export default function ToastContainer({
   toasts: ToastType[];
   setToasts: React.Dispatch<React.SetStateAction<ToastType[]>>;
 }) {
+  function removeToast(toastId: string) {
+    setToasts((curr) => curr.filter((toast) => toast.id !== toastId));
+  }
+
   return (
-    <div className="fixed top-20 right-4  z-[1000]">
+    <div className="fixed flex flex-col gap-2 top-20 right-4  z-[1000]">
       {toasts.map((toast) => (
-        <Toast key={toast.id} toast={toast} />
+        <Toast
+          key={toast.id}
+          toast={toast}
+          removeToast={() => removeToast(toast.id)}
+        />
       ))}
     </div>
   );

@@ -5,6 +5,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import CartProvider from "./context/CartContext.tsx";
 import UserProvider from "./context/UserContext.tsx";
 import WishlistProvider from "./context/WishlistContext.tsx";
+import ToastProvider from "./context/ToastContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   // <React.StrictMode>
@@ -12,7 +13,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     <WishlistProvider>
       <UserProvider>
         <CartProvider>
-          <App />
+          <ToastProvider>
+            <App />
+          </ToastProvider>
         </CartProvider>
       </UserProvider>
     </WishlistProvider>

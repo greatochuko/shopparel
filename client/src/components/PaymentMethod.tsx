@@ -78,16 +78,15 @@ export default function PaymentMethod({
         </div>
       </div>
 
-      {paymentType === "paystack" ? (
-        <PaystackButton
-          amount={totalAmount}
-          email={user?.email as string}
-          publicKey="12345"
-          text="Pay Now"
-          onSuccess={handlePaymentForm}
-          className="w-full p-2 mt-6 text-lg font-semibold text-white duration-300 rounded-md flex-center sm:w-40 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:bg-blue-800"
-        />
-      ) : (
+      {paymentType === "paystack" ? // <PaystackButton
+      //   amount={totalAmount}
+      //   email={user?.email as string}
+      //   publicKey="12345"
+      //   text="Pay Now"
+      //   onSuccess={handlePaymentForm}
+      //   className="w-full p-2 mt-6 text-lg font-semibold text-white duration-300 rounded-md flex-center sm:w-40 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:bg-blue-800"
+      // />
+      null : (
         <button
           onClick={handlePaymentForm}
           type="submit"
