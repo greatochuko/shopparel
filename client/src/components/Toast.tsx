@@ -1,78 +1,30 @@
-import { useEffect, useState } from "react";
+import { ToastType } from "./ToastContainer";
 
-type yPos = "top" | "bottom";
-type xPos = "right" | "left" | "center";
-
-type toastProps = {
-  removeToast: () => void;
-  position?: `${yPos}-${xPos}`;
-  type?: "error" | "success" | "warning";
-  message: string;
-};
-
-export default function Toast({
-  removeToast,
-  position,
-  type,
-  message,
-}: toastProps) {
-  const [width, setWidth] = useState("100%");
-  const [top, setTop] = useState(position?.includes("top") ? -100 : undefined);
-  const [bottom, setBottom] = useState(
-    position?.includes("bottom") ? -100 : undefined
-  );
-
-  useEffect(() => {
-    position?.includes("top") ? setTop(10) : setBottom(10);
-    setWidth("0");
-    const timeout = setTimeout(() => {
-      position?.includes("top") ? setTop(-100) : setBottom(-100);
-      setTimeout(removeToast, 300);
-    }, 5000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [removeToast, position]);
-
-  let left;
-  let right;
-
-  if (position?.includes("left")) {
-    left = "10px";
-  } else if (position?.includes("right")) {
-    right = "10px";
-  } else {
-    left = "50%";
-  }
-
-  let color = "green";
-
-  if (type === "error") {
-    color = "red";
-  } else if (type === "warning") {
-    color = "#e9ca00";
-  } else {
-    color = "green";
-  }
+export default function Toast({ toast }: { toast: ToastType }) {
+  const { color, title }: { color: string; title: string } =
+    toast.type === "success"
+      ? { color: "#16a34a", title: "Success" }
+      : toast.type === "error"
+      ? { color: "#ef4444", title: "Error" }
+      : toast.type === "warning"
+      ? { color: "#fbbf60", title: "Warning" }
+      : { color: "#555", title: "Alert" };
 
   return (
     <div
-      style={{ boxShadow: `0 0 5px 0px ${color}`, top, left, right, bottom }}
-      className={`fixed w-60 overflow-hidden duration-300 bg-white ${
-        position?.includes("center") && " -translate-x-[50%]"
-      } p-4 px-6 rounded-md flex flex-col gap-2`}
+      className="relative p-3 overflow-hidden text-[#f87171] bg-white rounded-md shadow w-60"
+      style={{ boxShadow: `0 0 5px 0 #ddd` }}
     >
-      <h2 style={{ color: color }} className="font-semibold text-green-600">
-        Success
-      </h2>
-      <p className="text-sm text-zinc-700">{message}</p>
+      <h3 style={{ color }} className="font-semibold ">
+        {title}
+      </h3>
+      <p className="text-sm text-zinc-700">{toast.message}</p>
       <div
-        style={{ width, backgroundColor: color }}
-        className="h-1 absolute bottom-0 w-full left-0 duration-[5000ms] ease-linear"
+        style={{ backgroundColor: color }}
+        className="absolute bottom-0 left-0 w-full h-1 "
       ></div>
-      <button onClick={removeToast} className="absolute top-0 p-1 right-3">
-        x
+      <button className="absolute top-0 p-1 px-2 text-lg font-semibold duration-300 text-zinc-600 hover:text-black right-1">
+        &times;
       </button>
     </div>
   );
