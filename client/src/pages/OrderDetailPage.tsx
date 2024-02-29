@@ -4,12 +4,14 @@ import { OrderType } from "../components/Order";
 import { cancelOrder, fetchOrder } from "../services/orderServices";
 import LoadingIndicator from "../components/LoadingIndicator";
 import OrderProduct from "../components/OrderProduct";
+import useToastContext from "../hooks/useToastContext";
 
 export default function OrderDetailPage() {
   const navigate = useNavigate();
   const { orderId } = useParams();
   const [order, setOrder] = useState<OrderType | null>(null);
   const [loading, setLoading] = useState(false);
+  const { createToast } = useToastContext();
 
   useEffect(() => {
     async function getOrder() {
@@ -25,6 +27,8 @@ export default function OrderDetailPage() {
     setLoading(true);
     const data = await cancelOrder(orderId as string);
     if (data.error) return setLoading(false);
+    createToast("Order Cancelled Successfully", "success");
+
     setOrder(data);
     setLoading(false);
   }

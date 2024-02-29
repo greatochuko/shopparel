@@ -8,6 +8,7 @@ import { GoogleUserCredentials } from "./LoginForm";
 import LoadingIndicator from "./LoadingIndicator";
 import { fetchSyncCart } from "../services/cartServices";
 import useCartContext from "../hooks/useCartContext";
+import useToastContext from "../hooks/useToastContext";
 
 export default function SignupForm() {
   const [email, setEmail] = useState("");
@@ -26,6 +27,7 @@ export default function SignupForm() {
 
   const { user, setUser } = useUserContext();
   const { setCartItems } = useCartContext();
+  const { createToast } = useToastContext();
 
   const [searchParams] = useSearchParams();
   const redirectUrl = searchParams.get("redirect");
@@ -65,6 +67,7 @@ export default function SignupForm() {
       setCartItems(data.user.cart);
     }
 
+    createToast("Login Successful", "success");
     setUser(data.user);
   }
 
@@ -104,6 +107,7 @@ export default function SignupForm() {
       setCartItems(data.user.cart);
     }
 
+    createToast("Signup Successful", "success");
     setUser(data.user);
     setLoading(false);
   }

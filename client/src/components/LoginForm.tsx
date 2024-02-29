@@ -7,6 +7,7 @@ import { jwtDecode, JwtPayload } from "jwt-decode";
 import LoadingIndicator from "./LoadingIndicator";
 import { fetchSyncCart } from "../services/cartServices";
 import useCartContext from "../hooks/useCartContext";
+import useToastContext from "../hooks/useToastContext";
 
 export type GoogleUserCredentials = { email: string; name: string };
 
@@ -24,6 +25,8 @@ export default function LoginForm() {
 
   const { setUser } = useUserContext();
   const { setCartItems } = useCartContext();
+
+  const { createToast } = useToastContext();
 
   useEffect(() => {
     document.title = "Shopparel: Login";
@@ -59,6 +62,7 @@ export default function LoginForm() {
       setCartItems(data.user.cart);
     }
 
+    createToast("Login Successful", "success");
     setUser(data.user);
   }
 
@@ -92,6 +96,7 @@ export default function LoginForm() {
       setCartItems(data.user.cart);
     }
 
+    createToast("Login Successful", "success");
     setUser(data.user);
     setLoading(false);
   }
@@ -214,7 +219,7 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={!canSubmit}
-        className="px-6 h-12 flex-center font-semibold flex-center text-white duration-300 rounded-md disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:bg-accent-blue-200"
+        className="h-12 px-6 font-semibold text-white duration-300 rounded-md flex-center disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:bg-accent-blue-200"
       >
         {loading ? <LoadingIndicator /> : "Login"}
       </button>

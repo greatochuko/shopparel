@@ -2,7 +2,7 @@ import { useState } from "react";
 import ShippingInformationSection from "../components/ShippingInformationSection";
 import PaymentMethod from "../components/PaymentMethod";
 import OrderSummary from "../components/OrderSummary";
-import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createOrder } from "../services/orderServices";
 import useCartContext from "../hooks/useCartContext";
 import useToastContext from "../hooks/useToastContext";
