@@ -49,6 +49,7 @@ export default function CartProvider({
   const { setWishlist } = useWishlistContext();
   const [cartItems, setCartItems] = useState<CartItemType[]>([]);
   const [refreshed, setRefreshed] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     async function refreshUser() {
@@ -57,6 +58,7 @@ export default function CartProvider({
         setUser(userData);
         setCartItems(userData?.cart as CartItemType[]);
         setWishlist(userData?.wishlist as WishlistItemType[]);
+        setError(true);
       } else {
         setUser(null);
         localStorage.removeItem("token");
@@ -70,6 +72,27 @@ export default function CartProvider({
     }
     refreshUser();
   }, [setCartItems, setUser, setWishlist]);
+
+  async function refreshUser() {
+    setRefreshed(false);
+    setError(false);
+    const userData = await fetchUser();
+    if (!userData.error) {
+      setUser(userData);
+      setCartItems(userData?.cart as CartItemType[]);
+      setWishlist(userData?.wishlist as WishlistItemType[]);
+      setError(true);
+    } else {
+      setUser(null);
+      localStorage.removeItem("token");
+      const localCart: CartItemType[] = JSON.parse(
+        localStorage.getItem("cart") as string
+      );
+
+      setCartItems(localCart || []);
+    }
+    setRefreshed(true);
+  }
 
   async function addItemToCart(item: CartItemType) {
     let data: CartItemType & { error: string };
@@ -204,6 +227,32 @@ export default function CartProvider({
   }
 
   if (!refreshed) return <FullScreenLoader />;
+
+  if (error)
+    return (
+      <div className="flex-center flex-col h-screen w-[80%] max-w-3xl mx-auto">
+        <img
+          src="/favicon.png"
+          alt="shopparel logo"
+          className="mb-4 w-32 h-32"
+        />
+        <h2 className="text-9xl font-semibold text-accent-blue-100">500</h2>
+        <div className="text-center">
+          <p className="font-semibold mb-1 text-xl text-zinc-800">
+            Something Went wrong
+          </p>
+          <p className="text-zinc-400 text-sm">
+            Error Loading data from Server
+          </p>
+        </div>
+        <button
+          onClick={refreshUser}
+          className="bg-red-500 mt-4 text-white rounded-full p-1 hover:bg-red-600 duration-300 active:bg-red-700 px-4"
+        >
+          Refresh
+        </button>
+      </div>
+    );
 
   return (
     <CartContext.Provider
