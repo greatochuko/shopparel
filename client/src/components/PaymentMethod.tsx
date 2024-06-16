@@ -1,8 +1,7 @@
 import React from "react";
 import LoadingIndicator from "./LoadingIndicator";
-import { PaystackButton } from "react-paystack";
-import useUserContext from "../hooks/useUserContext";
-import useCartContext from "../hooks/useCartContext";
+// import useUserContext from "../hooks/useUserContext";
+// import useCartContext from "../hooks/useCartContext";
 
 type PaymentMethodProps = {
   handlePayment: () => void;
@@ -22,12 +21,12 @@ export default function PaymentMethod({
     handlePayment();
   }
 
-  const { cartItems } = useCartContext();
-  const totalAmount =
-    cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0) +
-    cartItems.reduce((acc, curr) => acc + curr.shipping, 0);
+  // const { cartItems } = useCartContext();
+  // const totalAmount =
+  //   cartItems.reduce((acc, curr) => acc + curr.price * curr.quantity, 0) +
+  //   cartItems.reduce((acc, curr) => acc + curr.shipping, 0);
 
-  const { user } = useUserContext();
+  // const { user } = useUserContext();
 
   return (
     <div>
@@ -78,8 +77,7 @@ export default function PaymentMethod({
         </div>
       </div>
 
-      {paymentType === "paystack" ? // <PaystackButton
-      //   amount={totalAmount}
+      {paymentType === "paystack" ? //   amount={totalAmount} // <PaystackButton
       //   email={user?.email as string}
       //   publicKey="12345"
       //   text="Pay Now"
