@@ -58,7 +58,7 @@ export default function CartProvider({
         setUser(userData);
         setCartItems(userData?.cart as CartItemType[]);
         setWishlist(userData?.wishlist as WishlistItemType[]);
-        setError(true);
+        setError(false);
       } else {
         setUser(null);
         localStorage.removeItem("token");
@@ -228,31 +228,32 @@ export default function CartProvider({
 
   if (!refreshed) return <FullScreenLoader />;
 
-  if (error)
+  if (error) {
     return (
       <div className="flex-center flex-col h-screen w-[80%] max-w-3xl mx-auto">
         <img
           src="/favicon.png"
           alt="shopparel logo"
-          className="mb-4 w-32 h-32"
+          className="w-32 h-32 mb-4"
         />
-        <h2 className="text-9xl font-semibold text-accent-blue-100">500</h2>
+        <h2 className="font-semibold text-9xl text-accent-blue-100">500</h2>
         <div className="text-center">
-          <p className="font-semibold mb-1 text-xl text-zinc-800">
+          <p className="mb-1 text-xl font-semibold text-zinc-800">
             Something Went wrong
           </p>
-          <p className="text-zinc-400 text-sm">
+          <p className="text-sm text-zinc-400">
             Error Loading data from Server
           </p>
         </div>
         <button
           onClick={refreshUser}
-          className="bg-red-500 mt-4 text-white rounded-full p-1 hover:bg-red-600 duration-300 active:bg-red-700 px-4"
+          className="p-1 px-4 mt-4 text-white duration-300 bg-red-500 rounded-full hover:bg-red-600 active:bg-red-700"
         >
           Refresh
         </button>
       </div>
     );
+  }
 
   return (
     <CartContext.Provider

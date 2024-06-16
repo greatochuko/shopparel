@@ -113,7 +113,7 @@ export default function Product({ product }: { product: ProductType }) {
               .toLowerCase()
               .split(" ")
               .join("-")}`}
-            className="text-sm font-semibold duration-300  sm:text-base line-clamp-2 hover:text-accent-blue-100 focus-visible:text-accent-blue-100"
+            className="text-sm font-semibold duration-300 sm:text-base line-clamp-2 hover:text-accent-blue-100 focus-visible:text-accent-blue-100"
           >
             {product.name}
           </Link>
