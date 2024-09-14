@@ -1,6 +1,6 @@
 # Shopparel: Fashion Ecommerce Web App
 
-![Shopparel Logo](/images/logo.png)
+![Shopparel Logo](/images/search-page.png)
 
 Welcome to Shopparel, your ultimate destination for fashion-forward online shopping! This web application is designed to provide users with a seamless and enjoyable shopping experience, offering a wide range of trendy clothing and accessories. Whether you're a fashion enthusiast or simply looking to upgrade your wardrobe, Shopparel has something for everyone.
 
