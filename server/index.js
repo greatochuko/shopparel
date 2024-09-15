@@ -23,6 +23,7 @@ const uri = process.env.MONGODB_URI || process.env.MONGODB_ATLAS_URI;
 app.use(
   cors({
     origin: [
+      "https://shoppare2.vercel.app",
       "https://shopparel.vercel.app",
       "https://shopparel.onrender.com",
       "http://localhost:5173",
