@@ -24,6 +24,7 @@ app.use(
   cors({
     origin: [
       "https://shopparel.vercel.app",
+      "https://shopparel.onrender.com",
       "http://localhost:5173",
       "http://localhost:4173",
     ],
