@@ -96,7 +96,7 @@ export default function Footer() {
             </svg>
           </Link>
           <Link
-            to={"https://twitter.com/officialochuko"}
+            to={"https://twitter.com/greatochuko123"}
             target="_blank"
             className="flex-center bg-zinc-300 hover:bg-white p-1.5 rounded-md focus-visible:ring ring-blue-500 ring-offset-1 ring-offset-zinc-800 duration-200"
           >
