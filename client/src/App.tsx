@@ -1,4 +1,4 @@
-import { RouterProvider, createHashRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import HomePage from "./pages/HomePage";
 import AppLayout from "./components/AppLayout";
@@ -22,10 +22,12 @@ import AdminProductsPage from "./pages/AdminProductsPage";
 import AdminOrdersPage from "./pages/AdminOrdersPage";
 import AdminReviewsPage from "./pages/AdminReviewsPage";
 import AdminSettingsPage from "./pages/AdminSettingsPage";
+import ErrorPage from "./pages/ErrorPage";
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     element: <ScrollToTop />,
+    errorElement: <ErrorPage />,
     children: [
       {
         element: <Authenticate />,

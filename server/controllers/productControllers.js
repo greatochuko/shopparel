@@ -29,8 +29,9 @@ export async function getProduct(req, res) {
 export async function searchProducts(req, res) {
   try {
     const { query, page } = req.query;
-    const products = await Product.find({ isPublished: true })
-      .populate("store");
+    const products = await Product.find({ isPublished: true }).populate(
+      "store"
+    );
     const searchedProducts = products.filter((product) =>
       product.name
         .toLowerCase()

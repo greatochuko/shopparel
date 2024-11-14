@@ -53,7 +53,6 @@ const filterCategories = [
       "Sports Bras",
       "Leggings",
       "Running Shorts",
-
       "Athletic Shorts",
       "Performance Leggings",
       "Training Hoodies",
@@ -131,7 +130,7 @@ export default function SearchFilter({
     >
       <h2
         onClick={toggleOpenFilter}
-        className="flex items-center justify-between p-2 text-base font-semibold border-b cursor-pointer md:cursor-auto"
+        className="flex justify-between items-center p-2 border-b font-semibold text-base cursor-pointer md:cursor-auto"
       >
         Filter
         <span>
@@ -151,7 +150,7 @@ export default function SearchFilter({
           </svg>
         </span>
       </h2>
-      <div className="flex flex-col py-2 border-b ">
+      <div className="flex flex-col py-2 border-b">
         {filterCategories.map((category) => (
           <CategoryFilter key={category.title} category={category} />
         ))}
@@ -159,10 +158,10 @@ export default function SearchFilter({
       <PriceFilter />
       <ColorFilter products={products} />
       <SizeFilter products={products} />
-      <div className="gap-2 p-3 mt-auto flex-center">
+      <div className="flex-center gap-2 mt-auto p-3">
         <button
           onClick={clearFilters}
-          className="flex-1 p-2 text-sm font-semibold text-white duration-300 bg-red-500 rounded-md whitespace-nowrap focus-visible:ring focus-visible:ring-red-300 hover:bg-red-600 active:bg-red-700"
+          className="flex-1 bg-red-500 hover:bg-red-600 active:bg-red-700 p-2 rounded-md focus-visible:ring focus-visible:ring-red-300 font-semibold text-sm text-white whitespace-nowrap duration-300"
         >
           Clear All Filters
         </button>

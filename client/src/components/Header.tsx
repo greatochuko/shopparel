@@ -5,7 +5,7 @@ import SearchForm from "./SearchForm";
 import AuthLinks from "./AuthLinks";
 import CartLink from "./CartLink";
 
-const navLinks = ["Jackets", "Jeans", "Casual Dresses", "Polo Shirts"];
+const navLinks = ["Jackets", "Jeans", "Polo Shirts"];
 
 export default function Header() {
   const { pathname } = useLocation();
@@ -14,21 +14,29 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 z-30 w-full bg-white shadow-sm">
-        <nav className="flex items-center justify-between gap-4 p-4 mx-auto sm:gap-6 max-w-7xl ">
+      <header className="top-0 z-30 fixed bg-white shadow-sm w-full">
+        <nav className="flex justify-between items-center gap-4 sm:gap-6 mx-auto p-4 max-w-7xl">
           <Link
             to={"/"}
-            className="hidden font-bold focus-visible:ring focus-visible:ring-offset-2 sm:block"
+            className="sm:block hidden focus-visible:ring focus-visible:ring-offset-2 font-bold"
           >
             <img src="/logo.png" alt="Shopparel" width={150} />
           </Link>
           <Link
             to={"/"}
-            className="font-bold focus-visible:ring focus-visible:ring-offset-2 sm:hidden"
+            className="sm:hidden focus-visible:ring focus-visible:ring-offset-2 font-bold"
           >
             <img src="/favicon.png" alt="Shopparel" width={40} />
           </Link>
-          <ul className="hidden gap-2 lg:flex">
+          <ul className="lg:flex gap-2 hidden">
+            <li>
+              <Link
+                to={"/search"}
+                className="p-2 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-sm text-zinc-700 hover:text-accent-blue-100 whitespace-nowrap duration-300"
+              >
+                All Products
+              </Link>
+            </li>
             {navLinks.map((navLink) => (
               <li key={navLink}>
                 <Link
@@ -36,7 +44,7 @@ export default function Header() {
                     .toLowerCase()
                     .split(" ")
                     .join("+")}`}
-                  className="p-2 text-sm duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
+                  className="p-2 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-sm text-zinc-700 hover:text-accent-blue-100 whitespace-nowrap duration-300"
                 >
                   {navLink}
                 </Link>
@@ -75,7 +83,7 @@ export default function Header() {
                       <path
                         d="M15.7 4C18.87 4 21 6.98 21 9.76C21 15.39 12.16 20 12 20C11.84 20 3 15.39 3 9.76C3 6.98 5.13 4 8.3 4C10.12 4 11.31 4.91 12 5.71C12.69 4.91 13.88 4 15.7 4Z"
                         stroke={pathname === "/wishlist" ? "white" : "#333"}
-                        className="duration-200 group-hover:stroke-white"
+                        className="group-hover:stroke-white duration-200"
                         strokeWidth="2"
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -108,7 +116,7 @@ export default function Header() {
                     ></g>
                     <g id="SVGRepo_iconCarrier">
                       <path
-                        className="duration-200 group-hover:stroke-white"
+                        className="group-hover:stroke-white duration-200"
                         d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
                         stroke={pathname === "/account" ? "white" : "#333"}
                         strokeWidth="2"
@@ -127,7 +135,7 @@ export default function Header() {
             {/* Toggle Mobile Nav Button */}
             <button
               onClick={() => setMobileNavIsOpen((curr) => !curr)}
-              className="block ml-2 p-1.5 rounded-md active:scale-90 hover:bg-zinc-200 duration-200 lg:hidden bg-zinc-100 "
+              className="block lg:hidden bg-zinc-100 ml-2 p-1.5 rounded-md active:scale-90 hover:bg-zinc-200 duration-200"
             >
               <svg
                 height={20}
@@ -170,7 +178,7 @@ export default function Header() {
                 .toLowerCase()
                 .split(" ")
                 .join("+")}`}
-              className="block p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
+              className="block hover:bg-zinc-100 px-4 p-2 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-lg text-zinc-700 hover:text-accent-blue-100 whitespace-nowrap duration-300"
             >
               {navLink}
             </Link>
@@ -182,7 +190,7 @@ export default function Header() {
             <li className="sm:hidden">
               <Link
                 to={"/account"}
-                className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
+                className="flex items-center gap-2 hover:bg-zinc-100 px-4 p-2 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-lg text-zinc-700 hover:text-accent-blue-100 whitespace-nowrap duration-300"
               >
                 <svg
                   height={20}
@@ -199,7 +207,7 @@ export default function Header() {
                   ></g>
                   <g id="SVGRepo_iconCarrier">
                     <path
-                      className="duration-200 group-hover:stroke-white"
+                      className="group-hover:stroke-white duration-200"
                       d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
                       stroke="#333"
                       strokeWidth="2"
@@ -214,7 +222,7 @@ export default function Header() {
             <li className="sm:hidden">
               <Link
                 to={"/wishlist"}
-                className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
+                className="flex items-center gap-2 hover:bg-zinc-100 px-4 p-2 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-lg text-zinc-700 hover:text-accent-blue-100 whitespace-nowrap duration-300"
               >
                 <svg
                   height={20}
@@ -245,7 +253,7 @@ export default function Header() {
             <li className="sm:hidden">
               <Link
                 to={"/orders"}
-                className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
+                className="flex items-center gap-2 hover:bg-zinc-100 px-4 p-2 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-lg text-zinc-700 hover:text-accent-blue-100 whitespace-nowrap duration-300"
               >
                 <svg
                   height={20}
@@ -288,7 +296,7 @@ export default function Header() {
             <li className="md:hidden">
               <Link
                 to={`/login?redirect=${pathname}`}
-                className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
+                className="flex items-center gap-2 hover:bg-zinc-100 px-4 p-2 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-lg text-zinc-700 hover:text-accent-blue-100 whitespace-nowrap duration-300"
               >
                 Login
               </Link>
@@ -296,7 +304,7 @@ export default function Header() {
             <li className="md:hidden">
               <Link
                 to={`/signup?redirect=${pathname}`}
-                className="flex items-center gap-2 p-2 px-4 text-lg duration-300 rounded-md text-zinc-700 whitespace-nowrap hover:text-accent-blue-100 hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2"
+                className="flex items-center gap-2 hover:bg-zinc-100 px-4 p-2 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-lg text-zinc-700 hover:text-accent-blue-100 whitespace-nowrap duration-300"
               >
                 Signup
               </Link>

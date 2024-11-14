@@ -3,6 +3,7 @@ import { ReviewType } from "./Review";
 import useWishlistContext from "../hooks/useWishlistContext";
 import useUserContext from "../hooks/useUserContext";
 import { StoreType } from "./AdminPageLayout";
+import { useState } from "react";
 
 export type ProductType = {
   _id: string;
@@ -32,6 +33,8 @@ export default function Product({ product }: { product: ProductType }) {
     wishlist.find((wishlistItem) => wishlistItem.productId === product._id) ||
     null;
 
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   async function toggleAddToWishlist(e: React.MouseEvent) {
     e.preventDefault();
     e.stopPropagation();
@@ -60,17 +63,22 @@ export default function Product({ product }: { product: ProductType }) {
           .toLowerCase()
           .split(" ")
           .join("-")}`}
-        className="hover:shadow-md duration-300 bg-zinc-300 group rounded-md overflow-hidden aspect-[0.8] focus-visible:ring focus-visible:ring-blue-400"
+        className={`bg-zinc-300 hover:shadow-md rounded-md focus-visible:ring focus-visible:ring-blue-400 duration-300 overflow-hidden aspect-[0.8] group ${
+          imageLoaded ? "" : "animate-pulse"
+        }`}
       >
         <img
+          onLoad={() => setImageLoaded(true)}
           src={product.images[0]}
           alt=""
-          className="object-contain w-full h-full duration-300 hover:scale-110 group-focus-visible:scale-110"
+          className={`object-contain w-full h-full duration-300 hover:scale-110 group-focus-visible:scale-110 ${
+            imageLoaded ? "visible" : "invisible"
+          }`}
         />
       </Link>
       {user && (
         <button
-          className="p-1.5 rounded-full z-[5] bg-white focus-visible:ring focus-visible:ring-blue-400 active:scale-90 duration-200 hover:shadow-lg absolute right-2 top-2"
+          className="top-2 right-2 z-[5] absolute bg-white hover:shadow-lg p-1.5 rounded-full focus-visible:ring focus-visible:ring-blue-400 active:scale-90 duration-200"
           onClick={toggleAddToWishlist}
         >
           <svg
@@ -106,28 +114,30 @@ export default function Product({ product }: { product: ProductType }) {
         </button>
       )}
 
-      <div className="flex flex-col items-start justify-between gap-1 sm:flex-row text-zinc-700">
-        <div className="flex flex-col flex-1 w-full gap-1">
+      <div className="flex sm:flex-row flex-col justify-between items-start gap-1 text-zinc-700">
+        <div className="flex flex-col flex-1 gap-1 w-full">
           <Link
             to={`/product/${(product._id + " " + product.name)
               .toLowerCase()
               .split(" ")
               .join("-")}`}
-            className="text-sm font-semibold duration-300 sm:text-base line-clamp-2 hover:text-accent-blue-100 focus-visible:text-accent-blue-100"
+            className="line-clamp-2 font-semibold text-sm sm:text-base hover:text-accent-blue-100 focus-visible:text-accent-blue-100 duration-300"
           >
             {product.name}
           </Link>
-          <Link
-            to={`/store/${product.store.name
-              .split(" ")
-              .join("-")
-              .toLowerCase()}/${product.store._id}`}
-            className="text-xs sm:text-sm hover:underline focus-visible:underline w-fit"
-          >
-            {product.store.name}
-          </Link>
+          {product.store?.name && (
+            <Link
+              to={`/store/${product.store.name
+                .split(" ")
+                .join("-")
+                .toLowerCase()}/${product.store._id}`}
+              className="w-fit text-xs sm:text-sm hover:underline focus-visible:underline"
+            >
+              {product.store.name}
+            </Link>
+          )}
         </div>
-        <p className="grid px-1 py-2 text-sm font-semibold rounded-md w-fit bg-zinc-100 place-content-center sm:px-2">
+        <p className="place-content-center grid bg-zinc-100 px-1 sm:px-2 py-2 rounded-md w-fit font-semibold text-sm">
           ${product.price.toFixed(2)}
         </p>
       </div>

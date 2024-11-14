@@ -57,8 +57,8 @@ export default function HomePage() {
   }
 
   return (
-    <main className="pt-[70px] min-h-[80dvh] flex flex-col gap-8 mb-8">
-      <Hero heroProducts={products.slice(0, 2)} />
+    <main className="flex flex-col flex-1 gap-8 mb-8 pt-[70px]">
+      <Hero heroProducts={products.slice(0, 3)} />
       <About />
       <NewArrival
         newArrivals={products.slice(0, 4)}

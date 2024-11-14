@@ -8,7 +8,7 @@ export default function Hero({
   heroProducts: ProductType[];
 }) {
   const [currentIndex, setcurrentIndex] = useState(0);
-  const colors = ["#7F7CB6", "#5B6971"];
+  const colors = ["#5B6971", "#22AAA1", "#585481"];
   const backgroundColor = colors[currentIndex];
 
   function showNextHeroProduct() {
@@ -22,9 +22,12 @@ export default function Hero({
   }
 
   return (
-    <section className={`relative min-h-[250px] max-h-[90vh] aspect-[2] `}>
+    <section
+      className={`relative min-h-[250px] max-h-[90vh] aspect-[2] `}
+      style={{ backgroundColor: colors[0] }}
+    >
       <button
-        className="-translate-y-[50%] sm:opacity-70 hover:opacity-100 duration-300 absolute z-10 top-[50%] sm:left-2 left-1 p-1 sm:p-2 bg-black/30 sm:bg-black/50 rounded-full"
+        className="top-[50%] left-1 sm:left-2 z-10 absolute bg-black/30 sm:bg-black/50 sm:opacity-70 hover:opacity-100 p-1 sm:p-2 rounded-full -translate-y-[50%] duration-300"
         onClick={showPreviousHeroProduct}
       >
         <svg
@@ -52,7 +55,7 @@ export default function Hero({
         </svg>
       </button>
       <button
-        className="-translate-y-[50%] sm:opacity-70 hover:opacity-100 duration-300 absolute z-10 top-[50%] sm:right-2 right-1 p-1 sm:p-2 bg-black/30 sm:bg-black/50 rounded-full"
+        className="top-[50%] right-1 sm:right-2 z-10 absolute bg-black/30 sm:bg-black/50 sm:opacity-70 hover:opacity-100 p-1 sm:p-2 rounded-full -translate-y-[50%] duration-300"
         onClick={showNextHeroProduct}
       >
         <svg
@@ -88,17 +91,19 @@ export default function Hero({
           }`}
         >
           <div className={`flex w-fit max-w-[40%] justify-center text-white `}>
-            <div className="flex flex-col w-full gap-4 sm:gap-6 lg:gap-8 ">
-              <Link
-                to={`/store/${product.store.name
-                  .split(" ")
-                  .join("-")
-                  .toLowerCase()}/${product.store._id}`}
-                className="text-[min(4vw,16px)] hover:underline w-fit sm:text-xl lg:text-2xl xl:text-[2vw] capitalize"
-              >
-                {product.store.name}
-              </Link>
-              <h2 className="text-[4vw] font-bold sm:text-3xl md:text-4xl lg:text-5xl xl:text-[5vw]">
+            <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8 w-full">
+              {product.store?.name && (
+                <Link
+                  to={`/store/${product.store.name
+                    .split(" ")
+                    .join("-")
+                    .toLowerCase()}/${product.store._id}`}
+                  className="w-fit text-[min(4vw,16px)] sm:text-xl lg:text-2xl xl:text-[2vw] hover:underline capitalize"
+                >
+                  {product.store.name}
+                </Link>
+              )}
+              <h2 className="font-bold text-[4vw] sm:text-3xl md:text-4xl lg:text-5xl xl:text-[5vw]">
                 {product.name}
               </h2>
               <Link
@@ -106,7 +111,7 @@ export default function Hero({
                   .split(" ")
                   .join("-")
                   .toLowerCase()}`}
-                className="px-3 py-1.5 text-[min(4vw,16px)] font-semibold duration-200 bg-white rounded-md sm:px-6 sm:py-3 sm:text-lg lg:text-xl whitespace-nowrap hover:shadow-md hover:shadow-black/50 text-zinc-700 hover:text-zinc-900 w-fit"
+                className="bg-white hover:shadow-md hover:shadow-black/50 px-3 sm:px-6 py-1.5 sm:py-3 rounded-md w-fit font-semibold text-[min(4vw,16px)] text-zinc-700 sm:text-lg lg:text-xl hover:text-zinc-900 whitespace-nowrap duration-200"
               >
                 Shop Now
               </Link>
@@ -118,7 +123,7 @@ export default function Hero({
             <img
               src={product.images[0]}
               alt={product.name}
-              className="object-contain w-full h-full"
+              className="w-full h-full object-contain"
             />
           </div>
         </div>
