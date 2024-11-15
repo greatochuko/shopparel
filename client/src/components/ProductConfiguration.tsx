@@ -45,7 +45,7 @@ export default function ProductConfiguration({
       price: product.price,
       shipping: product.shipping,
       quantity: 1,
-      storeId: product.store._id,
+      storeId: product.store?._id,
     };
     setLoading(true);
     addItemToCart({
@@ -70,7 +70,7 @@ export default function ProductConfiguration({
         price: product.price,
         shipping: 19.99,
         quantity: 1,
-        storeId: product.store._id,
+        storeId: product.store?._id,
       });
     }
     setWishlistLoading(false);
@@ -82,9 +82,9 @@ export default function ProductConfiguration({
 
   return (
     <div className="flex flex-col flex-1 gap-6 text-zinc-700">
-      <h2 className="mt-4 text-zinc-500">Shop &gt; {product.store.name}</h2>
-      <h1 className="text-xl font-semibold">{product.name}</h1>
-      <p className="px-4 py-1.5 w-fit border rounded-md border-zinc-300 text-lg font-semibold">
+      <h2 className="mt-4 text-zinc-500">Shop &gt; {product.store?.name}</h2>
+      <h1 className="font-semibold text-xl">{product.name}</h1>
+      <p className="border-zinc-300 px-4 py-1.5 border rounded-md w-fit font-semibold text-lg">
         ${product.price.toFixed(2)}
       </p>
       {product.reviews.length ? (
@@ -93,7 +93,7 @@ export default function ProductConfiguration({
             <Rating rating={productRating} />
             <span>{productRating.toFixed(1)}</span>
           </div>
-          <div className="flex items-center gap-2 ">
+          <div className="flex items-center gap-2">
             <svg
               viewBox="0 0 24 24"
               height={20}
@@ -171,9 +171,9 @@ export default function ProductConfiguration({
             left in stock, Order soon
           </p>
         )}
-        <div className="flex flex-col w-full gap-4 md:items-center md:flex-row">
+        <div className="flex md:flex-row flex-col md:items-center gap-4 w-full">
           {product.quantity === 0 ? (
-            <div className="self-stretch flex-1 w-full gap-2 p-3 text-sm font-semibold text-red-400 duration-300 rounded-md flex-center focus-visible:ring-offset-1 bg-zinc-200 ">
+            <div className="flex-1 flex-center gap-2 bg-zinc-200 p-3 rounded-md focus-visible:ring-offset-1 w-full font-semibold text-red-400 text-sm duration-300 self-stretch">
               Out of Stock
             </div>
           ) : productInCart ? (
@@ -184,7 +184,7 @@ export default function ProductConfiguration({
           ) : (
             <button
               onClick={handleAddItemToCart}
-              className="self-stretch flex-1 w-full gap-2 p-3 text-sm font-semibold text-white duration-300 rounded-md flex-center focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 bg-accent-blue-100 hover:bg-accent-blue-200 active:scale-95"
+              className="flex-1 flex-center gap-2 bg-accent-blue-100 hover:bg-accent-blue-200 p-3 rounded-md focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 w-full font-semibold text-sm text-white duration-300 self-stretch active:scale-95"
             >
               {loading ? (
                 <LoadingIndicator />
@@ -212,7 +212,7 @@ export default function ProductConfiguration({
           {user && (
             <button
               onClick={toggleAddItemToWishlist}
-              className="self-stretch flex-1 w-full gap-2 p-3 text-sm font-semibold duration-300 border-2 rounded-md whitespace-nowrap text-accent-blue-100 flex-center focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 border-accent-blue-100 hover:shadow-md hover:shadow-blue-300 active:scale-95"
+              className="flex-1 flex-center gap-2 border-2 border-accent-blue-100 hover:shadow-md hover:shadow-blue-300 p-3 rounded-md focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-1 w-full font-semibold text-accent-blue-100 text-sm whitespace-nowrap duration-300 self-stretch active:scale-95"
             >
               {wishlistLoading ? (
                 <LoadingIndicator className="fill-accent-blue-100" />

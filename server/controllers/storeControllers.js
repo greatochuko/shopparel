@@ -68,7 +68,7 @@ export async function getStoreOrders(req, res) {
     const { storeId } = req.params;
     const orders = await Order.find().populate({
       path: "userId",
-      select: "firstName lastName email",
+      select: "_id firstName lastName email",
     });
 
     const storeOrders = [];

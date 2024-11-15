@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function ModalContainer({
   closeModal,
@@ -7,9 +7,17 @@ export default function ModalContainer({
   closeModal: () => void;
   children: React.ReactNode;
 }) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
     <div
-      className="fixed h-screen left-0 top-0 w-screen z-[100] flex-center backdrop-blur-sm animate-fade-in bg-black/30"
+      className="top-0 left-0 z-[100] fixed flex-center bg-black/30 backdrop-blur-sm w-screen h-screen animate-fade-in"
       onClick={closeModal}
     >
       {children}

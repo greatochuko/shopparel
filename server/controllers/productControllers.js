@@ -17,7 +17,7 @@ export async function getProduct(req, res) {
     const product = await Product.findById(productId)
       .populate({
         path: "reviews",
-        populate: { path: "user", select: "imgUrl firstName lastName" },
+        populate: { path: "user", select: "_id imgUrl firstName lastName" },
       })
       .populate("store");
     res.json(product);

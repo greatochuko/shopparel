@@ -12,13 +12,14 @@ export type ReviewType = {
 
 export default function Review({ review }: { review: ReviewType }) {
   const [isHelpful, setIsHelpful] = useState(false);
+  console.log(review.user);
 
   return (
     <div className="flex items-start gap-2">
       <img
         src={review.user.imgUrl}
         alt={review.user.imgUrl}
-        className="object-cover w-10 h-10 bg-gray-100 rounded-full"
+        className="bg-gray-100 rounded-full w-10 h-10 object-cover"
       ></img>
       <div className="flex flex-col flex-1 gap-1">
         <div className="flex flex-col text-sm">
@@ -40,7 +41,7 @@ export default function Review({ review }: { review: ReviewType }) {
           >
             Helpful
           </button>
-          <button className="text-sm duration-200 hover:text-red-500">
+          <button className="text-sm hover:text-red-500 duration-200">
             Report
           </button>
         </div>

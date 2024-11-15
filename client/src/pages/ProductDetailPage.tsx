@@ -37,12 +37,12 @@ export default function ProductDetailPage() {
   }, [productId]);
 
   return (
-    <main className="mt-[72px] w-[90%] max-w-7xl mx-auto mb-8 flex flex-col gap-16">
+    <main className="flex flex-col gap-16 mx-auto mt-[72px] mb-8 w-[90%] max-w-7xl">
       {loading || !product ? (
         <ProductDetailWireframe />
       ) : (
         <>
-          <div className="flex flex-col gap-8 md:flex-row">
+          <div className="flex md:flex-row flex-col gap-8">
             <ProductDetailImages product={product as ProductType} />
             <ProductConfiguration product={product as ProductType} />
           </div>
@@ -53,21 +53,21 @@ export default function ProductDetailPage() {
 
           <SimilarStoreProducts
             productId={product._id}
-            storeId={product.store._id}
+            storeId={product.store?._id}
           />
 
           <section className="max-w-3xl">
             <SectionHeader title="User Reviews" />
             <div
               id="reviews"
-              className="flex flex-col gap-10 mt-4 text-zinc-700 scroll-mt-36"
+              className="flex flex-col gap-10 mt-4 scroll-mt-36 text-zinc-700"
             >
               {productReviews.length ? (
                 productReviews.map((review) => (
                   <Review key={review._id} review={review} />
                 ))
               ) : (
-                <p className="h-20 flex-center">
+                <p className="flex-center h-20">
                   No reviews for this product. Be the first to write a review
                 </p>
               )}
@@ -77,7 +77,7 @@ export default function ProductDetailPage() {
             ) && (
               <button
                 onClick={() => setModalIsOpen(true)}
-                className="w-full p-2 px-6 mt-6 text-white duration-300 rounded-md focus-visible:ring ring-blue-400 hover:bg-accent-blue-200 active:bg-accent-blue-300 sm:w-fit bg-accent-blue-100"
+                className="bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 mt-6 px-6 p-2 rounded-md focus-visible:ring ring-blue-400 w-full sm:w-fit text-white duration-300"
               >
                 Write a Review
               </button>
