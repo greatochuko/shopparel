@@ -24,10 +24,12 @@ export default function SimilarStoreProducts({
 
       if (data.error) return setLoading(false);
       setSimilarSellerProducts(
-        data.filter(
-          (product: ProductType) =>
-            product._id !== productId && product.isPublished
-        )
+        data
+          .filter(
+            (product: ProductType) =>
+              product._id !== productId && product.isPublished
+          )
+          .slice(0, 8)
       );
       setLoading(false);
     }
@@ -54,7 +56,7 @@ export default function SimilarStoreProducts({
         <SectionHeader title="More products from this seller" />
         <button
           onClick={scrollRight}
-          className="absolute -left-[18px] top-[50%] -translate-y-[50%] z-10 flex-center rounded-full h-10 w-10 bg-white border shadow hover:shadow-zinc-500 duration-300"
+          className="top-[50%] -left-[18px] z-10 absolute flex-center bg-white shadow hover:shadow-zinc-500 border rounded-full w-10 h-10 -translate-y-[50%] duration-300"
         >
           <svg
             width={30}
@@ -81,7 +83,7 @@ export default function SimilarStoreProducts({
         </button>
         <button
           onClick={scrollLeft}
-          className="absolute -right-[18px] top-[50%] -translate-y-[50%] z-10 border rounded-full h-10 w-10 flex-center bg-white shadow-md hover:shadow-zinc-500 duration-300"
+          className="top-[50%] -right-[18px] z-10 absolute flex-center bg-white shadow-md hover:shadow-zinc-500 border rounded-full w-10 h-10 -translate-y-[50%] duration-300"
         >
           <svg
             width={30}
@@ -108,7 +110,7 @@ export default function SimilarStoreProducts({
         </button>
         <div className="w-full overflow-hidden">
           <div
-            className="grid grid-cols-8 gap-4 mt-4 duration-300 w-[1322px] md:w-[1722px]"
+            className="gap-4 grid grid-cols-8 mt-4 w-[1322px] md:w-[1722px] duration-300"
             style={{
               marginLeft:
                 window.innerWidth > 768
