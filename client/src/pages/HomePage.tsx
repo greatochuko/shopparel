@@ -67,10 +67,10 @@ export default function HomePage() {
         refreshProducts={refreshProducts}
       />
       <NewsLetterSection />
-      <CategoryProducts gender="male">
+      <CategoryProducts category="male">
         <SectionHeader title="Men's Wears" />
       </CategoryProducts>
-      <CategoryProducts gender="female">
+      <CategoryProducts category="female">
         <SectionHeader title="Women's Wears" />
       </CategoryProducts>
       <TopSellers />

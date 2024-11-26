@@ -58,7 +58,7 @@ export default function SellersPage() {
   }
 
   return (
-    <main className="h-fit max-w-7xl w-[90%] mx-auto flex flex-col gap-8 mb-8 text-zinc-700">
+    <main className="h-fit max-w-6xl w-[90%] mx-auto flex flex-col gap-8 mb-8 text-zinc-700">
       <div className="w-full aspect-[2] overflow-hidden rounded-lg bg-zinc-200">
         <img
           src={store?.logo}

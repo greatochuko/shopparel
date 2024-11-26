@@ -4,8 +4,8 @@ import useUserContext from "../hooks/useUserContext";
 const navLinks = [
   { text: "Home", href: "/" },
   { text: "Categories", href: "/categories" },
-  { text: "About", href: "/about" },
-  { text: "Contact", href: "/contact" },
+  { text: "About", href: "#" },
+  { text: "Contact", href: "#" },
 ];
 
 export default function MobileNav({

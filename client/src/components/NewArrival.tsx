@@ -14,9 +14,9 @@ export default function NewArrival({
   refreshProducts: () => void;
 }) {
   return (
-    <div className="max-w-7xl w-[90%] mx-auto flex flex-col gap-4">
+    <div className="max-w-6xl w-[90%] mx-auto flex flex-col gap-4">
       <SectionHeader title="New Arrivals" />
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-[repeat(auto-fill,_minmax(210px,_1fr))]">
+      <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
         {loading ? (
           <>
             <ProductWireframe />

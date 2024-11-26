@@ -16,7 +16,7 @@ export default function TopSellers() {
   }, []);
 
   return (
-    <div className="bg-zinc-600 w-[90%] max-w-7xl rounded-md mx-auto p-4 md:p-8 flex flex-col gap-4 lg:gap-6 text-white">
+    <div className="bg-zinc-600 w-[90%] max-w-6xl rounded-md mx-auto p-4 md:p-8 flex flex-col gap-4 lg:gap-6 text-white">
       <h2 className="text-lg font-bold text-center md:text-xl lg:text-2xl xl:text-3xl">
         Top Sellers
       </h2>

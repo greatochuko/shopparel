@@ -29,7 +29,7 @@ export default function SearchPage() {
   }, [query, page]);
 
   return (
-    <main className="pt-8 h-fit max-w-7xl w-[90%] mx-auto flex flex-col md:flex-row gap-8 mb-8 text-zinc-500">
+    <main className="pt-8 h-fit max-w-6xl w-[90%] mx-auto flex flex-col md:flex-row gap-8 mb-8 text-zinc-500">
       <SearchFilter products={products} />
       <SearchResults
         products={products}

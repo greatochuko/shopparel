@@ -68,7 +68,7 @@ export default function FeedbackSection() {
   }, []);
 
   return (
-    <div className="w-[90%] max-w-7xl overflow-hidden mx-auto flex flex-col gap-4">
+    <div className="w-[90%] max-w-6xl overflow-hidden mx-auto flex flex-col gap-4">
       <SectionHeader title="Feedback" />
       <div className="relative">
         <div

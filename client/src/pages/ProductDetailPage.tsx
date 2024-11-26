@@ -37,7 +37,7 @@ export default function ProductDetailPage() {
   }, [productId]);
 
   return (
-    <main className="flex flex-col gap-16 mx-auto mt-[72px] mb-8 w-[90%] max-w-7xl">
+    <main className="flex flex-col gap-16 mx-auto mt-[72px] mb-8 w-[90%] max-w-6xl">
       {loading || !product ? (
         <ProductDetailWireframe />
       ) : (
