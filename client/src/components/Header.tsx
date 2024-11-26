@@ -5,8 +5,14 @@ import SearchForm from "./SearchForm";
 import AuthLinks from "./AuthLinks";
 import CartLink from "./CartLink";
 import MobileNav from "./MobileNav";
+import favicon from "../assets/favicon.png";
 
-const navLinks = ["Jackets", "Jeans", "Polo Shirts"];
+const navLinks = [
+  { text: "Home", href: "/" },
+  { text: "Categories", href: "/categories" },
+  { text: "About", href: "/about" },
+  { text: "Contact", href: "/contact" },
+];
 
 export default function Header() {
   const { pathname } = useLocation();
@@ -15,39 +21,24 @@ export default function Header() {
 
   return (
     <>
-      <header className="w-full bg-white shadow-sm ">
-        <nav className="flex items-center justify-between gap-4 p-4 mx-auto sm:gap-6 max-w-7xl">
+      <header className="z-20 w-full bg-white shadow-sm ">
+        <nav className="flex items-center justify-between max-w-6xl gap-4 p-3 mx-auto sm:gap-6">
           <Link
             to={"/"}
-            className="hidden font-bold sm:block focus-visible:ring focus-visible:ring-offset-2"
+            className="flex items-center gap-1 text-lg font-bold focus-visible:ring focus-visible:ring-offset-2"
           >
-            <img src="/logo.png" alt="Shopparel" width={150} />
+            <img src={favicon} alt="Shopparel" width={24} />
+            <span className="hidden sm:block">Shopparel</span>
           </Link>
-          <Link
-            to={"/"}
-            className="font-bold sm:hidden focus-visible:ring focus-visible:ring-offset-2"
-          >
-            <img src="/favicon.png" alt="Shopparel" width={40} />
-          </Link>
-          <ul className="hidden gap-2 lg:flex">
-            <li>
-              <Link
-                to={"/search"}
-                className="p-2 text-sm duration-300 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-zinc-700 hover:text-accent-blue-100 whitespace-nowrap"
-              >
-                All Products
-              </Link>
-            </li>
-            {navLinks.map((navLink) => (
-              <li key={navLink}>
+
+          <ul className="hidden gap-2 font-medium lg:flex">
+            {navLinks.map((navLink, index) => (
+              <li key={index}>
                 <Link
-                  to={`/search?q=&categories=${navLink
-                    .toLowerCase()
-                    .split(" ")
-                    .join("+")}`}
+                  to={navLink.href}
                   className="p-2 text-sm duration-300 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-zinc-700 hover:text-accent-blue-100 whitespace-nowrap"
                 >
-                  {navLink}
+                  {navLink.text}
                 </Link>
               </li>
             ))}
@@ -55,7 +46,7 @@ export default function Header() {
 
           <SearchForm />
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 font-medium sm:gap-4">
             {user ? (
               <>
                 <Link
@@ -136,31 +127,60 @@ export default function Header() {
             {/* Toggle Mobile Nav Button */}
             <button
               onClick={() => setMobileNavIsOpen((curr) => !curr)}
-              className="block lg:hidden bg-zinc-100 ml-2 p-1.5 rounded-md active:scale-90 hover:bg-zinc-200 duration-200"
+              className="block lg:hidden ml-2 p-1.5 rounded-md active:scale-90 border duration-200"
             >
-              <svg
-                height={20}
-                width={20}
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                <g
-                  id="SVGRepo_tracerCarrier"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                ></g>
-                <g id="SVGRepo_iconCarrier">
-                  <path
-                    d="M4 6H20M4 12H20M4 18H20"
-                    stroke="#000000"
-                    strokeWidth="2"
+              {mobileNavIsOpen ? (
+                <svg
+                  height={20}
+                  width={20}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                  ></path>
-                </g>
-              </svg>
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <g id="Menu / Close_MD">
+                      <path
+                        id="Vector"
+                        d="M18 18L12 12M12 12L6 6M12 12L18 6M12 12L6 18"
+                        stroke="#000000"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></path>
+                    </g>
+                  </g>
+                </svg>
+              ) : (
+                <svg
+                  height={20}
+                  width={20}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                  <g
+                    id="SVGRepo_tracerCarrier"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  ></g>
+                  <g id="SVGRepo_iconCarrier">
+                    <path
+                      d="M4 6H20M4 12H20M4 18H20"
+                      stroke="#000000"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    ></path>
+                  </g>
+                </svg>
+              )}
             </button>
           </div>
         </nav>

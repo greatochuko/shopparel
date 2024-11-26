@@ -7,7 +7,7 @@ type AuthPageProps = { type: "signup" | "login" };
 export default function AuthPage({ type }: AuthPageProps) {
   const PageForm = { login: <LoginForm />, signup: <SignupForm /> };
   return (
-    <div className="flex flex-col h-screen pt-[72px]">
+    <div className="flex flex-col h-screen">
       <Header />
       <main className="flex flex-1 overflow-hidden">
         <div className="flex-1 hidden lg:block">

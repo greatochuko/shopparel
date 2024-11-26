@@ -1,7 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import useUserContext from "../hooks/useUserContext";
 
-const navLinks = ["Jackets", "Jeans", "Polo Shirts"];
+const navLinks = [
+  { text: "Home", href: "/" },
+  { text: "Categories", href: "/categories" },
+  { text: "About", href: "/about" },
+  { text: "Contact", href: "/contact" },
+];
 
 export default function MobileNav({
   open,
@@ -16,28 +21,17 @@ export default function MobileNav({
   return (
     <ul
       onClick={closeModal}
-      className={`fixed left-0 z-20 flex flex-col w-screen pt-[80px] h-screen duration-300 gap-2 bg-white lg:hidden ${
+      className={`fixed left-0 z-10 flex flex-col w-screen pt-[72px] py-2 shadow-md h-fit duration-300 gap-2 bg-white lg:hidden ${
         open ? " top-0" : " -top-[100%]"
       }`}
     >
-      <li>
-        <Link
-          to={"/search"}
-          className="block hover:bg-zinc-100 px-4 p-2 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-base text-zinc-700 sm:text-lg hover:text-accent-blue-100 whitespace-nowrap duration-300"
-        >
-          All Products
-        </Link>
-      </li>
-      {navLinks.map((navLink) => (
-        <li key={navLink}>
+      {navLinks.map((navLink, index) => (
+        <li key={index}>
           <Link
-            to={`/search?q=&categories=${navLink
-              .toLowerCase()
-              .split(" ")
-              .join("+")}`}
-            className="block hover:bg-zinc-100 px-4 p-2 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-base text-zinc-700 sm:text-lg hover:text-accent-blue-100 whitespace-nowrap duration-300"
+            to={navLink.href}
+            className="block p-2 px-4 text-base duration-300 rounded-md hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-zinc-700 sm:text-lg hover:text-accent-blue-100 whitespace-nowrap"
           >
-            {navLink}
+            {navLink.text}
           </Link>
         </li>
       ))}
@@ -47,7 +41,7 @@ export default function MobileNav({
           <li className="sm:hidden">
             <Link
               to={"/account"}
-              className="flex items-center gap-2 hover:bg-zinc-100 px-4 p-2 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-base text-zinc-700 sm:text-lg hover:text-accent-blue-100 whitespace-nowrap duration-300"
+              className="flex items-center gap-2 p-2 px-4 text-base duration-300 rounded-md hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-zinc-700 sm:text-lg hover:text-accent-blue-100 whitespace-nowrap"
             >
               <svg
                 height={20}
@@ -64,7 +58,7 @@ export default function MobileNav({
                 ></g>
                 <g id="SVGRepo_iconCarrier">
                   <path
-                    className="group-hover:stroke-white duration-200"
+                    className="duration-200 group-hover:stroke-white"
                     d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
                     stroke="#333"
                     strokeWidth="2"
@@ -79,7 +73,7 @@ export default function MobileNav({
           <li className="sm:hidden">
             <Link
               to={"/wishlist"}
-              className="flex items-center gap-2 hover:bg-zinc-100 px-4 p-2 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-base text-zinc-700 sm:text-lg hover:text-accent-blue-100 whitespace-nowrap duration-300"
+              className="flex items-center gap-2 p-2 px-4 text-base duration-300 rounded-md hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-zinc-700 sm:text-lg hover:text-accent-blue-100 whitespace-nowrap"
             >
               <svg
                 height={20}
@@ -110,7 +104,7 @@ export default function MobileNav({
           <li className="sm:hidden">
             <Link
               to={"/orders"}
-              className="flex items-center gap-2 hover:bg-zinc-100 px-4 p-2 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-base text-zinc-700 sm:text-lg hover:text-accent-blue-100 whitespace-nowrap duration-300"
+              className="flex items-center gap-2 p-2 px-4 text-base duration-300 rounded-md hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-zinc-700 sm:text-lg hover:text-accent-blue-100 whitespace-nowrap"
             >
               <svg
                 height={20}
@@ -153,7 +147,7 @@ export default function MobileNav({
           <li className="md:hidden">
             <Link
               to={`/login?redirect=${pathname}`}
-              className="flex items-center gap-2 hover:bg-zinc-100 px-4 p-2 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-base text-zinc-700 sm:text-lg hover:text-accent-blue-100 whitespace-nowrap duration-300"
+              className="flex items-center gap-2 p-2 px-4 text-base duration-300 rounded-md hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-zinc-700 sm:text-lg hover:text-accent-blue-100 whitespace-nowrap"
             >
               Login
             </Link>
@@ -161,7 +155,7 @@ export default function MobileNav({
           <li className="md:hidden">
             <Link
               to={`/signup?redirect=${pathname}`}
-              className="flex items-center gap-2 hover:bg-zinc-100 px-4 p-2 rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-base text-zinc-700 sm:text-lg hover:text-accent-blue-100 whitespace-nowrap duration-300"
+              className="flex items-center gap-2 p-2 px-4 text-base duration-300 rounded-md hover:bg-zinc-100 focus-visible:ring-accent-blue-100 focus-visible:ring-2 text-zinc-700 sm:text-lg hover:text-accent-blue-100 whitespace-nowrap"
             >
               Signup
             </Link>
