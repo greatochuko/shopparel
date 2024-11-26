@@ -90,7 +90,7 @@ const aboutInfos = [
 
 export default function CustomerAssurance() {
   return (
-    <div className="flex gap-4 lg:gap-8 w-full items-center md:items-start max-w-6xl px-4 md:p-4 md:w-fit bg-white text-zinc-800 flex-col md:flex-row z-[2] mx-auto">
+    <div className="flex gap-4 lg:gap-8 w-full items-center md:items-start max-w-6xl md:w-fit bg-white text-zinc-800 flex-col md:flex-row z-[2] mx-auto">
       {aboutInfos.map((info) => (
         <div
           key={info.title}

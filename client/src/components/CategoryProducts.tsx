@@ -68,7 +68,7 @@ export default function CategoryProducts({
   return (
     <div className="max-w-6xl w-[90%] mx-auto flex flex-col gap-4">
       {children}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
         {loading ? (
           <>
             <ProductWireframe />

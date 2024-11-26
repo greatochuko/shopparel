@@ -4,10 +4,18 @@ import newsletterImage from "../assets/newsletter.png";
 
 export default function NewsLetterSection() {
   const [frequency, setFrequency] = useState<"weekly" | "monthly">("weekly");
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    setLoading(true);
+    setTimeout(() => {
+      setEmail("");
+      setLoading(false);
+    }, 2000);
   }
+
   return (
     <div className="w-[90%] max-w-6xl gap-6 overflow-hidden text-white mx-auto from-primary to-primary/90 bg-gradient-to-b rounded-md flex">
       <div className="flex flex-col flex-1 gap-4 px-4 py-6 sm:gap-6 sm:py-8 sm:px-8">
@@ -20,14 +28,17 @@ export default function NewsLetterSection() {
         <form onSubmit={handleSubmit} className="relative flex flex-col gap-6">
           <input
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
             className="flex-1 w-full min-w-0 p-4 text-sm rounded-md pr-28 sm:pr-32 sm:p-5 text-zinc-800 focus-visible:ring ring-blue-500"
           />
           <button
             type="submit"
-            className="absolute px-3 py-2.5 text-sm font-medium duration-200 rounded-md sm:px-5 sm:py-3 bg-primary hover:bg-primary/90 top-1.5 sm:top-2 right-1.5 sm:right-2"
+            disabled={loading! || Boolean(!email.trim())}
+            className="absolute px-3 py-2.5 text-sm disabled:bg-primary/50 font-medium duration-200 rounded-md sm:px-5 sm:py-3 bg-primary hover:bg-primary/90 top-1.5 sm:top-2 right-1.5 sm:right-2"
           >
-            Subscribe
+            {loading ? "Subscribing..." : "Subscribe"}
           </button>
           <div className="flex justify-between max-w-sm gap-4 text-sm">
             <label htmlFor="weekly" className="flex gap-2 item-center">

@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import CustomerAssurance from "../components/CustomerAssurance";
 import CategoryProducts from "../components/CategoryProducts";
-import FeedbackSection from "../components/FeedbackSection";
 import Hero from "../components/Hero";
 import NewArrival from "../components/NewArrival";
 import NewsLetterSection from "../components/NewsLetterSection";
 import SectionHeader from "../components/SectionHeader";
-import TopSellers from "../components/TopSellers";
 import { fetchProducts } from "../services/productServices";
 import { ProductType } from "../components/Product";
 
@@ -57,7 +55,7 @@ export default function HomePage() {
   }
 
   return (
-    <main className="flex flex-col flex-1 gap-8 mb-8 ">
+    <main className="flex flex-col flex-1 gap-10 mb-8 ">
       <Hero />
       <CustomerAssurance />
       <NewArrival
@@ -73,8 +71,6 @@ export default function HomePage() {
       <CategoryProducts category="female">
         <SectionHeader title="Women's Wears" />
       </CategoryProducts>
-      <TopSellers />
-      <FeedbackSection />
     </main>
   );
 }
