@@ -9,14 +9,14 @@ const heroDataList = [
     subTitle:
       "Elevate your wardrobe with our men's fashion collection. Discover the latest trends, timeless pieces, and versatile styles to keep you looking sharp.",
     image: menHeroImage,
-    href: "/categories/men",
+    href: "#",
   },
   {
     title: "Chic & Elegant: Women's Fashion",
     subTitle:
       "Explore the newest trends, sophisticated outfits, and everyday essentials that reflect your personal style.",
     image: womenHeroImage,
-    href: "/categories/women",
+    href: "#",
   },
 ];
 

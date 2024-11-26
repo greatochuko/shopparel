@@ -33,7 +33,7 @@ export default function CartPage() {
   }
 
   return (
-    <main className="mt-[72px] pt-1 flex flex-col gap-4">
+    <main className="pt-1 flex flex-col gap-4">
       <h1 className="mt-4 text-zinc-400  mx-auto max-w-6xl w-[90%] font-semibold">
         <Link
           to={"/"}

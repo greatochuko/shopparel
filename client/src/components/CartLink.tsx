@@ -33,7 +33,7 @@ export default function CartLink() {
       </svg>
       {Boolean(cartQuantity) && (
         <p
-          className={`absolute -top-2 -right-2 border bg-white text-accent-blue-100 text-sm w-5 shadow-md flex-center h-5 rounded-full`}
+          className={`absolute -top-2.5 -right-2.5 border bg-accent-blue-100 text-white text-sm w-6 shadow-md flex-center h-6 rounded-full`}
         >
           {cartQuantity}
         </p>

@@ -45,6 +45,7 @@
 
   .animate-toast-progress-bar {
     animation: toast-progress 5000ms linear forwards;
+    /* color: #143064; */
   }
 
   .hero-show {

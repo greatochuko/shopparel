@@ -3,7 +3,7 @@ import useUserContext from "../hooks/useUserContext";
 
 const navLinks = [
   { text: "Home", href: "/" },
-  { text: "Categories", href: "/categories" },
+  { text: "Categories", href: "#" },
   { text: "About", href: "#" },
   { text: "Contact", href: "#" },
 ];
