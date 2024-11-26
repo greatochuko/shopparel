@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import About from "../components/About";
+import CustomerAssurance from "../components/CustomerAssurance";
 import CategoryProducts from "../components/CategoryProducts";
 import FeedbackSection from "../components/FeedbackSection";
 import Hero from "../components/Hero";
@@ -59,7 +59,7 @@ export default function HomePage() {
   return (
     <main className="flex flex-col flex-1 gap-8 mb-8 ">
       <Hero />
-      <About />
+      <CustomerAssurance />
       <NewArrival
         newArrivals={products.slice(0, 4)}
         loading={loading}
