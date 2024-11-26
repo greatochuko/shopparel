@@ -25,62 +25,73 @@ import AdminSettingsPage from "./pages/AdminSettingsPage";
 import ErrorPage from "./pages/ErrorPage";
 import NotFoundPage from "./pages/NotFoundPage";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      element: <ScrollToTop />,
+      errorElement: <ErrorPage />,
+      children: [
+        {
+          element: <Authenticate />,
+          children: [
+            {
+              element: <AdminPageLayout />,
+              children: [
+                { path: "/admin", element: <Dashboard /> },
+                { path: "/admin/products", element: <AdminProductsPage /> },
+                { path: "/admin/orders", element: <AdminOrdersPage /> },
+                { path: "/admin/reviews", element: <AdminReviewsPage /> },
+                { path: "/admin/settings", element: <AdminSettingsPage /> },
+                {
+                  path: "/admin/reviews/:productId",
+                  element: <AdminReviewsPage />,
+                },
+              ],
+            },
+          ],
+        },
+        { path: "/signup", element: <AuthPage type="signup" /> },
+        { path: "/login", element: <AuthPage type="login" /> },
+        {
+          element: <AppLayout />,
+          children: [
+            { path: "/", element: <HomePage /> },
+            { path: "/store/:storeName/:storeId", element: <SellersPage /> },
+            { path: "/search", element: <SearchPage /> },
+            { path: "/product/:productId", element: <ProductDetailPage /> },
+            { path: "/cart", element: <CartPage /> },
+            {
+              element: <Authenticate />,
+              children: [
+                { path: "/become-a-seller", element: <SellerLandingPage /> },
+                { path: "/checkout", element: <CheckoutPage /> },
+                {
+                  element: <ProfilePageLayout />,
+                  children: [
+                    { path: "/account", element: <ProfilePage /> },
+                    { path: "/wishlist", element: <WishlistPage /> },
+                    { path: "/orders", element: <OrderPage /> },
+                    { path: "/orders/:orderId", element: <OrderDetailPage /> },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        { path: "*", element: <NotFoundPage /> },
+      ],
+    },
+  ],
   {
-    element: <ScrollToTop />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        element: <Authenticate />,
-        children: [
-          {
-            element: <AdminPageLayout />,
-            children: [
-              { path: "/admin", element: <Dashboard /> },
-              { path: "/admin/products", element: <AdminProductsPage /> },
-              { path: "/admin/orders", element: <AdminOrdersPage /> },
-              { path: "/admin/reviews", element: <AdminReviewsPage /> },
-              { path: "/admin/settings", element: <AdminSettingsPage /> },
-              {
-                path: "/admin/reviews/:productId",
-                element: <AdminReviewsPage />,
-              },
-            ],
-          },
-        ],
-      },
-      { path: "/signup", element: <AuthPage type="signup" /> },
-      { path: "/login", element: <AuthPage type="login" /> },
-      {
-        element: <AppLayout />,
-        children: [
-          { path: "/", element: <HomePage /> },
-          { path: "/store/:storeName/:storeId", element: <SellersPage /> },
-          { path: "/search", element: <SearchPage /> },
-          { path: "/product/:productId", element: <ProductDetailPage /> },
-          { path: "/cart", element: <CartPage /> },
-          {
-            element: <Authenticate />,
-            children: [
-              { path: "/become-a-seller", element: <SellerLandingPage /> },
-              { path: "/checkout", element: <CheckoutPage /> },
-              {
-                element: <ProfilePageLayout />,
-                children: [
-                  { path: "/account", element: <ProfilePage /> },
-                  { path: "/wishlist", element: <WishlistPage /> },
-                  { path: "/orders", element: <OrderPage /> },
-                  { path: "/orders/:orderId", element: <OrderDetailPage /> },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-      { path: "*", element: <NotFoundPage /> },
-    ],
-  },
-]);
+    future: {
+      v7_partialHydration: true,
+      v7_fetcherPersist: true,
+      v7_normalizeFormMethod: true,
+      v7_relativeSplatPath: true,
+      v7_skipActionErrorRevalidation: true,
+    },
+  }
+);
 
 function App() {
   return <RouterProvider router={router} />;
