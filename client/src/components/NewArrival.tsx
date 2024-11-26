@@ -16,7 +16,7 @@ export default function NewArrival({
   return (
     <div className="max-w-7xl w-[90%] mx-auto flex flex-col gap-4">
       <SectionHeader title="New Arrivals" />
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-[repeat(auto-fill,_minmax(210px,_1fr))]">
         {loading ? (
           <>
             <ProductWireframe />
@@ -25,11 +25,11 @@ export default function NewArrival({
             <ProductWireframe />
           </>
         ) : error ? (
-          <p className="flex-center flex-col h-60 w-full text-sm sm:text-base col-span-4">
+          <p className="flex-col w-full col-span-4 text-sm flex-center h-60 sm:text-base">
             ❌{` ${error} `}❌
             <button
               onClick={refreshProducts}
-              className="text-white bg-accent-blue-100 flex-center gap-2 hover:bg-accent-blue-200 px-3 active:bg-accent-blue-300 focus-visible:ring ring-blue-400 py-1 duration-300 mt-4 rounded-full"
+              className="gap-2 px-3 py-1 mt-4 text-white duration-300 rounded-full bg-accent-blue-100 flex-center hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
             >
               <svg
                 height={16}

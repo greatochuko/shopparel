@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import {
   fetchAddToCart,
   fetchClearCart,
@@ -51,48 +51,36 @@ export default function CartProvider({
   const [refreshed, setRefreshed] = useState(false);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
+  const refreshUser = useCallback(
     async function refreshUser() {
-      const userData = await fetchUser();
-      if (!userData.error) {
-        setUser(userData);
-        setCartItems(userData?.cart as CartItemType[]);
-        setWishlist(userData?.wishlist as WishlistItemType[]);
-        setError(false);
-      } else {
-        setUser(null);
-        localStorage.removeItem("token");
-        const localCart: CartItemType[] = JSON.parse(
-          localStorage.getItem("cart") as string
-        );
+      const { userData, error } = await fetchUser();
 
-        setCartItems(localCart || []);
+      if (!error) {
+        if (!userData.error) {
+          setUser(userData);
+          setCartItems(userData?.cart as CartItemType[]);
+          setWishlist(userData?.wishlist as WishlistItemType[]);
+          setError(false);
+        } else {
+          setUser(null);
+          localStorage.removeItem("token");
+          const localCart: CartItemType[] = JSON.parse(
+            localStorage.getItem("cart") as string
+          );
+
+          setCartItems(localCart || []);
+        }
+      } else {
+        setError(true);
       }
       setRefreshed(true);
-    }
+    },
+    [setUser, setWishlist]
+  );
+
+  useEffect(() => {
     refreshUser();
-  }, [setCartItems, setUser, setWishlist]);
-
-  async function refreshUser() {
-    setRefreshed(false);
-    setError(false);
-    const userData = await fetchUser();
-    if (!userData.error) {
-      setUser(userData);
-      setCartItems(userData?.cart as CartItemType[]);
-      setWishlist(userData?.wishlist as WishlistItemType[]);
-      setError(true);
-    } else {
-      setUser(null);
-      localStorage.removeItem("token");
-      const localCart: CartItemType[] = JSON.parse(
-        localStorage.getItem("cart") as string
-      );
-
-      setCartItems(localCart || []);
-    }
-    setRefreshed(true);
-  }
+  }, [refreshUser, setCartItems, setUser, setWishlist]);
 
   async function addItemToCart(item: CartItemType) {
     let data: CartItemType & { error: string };
