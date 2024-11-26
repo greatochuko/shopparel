@@ -1,133 +1,71 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ProductType } from "./Product";
+import menHeroImage from "../assets/men-hero-image.png";
+import womenHeroImage from "../assets/women-hero-image.png";
+import { useEffect, useState } from "react";
 
-export default function Hero({
-  heroProducts,
-}: {
-  heroProducts: ProductType[];
-}) {
-  const [currentIndex, setcurrentIndex] = useState(0);
-  const colors = ["#5B6971", "#22AAA1", "#585481"];
-  const backgroundColor = colors[currentIndex];
+const heroDataList = [
+  {
+    title: "Style Reimagined: Men's Fashion",
+    subTitle:
+      "Elevate your wardrobe with our men's fashion collection. Discover the latest trends, timeless pieces, and versatile styles to keep you looking sharp.",
+    image: menHeroImage,
+    href: "/categories/men",
+  },
+  {
+    title: "Chic & Elegant: Women's Fashion",
+    subTitle:
+      "Explore the newest trends, sophisticated outfits, and everyday essentials that reflect your personal style.",
+    image: womenHeroImage,
+    href: "/categories/women",
+  },
+];
 
-  function showNextHeroProduct() {
-    if (currentIndex + 1 >= heroProducts.length) return setcurrentIndex(0);
-    setcurrentIndex((curr) => curr + 1);
-  }
+export default function Hero() {
+  const [heroIndex, setHeroIndex] = useState(0);
 
-  function showPreviousHeroProduct() {
-    if (currentIndex <= 0) return setcurrentIndex(heroProducts.length - 1);
-    setcurrentIndex((curr) => curr - 1);
-  }
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setHeroIndex((prevIndex) =>
+        prevIndex < heroDataList.length - 1 ? prevIndex + 1 : 0
+      );
+    }, 10000);
+
+    return () => clearTimeout(timeout);
+  }, [heroIndex]);
 
   return (
-    <section
-      className={`relative min-h-[250px] max-h-[90vh] aspect-[2] `}
-      style={{ backgroundColor: colors[0] }}
-    >
-      <button
-        className="top-[50%] left-1 sm:left-2 z-10 absolute bg-black/30 sm:bg-black/50 sm:opacity-70 hover:opacity-100 p-1 sm:p-2 rounded-full -translate-y-[50%] duration-300"
-        onClick={showPreviousHeroProduct}
-      >
-        <svg
-          height={20}
-          width={20}
-          className="sm:w-[30px] sm:h-[30px]"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-          <g
-            id="SVGRepo_tracerCarrier"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></g>
-          <g id="SVGRepo_iconCarrier">
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M15.5 17C15.5 17.4045 15.2564 17.7691 14.8827 17.9239C14.509 18.0787 14.0789 17.9931 13.7929 17.7071L8.79289 12.7071C8.40237 12.3166 8.40237 11.6834 8.79289 11.2929L13.7929 6.29289C14.0789 6.00689 14.509 5.92134 14.8827 6.07612C15.2564 6.2309 15.5 6.59554 15.5 7V17Z"
-              fill="#fff"
-            ></path>
-          </g>
-        </svg>
-      </button>
-      <button
-        className="top-[50%] right-1 sm:right-2 z-10 absolute bg-black/30 sm:bg-black/50 sm:opacity-70 hover:opacity-100 p-1 sm:p-2 rounded-full -translate-y-[50%] duration-300"
-        onClick={showNextHeroProduct}
-      >
-        <svg
-          height={20}
-          width={20}
-          className="sm:w-[30px] sm:h-[30px]"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-          <g
-            id="SVGRepo_tracerCarrier"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          ></g>
-          <g id="SVGRepo_iconCarrier">
-            <path
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M8.5 17C8.5 17.4045 8.74364 17.7691 9.11732 17.9239C9.49099 18.0787 9.92111 17.9931 10.2071 17.7071L15.2071 12.7071C15.5976 12.3166 15.5976 11.6834 15.2071 11.2929L10.2071 6.29289C9.92111 6.00689 9.49099 5.92134 9.11732 6.07612C8.74364 6.2309 8.5 6.59554 8.5 7V17Z"
-              fill="#fff"
-            ></path>
-          </g>
-        </svg>
-      </button>
-      {heroProducts.map((product, i) => (
-        <div
-          style={{ backgroundColor }}
-          key={product.name}
-          className={`flex absolute px-4 items-center justify-evenly w-full h-full duration-500 ${
-            i !== currentIndex ? "opacity-0 z-0" : "opacity-100 z-[2]"
-          }`}
-        >
-          <div className={`flex w-fit max-w-[40%] justify-center text-white `}>
-            <div className="flex flex-col gap-4 sm:gap-6 lg:gap-8 w-full">
-              {product.store?.name && (
-                <Link
-                  to={`/store/${product.store.name
-                    .split(" ")
-                    .join("-")
-                    .toLowerCase()}/${product.store._id}`}
-                  className="w-fit text-[min(4vw,16px)] sm:text-xl lg:text-2xl xl:text-[2vw] hover:underline capitalize"
-                >
-                  {product.store.name}
-                </Link>
-              )}
-              <h2 className="font-bold text-[4vw] sm:text-3xl md:text-4xl lg:text-5xl xl:text-[5vw]">
-                {product.name}
+    <section className="p-8 h-fit lg:aspect-[3] sm:max-h-96 bg-zinc-100 flex-center ">
+      <div className="sm:w-[90%] w-full max-w-4xl mx-auto relative h-[calc(30rem-20vw)] sm:aspect-[3]">
+        {heroDataList.map((heroData, index) => (
+          <div
+            key={index}
+            className={`absolute top-0 left-0 w-full h-full flex-col-reverse duration-300 gap-6 sm:flex-row flex justify-between items-center ${
+              index === heroIndex ? "hero-show" : "hero-hide"
+            }`}
+          >
+            <div className="flex flex-col items-center flex-1 gap-2 text-center sm:text-left sm:items-start sm:gap-4">
+              <h2 className="text-xl font-semibold sm:text-2xl">
+                {heroData.title}
               </h2>
+              <p className="text-sm text-zinc-500 ">{heroData.subTitle}</p>
               <Link
-                to={`/product/${(product._id + "-" + product.name)
-                  .split(" ")
-                  .join("-")
-                  .toLowerCase()}`}
-                className="bg-white hover:shadow-md hover:shadow-black/50 px-3 sm:px-6 py-1.5 sm:py-3 rounded-md w-fit font-semibold text-[min(4vw,16px)] text-zinc-700 sm:text-lg lg:text-xl hover:text-zinc-900 whitespace-nowrap duration-200"
+                to={heroData.href}
+                className="px-4 py-2 mt-2 text-sm font-medium text-white duration-200 rounded-md bg-zinc-900 w-fit hover:bg-zinc-800"
               >
                 Shop Now
               </Link>
             </div>
+            <div className="relative flex-1 sm:w-full">
+              <div className="sm:w-[60%] sm:ml-auto mx-auto sm:mx-0 rounded-full aspect-square bg-zinc-200/60 h-48 sm:h-auto  w-48"></div>
+              <img
+                src={heroData.image}
+                alt={"Product Image"}
+                className="absolute top-[50%] -translate-y-[50%] left-[50%] -translate-x-[50%] sm:-translate-x-[20%] h-full scale-110 object-contain"
+              />
+            </div>
           </div>
-          <div
-            className={`flex w-fit max-w-[40%] items-center justify-center overflow-hidden h-full`}
-          >
-            <img
-              src={product.images[0]}
-              alt={product.name}
-              className="w-full h-full object-contain"
-            />
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </section>
   );
 }

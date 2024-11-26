@@ -1,7 +1,7 @@
 export default function About() {
   return (
-    <div className="flex gap-2 lg:gap-4 w-full px-4 md:p-4 text-center md:-mt-16 md:w-fit bg-white text-zinc-800 flex-col md:flex-row z-[2] mx-auto">
-      <div className="p-4 bg-zinc-100 flex-1 flex-center flex-col">
+    <div className="flex gap-2 lg:gap-4 w-full px-4 md:p-4 text-center  md:w-fit bg-white text-zinc-800 flex-col md:flex-row z-[2] mx-auto">
+      <div className="flex-col flex-1 p-4 bg-zinc-100 flex-center">
         <svg
           width={60}
           height={60}
@@ -46,7 +46,7 @@ export default function About() {
           Fast & secure delivery in 3 days
         </p>
       </div>
-      <div className="p-4 bg-zinc-100 flex-1 flex-center flex-col">
+      <div className="flex-col flex-1 p-4 bg-zinc-100 flex-center">
         <svg
           width={60}
           height={60}
@@ -82,7 +82,7 @@ export default function About() {
           We offer 24/7 online support
         </p>
       </div>
-      <div className="p-4 bg-zinc-100 flex-1 flex-center flex-col">
+      <div className="flex-col flex-1 p-4 bg-zinc-100 flex-center">
         <svg
           width={60}
           height={60}

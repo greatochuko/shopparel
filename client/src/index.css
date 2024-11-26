@@ -47,6 +47,30 @@
     animation: toast-progress 5000ms linear forwards;
   }
 
+  .hero-show {
+    opacity: 0;
+    display: flex;
+    animation: fade-hero-in 300ms linear forwards;
+  }
+
+  .hero-hide {
+    opacity: 1;
+    /* display: none; */
+    animation: fade-hero-out 300ms linear forwards;
+  }
+
+  @keyframes fade-hero-in {
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-hero-out {
+    100% {
+      opacity: 0;
+    }
+  }
+
   @keyframes toast-progress {
     100% {
       width: 0;
