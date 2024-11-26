@@ -90,11 +90,11 @@ const aboutInfos = [
 
 export default function CustomerAssurance() {
   return (
-    <div className="flex gap-4 lg:gap-8 w-full items-center md:items-start max-w-6xl md:w-fit bg-white text-zinc-800 flex-col md:flex-row z-[2] mx-auto">
+    <div className="flex gap-4 lg:gap-8 w-[90%] mx-auto items-center md:items-start max-w-6xl bg-white text-zinwhitec-800 flex-col md:flex-row z-[2]">
       {aboutInfos.map((info) => (
         <div
           key={info.title}
-          className="flex flex-col items-center flex-1 gap-4 p-4 text-center md:items-start md:text-left"
+          className="flex flex-col items-center flex-1 gap-4 text-center md:items-start md:text-left"
         >
           <div className="p-4 rounded-full bg-zinc-100">{info.svg}</div>
           <h3 className="font-semibold whitespace-nowrap">{info.title}</h3>
