@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
-import About from "../components/About";
+import CustomerAssurance from "../components/CustomerAssurance";
 import CategoryProducts from "../components/CategoryProducts";
-import FeedbackSection from "../components/FeedbackSection";
 import Hero from "../components/Hero";
 import NewArrival from "../components/NewArrival";
 import NewsLetterSection from "../components/NewsLetterSection";
 import SectionHeader from "../components/SectionHeader";
-import TopSellers from "../components/TopSellers";
 import { fetchProducts } from "../services/productServices";
 import { ProductType } from "../components/Product";
 
@@ -57,9 +55,9 @@ export default function HomePage() {
   }
 
   return (
-    <main className="flex flex-col flex-1 gap-8 mb-8 pt-[70px]">
-      <Hero heroProducts={products.slice(0, 3)} />
-      <About />
+    <main className="flex flex-col flex-1 gap-10 mb-8 ">
+      <Hero />
+      <CustomerAssurance />
       <NewArrival
         newArrivals={products.slice(0, 4)}
         loading={loading}
@@ -67,14 +65,12 @@ export default function HomePage() {
         refreshProducts={refreshProducts}
       />
       <NewsLetterSection />
-      <CategoryProducts gender="male">
+      <CategoryProducts category="male">
         <SectionHeader title="Men's Wears" />
       </CategoryProducts>
-      <CategoryProducts gender="female">
+      <CategoryProducts category="female">
         <SectionHeader title="Women's Wears" />
       </CategoryProducts>
-      <TopSellers />
-      <FeedbackSection />
     </main>
   );
 }

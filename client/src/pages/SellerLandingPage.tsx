@@ -12,7 +12,7 @@ export default function SellerLandingPage() {
 
   return (
     <>
-      <div className="pt-[70px] w-[90%] max-w-7xl mx-auto flex">
+      <div className="w-[90%] max-w-6xl mx-auto flex">
         <div className="flex flex-col w-full gap-4 py-8 md:flex-row h-fit">
           <div className="flex justify-center flex-col gap-4 flex-[1.5] text-zinc-700 order-2">
             <h1 className="text-4xl font-bold md:text-5xl xl:text-6xl">

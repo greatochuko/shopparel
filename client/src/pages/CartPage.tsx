@@ -33,8 +33,8 @@ export default function CartPage() {
   }
 
   return (
-    <main className="mt-[72px] pt-1 flex flex-col gap-4">
-      <h1 className="mt-4 text-zinc-400  mx-auto max-w-7xl w-[90%] font-semibold">
+    <main className="pt-1 flex flex-col gap-4">
+      <h1 className="mt-4 text-zinc-400  mx-auto max-w-6xl w-[90%] font-semibold">
         <Link
           to={"/"}
           className="rounded-md hover:underline hover:text-zinc-700 focus-visible:ring focus-visible:ring-blue-400 focus-visible:text-zinc-700 focus-visible:ring-offset-2"
@@ -45,7 +45,7 @@ export default function CartPage() {
       </h1>
       {cartItems.length ? (
         <>
-          <div className="overflow-x-scroll scrollbar-hidden mx-auto max-w-7xl w-[90%] hidden md:block">
+          <div className="overflow-x-scroll scrollbar-hidden mx-auto max-w-6xl w-[90%] hidden md:block">
             <div className="mx-auto min-w-fit">
               <div className="flex justify-between gap-3 py-4 mb-4 text-white uppercase bg-zinc-700 last:border-none">
                 <div className="flex gap-2 flex-1 min-w-[250px] uppercase text-sm font-semibold">
@@ -89,7 +89,7 @@ export default function CartPage() {
         <EmptyCart />
       )}
       <div className="py-10 bg-zinc-200">
-        <div className="mx-auto max-w-7xl w-[90%] flex flex-col md:flex-row flex-wrap justify-between text-zinc-800 gap-10">
+        <div className="mx-auto max-w-6xl w-[90%] flex flex-col md:flex-row flex-wrap justify-between text-zinc-800 gap-10">
           <div className="flex flex-col flex-1 gap-2">
             <h3 className="text-xl font-semibold">Coupon Codes</h3>
             <p className="text-sm">Enter your coupon code if you have one</p>

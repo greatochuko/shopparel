@@ -54,7 +54,7 @@ export default function AdminSettingsPage() {
   }
 
   return (
-    <div className="flex flex-col flex-1 gap-4 w-[90%] max-w-7xl mx-auto py-6 text-zinc-800 overflow-hidden">
+    <div className="flex flex-col flex-1 gap-4 w-[90%] max-w-6xl mx-auto py-6 text-zinc-800 overflow-hidden">
       <h2 className="text-xl font-semibold">Settings</h2>
       {!store ? (
         <div className="flex-1 p-8 bg-white rounded-md flex-center">

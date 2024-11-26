@@ -7,9 +7,9 @@ export async function fetchUser() {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
-    return data;
+    return { userData: data, error: null };
   } catch (error) {
-    return error;
+    return { userData: null, error: error as Error };
   }
 }
 

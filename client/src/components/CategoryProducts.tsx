@@ -5,12 +5,12 @@ import { fetchProducts } from "../services/productServices";
 
 type CategoryProductsProps = {
   children: React.ReactNode;
-  gender: string;
+  category: string;
 };
 
 export default function CategoryProducts({
   children,
-  gender,
+  category: gender,
 }: CategoryProductsProps) {
   const [products, setProducts] = useState<ProductType[]>([]);
   const [error, setError] = useState("");
@@ -66,9 +66,9 @@ export default function CategoryProducts({
   }
 
   return (
-    <div className="max-w-7xl w-[90%] mx-auto flex flex-col gap-4">
+    <div className="max-w-6xl w-[90%] mx-auto flex flex-col gap-4">
       {children}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
         {loading ? (
           <>
             <ProductWireframe />
@@ -77,7 +77,7 @@ export default function CategoryProducts({
             <ProductWireframe />
           </>
         ) : error ? (
-          <p className="flex-col w-full col-span-4 flex-center h-60 text-sm sm:text-base">
+          <p className="flex-col w-full col-span-4 text-sm flex-center h-60 sm:text-base">
             ❌{` ${error} `}❌
             <button
               onClick={refreshProducts}

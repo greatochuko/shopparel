@@ -37,12 +37,12 @@ export default function ProductDetailPage() {
   }, [productId]);
 
   return (
-    <main className="flex flex-col gap-16 mx-auto mt-[72px] mb-8 w-[90%] max-w-7xl">
+    <main className="flex flex-col gap-16 mx-auto mb-8 w-[90%] max-w-6xl">
       {loading || !product ? (
         <ProductDetailWireframe />
       ) : (
         <>
-          <div className="flex md:flex-row flex-col gap-8">
+          <div className="flex flex-col gap-8 md:flex-row">
             <ProductDetailImages product={product as ProductType} />
             <ProductConfiguration product={product as ProductType} />
           </div>
@@ -67,7 +67,7 @@ export default function ProductDetailPage() {
                   <Review key={review._id} review={review} />
                 ))
               ) : (
-                <p className="flex-center h-20">
+                <p className="h-20 flex-center">
                   No reviews for this product. Be the first to write a review
                 </p>
               )}
@@ -77,7 +77,7 @@ export default function ProductDetailPage() {
             ) && (
               <button
                 onClick={() => setModalIsOpen(true)}
-                className="bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 mt-6 px-6 p-2 rounded-md focus-visible:ring ring-blue-400 w-full sm:w-fit text-white duration-300"
+                className="w-full p-2 px-6 mt-6 text-white duration-300 rounded-md bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400 sm:w-fit"
               >
                 Write a Review
               </button>

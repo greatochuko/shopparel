@@ -37,7 +37,7 @@ export default function ProfilePageLayout() {
 
   return (
     <>
-      <main className="flex flex-col gap-4 mx-auto mt-[78px] mb-10 pt-1 w-[90%] max-w-7xl text-zinc-700">
+      <main className="flex flex-col gap-4 mx-auto mt-[78px] mb-10 pt-1 w-[90%] max-w-6xl text-zinc-700">
         <p>
           <Link
             to={"/"}

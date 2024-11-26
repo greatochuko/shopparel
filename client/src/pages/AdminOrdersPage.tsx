@@ -51,7 +51,7 @@ export default function AdminOrdersPage() {
   }
 
   return (
-    <div className="flex flex-col flex-1 gap-4 w-[90%] max-w-7xl mx-auto py-6 text-zinc-800">
+    <div className="flex flex-col flex-1 gap-4 w-[90%] max-w-6xl mx-auto py-6 text-zinc-800">
       <div className="flex items-center gap-2 mb-4">
         <h2 className="text-xl font-semibold">Orders</h2>
         <p>

@@ -1,4 +1,4 @@
-// import React from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -8,17 +8,17 @@ import WishlistProvider from "./context/WishlistContext.tsx";
 import ToastProvider from "./context/ToastContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  // <React.StrictMode>
-  <GoogleOAuthProvider clientId={import.meta.env.VITE_API_CLIENT_ID}>
-    <WishlistProvider>
-      <UserProvider>
-        <CartProvider>
-          <ToastProvider>
-            <App />
-          </ToastProvider>
-        </CartProvider>
-      </UserProvider>
-    </WishlistProvider>
-  </GoogleOAuthProvider>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_API_CLIENT_ID}>
+      <WishlistProvider>
+        <UserProvider>
+          <CartProvider>
+            <ToastProvider>
+              <App />
+            </ToastProvider>
+          </CartProvider>
+        </UserProvider>
+      </WishlistProvider>
+    </GoogleOAuthProvider>
+  </React.StrictMode>
 );

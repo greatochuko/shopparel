@@ -8,14 +8,14 @@ export default function ErrorPage() {
   return (
     <>
       <Header />
-      <div className="flex-col flex-1 flex-center gap-6 mt-[70px] py-10 text-zinc-700">
-        <h2 className="font-bold text-4xl md:text-6xl">Oops!</h2>
+      <div className="flex-col flex-1 gap-6 py-10 flex-center text-zinc-700">
+        <h2 className="text-4xl font-bold md:text-6xl">Oops!</h2>
         <p className="text-2xl">
           Something went <strong>wrong!</strong>
         </p>
         <button
           onClick={() => navigate(0)}
-          className="bg-accent-blue-100 hover:bg-accent-blue-200 px-4 p-2 rounded-full font-semibold text-white"
+          className="p-2 px-4 font-semibold text-white rounded-full bg-accent-blue-100 hover:bg-accent-blue-200"
         >
           Refresh
         </button>

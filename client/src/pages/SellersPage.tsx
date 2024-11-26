@@ -58,12 +58,12 @@ export default function SellersPage() {
   }
 
   return (
-    <main className="pt-[82px] h-fit max-w-7xl w-[90%] mx-auto flex flex-col gap-8 mb-8 text-zinc-700">
+    <main className="h-fit max-w-6xl w-[90%] mx-auto flex flex-col gap-8 mb-8 text-zinc-700">
       <div className="w-full aspect-[2] overflow-hidden rounded-lg bg-zinc-200">
         <img
           src={store?.logo}
           alt={store?.name}
-          className="w-full h-full object-cover"
+          className="object-cover w-full h-full"
         />
       </div>
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
@@ -75,7 +75,7 @@ export default function SellersPage() {
             <ProductWireframe />
           </>
         ) : error ? (
-          <p className="flex-col w-full col-span-4 flex-center h-60 text-sm sm:text-base">
+          <p className="flex-col w-full col-span-4 text-sm flex-center h-60 sm:text-base">
             ❌{` ${error} `}❌
             <button
               onClick={refreshStoreProducts}

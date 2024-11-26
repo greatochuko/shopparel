@@ -63,15 +63,15 @@ export default function Product({ product }: { product: ProductType }) {
           .toLowerCase()
           .split(" ")
           .join("-")}`}
-        className={`bg-zinc-300 hover:shadow-md rounded-md focus-visible:ring focus-visible:ring-blue-400 duration-300 overflow-hidden aspect-[0.8] group ${
-          imageLoaded ? "" : "animate-pulse"
+        className={`bg-zinc-100 flex-center hover:shadow-md rounded-md focus-visible:ring focus-visible:ring-blue-400 duration-300 overflow-hidden aspect-[0.8] group ${
+          imageLoaded ? "" : "bg-zinc-300 animate-pulse"
         }`}
       >
         <img
           onLoad={() => setImageLoaded(true)}
           src={product.images[0]}
           alt=""
-          className={`object-contain w-full h-full duration-300 hover:scale-110 group-focus-visible:scale-110 ${
+          className={`object-contain w-[80%] h-[80%] duration-300 hover:scale-110 group-focus-visible:scale-110 ${
             imageLoaded ? "visible" : "invisible"
           }`}
         />
@@ -114,32 +114,32 @@ export default function Product({ product }: { product: ProductType }) {
         </button>
       )}
 
-      <div className="flex sm:flex-row flex-col justify-between items-start gap-1 text-zinc-700">
-        <div className="flex flex-col flex-1 gap-1 w-full">
-          <Link
-            to={`/product/${(product._id + " " + product.name)
-              .toLowerCase()
-              .split(" ")
-              .join("-")}`}
-            className="line-clamp-2 font-semibold text-sm sm:text-base hover:text-accent-blue-100 focus-visible:text-accent-blue-100 duration-300"
-          >
-            {product.name}
-          </Link>
+      <div className="flex flex-col items-start justify-between gap-1 text-zinc-700">
+        <Link
+          to={`/product/${(product._id + " " + product.name)
+            .toLowerCase()
+            .split(" ")
+            .join("-")}`}
+          className="text-sm font-semibold duration-300 line-clamp-1 hover:text-accent-blue-100 focus-visible:text-accent-blue-100"
+        >
+          {product.name}
+        </Link>
+        <div className="flex items-center justify-between w-full">
           {product.store?.name && (
             <Link
               to={`/store/${product.store.name
                 .split(" ")
                 .join("-")
                 .toLowerCase()}/${product.store._id}`}
-              className="w-fit text-xs sm:text-sm hover:underline focus-visible:underline"
+              className="text-xs w-fit sm:text-sm hover:underline focus-visible:underline"
             >
               {product.store.name}
             </Link>
           )}
+          <p className="grid px-2 py-1 text-sm font-semibold border rounded-md place-content-center w-fit">
+            ${product.price.toFixed(2)}
+          </p>
         </div>
-        <p className="place-content-center grid bg-zinc-100 px-1 sm:px-2 py-2 rounded-md w-fit font-semibold text-sm">
-          ${product.price.toFixed(2)}
-        </p>
       </div>
     </div>
   );

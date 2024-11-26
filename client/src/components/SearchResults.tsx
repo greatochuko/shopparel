@@ -89,18 +89,13 @@ export default function SearchResults({
         </div>
       </div>
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {loading ? (
-          <>
-            <ProductWireframe />
-            <ProductWireframe />
-            <ProductWireframe />
-            <ProductWireframe />
-          </>
-        ) : (
-          filteredProducts.map((product) => (
-            <Product key={product.name} product={product} />
-          ))
-        )}
+        {loading
+          ? Array(8)
+              .fill("")
+              .map((_, i) => <ProductWireframe key={i} />)
+          : filteredProducts.map((product) => (
+              <Product key={product.name} product={product} />
+            ))}
       </div>
       <ul className="flex gap-2 mt-auto flex-center">
         <p>Page:</p>
