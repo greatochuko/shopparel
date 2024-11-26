@@ -23,6 +23,7 @@ import AdminOrdersPage from "./pages/AdminOrdersPage";
 import AdminReviewsPage from "./pages/AdminReviewsPage";
 import AdminSettingsPage from "./pages/AdminSettingsPage";
 import ErrorPage from "./pages/ErrorPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 const router = createBrowserRouter([
   {
@@ -76,7 +77,7 @@ const router = createBrowserRouter([
           },
         ],
       },
-      { path: "*", element: <h1>404 Page not Found</h1> },
+      { path: "*", element: <NotFoundPage /> },
     ],
   },
 ]);
