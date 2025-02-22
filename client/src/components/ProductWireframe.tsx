@@ -1,13 +1,14 @@
 export default function ProductWireframe() {
   return (
     <div className="relative flex flex-col gap-4">
-      <div className="hover:shadow-md duration-300 bg-zinc-300 group rounded-md overflow-hidden aspect-[0.8] focus-visible:ring focus-visible:ring-blue-400 animate-pulse"></div>
+      <div className="group aspect-[0.8] w-48 animate-pulse overflow-hidden rounded-md bg-zinc-300 duration-300 hover:shadow-md focus-visible:ring focus-visible:ring-blue-400 sm:w-60"></div>
       <div className="flex items-start justify-between gap-1 text-zinc-700">
-        <div className="flex flex-col flex-1 gap-1 sm:max-w-[65%] w-full">
-          <div className="w-full h-4 rounded-full bg-zinc-200 animate-pulse"></div>
-          <div className="w-16 h-4 rounded-full bg-zinc-200 animate-pulse"></div>
+        <div className="flex w-full flex-1 flex-col gap-1 sm:max-w-[65%]">
+          <div className="h-4 w-20 animate-pulse rounded-full bg-zinc-200"></div>
+          <div className="h-4 w-full animate-pulse rounded-full bg-zinc-200"></div>
+          <div className="h-4 w-16 animate-pulse rounded-full bg-zinc-200"></div>
         </div>
-        <div className="w-10 h-6 rounded-full sm:w-12 bg-zinc-200 animate-pulse"></div>
+        <div className="h-4 w-10 animate-pulse rounded-full bg-zinc-200 sm:w-12"></div>
       </div>
     </div>
   );

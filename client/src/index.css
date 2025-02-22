@@ -4,12 +4,16 @@
 
 * {
   outline: none;
-  font-family: "Inter", sans-serif;
+  font-family: "Outfit", sans-serif;
 }
 
 *::placeholder {
-  font-family: "Inter", sans-serif;
+  font-family: "Outfit", sans-serif;
   color: #009fbb;
+}
+
+body {
+  color: #222;
 }
 
 @layer utilities {

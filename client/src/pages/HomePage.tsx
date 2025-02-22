@@ -28,8 +28,8 @@ export default function HomePage() {
       setProducts(
         [...data].sort(
           (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        )
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        ),
       );
       setLoading(false);
     }
@@ -48,18 +48,18 @@ export default function HomePage() {
     setProducts(
       [...data].sort(
         (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      )
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      ),
     );
     setLoading(false);
   }
 
   return (
-    <main className="flex flex-col flex-1 gap-10 mb-8 ">
+    <main className="mb-8 flex flex-1 flex-col gap-12">
       <Hero />
       <CustomerAssurance />
       <NewArrival
-        newArrivals={products.slice(0, 4)}
+        newArrivals={products.slice(0, 8)}
         loading={loading}
         error={error}
         refreshProducts={refreshProducts}

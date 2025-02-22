@@ -65,7 +65,7 @@ export default function CartProvider({
           setUser(null);
           localStorage.removeItem("token");
           const localCart: CartItemType[] = JSON.parse(
-            localStorage.getItem("cart") as string
+            localStorage.getItem("cart") as string,
           );
 
           setCartItems(localCart || []);
@@ -75,7 +75,7 @@ export default function CartProvider({
       }
       setRefreshed(true);
     },
-    [setUser, setWishlist]
+    [setUser, setWishlist],
   );
 
   useEffect(() => {
@@ -86,7 +86,7 @@ export default function CartProvider({
     let data: CartItemType & { error: string };
     if (!user) {
       const localCart: CartItemType[] = JSON.parse(
-        localStorage.getItem("cart") as string
+        localStorage.getItem("cart") as string,
       );
       if (localCart) {
         localStorage.setItem("cart", JSON.stringify([...localCart, item]));
@@ -110,11 +110,11 @@ export default function CartProvider({
       }
     } else {
       const localCart: CartItemType[] = JSON.parse(
-        localStorage.getItem("cart") as string
+        localStorage.getItem("cart") as string,
       );
       localStorage.setItem(
         "cart",
-        JSON.stringify(localCart.filter((cartItem) => cartItem._id !== itemId))
+        JSON.stringify(localCart.filter((cartItem) => cartItem._id !== itemId)),
       );
     }
     setCartItems((curr) => curr.filter((cartItem) => cartItem._id !== itemId));
@@ -123,10 +123,10 @@ export default function CartProvider({
   async function increaseItemQuantity(itemId: string) {
     if (!user) {
       const localCart: CartItemType[] = JSON.parse(
-        localStorage.getItem("cart") as string
+        localStorage.getItem("cart") as string,
       );
       const productInCart = localCart.find(
-        (cartItem) => cartItem._id === itemId
+        (cartItem) => cartItem._id === itemId,
       );
       if (!productInCart) return;
       localStorage.setItem(
@@ -138,8 +138,8 @@ export default function CartProvider({
               return cartItem;
             }
             return cartItem;
-          })
-        )
+          }),
+        ),
       );
     } else {
       const data = await fetchIncreaseQuantity(itemId);
@@ -154,17 +154,17 @@ export default function CartProvider({
           cartItem.quantity += 1;
         }
         return cartItem;
-      })
+      }),
     );
   }
 
   async function decreaseItemQuantity(itemId: string) {
     if (!user) {
       const localCart: CartItemType[] = JSON.parse(
-        localStorage.getItem("cart") as string
+        localStorage.getItem("cart") as string,
       );
       const productInCart = localCart.find(
-        (cartItem) => cartItem._id === itemId
+        (cartItem) => cartItem._id === itemId,
       );
       if (!productInCart) return;
       localStorage.setItem(
@@ -176,8 +176,8 @@ export default function CartProvider({
               return cartItem;
             }
             return cartItem;
-          })
-        )
+          }),
+        ),
       );
     } else {
       const data = await fetchDecreaseQuantity(itemId);
@@ -193,7 +193,7 @@ export default function CartProvider({
           else removeItemFromCart(itemId);
         }
         return cartItem;
-      })
+      }),
     );
   }
 
@@ -218,13 +218,13 @@ export default function CartProvider({
 
   if (error) {
     return (
-      <div className="flex-center flex-col h-screen w-[80%] max-w-3xl mx-auto">
+      <div className="flex-center mx-auto h-screen w-[80%] max-w-3xl flex-col">
         <img
           src="/favicon.png"
           alt="shopparel logo"
-          className="w-32 h-32 mb-4"
+          className="mb-4 h-32 w-32"
         />
-        <h2 className="font-semibold text-9xl text-accent-blue-100">500</h2>
+        <h2 className="text-9xl font-semibold text-accent-blue-100">500</h2>
         <div className="text-center">
           <p className="mb-1 text-xl font-semibold text-zinc-800">
             Something Went wrong
@@ -235,7 +235,7 @@ export default function CartProvider({
         </div>
         <button
           onClick={refreshUser}
-          className="p-1 px-4 mt-4 text-white duration-300 bg-red-500 rounded-full hover:bg-red-600 active:bg-red-700"
+          className="mt-4 rounded-full bg-red-500 p-1 px-4 text-white duration-300 hover:bg-red-600 active:bg-red-700"
         >
           Refresh
         </button>

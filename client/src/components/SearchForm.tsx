@@ -14,10 +14,10 @@ export default function SearchForm() {
 
   return (
     <form
-      className="relative min-w-[8em] flex flex-1 max-w-xs"
+      className="relative flex min-w-[8em] max-w-xs flex-1"
       onSubmit={handleSearch}
     >
-      <span className="absolute h-full text-sm flex-center left-1 text-zinc-400">
+      <span className="flex-center absolute left-1 h-full text-sm text-zinc-400">
         <svg
           width={22}
           height={22}
@@ -56,7 +56,7 @@ export default function SearchForm() {
         type="text"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="flex-1 w-full py-2 pr-2 text-sm duration-200 border-2 rounded-lg focus-visible:border-zinc-300 pl-7 text-zinc-700 border-zinc-100"
+        className="w-full flex-1 rounded-lg border-2 border-zinc-100 py-2 pl-7 pr-2 text-sm text-zinc-700 duration-200 focus-visible:border-zinc-300"
         placeholder="Search"
       />
     </form>

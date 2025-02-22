@@ -8,6 +8,7 @@ export default {
         "accent-blue-200": "#005ce6",
         "accent-blue-300": "#0050c9",
         primary: "#143064",
+        gold: "#EFBF04",
       },
     },
   },

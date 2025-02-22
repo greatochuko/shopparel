@@ -22,7 +22,7 @@ export default function SignupForm() {
   const [loading, setLoading] = useState(false);
 
   const canSubmit = Boolean(
-    email && firstName && lastName && password && confirmPassword === password
+    email && firstName && lastName && password && confirmPassword === password,
   );
 
   const { user, setUser } = useUserContext();
@@ -38,7 +38,7 @@ export default function SignupForm() {
 
   async function handleGoogleLogin(response: CredentialResponse) {
     const userData: JwtPayload & GoogleUserCredentials = jwtDecode(
-      response.credential as string
+      response.credential as string,
     );
     const googleClientId = response.clientId as string;
     const { email, name } = userData;
@@ -47,7 +47,7 @@ export default function SignupForm() {
       email,
       googleFirstName,
       googleLastName,
-      googleClientId
+      googleClientId,
     );
     if (data.error) return;
 
@@ -116,12 +116,12 @@ export default function SignupForm() {
 
   return (
     <form
-      className=" sm:w-[90%] max-w-xl flex flex-col gap-6 mx-auto"
+      className="mx-auto flex max-w-xl flex-col gap-4 text-sm sm:w-[90%]"
       onSubmit={handleSignup}
     >
       <div>
         <h1 className="text-2xl font-semibold">Sign Up</h1>
-        <p className="text-sm">
+        <p className="text-sm text-zinc-500">
           Already have an account?{" "}
           <Link
             to={"/login"}
@@ -135,9 +135,9 @@ export default function SignupForm() {
 
       <div className="">
         <hr className="mt-4" />
-        <p className="px-5 mx-auto -mt-3.5 text-center bg-white w-fit">OR</p>
+        <p className="mx-auto -mt-3.5 w-fit bg-white px-5 text-center">OR</p>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1">
         <label htmlFor="firstName">First Name</label>
         <input
           value={firstName}
@@ -145,10 +145,10 @@ export default function SignupForm() {
           id="firstName"
           type="text"
           placeholder="John"
-          className="p-3 border rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 border-zinc-300"
+          className="rounded-md border p-2 ring-offset-2 focus-visible:ring-2 focus-visible:ring-accent-blue-100"
         />
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1">
         <label htmlFor="lastName">Last Name</label>
         <input
           value={lastName}
@@ -156,11 +156,11 @@ export default function SignupForm() {
           id="lastName"
           type="text"
           placeholder="Doe"
-          className="p-3 border rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 border-zinc-300"
+          className="rounded-md border p-2 ring-offset-2 focus-visible:ring-2 focus-visible:ring-accent-blue-100"
         />
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1">
         <label htmlFor="email">Email Address</label>
         <input
           value={email}
@@ -168,11 +168,11 @@ export default function SignupForm() {
           type="email"
           id="email"
           placeholder="youremail@example.com"
-          className="p-3 border rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 border-zinc-300"
+          className="rounded-md border p-2 ring-offset-2 focus-visible:ring-2 focus-visible:ring-accent-blue-100"
         />
       </div>
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1">
         <label htmlFor="password" className="flex items-center justify-between">
           Password
         </label>
@@ -182,12 +182,12 @@ export default function SignupForm() {
             onChange={(e) => setPassword(e.target.value)}
             id="password"
             type={showPassword ? "text" : "password"}
-            className="w-full p-3 pr-12 border rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 border-zinc-300"
+            className="w-full rounded-md border p-2 pr-12 ring-offset-2 focus-visible:ring-2 focus-visible:ring-accent-blue-100"
           />
           <button
             type="button"
             onClick={() => setShowPassword((curr) => !curr)}
-            className="hover:bg-zinc-200 focus-visible:ring-accent-blue-100 focus-visible:ring-2 bg-zinc-100 active:scale-90 absolute right-2 duration-300 top-[50%] -translate-y-[50%] rounded-full flex items-center gap-1 px-2 py-1 text-sm text-[#555] hover:text-[#333]"
+            className="absolute right-2 top-[50%] flex -translate-y-[50%] items-center gap-1 rounded-full bg-zinc-100 px-2 py-1 text-sm text-[#555] ring-offset-2 duration-300 hover:bg-zinc-200 hover:text-[#333] focus-visible:ring-2 focus-visible:ring-accent-blue-100 active:scale-90"
           >
             {showPassword ? (
               <svg
@@ -248,7 +248,7 @@ export default function SignupForm() {
           </button>
         </div>
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-1">
         <label
           htmlFor="confirmPassword"
           className="flex items-center justify-between"
@@ -261,12 +261,12 @@ export default function SignupForm() {
             onChange={handleConfirmPassword}
             id="confirmPassword"
             type={showConfirmPassword ? "text" : "password"}
-            className="w-full p-3 pr-12 border rounded-md focus-visible:ring-accent-blue-100 focus-visible:ring-2 border-zinc-300"
+            className="w-full rounded-md border p-2 pr-12 ring-offset-2 focus-visible:ring-2 focus-visible:ring-accent-blue-100"
           />
           <button
             type="button"
             onClick={() => setShowConfirmPassword((curr) => !curr)}
-            className="hover:bg-zinc-200 focus-visible:ring-accent-blue-100 focus-visible:ring-2 bg-zinc-100 active:scale-90 absolute right-2 duration-300 top-[50%] -translate-y-[50%] rounded-full flex items-center gap-1 px-2 py-1 text-sm text-[#555] hover:text-[#333]"
+            className="absolute right-2 top-[50%] flex -translate-y-[50%] items-center gap-1 rounded-full bg-zinc-100 px-2 py-1 text-sm text-[#555] ring-offset-2 duration-300 hover:bg-zinc-200 hover:text-[#333] focus-visible:ring-2 focus-visible:ring-accent-blue-100 active:scale-90"
           >
             {showConfirmPassword ? (
               <svg
@@ -326,13 +326,13 @@ export default function SignupForm() {
             )}
           </button>
         </div>
-        <p className="text-sm text-red-500 ">{error}</p>
+        <p className="text-sm text-red-500">{error}</p>
       </div>
 
       <button
         type="submit"
         disabled={!canSubmit}
-        className="px-6 py-3 font-semibold text-white duration-300 rounded-md flex-center disabled:bg-zinc-500 disabled:cursor-not-allowed active:bg-blue-700 bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:bg-accent-blue-200"
+        className="flex-center h-10 rounded-md bg-accent-blue-100 px-6 font-semibold text-white duration-300 hover:bg-accent-blue-200 focus-visible:bg-accent-blue-200 active:bg-blue-700 disabled:cursor-not-allowed disabled:bg-zinc-500"
       >
         {loading ? <LoadingIndicator /> : "Sign Up"}
       </button>

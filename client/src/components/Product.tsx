@@ -4,6 +4,7 @@ import useWishlistContext from "../hooks/useWishlistContext";
 import useUserContext from "../hooks/useUserContext";
 import { StoreType } from "./AdminPageLayout";
 import { useState } from "react";
+import { HeartIcon, StarIcon } from "lucide-react";
 
 export type ProductType = {
   _id: string;
@@ -29,11 +30,17 @@ export default function Product({ product }: { product: ProductType }) {
   const { user } = useUserContext();
   const { wishlist, addProductToWishlist, removeProductFromWishlist } =
     useWishlistContext();
+
   const productInWishlist =
     wishlist.find((wishlistItem) => wishlistItem.productId === product._id) ||
     null;
 
   const [imageLoaded, setImageLoaded] = useState(false);
+
+  const productSlug = (product._id + " " + product.name)
+    .toLowerCase()
+    .split(" ")
+    .join("-");
 
   async function toggleAddToWishlist(e: React.MouseEvent) {
     e.preventDefault();
@@ -57,89 +64,46 @@ export default function Product({ product }: { product: ProductType }) {
   }
 
   return (
-    <div className="relative flex flex-col gap-4">
-      <Link
-        to={`/product/${(product._id + " " + product.name)
-          .toLowerCase()
-          .split(" ")
-          .join("-")}`}
-        className={`bg-zinc-100 flex-center hover:shadow-md rounded-md focus-visible:ring focus-visible:ring-blue-400 duration-300 overflow-hidden aspect-[0.8] group ${
-          imageLoaded ? "" : "bg-zinc-300 animate-pulse"
+    <div className="flex flex-col gap-1">
+      <div
+        className={`relative aspect-[0.9] w-48 overflow-hidden rounded-md bg-zinc-100 sm:w-60 ${
+          imageLoaded ? "" : "animate-pulse bg-zinc-300"
         }`}
       >
         <img
           onLoad={() => setImageLoaded(true)}
           src={product.images[0]}
-          alt=""
-          className={`object-contain w-[80%] h-[80%] duration-300 hover:scale-110 group-focus-visible:scale-110 ${
+          alt={product.name}
+          className={`absolute left-0 top-0 h-full w-full object-contain duration-300 ${
             imageLoaded ? "visible" : "invisible"
           }`}
         />
-      </Link>
-      {user && (
-        <button
-          className="top-2 right-2 z-[5] absolute bg-white hover:shadow-lg p-1.5 rounded-full focus-visible:ring focus-visible:ring-blue-400 active:scale-90 duration-200"
-          onClick={toggleAddToWishlist}
-        >
-          <svg
-            width={20}
-            height={20}
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
+        {user && (
+          <button
+            className="absolute right-2 top-2 rounded-full bg-white p-1 shadow-sm"
+            onClick={toggleAddToWishlist}
           >
-            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-            <g
-              id="SVGRepo_tracerCarrier"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            ></g>
-            <g id="SVGRepo_iconCarrier">
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M12 6.00019C10.2006 3.90317 7.19377 3.2551 4.93923 5.17534C2.68468 7.09558 2.36727 10.3061 4.13778 12.5772C5.60984 14.4654 10.0648 18.4479 11.5249 19.7369C11.6882 19.8811 11.7699 19.9532 11.8652 19.9815C11.9483 20.0062 12.0393 20.0062 12.1225 19.9815C12.2178 19.9532 12.2994 19.8811 12.4628 19.7369C13.9229 18.4479 18.3778 14.4654 19.8499 12.5772C21.6204 10.3061 21.3417 7.07538 19.0484 5.17534C16.7551 3.2753 13.7994 3.90317 12 6.00019Z"
-                stroke="#000000"
-                className={`${
-                  productInWishlist
-                    ? "stroke-accent-blue-100 fill-accent-blue-100"
-                    : "stroke-zinc-800 fill-none"
-                }`}
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              ></path>
-            </g>
-          </svg>
-        </button>
-      )}
-
-      <div className="flex flex-col items-start justify-between gap-1 text-zinc-700">
-        <Link
-          to={`/product/${(product._id + " " + product.name)
-            .toLowerCase()
-            .split(" ")
-            .join("-")}`}
-          className="text-sm font-semibold duration-300 line-clamp-1 hover:text-accent-blue-100 focus-visible:text-accent-blue-100"
-        >
-          {product.name}
-        </Link>
-        <div className="flex items-center justify-between w-full">
-          {product.store?.name && (
-            <Link
-              to={`/store/${product.store.name
-                .split(" ")
-                .join("-")
-                .toLowerCase()}/${product.store._id}`}
-              className="text-xs w-fit sm:text-sm hover:underline focus-visible:underline"
-            >
-              {product.store.name}
-            </Link>
-          )}
-          <p className="grid px-2 py-1 text-sm font-semibold border rounded-md place-content-center w-fit">
-            ${product.price.toFixed(2)}
-          </p>
-        </div>
+            <HeartIcon
+              className={`h-4 w-4 stroke-accent-blue-100 ${productInWishlist ? "fill-accent-blstroke-accent-blue-100" : "fill-white"}`}
+            />
+          </button>
+        )}
+      </div>
+      <div className="flex items-center justify-between">
+        <p className="text-sm text-zinc-500">{product.store.name}</p>
+        <p className="flex items-center gap-1 font-medium">
+          <StarIcon className="h-4 w-4 stroke-none" fill="#EFBF04" />
+          4.5
+        </p>
+      </div>
+      <Link
+        to={`/product/${productSlug}`}
+        className="line-clamp-1 font-medium hover:underline"
+      >
+        {product.name}
+      </Link>
+      <div className="flex items-center justify-between">
+        <p className="font-semibold">${product.price.toFixed(2)}</p>
       </div>
     </div>
   );
