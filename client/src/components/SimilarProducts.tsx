@@ -31,22 +31,13 @@ export default function SimilarProducts({
       <section className="w-full">
         <SectionHeader title="Similar Products" />
         <div className="scrollbar-hidden mt-4 flex w-full gap-4 overflow-x-auto">
-          {loading ? (
-            <>
-              <ProductWireframe />
-              <ProductWireframe />
-              <ProductWireframe />
-              <ProductWireframe />
-              <ProductWireframe />
-              <ProductWireframe />
-              <ProductWireframe />
-              <ProductWireframe />
-            </>
-          ) : (
-            products.map((product) => (
-              <Product key={product.name} product={product} />
-            ))
-          )}
+          {loading
+            ? Array(8)
+                .fill("")
+                .map((_, i) => <ProductWireframe key={i} fixedWidth />)
+            : products.map((product) => (
+                <Product key={product.name} product={product} fixedWidth />
+              ))}
         </div>
       </section>
     );
