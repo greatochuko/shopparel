@@ -26,7 +26,13 @@ export type ProductType = {
   store: StoreType;
 };
 
-export default function Product({ product }: { product: ProductType }) {
+export default function Product({
+  product,
+  fixedWidth = false,
+}: {
+  product: ProductType;
+  fixedWidth?: boolean;
+}) {
   const { user } = useUserContext();
   const { wishlist, addProductToWishlist, removeProductFromWishlist } =
     useWishlistContext();
@@ -64,11 +70,11 @@ export default function Product({ product }: { product: ProductType }) {
   }
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 rounded-md">
       <div
-        className={`relative aspect-[0.9] w-48 overflow-hidden rounded-md bg-zinc-100 sm:w-60 ${
+        className={`relative aspect-[0.9] overflow-hidden rounded-md bg-zinc-100 ${
           imageLoaded ? "" : "animate-pulse bg-zinc-300"
-        }`}
+        } ${fixedWidth ? "w-48 sm:w-60" : "w-full"}`}
       >
         <img
           onLoad={() => setImageLoaded(true)}
@@ -90,15 +96,20 @@ export default function Product({ product }: { product: ProductType }) {
         )}
       </div>
       <div className="flex items-center justify-between">
-        <p className="text-sm text-zinc-500">{product.store.name}</p>
+        <Link
+          to={`/store/${product.store._id}-${product.store.name}`}
+          className="text-sm text-zinc-500 hover:underline focus-visible:underline"
+        >
+          {product.store.name}
+        </Link>
         <p className="flex items-center gap-1 font-medium">
           <StarIcon className="h-4 w-4 stroke-none" fill="#EFBF04" />
           4.5
         </p>
       </div>
       <Link
-        to={`/product/${productSlug}`}
-        className="line-clamp-1 font-medium hover:underline"
+        to={`/products/${productSlug}`}
+        className="line-clamp-1 font-medium hover:text-accent-blue-100 hover:underline focus-visible:text-accent-blue-100 focus-visible:underline"
       >
         {product.name}
       </Link>

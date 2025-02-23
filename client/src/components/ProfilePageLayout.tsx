@@ -20,7 +20,7 @@ export default function ProfilePageLayout() {
   }
 
   function handleSelectNewProfilePicture(
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) {
     setLoading(true);
     if (!e.target.files) return setLoading(false);
@@ -37,29 +37,29 @@ export default function ProfilePageLayout() {
 
   return (
     <>
-      <main className="flex flex-col gap-4 mx-auto mt-[78px] mb-10 pt-1 w-[90%] max-w-6xl text-zinc-700">
+      <main className="mx-auto mb-10 mt-[78px] flex w-[90%] max-w-6xl flex-col gap-4 pt-1 text-zinc-500">
         <p>
           <Link
             to={"/"}
-            className="p-1 rounded-md focus-visible:ring ring-blue-400 hover:underline"
+            className="rounded-md p-1 ring-blue-400 hover:underline focus-visible:ring"
           >
             Home
           </Link>
           &gt; My Account &gt;
-          <span className="font-semibold"> Personal Info</span>
+          <span className="font-semibold text-zinc-700"> Personal Info</span>
         </p>
-        <div className="flex md:flex-row flex-col gap-8 mt-6">
+        <div className="mt-6 flex flex-col gap-8 md:flex-row">
           <section className="w-full md:w-40 lg:w-64">
-            <div className="flex-col flex-center gap-2">
+            <div className="flex-center flex-col gap-2">
               <div className="relative">
                 <img
                   src={user?.imgUrl}
                   alt={`${user?.firstName} ${user?.lastName} profile picture`}
-                  className="rounded-full w-24 aspect-square object-cover"
+                  className="aspect-square w-24 rounded-full object-cover"
                 />
                 <label
                   htmlFor="profile-picture"
-                  className="top-[60%] right-0 absolute flex-center bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 p-[6px] rounded-full translate-x-[20%] duration-300 cursor-pointer"
+                  className="flex-center absolute right-0 top-[60%] translate-x-[20%] cursor-pointer rounded-full bg-accent-blue-100 p-[6px] duration-300 hover:bg-accent-blue-200 active:bg-accent-blue-300"
                 >
                   <input
                     type="file"
@@ -110,7 +110,7 @@ export default function ProfilePageLayout() {
               <p className="text-center">Welcome to your account</p>
               <Link
                 to={user?.store ? "/admin" : "/become-a-seller"}
-                className="flex-center gap-2 bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 px-4 p-2 rounded-md focus-visible:ring ring-blue-400 w-fit text-white duration-300"
+                className="flex-center w-fit gap-2 rounded-md bg-accent-blue-100 p-2 px-4 text-white ring-blue-400 duration-300 hover:bg-accent-blue-200 focus-visible:ring active:bg-accent-blue-300"
               >
                 <svg
                   height={20}
@@ -140,14 +140,14 @@ export default function ProfilePageLayout() {
             </div>
             <ul
               role="navigation"
-              className="flex flex-row md:flex-col my-6 whitespace-nowrap"
+              className="my-6 flex flex-row whitespace-nowrap md:flex-col"
             >
               <li className="flex-1">
                 <Link
                   to={"/account"}
-                  className={`p-3 flex items-center justify-center md:justify-normal gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
+                  className={`flex items-center justify-center gap-2 p-3 duration-200 hover:bg-zinc-100 focus-visible:bg-zinc-100 md:justify-normal ${
                     pathname === "/account"
-                      ? "md:border-l-4 md:border-b-0 border-b-2 border-zinc-700 bg-zinc-100"
+                      ? "border-b-2 border-zinc-700 bg-zinc-100 md:border-b-0 md:border-l-4"
                       : ""
                   }`}
                 >
@@ -166,7 +166,7 @@ export default function ProfilePageLayout() {
                     ></g>
                     <g id="SVGRepo_iconCarrier">
                       <path
-                        className="group-hover:stroke-white duration-200"
+                        className="duration-200 group-hover:stroke-white"
                         d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
                         stroke="#333"
                         strokeWidth="2"
@@ -187,9 +187,9 @@ export default function ProfilePageLayout() {
               <li className="flex-1">
                 <Link
                   to={"/wishlist"}
-                  className={`p-3 flex items-center justify-center md:justify-normal gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
+                  className={`flex items-center justify-center gap-2 p-3 duration-200 hover:bg-zinc-100 focus-visible:bg-zinc-100 md:justify-normal ${
                     pathname === "/wishlist"
-                      ? "md:border-l-4 md:border-b-0 border-b-2 border-zinc-700 bg-zinc-100"
+                      ? "border-b-2 border-zinc-700 bg-zinc-100 md:border-b-0 md:border-l-4"
                       : ""
                   }`}
                 >
@@ -228,9 +228,9 @@ export default function ProfilePageLayout() {
               <li className="flex-1">
                 <Link
                   to={"/orders"}
-                  className={`p-3 flex items-center justify-center md:justify-normal gap-2 hover:bg-zinc-100 duration-200 focus-visible:bg-zinc-100 ${
+                  className={`flex items-center justify-center gap-2 p-3 duration-200 hover:bg-zinc-100 focus-visible:bg-zinc-100 md:justify-normal ${
                     pathname.includes("/orders")
-                      ? "md:border-l-4 md:border-b-0 border-b-2 border-zinc-700 bg-zinc-100"
+                      ? "border-b-2 border-zinc-700 bg-zinc-100 md:border-b-0 md:border-l-4"
                       : ""
                   }`}
                 >
@@ -279,7 +279,7 @@ export default function ProfilePageLayout() {
               <li
                 role="button"
                 onClick={openSignoutModal}
-                className="flex flex-1 justify-center md:justify-normal items-center gap-2 hover:bg-zinc-100 focus-visible:bg-zinc-100 p-3 duration-200 cursor-pointer"
+                className="flex flex-1 cursor-pointer items-center justify-center gap-2 p-3 duration-200 hover:bg-zinc-100 focus-visible:bg-zinc-100 md:justify-normal"
               >
                 <svg
                   height={20}
@@ -305,7 +305,7 @@ export default function ProfilePageLayout() {
                     ></path>
                   </g>
                 </svg>
-                <span className="sm:block hidden">Sign out</span>
+                <span className="hidden sm:block">Sign out</span>
               </li>
             </ul>
           </section>

@@ -2,8 +2,8 @@ import { Link } from "react-router-dom";
 
 export default function EmptyOrders() {
   return (
-    <div className="border w-[90%] max-w-xl py-10 aspect-[1.3] shadow rounded-md mx-auto flex-center flex-col gap-8 p-4">
-      <div className="w-[35%] aspect-square rounded-full bg-green-100 flex-center">
+    <div className="flex-center mx-auto aspect-[1.3] w-[90%] max-w-xl flex-col gap-8 rounded-md border p-4 py-10 shadow">
+      <div className="flex-center aspect-square w-[35%] rounded-full bg-green-100">
         <svg
           height="50%"
           width="50%"
@@ -39,15 +39,17 @@ export default function EmptyOrders() {
           </g>
         </svg>
       </div>
-      <div className="flex-col text-center flex-center">
-        <h1 className="text-xl font-semibold sm:text-2xl">
+      <div className="flex-center flex-col text-center">
+        <h1 className="text-xl font-semibold text-zinc-700 sm:text-2xl">
           Your have no orders
         </h1>
-        <p>You have not made any purchase yet</p>
+        <p className="text-sm sm:text-base">
+          You have not made any purchase yet
+        </p>
       </div>
       <Link
-        to={"/search?q="}
-        className="px-4 py-2 text-base font-semibold text-white duration-300 rounded-md sm:text-lg bg-accent-blue-100 hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
+        to={"/products"}
+        className="rounded-md bg-accent-blue-100 px-4 py-2 text-sm font-medium text-white ring-blue-400 duration-300 hover:bg-accent-blue-200 focus-visible:ring active:bg-accent-blue-300 sm:text-base"
       >
         Start Shopping
       </Link>

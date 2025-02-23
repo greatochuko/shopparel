@@ -19,7 +19,7 @@ export default function WishlistItem({
     (cartItem) =>
       cartItem.product?._id === product.productId &&
       cartItem.size === currentSize &&
-      cartItem.color === currentColor
+      cartItem.color === currentColor,
   );
 
   function handleAddItemToCart() {
@@ -44,7 +44,7 @@ export default function WishlistItem({
       <div className="flex items-center gap-4">
         <button
           onClick={() => removeProductFromWishlist(product._id)}
-          className="p-1 duration-300 rounded-md group focus-visible:ring ring-blue-400 hover:bg-red-200"
+          className="group rounded-md p-1 ring-blue-400 duration-300 hover:bg-red-200 focus-visible:ring"
         >
           <svg
             height={20}
@@ -61,7 +61,7 @@ export default function WishlistItem({
               strokeLinecap="round"
               strokeLinejoin="round"
               stroke="#000"
-              className="duration-300 stroke-zinc-500 group-hover:stroke-red-600"
+              className="stroke-zinc-500 duration-300 group-hover:stroke-red-600"
               strokeWidth="8"
             >
               <line x1="8.06" y1="8.06" x2="55.41" y2="55.94"></line>
@@ -73,17 +73,17 @@ export default function WishlistItem({
             </g>
           </svg>
         </button>
-        <div className="flex items-center flex-1 gap-4">
-          <div className="w-20 h-20 rounded-md bg-zinc-200 aspect-square">
+        <div className="flex flex-1 items-center gap-4">
+          <div className="aspect-square h-20 w-20 rounded-md bg-zinc-200">
             <img
               src={product.imgUrl}
               alt=""
-              className="object-contain w-full h-full"
+              className="h-full w-full object-contain"
             />
           </div>
           <div className="flex flex-col gap-2 text-sm sm:text-base">
             <Link
-              to={`/product/${(
+              to={`/products/${(
                 product.productId +
                 "-" +
                 product.name.split(" ").join("-")
@@ -126,7 +126,7 @@ export default function WishlistItem({
           </div>
         </div>
       </div>
-      <div className="flex gap-4 ml-[44px] md:ml-0 items-center">
+      <div className="ml-[44px] flex items-center gap-4 md:ml-0">
         <p className="w-24 font-semibold">${product.price.toFixed(2)}</p>
         {productInCart ? (
           <QuantityController
@@ -136,7 +136,7 @@ export default function WishlistItem({
         ) : (
           <button
             onClick={handleAddItemToCart}
-            className="p-2 px-4 text-white duration-300 rounded-md bg-accent-blue-100 whitespace-nowrap focus-visible:ring ring-blue-400 hover:bg-accent-blue-200 active:bg-accent-blue-300"
+            className="whitespace-nowrap rounded-md bg-accent-blue-100 p-2 px-4 text-white ring-blue-400 duration-300 hover:bg-accent-blue-200 focus-visible:ring active:bg-accent-blue-300"
           >
             <span className="hidden md:block lg:hidden" title="Add To Cart">
               <svg
@@ -161,7 +161,7 @@ export default function WishlistItem({
                 </g>
               </svg>
             </span>
-            <span className="text-sm md:hidden lg:block sm:text-base">
+            <span className="text-sm sm:text-base md:hidden lg:block">
               Add To Cart
             </span>
           </button>

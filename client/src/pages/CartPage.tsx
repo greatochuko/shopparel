@@ -1,43 +1,24 @@
 import { Link } from "react-router-dom";
 import CartItem from "../components/CartItem";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useCartContext from "../hooks/useCartContext";
 import EmptyCart from "../components/EmptyCart";
 import MobileCartITem from "../components/MobileCartITem";
+import CartSummary from "../components/CartSummary";
 
 export default function CartPage() {
-  const [couponError, setCouponError] = useState("");
-  const [couponCode, setCouponCode] = useState("");
   const { cartItems } = useCartContext();
 
   useEffect(() => {
     document.title = "Shopparel: Cart";
   }, []);
 
-  const subTotal = cartItems
-    .reduce((acc, curr) => acc + curr.price * curr.quantity, 0)
-    .toFixed(2);
-
-  const totalShipping = cartItems
-    .reduce((acc, curr) => acc + curr.shipping, 0)
-    .toFixed(2);
-
-  const grandTotal = (Number(subTotal) + Number(totalShipping)).toFixed(2);
-
-  function handleCoupon(e: React.FormEvent) {
-    setCouponError("");
-    e.preventDefault();
-    setCouponError(
-      "Error: The coupon code you entered is not valid or has expired"
-    );
-  }
-
   return (
-    <main className="pt-1 flex flex-col gap-4">
-      <h1 className="mt-4 text-zinc-400  mx-auto max-w-6xl w-[90%] font-semibold">
+    <main className="flex flex-col gap-4 pt-1">
+      <h1 className="mx-auto mt-4 w-[90%] max-w-6xl font-medium text-zinc-400">
         <Link
           to={"/"}
-          className="rounded-md hover:underline hover:text-zinc-700 focus-visible:ring focus-visible:ring-blue-400 focus-visible:text-zinc-700 focus-visible:ring-offset-2"
+          className="rounded-md hover:text-zinc-500 hover:underline focus-visible:text-zinc-700 focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-2"
         >
           Home
         </Link>{" "}
@@ -45,41 +26,41 @@ export default function CartPage() {
       </h1>
       {cartItems.length ? (
         <>
-          <div className="overflow-x-scroll scrollbar-hidden mx-auto max-w-6xl w-[90%] hidden md:block">
+          <div className="scrollbar-hidden mx-auto hidden w-[90%] max-w-6xl overflow-x-scroll md:block">
             <div className="mx-auto min-w-fit">
-              <div className="flex justify-between gap-3 py-4 mb-4 text-white uppercase bg-zinc-700 last:border-none">
-                <div className="flex gap-2 flex-1 min-w-[250px] uppercase text-sm font-semibold">
+              <div className="mb-4 flex justify-between gap-3 bg-zinc-700 py-4 uppercase text-white last:border-none">
+                <div className="flex min-w-[250px] flex-1 gap-2 text-sm font-semibold uppercase">
                   <p className="pl-4">Product Information</p>
                 </div>
-                <div className="flex justify-between flex-1 gap-2 text-sm font-semibold">
-                  <div className="flex-1 min-w-[100px] flex-center">Price</div>
-                  <div className="flex-1 min-w-[100px] flex-center">
+                <div className="flex flex-1 justify-between gap-2 text-sm font-semibold">
+                  <div className="flex-center min-w-[100px] flex-1">Price</div>
+                  <div className="flex-center min-w-[100px] flex-1">
                     Quantity
                   </div>
-                  <div className="flex-1 min-w-[100px] flex-center">
+                  <div className="flex-center min-w-[100px] flex-1">
                     Shipping
                   </div>
-                  <div className="flex-1 hidden lg:flex-center min-w-[100px]">
+                  <div className="lg:flex-center hidden min-w-[100px] flex-1">
                     SubTotal
                   </div>
-                  <div className="flex-1 min-w-[100px] flex-center">Action</div>
+                  <div className="flex-center min-w-[100px] flex-1">Action</div>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-4 mx-auto min-w-fit">
+            <div className="mx-auto flex min-w-fit flex-col gap-4">
               {cartItems.map((cartItem) => (
                 <CartItem key={cartItem._id} cartItem={cartItem} />
               ))}
             </div>
             <Link
-              to={"/search?q="}
-              className="ml-2 text-sm font-semibold rounded-md group text-zinc-500 hover:text-zinc-700 focus-visible:ring focus-visible:ring-blue-400"
+              to={"/products"}
+              className="group ml-2 rounded-md text-sm font-semibold text-zinc-500 hover:text-zinc-700 focus-visible:ring focus-visible:ring-blue-400"
             >
               <span className="hover:underline">Continue Shopping</span>
               <span className="duration-300 group-hover:ml-1"> &rarr;</span>
             </Link>
           </div>
-          <div className="flex gap-2 flex-col w-[90%] mx-auto md:hidden">
+          <div className="mx-auto flex w-[90%] flex-col gap-2 md:hidden">
             {cartItems.map((cartItem) => (
               <MobileCartITem key={cartItem._id} cartItem={cartItem} />
             ))}
@@ -88,49 +69,7 @@ export default function CartPage() {
       ) : (
         <EmptyCart />
       )}
-      <div className="py-10 bg-zinc-200">
-        <div className="mx-auto max-w-6xl w-[90%] flex flex-col md:flex-row flex-wrap justify-between text-zinc-800 gap-10">
-          <div className="flex flex-col flex-1 gap-2">
-            <h3 className="text-xl font-semibold">Coupon Codes</h3>
-            <p className="text-sm">Enter your coupon code if you have one</p>
-            <form
-              className="flex mt-4 border w-[100%] max-w-[300px] "
-              onSubmit={handleCoupon}
-            >
-              <input
-                type="text"
-                value={couponCode}
-                name="coupon"
-                onChange={(e) => setCouponCode(e.target.value)}
-                className="text-sm border-zinc-400 border-2 w-[100%] sm:w-auto border-r-0 rounded-s-md focus-visible:ring focus-visible:ring-blue-400 px-2"
-              />
-              <button
-                type="submit"
-                className="bg-accent-blue-100 text-white w-fit px-1 py-2.5 whitespace-nowrap sm:px-2.5 rounded-e-md text-sm hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400"
-              >
-                Apply Coupon
-              </button>
-            </form>
-            <p className="text-sm text-red-600">{couponError}</p>
-          </div>
-          <div className="flex flex-col gap-2 flex-1 max-w-[300px]">
-            <div className="grid grid-cols-2 border-b">
-              <p>Sub Total</p>
-              <p>${subTotal}</p>
-              <p>Shipping</p>
-              <p className="mb-4">${totalShipping}</p>
-              <p className="font-semibold ">Grand Total</p>
-              <p className="mb-4 font-semibold">${grandTotal}</p>
-            </div>
-            <Link
-              to={"/checkout"}
-              className="p-2 font-semibold text-center text-white duration-300 rounded-md bg-accent-blue-100 hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400"
-            >
-              Proceed To Checkout
-            </Link>
-          </div>
-        </div>
-      </div>
+      <CartSummary cartItems={cartItems} />
     </main>
   );
 }

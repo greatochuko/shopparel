@@ -11,26 +11,26 @@ export default function MobileCartITem({
 }) {
   const { removeItemFromCart } = useCartContext();
   return (
-    <div className="flex flex-col justify-between gap-2 p-2 border rounded-md text-zinc-700 bg-zinc-100 sm:flex-row">
+    <div className="flex flex-col justify-between gap-2 rounded-md border bg-zinc-100 p-2 text-zinc-700 sm:flex-row">
       <div className="flex flex-1 gap-2">
         <img
           src={cartItem.imgUrl}
           alt={cartItem.name}
-          className="object-contain w-20 rounded-md bg-zinc-200 aspect-square"
+          className="aspect-square w-20 rounded-md bg-zinc-200 object-contain"
         />
         <div className="flex flex-col gap-1">
           <Link
             tabIndex={0}
-            to={`/product/${
+            to={`/products/${
               (cartItem.product as ProductType)._id +
               "-" +
               cartItem.name.split(" ").join("-")
             }`}
-            className="text-sm font-semibold duration-200 rounded-md sm:text-base hover:text-accent-blue-100 focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-blue-400 focus-visible:text-accent-blue-100"
+            className="rounded-md text-sm font-semibold duration-200 hover:text-accent-blue-100 focus-visible:text-accent-blue-100 focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-2 sm:text-base"
           >
             {cartItem.name}
           </Link>
-          <p className="text-sm capitalize ">
+          <p className="text-sm capitalize">
             Color: <span className="font-semibold">{cartItem.color}</span>
           </p>
           <p className="text-sm">
@@ -53,7 +53,7 @@ export default function MobileCartITem({
         />
         <button
           onClick={() => removeItemFromCart(cartItem._id)}
-          className="p-2 duration-300 rounded-md group active:scale-90 focus-visible:ring focus-visible:ring-red-300"
+          className="group rounded-md p-2 duration-300 focus-visible:ring focus-visible:ring-red-300 active:scale-90"
         >
           <svg
             width={20}

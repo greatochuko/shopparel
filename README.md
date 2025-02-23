@@ -107,7 +107,7 @@ _Homepage showcasing the latest trends._
 ![Product Page](/images/product-page.png)
 _Product page with detailed information and reviews._
 
-![Search Page](/images/search-page.png)
+![Product Listing Page](/images/search-page.png)
 _Search results tailored for effortless discovery._
 
 ![Shopping Cart](/images/shopping-cart.png)

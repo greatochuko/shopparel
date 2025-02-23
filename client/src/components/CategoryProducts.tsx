@@ -72,7 +72,7 @@ export default function CategoryProducts({
         {loading ? (
           Array(8)
             .fill("")
-            .map((_, i) => <ProductWireframe key={i} />)
+            .map((_, i) => <ProductWireframe key={i} fixedWidth />)
         ) : error ? (
           <p className="flex-center col-span-4 h-60 w-full flex-col text-sm sm:text-base">
             ❌{` ${error} `}❌
@@ -106,7 +106,7 @@ export default function CategoryProducts({
           </p>
         ) : (
           products.map((product) => (
-            <Product product={product} key={product.name} />
+            <Product product={product} key={product.name} fixedWidth />
           ))
         )}
       </div>

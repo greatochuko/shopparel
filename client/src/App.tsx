@@ -2,7 +2,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "./index.css";
 import HomePage from "./pages/HomePage";
 import AppLayout from "./components/AppLayout";
-import SearchPage from "./pages/SearchPage";
+import ProductListingPage from "./pages/ProductListingPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import ScrollToTop from "./components/ScrollToTop";
 import CartPage from "./pages/CartPage";
@@ -56,9 +56,9 @@ const router = createBrowserRouter(
           element: <AppLayout />,
           children: [
             { path: "/", element: <HomePage /> },
-            { path: "/store/:storeName/:storeId", element: <SellersPage /> },
-            { path: "/search", element: <SearchPage /> },
-            { path: "/product/:productId", element: <ProductDetailPage /> },
+            { path: "/store/:storeSlug", element: <SellersPage /> },
+            { path: "/products", element: <ProductListingPage /> },
+            { path: "/products/:productId", element: <ProductDetailPage /> },
             { path: "/cart", element: <CartPage /> },
             {
               element: <Authenticate />,

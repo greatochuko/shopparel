@@ -28,29 +28,29 @@ export default function SearchResults({
   // Filter products by colors
   if (colors)
     filteredProducts = filteredProducts.filter((product) =>
-      product.colors.some((c) => colors?.includes(c))
+      product.colors.some((c) => colors?.includes(c)),
     );
 
   // Filter products by category
   if (categories)
     filteredProducts = filteredProducts.filter((product) =>
-      product.categories.some((c) => categories?.includes(c.toLowerCase()))
+      product.categories.some((c) => categories?.includes(c.toLowerCase())),
     );
 
   // Filter products by size
   if (sizes)
     filteredProducts = filteredProducts.filter((product) =>
-      product.sizes.some((c) => sizes?.includes(c.toLowerCase()))
+      product.sizes.some((c) => sizes?.includes(c.toLowerCase())),
     );
 
   // Filter products by Price
   if (price.minPrice)
     filteredProducts = filteredProducts.filter(
-      (product) => product.price > price.minPrice
+      (product) => product.price > price.minPrice,
     );
   if (price.maxPrice)
     filteredProducts = filteredProducts.filter(
-      (product) => product.price < price.maxPrice
+      (product) => product.price < price.maxPrice,
     );
 
   function setSortBy(sortBy: string) {
@@ -59,18 +59,21 @@ export default function SearchResults({
   }
 
   return (
-    <div className="flex flex-col flex-1">
-      <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
-        <h2>
-          Search Results for "
-          <span className="font-semibold">{query || " "}</span>"
-        </h2>
+    <div className="flex flex-1 flex-col">
+      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+        {query ? (
+          <h2>
+            Search Results for "<span className="font-semibold">{query}</span>"
+          </h2>
+        ) : (
+          <h2>All Products</h2>
+        )}
         <div className="flex gap-4">
           <button
             onClick={() => setSortBy("new")}
             className={
               sortBy === "new" || !sortBy
-                ? "text-accent-blue-100 font-semibold"
+                ? "font-semibold text-accent-blue-100"
                 : "text-zinc-400"
             }
           >
@@ -80,15 +83,15 @@ export default function SearchResults({
             onClick={() => setSortBy("recomended")}
             className={
               sortBy === "recomended"
-                ? "text-accent-blue-100 font-semibold"
-                : "text-zinc-400 font-medium"
+                ? "font-semibold text-accent-blue-100"
+                : "font-medium text-zinc-400"
             }
           >
             Recomended
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <div className="mb-4 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {loading
           ? Array(8)
               .fill("")
@@ -97,17 +100,18 @@ export default function SearchResults({
               <Product key={product.name} product={product} />
             ))}
       </div>
-      <ul className="flex gap-2 mt-auto flex-center">
+
+      <ul className="flex-center mt-auto flex gap-2">
         <p>Page:</p>
         {new Array(totalPages).fill("a").map((_, i) => (
           <li role="button" key={i}>
             <Link
-              to={`/search?q=${query}&page=${i + 1}`}
+              to={`/products?q=${query}&page=${i + 1}`}
               className={`border ${
                 (!currentPage && i === 0) || currentPage === (i + 1).toString()
-                  ? " bg-accent-blue-100 text-white"
-                  : " bg-zinc-100"
-              } hover:shadow active:scale-90 duration-300 w-8 h-8 rounded-md flex-center`}
+                  ? "bg-accent-blue-100 text-white"
+                  : "bg-zinc-100"
+              } flex-center h-8 w-8 rounded-md duration-300 hover:shadow active:scale-90`}
             >
               {i + 1}
             </Link>

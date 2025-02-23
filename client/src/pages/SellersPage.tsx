@@ -7,7 +7,9 @@ import { useParams } from "react-router-dom";
 
 export default function SellersPage() {
   const [store, setStore] = useState<StoreType | null>(null);
-  const { storeId, storeName } = useParams();
+  const { storeSlug } = useParams();
+
+  const storeId = (storeSlug || "").split("-")[0];
 
   const [products, setProducts] = useState<ProductType[]>([]);
   const [error, setError] = useState("");
@@ -26,18 +28,18 @@ export default function SellersPage() {
         setLoading(false);
         return;
       }
-      document.title = `Shopparel: ${storeName}`;
+      document.title = `Shopparel: ${storeData.name}`;
 
       setProducts(
         [...data].sort(
           (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        )
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        ),
       );
       setLoading(false);
     }
     getProducts();
-  }, [store?.name, storeId]);
+  }, [storeId]);
 
   async function refreshStoreProducts() {
     setError("");
@@ -51,22 +53,22 @@ export default function SellersPage() {
     setProducts(
       [...data].sort(
         (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      )
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      ),
     );
     setLoading(false);
   }
 
   return (
-    <main className="h-fit max-w-6xl w-[90%] mx-auto flex flex-col gap-8 mb-8 text-zinc-700">
-      <div className="w-full aspect-[2] overflow-hidden rounded-lg bg-zinc-200">
+    <main className="mx-auto mb-8 flex h-fit w-[90%] max-w-6xl flex-col gap-8 text-zinc-700">
+      <div className="aspect-[2] w-full overflow-hidden rounded-lg bg-zinc-200">
         <img
           src={store?.logo}
           alt={store?.name}
-          className="object-cover w-full h-full"
+          className="h-full w-full object-cover"
         />
       </div>
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {loading ? (
           <>
             <ProductWireframe />
@@ -75,11 +77,11 @@ export default function SellersPage() {
             <ProductWireframe />
           </>
         ) : error ? (
-          <p className="flex-col w-full col-span-4 text-sm flex-center h-60 sm:text-base">
+          <p className="flex-center col-span-4 h-60 w-full flex-col text-sm sm:text-base">
             ❌{` ${error} `}❌
             <button
               onClick={refreshStoreProducts}
-              className="gap-2 px-3 py-1 mt-4 text-white duration-300 rounded-full bg-accent-blue-100 flex-center hover:bg-accent-blue-200 active:bg-accent-blue-300 focus-visible:ring ring-blue-400"
+              className="flex-center mt-4 gap-2 rounded-full bg-accent-blue-100 px-3 py-1 text-white ring-blue-400 duration-300 hover:bg-accent-blue-200 focus-visible:ring active:bg-accent-blue-300"
             >
               <svg
                 height={16}

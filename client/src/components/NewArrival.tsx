@@ -16,7 +16,7 @@ export default function NewArrival({
   return (
     <div className="mx-auto flex w-[90%] max-w-6xl flex-col gap-4">
       <SectionHeader title="New Arrivals" />
-      <div className="scrollbar-hidden flex w-full gap-4 overflow-x-auto sm:gap-6">
+      <div className="scrollbar-hidden grid w-full grid-cols-2 gap-4 overflow-x-auto sm:grid-cols-3 sm:gap-6 lg:grid-cols-4">
         {loading ? (
           Array(8)
             .fill("")

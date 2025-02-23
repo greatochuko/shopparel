@@ -28,28 +28,28 @@ export default function CartItem({ cartItem }: CartItemProps) {
 
   return (
     <div
-      className="flex justify-between gap-3 pb-4 border-b last:border-none text-zinc-700"
+      className="flex justify-between gap-3 border-b pb-4 text-zinc-700 last:border-none"
       key={cartItem._id}
     >
-      <div className="flex gap-2 flex-1 min-w-[250px]">
+      <div className="flex min-w-[250px] flex-1 gap-2">
         <img
           src={cartItem.imgUrl}
           alt={cartItem.name}
-          className="object-contain w-20 rounded-md bg-zinc-200 aspect-square"
+          className="aspect-square w-20 rounded-md bg-zinc-200 object-contain"
         />
         <div className="flex flex-col gap-1">
           <Link
             tabIndex={0}
-            to={`/product/${
+            to={`/products/${
               (cartItem.product as ProductType)._id +
               "-" +
               cartItem.name.split(" ").join("-")
             }`}
-            className="font-semibold duration-200 rounded-md hover:text-accent-blue-100 focus-visible:ring focus-visible:ring-offset-2 focus-visible:ring-blue-400 focus-visible:text-accent-blue-100"
+            className="rounded-md font-semibold duration-200 hover:text-accent-blue-100 focus-visible:text-accent-blue-100 focus-visible:ring focus-visible:ring-blue-400 focus-visible:ring-offset-2"
           >
             {cartItem.name}
           </Link>
-          <p className="text-sm capitalize ">
+          <p className="text-sm capitalize">
             Color: <span className="font-semibold">{cartItem.color}</span>
           </p>
           <p className="text-sm">
@@ -58,16 +58,16 @@ export default function CartItem({ cartItem }: CartItemProps) {
           </p>
         </div>
       </div>
-      <div className="flex justify-between flex-1 gap-2 text-sm">
-        <div className="font-bold flex-1 min-w-[100px] flex-center">
+      <div className="flex flex-1 justify-between gap-2 text-sm">
+        <div className="flex-center min-w-[100px] flex-1 font-bold">
           ${cartItem.price.toFixed(2)}
         </div>
-        <div className="font-bold flex-1 min-w-[100px] flex-center">
+        <div className="flex-center min-w-[100px] flex-1 font-bold">
           <div className="flex gap-2">
             <button
               onClick={handleDecreaseQuantity}
               disabled={quantity <= 1}
-              className="text-3xl text-white rounded-md shadow-md group disabled:bg-zinc-200 disabled:shadow-none bg-accent-blue-100 h-7 w-7 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300"
+              className="flex-center group h-7 w-7 rounded-md bg-accent-blue-100 text-3xl text-white shadow-md shadow-zinc-300 hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none disabled:bg-zinc-200 disabled:shadow-none"
             >
               <svg
                 height={14}
@@ -107,13 +107,13 @@ export default function CartItem({ cartItem }: CartItemProps) {
                 </g>
               </svg>
             </button>
-            <p className="w-6 text-base font-semibold flex-center text-zinc-600">
+            <p className="flex-center w-6 text-base font-semibold text-zinc-600">
               {quantity}
             </p>
             <button
               onClick={handleIncreaseQuantity}
               disabled={quantity >= (cartItem.product?.quantity as number)}
-              className="text-3xl text-white rounded-md shadow-md disabled:bg-zinc-200 disabled:shadow-none bg-accent-blue-100 h-7 w-7 flex-center hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none shadow-zinc-300"
+              className="flex-center h-7 w-7 rounded-md bg-accent-blue-100 text-3xl text-white shadow-md shadow-zinc-300 hover:bg-accent-blue-200 focus-visible:ring focus-visible:ring-blue-400 active:shadow-none disabled:bg-zinc-200 disabled:shadow-none"
             >
               <svg
                 height={14}
@@ -156,7 +156,7 @@ export default function CartItem({ cartItem }: CartItemProps) {
           </div>
         </div>
         <div
-          className={`font-bold flex-1 min-w-[100px] uppercase flex-center ${
+          className={`flex-center min-w-[100px] flex-1 font-bold uppercase ${
             cartItem.shipping === 0 ? "font-normal text-zinc-500" : ""
           }`}
         >
@@ -164,13 +164,13 @@ export default function CartItem({ cartItem }: CartItemProps) {
             ? "Free"
             : "$" + cartItem.shipping.toFixed(2)}
         </div>
-        <div className="font-bold flex-1 min-w-[100px] hidden lg:flex-center">
+        <div className="lg:flex-center hidden min-w-[100px] flex-1 font-bold">
           ${subTotal.toFixed(2)}
         </div>
-        <div className="font-bold flex-1 min-w-[100px] flex-center">
+        <div className="flex-center min-w-[100px] flex-1 font-bold">
           <button
             onClick={handleRemoveItemFromCart}
-            className="p-2 duration-300 rounded-md group active:scale-90 focus-visible:ring focus-visible:ring-red-300"
+            className="group rounded-md p-2 duration-300 focus-visible:ring focus-visible:ring-red-300 active:scale-90"
           >
             <svg
               width={20}
